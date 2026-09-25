@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://raulboullosa.com/sitemap.xml
+Sitemap: https://clep.lat/sitemap.xml
