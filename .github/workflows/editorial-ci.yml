@@ -1,0 +1,41 @@
+name: Editorial CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/editorial/**"
+      - "recovery/**"
+      - "data/editorial/**"
+      - "tests/**"
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - "scripts/editorial/**"
+      - "recovery/**"
+      - "data/editorial/**"
+      - "tests/**"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: editorial-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile Python
+        run: python -m compileall -q scripts recovery tests
+      - name: Unit tests
+        run: python -m unittest -v tests/test_editorial.py
+      - name: Validate current queue
+        run: python scripts/editorial/verificar_cola.py
