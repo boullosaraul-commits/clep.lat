@@ -2,9 +2,15 @@ name: Facebook schedule
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "45 13 * * *"
 
 permissions:
   contents: write
+
+concurrency:
+  group: facebook-schedule
+  cancel-in-progress: false
 
 jobs:
   schedule:
