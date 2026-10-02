@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "fuentes": [
+    {
+      "id": "nep-mon",
+      "nombre": "NEP — Monetary Economics",
+      "tipo": "rss",
+      "flujo_editorial": "novedad",
+      "habilitada": false,
+      "url": "",
+      "area_clep": "macroeconomia-dinero",
+      "prioridad": 50,
+      "nota": "Añadir aquí el RSS oficial copiado desde NEP/IDEAS antes de habilitar."
+    }
+  ]
+}
