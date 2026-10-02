@@ -40,6 +40,15 @@ def main():
         if tm and not valid_time(tm):errors.append(f"línea {n}: orden_dia debe ser HH:MM: {tm}")
 
         if state=="PROGRAMADO":
+            attempt=(r.get("meta_attempt_status") or "").strip()
+            if attempt not in {"","IN_FLIGHT","SCHEDULED","REVIEW"}:
+                errors.append(f"línea {n}: estado de intento Meta inválido para PROGRAMADO: {attempt}")
+            if r.get("post_nuevo_id") and attempt!="SCHEDULED":
+                errors.append(f"línea {n}: PROGRAMADO con post_nuevo_id pero sin SCHEDULED")
+            if attempt=="SCHEDULED" and not r.get("post_nuevo_id"):
+                errors.append(f"línea {n}: SCHEDULED sin post_nuevo_id")
+            if attempt=="IN_FLIGHT" and not r.get("meta_attempted_at"):
+                errors.append(f"línea {n}: IN_FLIGHT sin meta_attempted_at")
             if not day or not tm:errors.append(f"línea {n}: PROGRAMADO sin fecha/hora")
             text=(r.get("ficha_es") or "").strip()
             if not text:errors.append(f"línea {n}: PROGRAMADO sin texto editorial")
