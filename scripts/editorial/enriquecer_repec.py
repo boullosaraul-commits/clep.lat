@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 P=ROOT/"data/editorial/candidatos.csv"
 UA="CLEP-editorial/2.3 (+https://clep.lat)"
-LIMIT=int(os.getenv("REPEC_ENRICH_LIMIT","120"))
+LIMIT=int(os.getenv("REPEC_ENRICH_LIMIT","40"))
 
 class Page(HTMLParser):
     def __init__(self):
@@ -38,7 +38,7 @@ def fetch(url):
         "User-Agent":UA,
         "Accept":"text/html,application/xhtml+xml;q=0.9,*/*;q=0.7"
     })
-    with urllib.request.urlopen(req,timeout=30) as r:
+    with urllib.request.urlopen(req,timeout=12) as r:
         return r.read(4_000_000).decode("utf-8","replace"),r.geturl()
 
 def handle_from(value):
