@@ -5,7 +5,6 @@
     "inicio": "07:00",
     "fin": "23:30"
   },
-  "objetivo_recuperacion_meses": 4,
   "contenido_actual": {
     "nuevos": {
       "maximo_diario_inicial": 6
@@ -36,7 +35,10 @@
     ],
     "modo": "adaptativo_por_backlog_y_fecha_objetivo",
     "cede_capacidad_a_contenido_actual": true,
-    "nota": "El planificador debe escoger el menor escalón que todavía permita agotar el backlog recuperable antes de la fecha objetivo; si el ritmo queda corto, conserva o recupera temporalmente un escalón superior."
+    "nota": "El planificador debe escoger el menor escalón que todavía permita agotar el backlog recuperable antes de la fecha objetivo; si el ritmo queda corto, conserva o recupera temporalmente un escalón superior.",
+    "campana_inicio": "2026-10-02",
+    "fecha_objetivo": "2027-02-02",
+    "backlog_referencia": 1040
   },
   "relevo": {
     "activo": true,
