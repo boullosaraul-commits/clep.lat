@@ -35,6 +35,12 @@ jobs:
           META_GRAPH_VERSION: "v26.0"
         run: python scripts/editorial/programar_facebook.py
 
+      - name: Verify published Facebook posts
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/verificar_publicaciones_facebook.py
+
       - name: Verify replacements and retire historical originals
         env:
           CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
