@@ -1,16 +1,44 @@
 {
   "timezone": "America/Mexico_City",
-  "minimum_gap_minutes": 120,
-  "nuevas": {
-    "objetivo_diario": 2,
-    "maximo_diario": 4,
-    "slots_preferentes": ["10:30", "13:30", "18:30", "20:30"]
+  "minimum_gap_minutes": 90,
+  "ventana_diaria": {
+    "inicio": "07:30",
+    "fin": "22:30"
+  },
+  "contenido_actual": {
+    "maximo_diario": 6,
+    "textos": {
+      "maximo_diario": 2,
+      "tipos": ["articulo", "working_paper", "libro", "capitulo", "tesis", "informe_academico"]
+    },
+    "no_textos": {
+      "reserva_diaria": 4,
+      "maximo_diario": 4,
+      "tipos": ["actividad_clep", "convocatoria", "recurso", "video", "grafica", "material_didactico", "efemeride", "anuncio_institucional"]
+    }
   },
   "archivo_historico": {
     "maximo_diario": 6,
-    "slots_preferentes": ["09:00", "11:00", "13:00", "15:00", "17:00", "19:00"],
     "cede_slot_a_contenido_actual": true
   },
-  "dias_preferentes": ["lunes", "martes", "miercoles", "jueves", "viernes"],
-  "nota": "Horario inicial experimental. Revisar con Insights de la pagina tras 4-6 semanas."
+  "slots_preferentes": [
+    "07:30",
+    "09:00",
+    "10:30",
+    "12:00",
+    "13:30",
+    "15:00",
+    "16:30",
+    "18:00",
+    "19:30",
+    "21:00",
+    "22:30"
+  ],
+  "reglas": {
+    "los_maximos_no_son_cuotas": true,
+    "no_rellenar_por_rellenar": true,
+    "priorizar_contenido_actual": true,
+    "distribuir_durante_todo_el_dia": true
+  },
+  "nota": "Política inicial: hasta 6 contenidos actuales (máximo 2 textos y hasta 4 no-textos) más hasta 6 recuperaciones históricas. Los máximos no obligan a publicar. Revisar con Insights tras 4-6 semanas."
 }
