@@ -28,8 +28,7 @@ def main():
     for r in rows:
         abstract=(r.get("summary") or "").strip(); src=norm(r.get("language"))
         if not abstract or not src or src=="es": skipped+=1; continue
-        marker="Traducción automática [argos:"
-        if marker in (r.get("notes") or ""): continue
+        if (r.get("translation_status") or "")=="AUTOMATICA" and (r.get("summary_es") or "").strip(): continue
         if src not in installed:
             try:
                 if not install_pair(src): skipped+=1; continue
@@ -41,7 +40,9 @@ def main():
         except Exception:
             skipped+=1; continue
         if not es: skipped+=1; continue
-        r["notes"]=(r.get("notes","")+f" | Traducción automática [argos:{src}->es]: {es}").strip(" |")
+        r["summary_es"]=es
+        r["translation_engine"]=f"argos:{src}->es"
+        r["translation_status"]="AUTOMATICA"
         translated+=1
     with P.open("w",encoding="utf-8",newline="") as f:
         w=csv.DictWriter(f,fieldnames=rows[0].keys());w.writeheader();w.writerows(rows)
