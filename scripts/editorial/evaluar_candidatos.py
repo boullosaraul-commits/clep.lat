@@ -84,7 +84,9 @@ def main():
     cfg=json.loads(DOAB_CFG.read_text(encoding="utf-8"))
     with P.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
-    evaluated=0;counts={"PROMOCION_AUTOMATICA":0,"REVISION_EDITORIAL":0,"ARCHIVADO":0}
+    evaluated=0
+    counts={"PROMOCION_AUTOMATICA":0,"REVISION_EDITORIAL":0,"ARCHIVADO":0}
+    academic_counts={"PROMOCION_AUTOMATICA":0,"REVISION_EDITORIAL":0,"ARCHIVADO":0}
     for r in rows:
         if r.get("status") not in {"DETECTADO","EVALUADO","METADATOS_OBTENIDOS","OA_VERIFICADO","REVISION_EDITORIAL","ARCHIVADO"}:continue
         if r.get("source_type")=="statistical_watch" and int(r.get("relevance_score") or 0)>=100:
@@ -95,6 +97,12 @@ def main():
             if area:r["area_clep"]=area
             r["status"]="EVALUADO" if decision=="PROMOCION_AUTOMATICA" else decision
             counts[decision]+=1
+        elif r.get("source_type") in {"crossref_academic","academic_oai"}:
+            score,decision,area,reasons=doab_eval(r,cfg)
+            r["relevance_score"]=str(score);r["relevance_reasons"]=reasons
+            if area:r["area_clep"]=area
+            r["status"]="EVALUADO" if decision=="PROMOCION_AUTOMATICA" else decision
+            academic_counts[decision]+=1
         else:
             score,status,area,reasons=generic_eval(r)
             r["relevance_score"]=str(score);r["relevance_reasons"]=reasons;r["status"]=status
@@ -106,4 +114,5 @@ def main():
         w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
     print(f"Evaluados: {evaluated}; umbral general={MIN_AUTO}")
     print("DOAB: "+", ".join(f"{k}={v}" for k,v in counts.items()))
+    print("Novedades académicas: "+", ".join(f"{k}={v}" for k,v in academic_counts.items()))
 if __name__=="__main__":main()
