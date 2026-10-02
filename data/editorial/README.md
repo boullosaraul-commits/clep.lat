@@ -76,6 +76,15 @@ Orden de preferencia:
 1. captura real de la landing page oficial del trabajo o repositorio;
 2. portada/thumbnail oficial cuando su uso sea adecuado y verificable;
 3. tarjeta tipográfica CLEP generada determinísticamente a partir de metadatos;
-4. publicación sin imagen si no existe un activo verificable.
+4. si las opciones anteriores fallan, bloquear la publicación y reintentar; nunca publicar sin imagen.
 
 Una captura de pantalla o una tarjeta construida mediante reglas de maquetación no se considera contenido generado por IA.
+
+
+## Pertinencia editorial de libros DOAB
+
+Los libros detectados en DOAB pasan por un clasificador determinista antes de la preparación editorial. La política versionada vive en `data/editorial/pertinencia_doab.json`.
+
+La secuencia es: filtro disciplinario → puntuación por áreas CLEP → penalizaciones explícitas → decisión. Las salidas son `PROMOCION_AUTOMATICA`, `REVISION_EDITORIAL` y `ARCHIVADO`. El puntaje mide pertinencia editorial, no calidad académica. Una coincidencia aislada no basta: el sistema agrupa términos por áreas, limita la acumulación de sinónimos y conserva las razones de cada decisión en `relevance_reasons`.
+
+Sólo `PROMOCION_AUTOMATICA` puede pasar automáticamente a `FICHA_LISTA`. Los otros estados quedan fuera de la preparación automática.
