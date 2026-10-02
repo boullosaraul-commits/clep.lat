@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "politica": {
     "nota": "Fuentes oficiales verificadas. Detectar no implica publicar.",
     "publicacion_directa": false,
@@ -21,6 +21,16 @@
       "incorporacion": "por_pais_tras_verificar_api_sdmx_o_descarga_estable",
       "cobertura": "latinoamerica_y_caribe_latino; ampliar Caribe no latino por relevancia regional",
       "regla_actualizacion": "publicar cuando exista actualización estadística material o una visualización analíticamente útil; no imponer cuota por país"
+    },
+    "estadisticas_globales": {
+      "cobertura_prioritaria": [
+        "Latinoamérica",
+        "Unión Europea",
+        "India",
+        "China",
+        "Estados Unidos"
+      ],
+      "regla": "preferir fuente estadística oficial primaria; usar organismos internacionales para armonización y comparación multinacional"
     }
   },
   "fuentes": [
@@ -580,6 +590,96 @@
       "metodo": "catalog_download",
       "auth": "source_specific",
       "nota": "Fuente estadística nacional primaria. Automatizar únicamente interfaces o descargas estables verificadas; conservar metadatos, fecha de actualización y fuente."
+    },
+    {
+      "id": "eurostat-eu",
+      "nombre": "Eurostat — Statistics & SDMX APIs",
+      "pais": "Unión Europea",
+      "tipo": "supranational_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://ec.europa.eu/eurostat/api/dissemination",
+      "area_clep": "internacional-comparada",
+      "prioridad": 10,
+      "contenido": "dataset_grafica",
+      "metodo": "REST/SDMX3/JSON-stat/CSV",
+      "auth": "none",
+      "nota": "Fuente primaria supranacional UE. Permite catálogo, metadatos y datos; usar actualización del dataset para detectar novedades."
+    },
+    {
+      "id": "mospi-in",
+      "nombre": "MoSPI — Ministry of Statistics and Programme Implementation",
+      "pais": "India",
+      "tipo": "national_statistics_source",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://www.mospi.gov.in/",
+      "area_clep": "internacional-comparada",
+      "prioridad": 12,
+      "contenido": "dataset_grafica",
+      "metodo": "catalog/download/API_when_verified",
+      "auth": "source_specific",
+      "nota": "Fuente estadística nacional primaria de India; automatizar endpoints estructurados sólo tras verificar interfaz vigente."
+    },
+    {
+      "id": "nbs-cn",
+      "nombre": "National Bureau of Statistics of China — National Data",
+      "pais": "China",
+      "tipo": "national_statistics_source",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://data.stats.gov.cn/english/",
+      "area_clep": "internacional-comparada",
+      "prioridad": 12,
+      "contenido": "dataset_grafica",
+      "metodo": "official_data_portal",
+      "auth": "source_specific",
+      "nota": "Fuente primaria china. Mantener procedencia y metadatos; no asumir API estable hasta verificar endpoint documentado."
+    },
+    {
+      "id": "bls-us",
+      "nombre": "U.S. Bureau of Labor Statistics — Public Data API",
+      "pais": "Estados Unidos",
+      "tipo": "national_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://www.bls.gov/developers/",
+      "area_clep": "trabajo-distribucion",
+      "prioridad": 10,
+      "contenido": "dataset_grafica",
+      "metodo": "REST/JSON",
+      "auth": "v1_none_v2_registration",
+      "nota": "Empleo, desempleo, salarios, precios, productividad y demás programas BLS."
+    },
+    {
+      "id": "bea-us",
+      "nombre": "U.S. Bureau of Economic Analysis — Data API",
+      "pais": "Estados Unidos",
+      "tipo": "national_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://apps.bea.gov/api/",
+      "area_clep": "macroeconomia-dinero",
+      "prioridad": 10,
+      "contenido": "dataset_grafica",
+      "metodo": "REST",
+      "auth": "api_key",
+      "nota": "NIPA, input-output, GDP by industry, regional, comercio/inversión internacional y metadatos."
+    },
+    {
+      "id": "census-us",
+      "nombre": "U.S. Census Bureau — Data API",
+      "pais": "Estados Unidos",
+      "tipo": "national_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://api.census.gov/data.html",
+      "area_clep": "internacional-comparada",
+      "prioridad": 12,
+      "contenido": "dataset_grafica",
+      "metodo": "REST",
+      "auth": "key_for_higher_usage",
+      "nota": "ACS, censos, Economic Census, County Business Patterns, comercio y otros datasets."
     }
   ]
 }
