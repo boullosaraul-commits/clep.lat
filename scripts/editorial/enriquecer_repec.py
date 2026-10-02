@@ -1,99 +1,107 @@
 #!/usr/bin/env python3
-"""Enriquece candidatos NEP consultando metadatos ReDIF del archivo proveedor.
+"""Enriquece candidatos NEP desde la página bibliográfica IDEAS/RePEc.
 
-Resolución:
-  RePEc:aaa:series:item -> archivo aaa -> URL base -> serie -> ficheros ReDIF
-El script sólo completa campos que encuentra literalmente en ReDIF.
-No declara OA: File-URL pasa a access_url pero oa_status queda POR_VERIFICAR.
+Ruta principal para papers:
+  RePEc:aaa:series:item -> https://ideas.repec.org/p/aaa/series/item.html
+
+Se leen únicamente metadatos HTML declarados por IDEAS. No se infiere OA:
+citation_pdf_url pasa a access_url y la verificación de acceso/OA ocurre después.
+Procesa un lote acotado por ejecución para evitar que el backlog heredado
+monopolice el workflow.
 """
-import csv, re, urllib.request
+import csv, html, os, re, urllib.error, urllib.parse, urllib.request
+from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urljoin
 
 ROOT=Path(__file__).resolve().parents[2]
-IN=ROOT/"data/editorial/candidatos.csv"
-UA="CLEP-editorial/1.2 (+https://clep.lat)"
-ARCHIVES="https://ideas.repec.org/getdata.html"
+P=ROOT/"data/editorial/candidatos.csv"
+UA="CLEP-editorial/2.2 (+https://clep.lat)"
+LIMIT=int(os.getenv("REPEC_ENRICH_LIMIT","120"))
 
-def get(url,limit=8_000_000):
-    req=urllib.request.Request(url,headers={"User-Agent":UA})
-    with urllib.request.urlopen(req,timeout=30) as r:
-        return r.read(limit).decode("utf-8","replace")
+class Meta(HTMLParser):
+    def __init__(self):
+        super().__init__();self.meta={}
+    def handle_starttag(self,tag,attrs):
+        if tag!="meta":return
+        a={k.lower():v for k,v in attrs}
+        key=(a.get("name") or a.get("property") or "").lower()
+        val=a.get("content")
+        if key and val:self.meta.setdefault(key,[]).append(html.unescape(val).strip())
 
-def fields(block):
-    out={}
-    key=None
-    for line in block.splitlines():
-        m=re.match(r"^([A-Za-z][A-Za-z0-9-]*):\s*(.*)$",line)
-        if m:
-            key=m.group(1).lower(); out.setdefault(key,[]).append(m.group(2).strip())
-        elif key and line[:1].isspace() and out[key]:
-            out[key][-1]+=" "+line.strip()
-    return out
+def fetch(url):
+    req=urllib.request.Request(url,headers={"User-Agent":UA,"Accept":"text/html"})
+    with urllib.request.urlopen(req,timeout=25) as r:
+        return r.read(3_000_000).decode("utf-8","replace"),r.geturl()
 
 def handle_of(r):
-    x=r.get("source_item_id","")
-    return x if x.lower().startswith("repec:") else ""
+    h=(r.get("source_item_id") or "").strip()
+    return h if h.lower().startswith("repec:") else ""
 
-def archive_base(code):
-    # RePEc's archive registry is a flat ReDIF file exposed by EconPapers.
-    txt=get("https://econpapers.repec.org/RePEc/"+code+"/"+code+"arch.rdf")
-    f=fields(txt)
-    return (f.get("url") or [""])[0]
+def urls_for(handle):
+    p=handle.split(":")
+    if len(p)<4:return []
+    code,series=p[1],p[2]
+    item=":".join(p[3:])
+    item=urllib.parse.quote(item,safe="._-")
+    # NEP announces research papers overwhelmingly through /p/. /a/ is a
+    # conservative fallback for article-series handles.
+    return [f"https://ideas.repec.org/p/{code}/{series}/{item}.html",
+            f"https://ideas.repec.org/a/{code}/{series}/{item}.html"]
 
-def candidate_files(base,code,series):
-    # Common RePEc layout: series directory contains one or more rdf/redif files.
-    # Directory listings are parsed only to locate metadata files, never bibliographic HTML.
-    page=get(urljoin(base,series+"/"))
-    hrefs=re.findall(r'href=["\']([^"\']+\.(?:rdf|redif))["\']',page,re.I)
-    return [urljoin(base,series+"/"+h) for h in hrefs]
+def first(md,*keys):
+    for k in keys:
+        vals=md.get(k) or []
+        if vals:return vals[0]
+    return ""
 
-def find_record(text,handle):
-    chunks=re.split(r"(?=^Template-Type:)",text,flags=re.M)
-    target=handle.lower()
-    for b in chunks:
-        f=fields(b)
-        if any(x.lower()==target for x in f.get("handle",[])): return f
-    return None
+def year_of(s):
+    m=re.search(r"\b(?:18|19|20)\d{2}\b",s or "")
+    return m.group(0) if m else ""
+
+def parse_page(text,url,handle):
+    parser=Meta();parser.feed(text);md=parser.meta
+    title=first(md,"citation_title","dc.title","og:title")
+    authors=md.get("citation_author") or md.get("dc.creator") or []
+    if not title or not authors:return None
+    # Require the exact RePEc handle in the page body when present in order to
+    # avoid accepting a redirect to an unrelated item.
+    if "repec:" in text.lower() and handle.lower() not in text.lower():return None
+    abstract=first(md,"citation_abstract","dc.description","description")
+    pdf=first(md,"citation_pdf_url")
+    doi=first(md,"citation_doi").replace("https://doi.org/","").replace("http://doi.org/","")
+    date=first(md,"citation_publication_date","dc.date","article:published_time")
+    venue=first(md,"citation_journal_title","citation_conference_title")
+    return {"title":title,"authors":"; ".join(dict.fromkeys(x for x in authors if x)),
+            "summary":abstract,"access_url":pdf,"doi":doi,"published_at":date,
+            "year":year_of(date),"venue":venue,"ideas_url":url}
 
 def main():
-    with IN.open(encoding="utf-8",newline="") as f: rows=list(csv.DictReader(f))
-    cache_base={}; cache_files={}; cache_text={}
-    enriched=0; failed=0
-    for r in rows:
-        h=handle_of(r)
-        if not h or r.get("title"): continue
-        p=h.split(":")
-        if len(p)<4: continue
-        code,series=p[1],p[2]
-        try:
-            base=cache_base.setdefault(code,archive_base(code))
-            if not base: raise ValueError("archivo sin URL")
-            key=(code,series)
-            if key not in cache_files: cache_files[key]=candidate_files(base,code,series)
-            rec=None
-            for u in cache_files[key]:
-                if u not in cache_text: cache_text[u]=get(u)
-                rec=find_record(cache_text[u],h)
-                if rec: break
-            if not rec: raise ValueError("handle no encontrado en ReDIF")
-            r["title"]=(rec.get("title") or [""])[0]
-            r["authors"]="; ".join(rec.get("author-name",[]))
-            r["summary"]=(rec.get("abstract") or [""])[0]
-            r["published_at"]=(rec.get("creation-date") or rec.get("year") or [""])[0]
-            files=rec.get("file-url",[])
-            if files: r["access_url"]=files[0]
-            r["doi"]=(rec.get("doi") or [""])[0].removeprefix("https://doi.org/")
-            r["language"]=(rec.get("language") or [""])[0]
-            r["status"]="METADATOS_OBTENIDOS"
-            r["notes"]=(r.get("notes","")+" | Metadatos obtenidos del ReDIF del proveedor; OA aún por verificar.").strip(" |")
-            enriched+=1
-        except Exception as e:
-            r["notes"]=(r.get("notes","")+f" | Error metadatos: {type(e).__name__}: {e}").strip(" |")
-            failed+=1
-    with IN.open("w",encoding="utf-8",newline="") as f:
-        w=csv.DictWriter(f,fieldnames=rows[0].keys()); w.writeheader(); w.writerows(rows)
-    print(f"Metadatos obtenidos: {enriched}")
-    print(f"Pendientes/error: {failed}")
+    with P.open(encoding="utf-8",newline="") as f:
+        rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
+    enriched=failed=attempted=0
+    pending=[r for r in rows if r.get("source_type")=="nep_report" and handle_of(r) and not (r.get("title") or "").strip()]
+    for r in pending[:LIMIT]:
+        attempted+=1;h=handle_of(r);hit=None;last=""
+        for u in urls_for(h):
+            try:
+                text,final=fetch(u);hit=parse_page(text,final,h)
+                if hit:break
+            except urllib.error.HTTPError as e:
+                last=f"HTTP {e.code}"
+            except Exception as e:
+                last=type(e).__name__
+        if not hit:
+            r["notes"]=((r.get("notes") or "")+f" | IDEAS/RePEc pendiente: {last or 'sin metadatos'}").strip(" |")
+            failed+=1;continue
+        r["title"]=hit["title"];r["authors"]=hit["authors"];r["summary"]=hit["summary"]
+        r["access_url"]=hit["access_url"];r["doi"]=hit["doi"];r["published_at"]=hit["published_at"] or hit["year"]
+        r["venue"]=hit["venue"];r["publication_year"]=hit["year"];r["content_type"]="paper"
+        r["source_name"]="IDEAS/RePEc";r["source_url"]=hit["ideas_url"]
+        r["status"]="METADATOS_OBTENIDOS"
+        r["notes"]=((r.get("notes") or "")+" | Metadatos obtenidos de IDEAS/RePEc; OA aún por verificar.").strip(" |")
+        enriched+=1
+    with P.open("w",encoding="utf-8",newline="") as f:
+        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
+    print(f"RePEc/IDEAS: intentados={attempted}; enriquecidos={enriched}; pendientes/error={failed}; backlog={max(0,len(pending)-attempted)}")
 
-if __name__=="__main__": main()
+if __name__=="__main__":main()
