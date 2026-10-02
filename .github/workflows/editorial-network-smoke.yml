@@ -6,6 +6,10 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/editorial-network-smoke.yml"
+      - "scripts/editorial/enriquecer_repec.py"
+      - "scripts/editorial/ingerir_doab.py"
+      - "scripts/editorial/ingerir_catalogos.py"
+      - "scripts/editorial/detectar_actualizaciones.py"
 
 permissions:
   contents: read
