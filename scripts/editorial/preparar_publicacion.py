@@ -133,7 +133,7 @@ def main():
           "obra_estado":"OBRA_VERIFICADA","edicion_estado":"EDICION_VERIFICADA" if kind in {"paper","book"} else "NO_APLICA",
           "oa_estado":"OA_VERIFICADO" if kind in {"paper","book"} else "NO_APLICA","doi":r.get("doi",""),
           "oa_url":access(r),"oa_fuente":source_name(r),"area_clep":r.get("area_clep",""),
-          "ficha_es":text,"notas":f"Origen {source_name(r)}; preparación atómica determinista sin IA generativa.",
+          "ficha_es":text,"notas":f"Origen {source_name(r)}; relevance_score={r.get('relevance_score') or '0'}; indice_editorial={min(10.0, float(r.get('relevance_score') or 0)/10):.1f}; preparación atómica determinista sin IA generativa.",
           "text_method":"deterministic_template","text_template":kind,"text_status":"VERIFICADO",**visual
         })
         queue.append(q);existing.add(r["candidate_id"]);r["status"]="FICHA_LISTA";prepared+=1
