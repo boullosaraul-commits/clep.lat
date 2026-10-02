@@ -148,7 +148,7 @@ def ingest_crossref(src,rows,fields,seen,dedupes,now):
     end=datetime.now(timezone.utc).date().isoformat()
     queries=list(src.get("consultas") or [])[:int(os.getenv("ACADEMIC_QUERY_LIMIT","99"))]
     rowcap=min(int(os.getenv("CROSSREF_ROWS",str(src.get("filas_por_consulta",20)))),100)
-    allowed=set(src.get("tipos_crossref") or [])
+    allowed=list(dict.fromkeys(src.get("tipos_crossref") or []))
     added=0;seen_doi=set()
     for ctype in allowed:
         for query in queries:
