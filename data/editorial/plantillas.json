@@ -19,7 +19,7 @@
       "preserve_original": true
     }
   },
-  "version": 2,
+  "version": 3,
   "textos_cortos": {
     "paper": {
       "label": "PAPER ABIERTO · CLEP",
@@ -79,6 +79,69 @@
       "required": [
         "title",
         "source",
+        "access_url"
+      ]
+    },
+    "chapter": {
+      "label": "CAPÍTULO ABIERTO · CLEP",
+      "template": "{title}\n\n{authors} · En: {container_title} · {year}\n\nAcceso abierto: {access_url}",
+      "required": [
+        "title",
+        "authors",
+        "container_title",
+        "year",
+        "access_url"
+      ]
+    },
+    "report": {
+      "label": "INFORME ABIERTO · CLEP",
+      "template": "{title}\n\n{authors_or_institution} · {year}\n\nAcceso abierto: {access_url}",
+      "required": [
+        "title",
+        "authors_or_institution",
+        "year",
+        "access_url"
+      ]
+    },
+    "policy_brief": {
+      "label": "POLICY BRIEF · CLEP",
+      "template": "{title}\n\n{authors_or_institution} · {year}\n\nAcceso abierto: {access_url}",
+      "required": [
+        "title",
+        "authors_or_institution",
+        "year",
+        "access_url"
+      ]
+    },
+    "special_issue": {
+      "label": "NÚMERO ESPECIAL · CLEP",
+      "template": "{title}\n\n{journal} · {year}\n\nAcceso abierto: {access_url}",
+      "required": [
+        "title",
+        "journal",
+        "year",
+        "access_url"
+      ]
+    },
+    "thesis": {
+      "label": "TESIS ABIERTA · CLEP",
+      "template": "{title}\n\n{authors} · {institution} · {year}\n\nAcceso abierto: {access_url}",
+      "required": [
+        "title",
+        "authors",
+        "institution",
+        "year",
+        "access_url"
+      ]
+    },
+    "edition_translation": {
+      "label": "NUEVA EDICIÓN / TRADUCCIÓN · CLEP",
+      "template": "{title}\n\n{authors_or_editors} · {edition_note} · {year}\n\nAcceso abierto: {access_url}",
+      "required": [
+        "title",
+        "authors_or_editors",
+        "edition_note",
+        "year",
         "access_url"
       ]
     }
