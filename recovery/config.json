@@ -42,5 +42,19 @@
   },
   "generative_ai": {
     "enabled": false
+  },
+  "media_policy": {
+    "required_for_every_post": true,
+    "publish_without_media": false,
+    "failure_action": "block_publication_and_retry",
+    "deterministic_only": true,
+    "generative_ai": false,
+    "hierarchy": [
+      "verified_official_landing_screenshot",
+      "verified_official_cover_or_thumbnail",
+      "deterministic_clep_card"
+    ],
+    "final_fallback": "deterministic_clep_card",
+    "rule": "no post may enter PROGRAMADO without a verified or generated deterministic image"
   }
 }
