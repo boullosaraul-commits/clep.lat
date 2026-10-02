@@ -1,0 +1,32 @@
+name: Meta smoke test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/editorial/meta_smoke_test.py"
+      - ".github/workflows/meta-smoke-test.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clep-meta-smoke
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Install deterministic SVG rasterizer
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
+      - name: Test unpublished photo + scheduled feed post + cleanup
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/meta_smoke_test.py
