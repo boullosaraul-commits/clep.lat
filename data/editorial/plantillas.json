@@ -8,7 +8,15 @@
       "access_url"
     ],
     "oa_obligatorio": true,
-    "plantilla": "PAPER ABIERTO · CLEP\\n\\n{title}\\n\\n{authors_line}\\n\\nResumen de los autores (original):\\n{summary}\\n\\nAcceso abierto:\\n{access_url}\\n\\nDOI:\\n{doi_display}",
-    "nota": "Ficha automática mínima sin IA generativa: reproduce metadatos y abstract original; no genera pregunta, resumen ni traducción."
+    "plantilla": "PAPER ABIERTO · CLEP\\n\\n{title}\\n\\n{authors_line}\\n\\nResumen de los autores (original):\\n{summary}\\n\\n{translation_block}\\nAcceso abierto:\\n{access_url}\\n\\nDOI:\\n{doi_display}",
+    "nota": "Ficha automática mínima sin IA generativa: reproduce metadatos y abstract original; no genera pregunta, resumen ni traducción.",
+    "traduccion": {
+      "enabled": true,
+      "target_language": "es",
+      "engine": "argos-translate",
+      "generative_ai": false,
+      "label": "ES · Traducción automática",
+      "preserve_original": true
+    }
   }
 }
