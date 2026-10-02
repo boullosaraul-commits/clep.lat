@@ -22,7 +22,19 @@
           "maximo_diario_excepcional": 2,
           "minimo_si_hay_elegibles": 0
         },
-        "principio": "Evitar que una sola fuente o formato monopolice novedades; reservar capacidad efectiva para papers y otras novedades cuando existan candidatos certificados."
+        "principio": "Evitar que una sola fuente o formato monopolice novedades; reservar capacidad efectiva para papers y otras novedades cuando existan candidatos certificados.",
+        "maximo_mismo_tipo_diario": 3,
+        "minimo_tipos_distintos_si_disponibles": 3,
+        "tipos_academicos": [
+          "paper",
+          "book",
+          "chapter",
+          "report",
+          "policy_brief",
+          "special_issue",
+          "thesis",
+          "edition_translation"
+        ]
       }
     },
     "no_textos": {
@@ -184,6 +196,45 @@
       "recurso": [
         "title",
         "source",
+        "access_url"
+      ],
+      "chapter": [
+        "title",
+        "authors",
+        "container_title",
+        "year",
+        "access_url"
+      ],
+      "report": [
+        "title",
+        "authors_or_institution",
+        "year",
+        "access_url"
+      ],
+      "policy_brief": [
+        "title",
+        "authors_or_institution",
+        "year",
+        "access_url"
+      ],
+      "special_issue": [
+        "title",
+        "journal",
+        "year",
+        "access_url"
+      ],
+      "thesis": [
+        "title",
+        "authors",
+        "institution",
+        "year",
+        "access_url"
+      ],
+      "edition_translation": [
+        "title",
+        "authors_or_editors",
+        "edition_note",
+        "year",
         "access_url"
       ]
     },
