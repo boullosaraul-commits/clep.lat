@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "politica": {
     "nota": "Fuentes oficiales verificadas. Detectar no implica publicar.",
     "publicacion_directa": false,
@@ -14,6 +14,11 @@
       "no_publicar_por_fuente": true,
       "imagen_obligatoria": true,
       "sin_ia_generativa": true
+    },
+    "estadisticas_nacionales": {
+      "nivel": "fuente_primaria_preferida",
+      "regla": "cuando exista una fuente nacional oficial estable, preferirla para el dato del país y usar agregadores para comparación regional/internacional",
+      "incorporacion": "por_pais_tras_verificar_api_sdmx_o_descarga_estable"
     }
   },
   "fuentes": [
@@ -273,6 +278,96 @@
       "contenido": "convocatoria_video_recurso",
       "metodo": "catalogo_web",
       "nota": "Prioridad a dinero, empleo, finanzas funcionales, distribución y macroeconomía."
+    },
+    {
+      "id": "inegi-mx",
+      "nombre": "INEGI — Banco de Indicadores",
+      "pais": "México",
+      "tipo": "national_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://www.inegi.org.mx/servicios/api_indicadores.html",
+      "area_clep": "america-latina",
+      "prioridad": 10,
+      "contenido": "dataset_grafica",
+      "metodo": "REST",
+      "auth": "token",
+      "nota": "Datos y metadatos nacionales, estatales y municipales; requiere token gratuito."
+    },
+    {
+      "id": "ibge-br",
+      "nombre": "IBGE — SIDRA/API",
+      "pais": "Brasil",
+      "tipo": "national_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://apisidra.ibge.gov.br",
+      "area_clep": "america-latina",
+      "prioridad": 10,
+      "contenido": "dataset_grafica",
+      "metodo": "REST/JSON",
+      "auth": "none_or_source_specific",
+      "nota": "SIDRA y APIs oficiales del IBGE para tablas y metadatos estadísticos."
+    },
+    {
+      "id": "dane-co",
+      "nombre": "DANE — datos abiertos y servicios",
+      "pais": "Colombia",
+      "tipo": "national_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://www.dane.gov.co",
+      "area_clep": "america-latina",
+      "prioridad": 10,
+      "contenido": "dataset_grafica",
+      "metodo": "open_data/ArcGIS_REST",
+      "auth": "source_specific",
+      "nota": "ANDA, datos abiertos, CDGE y servicios ArcGIS REST; seleccionar endpoint por operación."
+    },
+    {
+      "id": "indec-ar",
+      "nombre": "INDEC — Catálogo API",
+      "pais": "Argentina",
+      "tipo": "national_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://api.indec.gob.ar/",
+      "area_clep": "america-latina",
+      "prioridad": 10,
+      "contenido": "dataset_grafica",
+      "metodo": "REST/JSON",
+      "auth": "token",
+      "nota": "API oficial en beta; requiere cuenta gratuita y token. Datos reutilizables citando fuente primaria."
+    },
+    {
+      "id": "inei-pe",
+      "nombre": "INEI — bases y microdatos",
+      "pais": "Perú",
+      "tipo": "national_statistics_catalog",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://www.inei.gob.pe/bases-de-datos/",
+      "area_clep": "america-latina",
+      "prioridad": 15,
+      "contenido": "dataset_grafica",
+      "metodo": "catalog/download",
+      "auth": "source_specific",
+      "nota": "Bases, microdatos y documentación; automatizar sólo endpoints/descargas estables verificadas."
+    },
+    {
+      "id": "ine-uy",
+      "nombre": "INE Uruguay — datos y microdatos",
+      "pais": "Uruguay",
+      "tipo": "national_statistics_catalog",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://www.gub.uy/instituto-nacional-estadistica/",
+      "area_clep": "america-latina",
+      "prioridad": 15,
+      "contenido": "dataset_grafica",
+      "metodo": "catalog/download",
+      "auth": "source_specific",
+      "nota": "No depender de la antigua integración Google Fusion Tables; verificar endpoint vigente antes de automatizar."
     }
   ]
 }
