@@ -33,12 +33,14 @@
       1,
       0
     ],
-    "modo": "adaptativo_por_backlog_y_fecha_objetivo",
+    "modo": "adaptativo_por_backlog_con_fecha_objetivo_referencial",
     "cede_capacidad_a_contenido_actual": true,
-    "nota": "El planificador debe escoger el menor escalón que todavía permita agotar el backlog recuperable antes de la fecha objetivo; si el ritmo queda corto, conserva o recupera temporalmente un escalón superior.",
+    "nota": "La fecha objetivo sólo orienta el ritmo. El planificador no detiene la recuperación al alcanzarla; continúa mientras exista backlog histórico recuperable.",
     "campana_inicio": "2026-10-02",
     "fecha_objetivo": "2027-02-02",
-    "backlog_referencia": 1040
+    "backlog_referencia": 1040,
+    "fecha_objetivo_role": "planning_reference_only",
+    "stop_when_target_date_reached": false
   },
   "relevo": {
     "activo": true,
@@ -71,7 +73,9 @@
     "los_maximos_no_son_cuotas": true,
     "no_rellenar_por_rellenar": true,
     "distribuir_durante_todo_el_dia": true,
-    "objetivo_agotar_backlog": true
+    "objetivo_agotar_backlog": true,
+    "fecha_objetivo_es_referencia": true,
+    "detener_por_fecha_objetivo": false
   },
   "generative_ai": {
     "enabled": false,
