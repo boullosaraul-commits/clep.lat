@@ -28,6 +28,13 @@ jobs:
       - name: Validate editorial queue
         run: python scripts/editorial/verificar_cola.py
 
+      - name: Verify Meta credentials
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/verificar_meta.py
+
       - name: Schedule approved posts in Facebook
         env:
           CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
