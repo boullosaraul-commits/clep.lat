@@ -8,7 +8,8 @@ Fuentes:
 No usa IA generativa. Crossref no se interpreta como prueba de acceso abierto.
 """
 from __future__ import annotations
-import csv, hashlib, html, json, os, re, sys, urllib.parse, urllib.request
+import csv, hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
+import urllib.error
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -157,9 +158,18 @@ def ingest_crossref(src,rows,fields,seen,dedupes,now):
               "mailto":"contacto@clep.lat"
             }
             url=src["url"]+"?"+urllib.parse.urlencode(params)
-            try:data=get_json(url)
-            except Exception as e:
-                print(f"ERROR {src['id']} {ctype}: {type(e).__name__}: {e}",file=sys.stderr);continue
+            data=None
+            for attempt in range(3):
+                try:
+                    data=get_json(url);break
+                except urllib.error.HTTPError as e:
+                    if e.code==429 and attempt<2:
+                        time.sleep(2*(attempt+1));continue
+                    print(f"ERROR {src['id']} {ctype}: {type(e).__name__}: {e}",file=sys.stderr);break
+                except Exception as e:
+                    print(f"ERROR {src['id']} {ctype}: {type(e).__name__}: {e}",file=sys.stderr);break
+            time.sleep(float(os.getenv("CROSSREF_DELAY_SECONDS","1.0")))
+            if not data:continue
             for item in (((data or {}).get("message") or {}).get("items") or []):
                 doi=clean(item.get("DOI")).lower()
                 if not doi or doi in seen_doi:continue
@@ -198,6 +208,7 @@ def oai_page(src,token=""):
 
 def ingest_oai(src,rows,fields,seen,dedupes,now):
     added=0;token="";pages=0
+    max_records=int(os.getenv("ACADEMIC_OAI_MAX_RECORDS","200"))
     max_pages=min(int(src.get("max_paginas",3)),10)
     while pages<max_pages:
         try:root=oai_page(src,token)
@@ -205,6 +216,7 @@ def ingest_oai(src,rows,fields,seen,dedupes,now):
             print(f"ERROR {src['id']}: {type(e).__name__}: {e}",file=sys.stderr);break
         pages+=1
         for rec in root.findall(f".//{{{OAI}}}record"):
+            if added>=max_records:break
             hdr=rec.find(f"{{{OAI}}}header")
             dc=rec.find(f".//{{http://www.openarchives.org/OAI/2.0/oai_dc/}}dc")
             if hdr is None or dc is None:continue
@@ -240,6 +252,7 @@ def ingest_oai(src,rows,fields,seen,dedupes,now):
               "publication_year":year,"access_status":"OFFICIAL_SOURCE_VERIFIED","rights_status":"LINK_ONLY"
             })
             rows.append(row);seen.add(pair);dedupes.add(d);added+=1
+        if added>=max_records:break
         rt=root.find(f".//{{{OAI}}}resumptionToken")
         token=clean(rt.text if rt is not None else "")
         if not token:break
