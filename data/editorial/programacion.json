@@ -1,0 +1,16 @@
+{
+  "timezone": "America/Mexico_City",
+  "minimum_gap_minutes": 120,
+  "nuevas": {
+    "objetivo_diario": 2,
+    "maximo_diario": 4,
+    "slots_preferentes": ["10:30", "13:30", "18:30", "20:30"]
+  },
+  "archivo_historico": {
+    "maximo_diario": 6,
+    "slots_preferentes": ["09:00", "11:00", "13:00", "15:00", "17:00", "19:00"],
+    "cede_slot_a_contenido_actual": true
+  },
+  "dias_preferentes": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+  "nota": "Horario inicial experimental. Revisar con Insights de la pagina tras 4-6 semanas."
+}
