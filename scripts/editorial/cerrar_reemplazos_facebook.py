@@ -91,7 +91,7 @@ def main():
             r["fecha_retiro"]=now
             r["post_nuevo_url"]=new_obj.get("permalink_url","")
             r["fecha_publicacion"]=new_obj.get("created_time","")
-            r["estado_editorial"]="ORIGINAL_RETIRADO"
+            r["estado_editorial"]="ORIGINAL_RETIRADO"\n            r["meta_attempt_status"]="RETIRED"
             append_note(r,"reemplazo verificado en Meta; original retirado después de verificación")
             changed=True
             print(f"OK {old} retirado después de verificar {new}")
