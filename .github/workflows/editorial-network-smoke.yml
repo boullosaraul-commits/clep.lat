@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: editorial-network-smoke-v2
+  group: editorial-network-smoke-v3
   cancel-in-progress: true
 
 jobs:
@@ -32,6 +32,8 @@ jobs:
       - name: Migrate legacy candidates
         run: python scripts/editorial/migrar_nep_legacy.py
       - name: Test NEP discovery and RePEc enrichment
+        env:
+          REPEC_ENRICH_LIMIT: "10"
         run: |
           python scripts/editorial/ingerir_nep.py
           python scripts/editorial/enriquecer_repec.py
