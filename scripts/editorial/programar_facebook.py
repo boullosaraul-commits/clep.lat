@@ -10,13 +10,13 @@ Contrato de seguridad:
 Esto evita duplicados automáticos si un runner cae después de que Meta acepte
 el post pero antes de que GitHub reciba el estado final.
 """
-import argparse,csv,json,mimetypes,os,subprocess,sys,urllib.error,urllib.parse,urllib.request,uuid
+import argparse,csv,os,json,mimetypes,os,subprocess,sys,urllib.error,urllib.parse,urllib.request,uuid
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 ROOT=Path(__file__).resolve().parents[2]
-COLA=ROOT/"data/editorial/cola.csv"
+COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 CFG=ROOT/"data/editorial/programacion.json"
 API=os.getenv("META_GRAPH_VERSION","v26.0")
 
