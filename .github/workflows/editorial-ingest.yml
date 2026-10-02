@@ -24,6 +24,9 @@ jobs:
       - name: Ingest NEP reports
         run: python scripts/editorial/ingerir_nep.py
 
+      - name: Enrich RePEc metadata
+        run: python scripts/editorial/enriquecer_repec.py
+
       - name: Evaluate candidates
         run: python scripts/editorial/evaluar_candidatos.py
 
