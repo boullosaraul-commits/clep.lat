@@ -1,5 +1,5 @@
 {
-  "version": 8,
+  "version": 9,
   "politica": {
     "nota": "Fuentes oficiales verificadas. Detectar no implica publicar.",
     "publicacion_directa": false,
@@ -766,6 +766,51 @@
       "metodo": "SDMX REST v2.1/JSON/XML/CSV",
       "auth": "none",
       "nota": "Crédito, banca internacional, deuda, liquidez global, derivados, precios inmobiliarios, tipos de cambio, bancos centrales y pagos. Usar API determinista, nunca búsqueda asistida por IA del portal."
+    },
+    {
+      "id": "crossref-academic-novelties",
+      "nombre": "Crossref — novedades académicas no monográficas",
+      "tipo": "crossref_academic",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://api.crossref.org/works",
+      "area_clep": "por_clasificar",
+      "prioridad": 28,
+      "metodo": "REST",
+      "tipos_crossref": [
+        "book-chapter",
+        "report",
+        "report-component",
+        "dissertation",
+        "journal-issue",
+        "book",
+        "edited-book",
+        "monograph"
+      ],
+      "consultas": [
+        "monetary economics political economy",
+        "economic development structural change",
+        "labour inequality income distribution",
+        "economic history Latin America"
+      ],
+      "ventana_dias": 21,
+      "filas_por_consulta": 20,
+      "nota": "Crossref se usa para descubrimiento y metadatos depositados por editores; no prueba por sí mismo acceso abierto. Book/edited-book/monograph sólo ingresan si existe evidencia explícita de nueva edición o traducción."
+    },
+    {
+      "id": "cepal-oai-publications",
+      "nombre": "CEPAL — Repositorio Digital OAI-PMH",
+      "tipo": "academic_oai",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://repositorio.cepal.org/server/oai/request",
+      "area_clep": "america-latina",
+      "prioridad": 16,
+      "metodo": "OAI-PMH/oai_dc",
+      "ventana_dias": 21,
+      "max_paginas": 3,
+      "tipo_por_defecto": "report",
+      "nota": "Repositorio institucional oficial. Se conservan derechos y tipos declarados en Dublin Core; acceso abierto sólo se acredita automáticamente cuando los metadatos lo indican explícitamente."
     }
   ]
 }
