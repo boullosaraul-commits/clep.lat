@@ -37,20 +37,26 @@ jobs:
       - name: Translate abstracts to Spanish
         run: python scripts/editorial/traducir_abstracts.py
 
+      - name: Verify open-access PDFs
+        run: python scripts/editorial/verificar_oa.py
+
       - name: Evaluate candidates
         run: python scripts/editorial/evaluar_candidatos.py
+
+      - name: Promote verified candidates
+        run: python scripts/editorial/promover_candidatos.py
 
       - name: Validate editorial queue
         run: python scripts/editorial/verificar_cola.py
 
       - name: Commit candidate changes
         run: |
-          if git diff --quiet -- data/editorial/candidatos.csv; then
+          if git diff --quiet -- data/editorial/candidatos.csv data/editorial/cola.csv; then
             echo "No new candidates."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/editorial/candidatos.csv
+          git add data/editorial/candidatos.csv data/editorial/cola.csv
           git commit -m "editorial: ingest new candidates"
           git push
