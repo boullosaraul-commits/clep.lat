@@ -11,6 +11,7 @@ from renderizar_texto import render as render_text
 from generar_tarjeta_clep import render as render_card
 from generar_grafica_clep import render as render_chart
 from evaluar_candidatos import doab_eval
+from ingerir_novedades_academicas import classify_crossref, explicit_revision_or_translation
 
 class MatcherV31Tests(unittest.TestCase):
     def test_main_title_rescue(self):
@@ -89,6 +90,28 @@ class DOABRelevanceTests(unittest.TestCase):
         score,decision,area,reasons=doab_eval(r,self.cfg)
         self.assertIn(decision,{"REVISION_EDITORIAL","PROMOCION_AUTOMATICA"})
         self.assertNotEqual(decision,"ARCHIVADO")
+
+
+class AcademicNoveltyTests(unittest.TestCase):
+    def test_crossref_types(self):
+        self.assertEqual(classify_crossref({"type":"book-chapter","title":["Demand and Distribution"]}),"chapter")
+        self.assertEqual(classify_crossref({"type":"report","title":["A Policy Brief on Employment"]}),"policy_brief")
+        self.assertEqual(classify_crossref({"type":"dissertation","title":["Essays in Monetary Economics"]}),"thesis")
+        self.assertEqual(classify_crossref({"type":"journal-issue","title":["Special Issue: Political Economy"]}),"special_issue")
+
+    def test_books_require_explicit_edition_event(self):
+        self.assertEqual(classify_crossref({"type":"book","title":["Ordinary First Book"]}),"")
+        self.assertEqual(classify_crossref({"type":"book","title":["Political Economy, 2nd Edition"]}),"edition_translation")
+        ok,kind=explicit_revision_or_translation({"type":"book","title":["A Translation of Keynes"]})
+        self.assertTrue(ok);self.assertEqual(kind,"translation")
+
+    def test_new_templates_render(self):
+        chapter=render_text("chapter",{"title":"A Chapter","authors":"A. Author","container_title":"A Book","year":"2026","access_url":"https://example.org/ch"})
+        report=render_text("report",{"title":"A Report","authors_or_institution":"CEPAL","year":"2026","access_url":"https://example.org/r"})
+        thesis=render_text("thesis",{"title":"A Thesis","authors":"A. Author","institution":"UNAM","year":"2026","access_url":"https://example.org/t"})
+        self.assertIn("CAPÍTULO ABIERTO · CLEP",chapter)
+        self.assertIn("INFORME ABIERTO · CLEP",report)
+        self.assertIn("TESIS ABIERTA · CLEP",thesis)
 
 class ConfigTests(unittest.TestCase):
     def test_no_generative_ai_and_no_noimage_fallback(self):
