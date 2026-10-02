@@ -1,48 +1,53 @@
 #!/usr/bin/env python3
-"""Verificación conservadora de acceso abierto para candidatos CLEP.
+"""Verifica acceso público y separa acceso de evidencia OA.
 
-Sólo marca VERIFICADO cuando la URL candidata responde por HTTPS sin
-autenticación y termina en PDF o declara Content-Type application/pdf.
-No intenta eludir paywalls ni inferir licencias.
+PUBLIC_ACCESS_VERIFIED significa sólo que el recurso es accesible sin
+autenticación. OA sólo se marca automáticamente cuando la procedencia también
+es una fuente académica que declara/distribuye ese acceso (p.ej. RePEc/ReDIF,
+DOAB). En ningún caso se infieren derechos de traducción o republicación.
 """
-import csv, urllib.request, urllib.error
+import csv, urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT=Path(__file__).resolve().parents[2]
 P=ROOT/"data/editorial/candidatos.csv"
-UA="CLEP-editorial/1.3 (+https://clep.lat)"
+UA="CLEP-editorial/2.0 (+https://clep.lat)"
+LEGIT_SOURCE_TYPES={"nep_report","doab_rest"}
+LEGIT_SOURCE_IDS={"doab-economics"}
 
-def verify(url):
-    if not url or urlparse(url).scheme!="https": return False,""
-    req=urllib.request.Request(url,headers={"User-Agent":UA},method="HEAD")
-    try:
-        with urllib.request.urlopen(req,timeout=20) as r:
-            final=r.geturl(); ct=(r.headers.get("Content-Type") or "").lower()
-            ok=(urlparse(final).scheme=="https" and ("application/pdf" in ct or urlparse(final).path.lower().endswith(".pdf")))
-            return ok,final
-    except Exception:
-        # Some repositories reject HEAD; use a tiny ranged GET.
+def verify_public_pdf(url):
+    if not url or urlparse(url).scheme!="https":return False,"",""
+    for method in ("HEAD","GET"):
         try:
-            req=urllib.request.Request(url,headers={"User-Agent":UA,"Range":"bytes=0-1023"})
-            with urllib.request.urlopen(req,timeout=20) as r:
-                final=r.geturl(); ct=(r.headers.get("Content-Type") or "").lower()
+            headers={"User-Agent":UA}
+            if method=="GET":headers["Range"]="bytes=0-1023"
+            req=urllib.request.Request(url,headers=headers,method=method)
+            with urllib.request.urlopen(req,timeout=25) as r:
+                final=r.geturl();ct=(r.headers.get("Content-Type") or "").lower()
                 ok=(urlparse(final).scheme=="https" and ("application/pdf" in ct or urlparse(final).path.lower().endswith(".pdf")))
-                return ok,final
-        except Exception:return False,""
+                if ok:return True,final,ct
+        except Exception:pass
+    return False,"",""
 
 def main():
-    with P.open(encoding="utf-8",newline="") as f: rows=list(csv.DictReader(f))
-    yes=0
+    with P.open(encoding="utf-8",newline="") as f:
+        rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
+    access_yes=oa_yes=0
     for r in rows:
-        if r.get("oa_status")=="VERIFICADO": continue
-        if not r.get("title") or not r.get("authors") or not r.get("summary"): continue
-        ok,final=verify((r.get("access_url") or "").strip())
-        if ok:
-            r["oa_status"]="VERIFICADO"; r["access_url"]=final
-            r["status"]="OA_VERIFICADO"; yes+=1
+        if r.get("content_type") and r.get("content_type") not in {"paper","book"}:continue
+        if not r.get("title") or not r.get("authors"):continue
+        ok,final,_=verify_public_pdf((r.get("access_url") or "").strip())
+        if not ok:continue
+        r["access_url"]=final;r["access_status"]="PUBLIC_ACCESS_VERIFIED";r["rights_status"]="LINK_ONLY";access_yes+=1
+        legitimate=(r.get("source_type") in LEGIT_SOURCE_TYPES or r.get("source_id") in LEGIT_SOURCE_IDS)
+        if legitimate:
+            r["oa_status"]="VERIFICADO_FUENTE";r["status"]="OA_VERIFICADO";oa_yes+=1
+            r["notes"]=((r.get("notes") or "")+" | PDF público verificado; OA respaldado por procedencia académica; derechos de reproducción no inferidos.").strip(" |")
+        else:
+            r["notes"]=((r.get("notes") or "")+" | PDF público verificado; OA/licencia no inferidos automáticamente.").strip(" |")
     with P.open("w",encoding="utf-8",newline="") as f:
-        w=csv.DictWriter(f,fieldnames=rows[0].keys());w.writeheader();w.writerows(rows)
-    print(f"OA PDF verificado: {yes}")
+        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
+    print(f"Acceso público PDF verificado: {access_yes}; OA con evidencia de fuente: {oa_yes}")
 
 if __name__=="__main__":main()
