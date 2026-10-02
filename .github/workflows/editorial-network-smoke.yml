@@ -1,0 +1,45 @@
+name: Editorial network smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/editorial-network-smoke.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: editorial-network-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Migrate legacy candidates
+        run: python scripts/editorial/migrar_nep_legacy.py
+      - name: Test NEP discovery and RePEc enrichment
+        run: |
+          python scripts/editorial/ingerir_nep.py
+          python scripts/editorial/enriquecer_repec.py
+      - name: Test books and structured catalogs
+        run: |
+          python scripts/editorial/ingerir_doab.py
+          python scripts/editorial/ingerir_catalogos.py
+      - name: Test statistical adapters
+        run: python scripts/editorial/detectar_actualizaciones.py
+      - name: Evaluate, prepare, and validate without publishing
+        run: |
+          python scripts/editorial/verificar_oa.py
+          python scripts/editorial/evaluar_candidatos.py
+          python scripts/editorial/preparar_publicacion.py
+          python scripts/editorial/verificar_cola.py
