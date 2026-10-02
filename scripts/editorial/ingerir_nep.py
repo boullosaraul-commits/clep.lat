@@ -23,9 +23,12 @@ FIELDS=["candidate_id","source_id","source_type","source_item_id","detected_at",
 def clean(s):
     return re.sub(r"\s+"," ",html.unescape(s or "")).strip()
 
-def repec_handle(url):
+def repec_handle(value):
+    value=(value or "").strip()
+    if value.lower().startswith("repec:"):
+        return value
     try:
-        u=parse_qs(urlparse(url).query).get("u",[""])[0]
+        u=parse_qs(urlparse(value).query).get("u",[""])[0]
         return u if u.lower().startswith("repec:") else ""
     except Exception:
         return ""
