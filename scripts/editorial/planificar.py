@@ -31,6 +31,35 @@ def priority(r):
     except Exception:p=999
     return (p,r.get("editorial_id") or "")
 
+def editorial_index_10(r):
+    """Índice editorial determinista 0–10 derivado de pertinencia 0–100.
+    No representa calidad académica."""
+    raw=""
+    notes=(r.get("notas") or "")
+    m=__import__("re").search(r"(?:indice_editorial|relevance_score)\s*[=:]\s*(\d+(?:\.\d+)?)",notes,re.I)
+    if m: raw=m.group(1)
+    # Las filas de cola no conservan relevance_score como columna; para DOAB la
+    # prioridad se deriva del candidato y puede incorporarse a notas. Si no está,
+    # no cuenta como sobresaliente: comportamiento conservador.
+    try:
+        x=float(raw)
+        return x/10 if x>10 else x
+    except Exception:return 0.0
+
+def is_doab(r):
+    text=" ".join([r.get("oa_fuente") or "",r.get("notas") or "",r.get("url_original") or ""]).lower()
+    return "doab" in text or "directory of open access books" in text
+
+def choose_diverse_textual(textual,capacity,doab_cap):
+    chosen=[];doab_n=0
+    for r in textual:
+        if len(chosen)>=capacity:break
+        if is_doab(r):
+            if doab_n>=doab_cap:continue
+            doab_n+=1
+        chosen.append(r)
+    return chosen
+
 def historical_cap(remaining,days_left,rungs,maxcap):
     if remaining<=0:return 0
     if days_left<=0:return maxcap
@@ -46,7 +75,8 @@ def main():
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
 
     slots=list(cfg["slots_preferentes"])
-    newmax=int(cfg["contenido_actual"]["nuevos"]["maximo_diario_inicial"])
+    ncfg=cfg["contenido_actual"]["nuevos"]
+    newmax=int(ncfg["maximo_diario_inicial"])
     ntmax=int(cfg["contenido_actual"]["no_textos"]["maximo_diario_inicial"])
     hmax=int(cfg["archivo_historico"]["maximo_diario_inicial"])
 
@@ -72,7 +102,21 @@ def main():
     nontext=sorted([r for r in current if r.get("tipo_recurso") in NON_TEXT],key=priority)
     textual=sorted([r for r in current if r.get("tipo_recurso") not in NON_TEXT],key=priority)
 
-    choose_text=textual[:max(0,newmax-existing_new)]
+    # Capacidad elástica: 6 normalmente; hasta 8 sólo con >=5 candidatos
+    # sobresalientes (índice editorial >=9/10). No es una cuota.
+    elastic=ncfg.get("regla_elastica",{})
+    threshold=float(elastic.get("umbral_indice_editorial_10",9))
+    min_high=int(elastic.get("minimo_candidatos_sobresalientes_para_expandir",5))
+    high=sum(1 for r in textual if editorial_index_10(r)>=threshold)
+    effective_newmax=newmax
+    if elastic.get("activa") and high>=min_high:
+        effective_newmax=int(ncfg.get("maximo_diario_excepcional",newmax))
+    diversity=ncfg.get("diversidad",{});dcfg=diversity.get("doab",{})
+    doab_cap=int(dcfg.get("maximo_diario_excepcional" if effective_newmax>newmax else "maximo_diario_normal",2))
+    existing_doab=sum(1 for r in existing if r.get("flujo_editorial")!="archivo_historico"
+                      and r.get("tipo_recurso") not in NON_TEXT and is_doab(r))
+    choose_text=choose_diverse_textual(textual,max(0,effective_newmax-existing_new),
+                                       max(0,doab_cap-existing_doab))
     choose_nt=nontext[:max(0,ntmax-existing_nt)]
     choose_hist=hist[:max(0,hcap-existing_hist)]
     chosen=choose_text+choose_nt+choose_hist
@@ -100,6 +144,6 @@ def main():
 
     with Q.open("w",encoding="utf-8",newline="") as f:
         w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
-    print(f"Programados {target_day}: total={len(chosen)}; nuevos={len(choose_text)}; no-texto={len(choose_nt)}; histórico={len(choose_hist)}; cap histórico={hcap}; backlog ref restante={remaining}")
+    print(f"Programados {target_day}: total={len(chosen)}; nuevos={len(choose_text)}/{effective_newmax}; DOAB={sum(is_doab(r) for r in choose_text)}/{doab_cap}; sobresalientes9={high}; no-texto={len(choose_nt)}; histórico={len(choose_hist)}; cap histórico={hcap}; backlog ref restante={remaining}")
 
 if __name__=="__main__":main()
