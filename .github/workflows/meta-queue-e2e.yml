@@ -1,0 +1,70 @@
+name: Meta queue E2E
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tests/meta_queue_e2e.py"
+      - ".github/workflows/meta-queue-e2e.yml"
+      - "scripts/editorial/programar_facebook.py"
+      - "scripts/editorial/marcar_intento_meta.py"
+      - "scripts/editorial/verificar_cola.py"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clep-meta-queue-e2e
+  cancel-in-progress: false
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deterministic SVG rasterizer
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
+
+      - name: Build isolated PROGRAMADO queue
+        run: python tests/meta_queue_e2e.py setup
+
+      - name: Validate isolated queue
+        env:
+          CLEP_QUEUE_PATH: ${{ github.workspace }}/tests/tmp_meta_queue.csv
+        run: python scripts/editorial/verificar_cola.py
+
+      - name: Reserve durable Meta attempt
+        env:
+          CLEP_QUEUE_PATH: ${{ github.workspace }}/tests/tmp_meta_queue.csv
+        run: python scripts/editorial/marcar_intento_meta.py --output /tmp/e2e_id
+
+      - name: Materialize reserved post in Meta
+        env:
+          CLEP_QUEUE_PATH: ${{ github.workspace }}/tests/tmp_meta_queue.csv
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/programar_facebook.py --editorial-id "$(cat /tmp/e2e_id)"
+
+      - name: Validate scheduled state
+        env:
+          CLEP_QUEUE_PATH: ${{ github.workspace }}/tests/tmp_meta_queue.csv
+        run: python scripts/editorial/verificar_cola.py
+
+      - name: Verify scheduled object and clean Meta
+        if: always()
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          META_GRAPH_VERSION: "v26.0"
+        run: |
+          if [ -f tests/tmp_meta_queue.csv ]; then
+            python tests/meta_queue_e2e.py cleanup
+          fi
