@@ -1,16 +1,60 @@
 {
-  "version": 1,
+  "version": 2,
+  "politica": {
+    "nota": "Fuentes oficiales verificadas. La detección no implica publicación.",
+    "publicacion_directa": false,
+    "requiere_revision": true
+  },
   "fuentes": [
     {
       "id": "nep-mon",
       "nombre": "NEP — Monetary Economics",
-      "tipo": "rss",
+      "tipo": "nep_report",
       "flujo_editorial": "novedad",
-      "habilitada": false,
-      "url": "",
+      "habilitada": true,
+      "url": "https://nep.repec.org/nep-mon/latest",
       "area_clep": "macroeconomia-dinero",
-      "prioridad": 50,
-      "nota": "Añadir aquí el RSS oficial copiado desde NEP/IDEAS antes de habilitar."
+      "prioridad": 20
+    },
+    {
+      "id": "nep-hpe",
+      "nombre": "NEP — History and Philosophy of Economics",
+      "tipo": "nep_report",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://nep.repec.org/nep-hpe/latest",
+      "area_clep": "pensamiento-metodologia",
+      "prioridad": 20
+    },
+    {
+      "id": "nep-dev",
+      "nombre": "NEP — Development",
+      "tipo": "nep_report",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://nep.repec.org/nep-dev/latest",
+      "area_clep": "desarrollo-estructura",
+      "prioridad": 30
+    },
+    {
+      "id": "nep-his",
+      "nombre": "NEP — Business, Economic and Financial History",
+      "tipo": "nep_report",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://nep.repec.org/nep-his/latest",
+      "area_clep": "historia-economica",
+      "prioridad": 35
+    },
+    {
+      "id": "nep-lab",
+      "nombre": "NEP — Labour Economics",
+      "tipo": "nep_report",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://nep.repec.org/nep-lab",
+      "area_clep": "trabajo-distribucion",
+      "prioridad": 35
     }
   ]
 }
