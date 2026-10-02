@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-import csv,re,sys
+import csv,os,re,sys
 from collections import Counter,defaultdict
 from datetime import date,datetime
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
-COLA=ROOT/"data/editorial/cola.csv"
+COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 
 FLUJOS={"archivo_historico","novedad","recurso","actividad_clep","publicacion_clep","otro"}
 ESTADOS={"IDENTIFICANDO","OBRA_VERIFICADA","EDICION_VERIFICADA","OA_VERIFICADO","FICHA_LISTA","APROBADO","PROGRAMADO","PUBLICADO","ORIGINAL_RETIRADO","DESCARTADO"}
