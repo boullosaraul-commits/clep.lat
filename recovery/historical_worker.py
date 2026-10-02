@@ -19,7 +19,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/"recovery"))
 sys.path.insert(0,str(ROOT/"scripts/editorial"))
-from matcher_v31 import evaluate
+from matcher_v31 import evaluate, family
 from renderizar_texto import render as render_text
 from generar_tarjeta_clep import render as render_card
 
@@ -272,13 +272,13 @@ def enqueue(post,hist,hit,oa):
       "editorial_id":"hist-"+pid.replace("_","-"),"flujo_editorial":"archivo_historico","prioridad":"1",
       "estado_editorial":"FICHA_LISTA","post_original_id":pid,"post_original_url":post.get("permalink_url",""),
       "fecha_original":post.get("created_time",""),"titulo_original":hist["title"],"titulo_es":hit["title"],
-      "responsables":hit["authors"],"rol_responsables":"author","tipo_recurso":"book" if hit["type"]=="book" else "paper",
+      "responsables":hit["authors"],"rol_responsables":"author","tipo_recurso":kind,
       "anio":hit["year"],"obra_estado":"OBRA_VERIFICADA","edicion_estado":"EDICION_VERIFICADA",
       "oa_estado":"OA_VERIFICADO","doi":hit.get("doi",""),"isbn":";".join(hit.get("isbns") or []),
       "oa_url":oa["url"],"oa_fuente":oa["evidence"],"ficha_es":text,"original_retirado":"false",
       "media_type":"image/svg+xml","media_path":rel,"media_source":"CLEP deterministic card",
       "media_rights_status":"PROPIO_DETERMINISTA","alt_text":"Tarjeta CLEP: "+hit["title"],
-      "text_method":"deterministic_template","text_template":"book" if hit["type"]=="book" else "paper",
+      "text_method":"deterministic_template","text_template":kind,
       "text_status":"VERIFICADO",
       "notas":f"Recuperación v3.1; fuente bibliográfica {hit['source']}; OA: {oa['evidence']}; original conservar hasta reemplazo verificado."
     })
