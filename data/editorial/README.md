@@ -88,3 +88,14 @@ Los libros detectados en DOAB pasan por un clasificador determinista antes de la
 La secuencia es: filtro disciplinario → puntuación por áreas CLEP → penalizaciones explícitas → decisión. Las salidas son `PROMOCION_AUTOMATICA`, `REVISION_EDITORIAL` y `ARCHIVADO`. El puntaje mide pertinencia editorial, no calidad académica. Una coincidencia aislada no basta: el sistema agrupa términos por áreas, limita la acumulación de sinónimos y conserva las razones de cada decisión en `relevance_reasons`.
 
 Sólo `PROMOCION_AUTOMATICA` puede pasar automáticamente a `FICHA_LISTA`. Los otros estados quedan fuera de la preparación automática.
+
+
+## Novedades académicas no monográficas
+
+El radar de novedades distingue `paper`, `book`, `chapter`, `report`, `policy_brief`, `special_issue`, `thesis` y `edition_translation`.
+
+Crossref se usa como capa de **descubrimiento bibliográfico** para capítulos, informes, tesis, números de revista y eventos editoriales explícitos de nueva edición/traducción. La presencia en Crossref no se considera prueba de acceso abierto: la preparación automática requiere además evidencia de OA/acceso conforme a la política de verificación.
+
+Los repositorios institucionales con OAI-PMH se cosechan mediante Dublin Core. La primera fuente habilitada es el Repositorio Digital de CEPAL. Los derechos declarados se conservan; si el registro no declara explícitamente acceso abierto, el sistema no lo infiere.
+
+La selección diaria aplica diversidad por tipo: máximo 3 novedades del mismo tipo, máximo 2 libros DOAB, y procura al menos 3 tipos distintos cuando existen suficientes candidatos certificados. La capacidad sigue siendo 6 novedades ordinarias y hasta 8 sólo bajo la regla excepcional del índice editorial.
