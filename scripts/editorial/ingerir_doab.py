@@ -49,7 +49,11 @@ def main():
     q='dc.date.accessioned_dt:[NOW-7DAY/DAY TO NOW]'
     url="https://directory.doabooks.org/rest/search?"+urllib.parse.urlencode(
         {"query":q,"expand":"metadata,bitstreams","sort":"dc.date.accessioned_dt","limit":"100"})
-    data=get_json(url)
+    try:
+        data=get_json(url)
+    except Exception as e:
+        print(f"DOAB no disponible en esta ejecución: {type(e).__name__}: {e}")
+        return
     items=data if isinstance(data,list) else (data.get("items") or data.get("results") or [])
     now=datetime.now(timezone.utc).isoformat(timespec="seconds");added=0
     for item in items:
