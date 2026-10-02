@@ -46,3 +46,36 @@ Detectar un registro no equivale a aprobarlo. La aparición en RePEc/NEP tampoco
 ## Seguridad
 
 Los secretos de Meta no deben almacenarse en el repositorio. El workflow de Facebook usa GitHub Actions Secrets (`CLEP_FB_TOKEN` y `CLEP_FB_PAGE_ID`).
+
+
+## Política de no uso de IA generativa
+
+El pipeline editorial de CLEP no utiliza IA generativa para producir contenido editorial.
+
+**Prohibido en producción**
+- resúmenes mediante LLM;
+- traducciones mediante LLM;
+- reescritura generativa;
+- imágenes generadas;
+- selección o ranking de candidatos mediante LLM.
+
+**Permitido**
+- parsing y extracción deterministas;
+- recuperación de metadatos;
+- puntuación mediante reglas explícitas;
+- capturas automatizadas de páginas web;
+- composición tipográfica determinista (HTML/CSS, SVG o equivalente);
+- activos oficiales cuya procedencia y condiciones de uso hayan sido verificadas;
+- texto escrito o aprobado por una persona.
+
+Principio de reproducibilidad: dada la misma entrada, la misma versión del código y las mismas fuentes externas, el pipeline debe producir la misma salida editorial.
+
+### Activo visual para PAPER ABIERTO
+
+Orden de preferencia:
+1. captura real de la landing page oficial del trabajo o repositorio;
+2. portada/thumbnail oficial cuando su uso sea adecuado y verificable;
+3. tarjeta tipográfica CLEP generada determinísticamente a partir de metadatos;
+4. publicación sin imagen si no existe un activo verificable.
+
+Una captura de pantalla o una tarjeta construida mediante reglas de maquetación no se considera contenido generado por IA.
