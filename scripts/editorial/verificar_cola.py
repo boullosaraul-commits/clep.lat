@@ -1,99 +1,105 @@
 #!/usr/bin/env python3
-import csv
-import sys
-from collections import Counter, defaultdict
-from datetime import date
+import csv,re,sys
+from collections import Counter,defaultdict
+from datetime import date,datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-COLA = ROOT / "data" / "editorial" / "cola.csv"
-LIMITE_ARCHIVO_DIARIO = 6
+ROOT=Path(__file__).resolve().parents[2]
+COLA=ROOT/"data/editorial/cola.csv"
 
-FLUJOS = {
-    "archivo_historico",
-    "novedad",
-    "recurso",
-    "actividad_clep",
-    "publicacion_clep",
-    "otro",
-}
+FLUJOS={"archivo_historico","novedad","recurso","actividad_clep","publicacion_clep","otro"}
+ESTADOS={"IDENTIFICANDO","OBRA_VERIFICADA","EDICION_VERIFICADA","OA_VERIFICADO","FICHA_LISTA","APROBADO","PROGRAMADO","PUBLICADO","ORIGINAL_RETIRADO","DESCARTADO"}
+NON_TEXT={"actividad_clep","convocatoria","convocatoria_evento","recurso","video","grafica","dataset_grafica","material_didactico","efemeride","anuncio_institucional"}
 
-ESTADOS = {
-    "IDENTIFICANDO",
-    "OBRA_VERIFICADA",
-    "EDICION_VERIFICADA",
-    "OA_VERIFICADO",
-    "FICHA_LISTA",
-    "PROGRAMADO",
-    "PUBLICADO",
-    "ORIGINAL_RETIRADO",
-    "DESCARTADO",
-}
+def truthy(x):return (x or "").strip().lower() in {"1","true","yes"}
+def valid_time(x):
+    try:datetime.strptime(x,"%H:%M");return True
+    except Exception:return False
 
 def main():
-    with COLA.open(encoding="utf-8", newline="") as f:
-        rows = list(csv.DictReader(f))
+    with COLA.open(encoding="utf-8",newline="") as f:
+        rd=csv.DictReader(f);rows=list(rd)
+    errors=[]
+    ids=Counter(r.get("editorial_id") for r in rows if r.get("editorial_id"))
+    for eid,n in ids.items():
+        if n>1:errors.append(f"editorial_id duplicado: {eid}")
 
-    errores = []
-    ids = Counter(r["editorial_id"] for r in rows if r.get("editorial_id"))
-    for eid, n in ids.items():
-        if n > 1:
-            errores.append(f"editorial_id duplicado: {eid}")
+    day_counts=defaultdict(lambda:{"hist":0,"new":0,"nontext":0})
+    day_times=defaultdict(list)
 
-    historicas = defaultdict(int)
+    for n,r in enumerate(rows,start=2):
+        flow=r.get("flujo_editorial","");state=r.get("estado_editorial","")
+        day=(r.get("fecha_programada") or "").strip();tm=(r.get("orden_dia") or "").strip()
 
-    for n, r in enumerate(rows, start=2):
-        flujo = r.get("flujo_editorial", "")
-        estado = r.get("estado_editorial", "")
-        fecha = r.get("fecha_programada", "")
+        if flow not in FLUJOS:errors.append(f"línea {n}: flujo inválido: {flow}")
+        if state not in ESTADOS:errors.append(f"línea {n}: estado inválido: {state}")
 
-        if flujo not in FLUJOS:
-            errores.append(f"línea {n}: flujo inválido: {flujo}")
-        if estado not in ESTADOS:
-            errores.append(f"línea {n}: estado inválido: {estado}")
+        if day:
+            try:date.fromisoformat(day)
+            except ValueError:errors.append(f"línea {n}: fecha_programada inválida: {day}")
+        if tm and not valid_time(tm):errors.append(f"línea {n}: orden_dia debe ser HH:MM: {tm}")
 
-        if fecha:
-            try:
-                date.fromisoformat(fecha)
-            except ValueError:
-                errores.append(f"línea {n}: fecha_programada inválida: {fecha}")
+        if state=="PROGRAMADO":
+            if not day or not tm:errors.append(f"línea {n}: PROGRAMADO sin fecha/hora")
+            text=(r.get("ficha_es") or "").strip()
+            if not text:errors.append(f"línea {n}: PROGRAMADO sin texto editorial")
+            if len(text)>900:errors.append(f"línea {n}: texto editorial excede 900 caracteres")
+            if len([p for p in re.split(r"\n\s*\n",text) if p.strip()])>5:
+                errors.append(f"línea {n}: texto editorial excede 5 párrafos")
+            if r.get("text_method")!="deterministic_template":
+                errors.append(f"línea {n}: PROGRAMADO sin método determinista")
+            if not (r.get("text_template") or "").strip():
+                errors.append(f"línea {n}: PROGRAMADO sin plantilla registrada")
+            if r.get("text_status")!="VERIFICADO":
+                errors.append(f"línea {n}: PROGRAMADO con texto no verificado")
+            if not (r.get("media_type") or "").strip():
+                errors.append(f"línea {n}: PROGRAMADO sin media_type")
+            if not ((r.get("media_path") or "").strip() or (r.get("media_url") or "").strip()):
+                errors.append(f"línea {n}: PROGRAMADO sin imagen")
+            if not (r.get("media_source") or "").strip():
+                errors.append(f"línea {n}: PROGRAMADO sin media_source")
+            if r.get("media_rights_status") not in {"VERIFICADO","PROPIO_DETERMINISTA"}:
+                errors.append(f"línea {n}: derechos de imagen no verificados")
+            if day and tm:day_times[day].append(tm)
 
-        if (
-            flujo == "archivo_historico"
-            and estado in {"PROGRAMADO", "PUBLICADO", "ORIGINAL_RETIRADO"}
-            and fecha
-        ):
-            historicas[fecha] += 1
+        if state in {"PROGRAMADO","PUBLICADO","ORIGINAL_RETIRADO"} and day:
+            if flow=="archivo_historico":day_counts[day]["hist"]+=1
+            elif r.get("tipo_recurso") in NON_TEXT:day_counts[day]["nontext"]+=1
+            else:day_counts[day]["new"]+=1
 
-        if (
-            flujo == "archivo_historico"
-            and r.get("original_retirado") == "1"
-            and not r.get("post_nuevo_id")
-        ):
-            errores.append(
-                f"línea {n}: original histórico retirado sin post nuevo"
-            )
+        if flow=="archivo_historico":
+            if truthy(r.get("original_retirado")) and not r.get("post_nuevo_id"):
+                errors.append(f"línea {n}: original retirado sin post nuevo")
+            if state=="FICHA_LISTA":
+                if r.get("obra_estado")!="OBRA_VERIFICADA":
+                    errors.append(f"línea {n}: histórico FICHA_LISTA sin obra verificada")
+                if r.get("edicion_estado")!="EDICION_VERIFICADA":
+                    errors.append(f"línea {n}: histórico FICHA_LISTA sin edición verificada")
+                if r.get("oa_estado")!="OA_VERIFICADO":
+                    errors.append(f"línea {n}: histórico FICHA_LISTA sin OA verificado")
 
-    for fecha, total in sorted(historicas.items()):
-        if total > LIMITE_ARCHIVO_DIARIO:
-            errores.append(
-                f"{fecha}: {total} recuperaciones históricas; máximo = "
-                f"{LIMITE_ARCHIVO_DIARIO}"
-            )
+    for day,c in sorted(day_counts.items()):
+        if c["hist"]>6:errors.append(f"{day}: históricos={c['hist']} > 6")
+        if c["new"]>6:errors.append(f"{day}: novedades={c['new']} > 6")
+        if c["nontext"]>4:errors.append(f"{day}: no-texto={c['nontext']} > 4")
+    for day,times in day_times.items():
+        dup=[x for x,n in Counter(times).items() if n>1]
+        if dup:errors.append(f"{day}: horas duplicadas: {', '.join(sorted(dup))}")
+        mins=[]
+        for x in times:
+            h,m=map(int,x.split(":"));mins.append(h*60+m)
+        mins.sort()
+        for a,b in zip(mins,mins[1:]):
+            if b-a<60:errors.append(f"{day}: separación menor a 60 minutos")
 
     print("CLEP — VALIDACIÓN EDITORIAL")
-    print("=" * 72)
+    print("="*72)
     print(f"Registros: {len(rows)}")
-    print(f"Máximo archivo histórico/día: {LIMITE_ARCHIVO_DIARIO}")
-
-    if errores:
+    if errors:
         print("\nERRORES")
-        for e in errores:
-            print(" -", e)
+        for e in errors:print(" -",e)
         return 1
-
-    print("\nOK — cola válida.")
+    print("\nOK — cola válida: texto+imagen obligatorios; máximos 6/6/4.")
     return 0
 
-if __name__ == "__main__":
-    sys.exit(main())
+if __name__=="__main__":sys.exit(main())
