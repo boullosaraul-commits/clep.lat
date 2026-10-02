@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: editorial-infra-v1
 
       - uses: actions/setup-python@v5
         with:
