@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 ROOT=Path(__file__).resolve().parents[2]
 P=ROOT/"data/editorial/candidatos.csv"
 UA="CLEP-editorial/2.0 (+https://clep.lat)"
-LEGIT_SOURCE_TYPES={"nep_report","doab_rest"}
+LEGIT_SOURCE_TYPES={"nep_report","doab_rest","doab_oai"}
 LEGIT_SOURCE_IDS={"doab-economics"}
 
 def verify_public_pdf(url):
@@ -35,12 +35,15 @@ def main():
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
     access_yes=oa_yes=0
     for r in rows:
-        if r.get("content_type") and r.get("content_type") not in {"paper","book"}:continue
+        if r.get("content_type") and r.get("content_type") not in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}:continue
         if not r.get("title") or not r.get("authors"):continue
         ok,final,_=verify_public_pdf((r.get("access_url") or "").strip())
         if not ok:continue
         r["access_url"]=final;r["access_status"]="PUBLIC_ACCESS_VERIFIED";r["rights_status"]="LINK_ONLY";access_yes+=1
-        legitimate=(r.get("source_type") in LEGIT_SOURCE_TYPES or r.get("source_id") in LEGIT_SOURCE_IDS)
+        explicit_open_license="open_license_url=" in (r.get("notes") or "")
+        legitimate=(r.get("source_type") in LEGIT_SOURCE_TYPES or r.get("source_id") in LEGIT_SOURCE_IDS
+                    or (r.get("source_type")=="crossref_academic" and explicit_open_license)
+                    or (r.get("source_type")=="academic_oai" and r.get("oa_status")=="VERIFICADO_FUENTE"))
         if legitimate:
             r["oa_status"]="VERIFICADO_FUENTE";r["status"]="OA_VERIFICADO";oa_yes+=1
             r["notes"]=((r.get("notes") or "")+" | PDF público verificado; OA respaldado por procedencia académica; derechos de reproducción no inferidos.").strip(" |")
