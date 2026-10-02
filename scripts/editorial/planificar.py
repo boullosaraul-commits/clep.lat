@@ -33,16 +33,20 @@ def main():
     newmax=cfg["contenido_actual"]["nuevos"]["maximo_diario_inicial"]
     ntmax=cfg["contenido_actual"]["no_textos"]["maximo_diario_inicial"]
     hist=[r for r in rows if r["flujo_editorial"]=="archivo_historico" and r["estado_editorial"] in READY and not r["fecha_programada"]]
-    target=now.date()+timedelta(days=round(cfg["objetivo_recuperacion_meses"]*30.4375))
+    target=date.fromisoformat(cfg["archivo_historico"]["fecha_objetivo"])
     hcap=historical_cap(len(hist),(target-now.date()).days,cfg["archivo_historico"]["escalones_preferidos"])
     current=[r for r in rows if r["flujo_editorial"]!="archivo_historico" and r["estado_editorial"] in READY and not r["fecha_programada"]]
     nontext=[r for r in current if r["tipo_recurso"] in NON_TEXT][:ntmax]
-    papers=[r for r in current if r not in nontext][:newmax]
+    papers=[r for r in current if r["tipo_recurso"] not in NON_TEXT][:newmax]
     chosen=papers+nontext+hist[:hcap]
     chosen.sort(key=lambda r:(int(r["prioridad"] or 999),r["editorial_id"]))
     chosen=chosen[:len(slots)]
+    if chosen:
+        # Spread selected posts across the whole configured window.
+        idx=[round(i*(len(slots)-1)/max(1,len(chosen)-1)) for i in range(len(chosen))]
+    else: idx=[]
     for i,r in enumerate(chosen):
-        dt=datetime.combine(tomorrow,datetime.strptime(slots[i],"%H:%M").time(),tzinfo=tz)
+        dt=datetime.combine(tomorrow,datetime.strptime(slots[idx[i]],"%H:%M").time(),tzinfo=tz)
         r["fecha_programada"]=dt.isoformat(timespec="minutes")
         r["orden_dia"]=str(i+1); r["estado_editorial"]="PROGRAMADO"
         r["notas"]=(r["notas"]+" | Planificado automáticamente sin IA generativa.").strip(" |")
