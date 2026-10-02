@@ -9,6 +9,9 @@ on:
       - "scripts/editorial/ingerir_nep.py"
       - "scripts/editorial/enriquecer_repec.py"
       - "scripts/editorial/ingerir_doab.py"
+      - "data/editorial/pertinencia_doab.json"
+      - "scripts/editorial/preparar_publicacion.py"
+      - "scripts/editorial/evaluar_candidatos.py"
       - "scripts/editorial/ingerir_catalogos.py"
       - "scripts/editorial/detectar_actualizaciones.py"
 
