@@ -54,7 +54,13 @@ def meta_for(kind,r):
     raise ValueError(f"tipo no soportado: {kind}")
 
 def eligible(r,kind):
-    if r.get("status") not in {"OA_VERIFICADO","EVALUADO","METADATOS_OBTENIDOS","LISTO"}:return False
+    # La preparación nunca sustituye a la decisión de pertinencia.
+    if r.get("status") not in {"OA_VERIFICADO","EVALUADO","LISTO"}:return False
+    try: score=int(r.get("relevance_score") or 0)
+    except ValueError: score=0
+    if score < 15:return False
+    if r.get("source_id")=="doab-economics" or r.get("source_type") in {"doab_oai","doab_rest"}:
+        if "decision=PROMOCION_AUTOMATICA" not in (r.get("relevance_reasons") or ""):return False
     if not clean(r.get("title")) or not access(r):return False
     if kind in {"paper","book"}:
         return r.get("oa_status") in {"VERIFICADO","VERIFICADO_FUENTE","OA_VERIFICADO"} and bool(clean(r.get("authors"))) and bool(year(r))
