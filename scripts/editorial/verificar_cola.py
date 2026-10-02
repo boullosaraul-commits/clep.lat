@@ -24,7 +24,7 @@ def main():
     for eid,n in ids.items():
         if n>1:errors.append(f"editorial_id duplicado: {eid}")
 
-    day_counts=defaultdict(lambda:{"hist":0,"new":0,"nontext":0,"new_high":0,"doab":0})
+    day_counts=defaultdict(lambda:{"hist":0,"new":0,"nontext":0,"new_high":0,"doab":0,"types":Counter()})
     day_times=defaultdict(list)
 
     for n,r in enumerate(rows,start=2):
@@ -81,6 +81,7 @@ def main():
                 if m and float(m.group(1))>=9:day_counts[day]["new_high"]+=1
                 src=" ".join([r.get("oa_fuente") or "",notes,r.get("url_original") or ""]).lower()
                 if "doab" in src or "directory of open access books" in src:day_counts[day]["doab"]+=1
+                day_counts[day]["types"][r.get("tipo_recurso") or "otro"]+=1
 
         if flow=="archivo_historico":
             if truthy(r.get("original_retirado")) and not r.get("post_nuevo_id"):
@@ -99,6 +100,8 @@ def main():
         if c["new"]>6 and c["new_high"]<5:
             errors.append(f"{day}: novedades={c['new']} > 6 sin al menos 5 candidatos con índice editorial >=9")
         if c["doab"]>2:errors.append(f"{day}: libros DOAB={c['doab']} > 2")
+        for typ,n in c["types"].items():
+            if n>3:errors.append(f"{day}: novedades tipo {typ}={n} > 3")
         if c["nontext"]>4:errors.append(f"{day}: no-texto={c['nontext']} > 4")
     for day,times in day_times.items():
         dup=[x for x,n in Counter(times).items() if n>1]
@@ -117,7 +120,7 @@ def main():
         print("\nERRORES")
         for e in errors:print(" -",e)
         return 1
-    print("\nOK — cola válida: texto+imagen obligatorios; novedades 6 (hasta 8 con >=5 índice 9), DOAB <=2, histórico <=6, no-texto <=4.")
+    print("\nOK — cola válida: texto+imagen obligatorios; novedades 6 (hasta 8 con >=5 índice 9), DOAB <=2, mismo tipo <=3, histórico <=6, no-texto <=4.")
     return 0
 
 if __name__=="__main__":sys.exit(main())
