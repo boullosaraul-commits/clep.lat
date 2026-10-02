@@ -1,0 +1,42 @@
+name: Editorial ingest
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 12 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: editorial-infra-v1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ingest configured feeds
+        run: python scripts/editorial/ingerir_feeds.py
+
+      - name: Evaluate candidates
+        run: python scripts/editorial/evaluar_candidatos.py
+
+      - name: Validate editorial queue
+        run: python scripts/editorial/verificar_cola.py
+
+      - name: Commit candidate changes
+        run: |
+          if git diff --quiet -- data/editorial/candidatos.csv; then
+            echo "No new candidates."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/editorial/candidatos.csv
+          git commit -m "editorial: ingest new candidates"
+          git push

@@ -1,0 +1,24 @@
+{
+  "version": 3,
+  "politica": {
+    "nota": "Fuentes oficiales verificadas. Detectar no implica publicar.",
+    "publicacion_directa": false,
+    "requiere_revision": true
+  },
+  "fuentes": [
+    {"id":"nep-pke","nombre":"NEP — Post Keynesian Economics","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-pke/latest","area_clep":"macroeconomia-dinero","prioridad":10},
+    {"id":"nep-hme","nombre":"NEP — Heterodox Microeconomics","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-hme/latest","area_clep":"microeconomia-organizacion","prioridad":15},
+    {"id":"nep-mon","nombre":"NEP — Monetary Economics","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-mon/latest","area_clep":"macroeconomia-dinero","prioridad":20},
+    {"id":"nep-mac","nombre":"NEP — Macroeconomics","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-mac/latest","area_clep":"macroeconomia-dinero","prioridad":20},
+    {"id":"nep-inv","nombre":"NEP — Investment","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-inv/latest","area_clep":"produccion-inversion","prioridad":20},
+    {"id":"nep-hpe","nombre":"NEP — History and Philosophy of Economics","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-hpe/latest","area_clep":"pensamiento-metodologia","prioridad":20},
+    {"id":"nep-dev","nombre":"NEP — Development","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-dev/latest","area_clep":"desarrollo-estructura","prioridad":30},
+    {"id":"nep-pub","nombre":"NEP — Public Finance","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-pub/latest","area_clep":"estado-politica-economica","prioridad":30},
+    {"id":"nep-ltv","nombre":"NEP — Unemployment, Inequality and Poverty","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-ltv/latest","area_clep":"trabajo-distribucion","prioridad":30},
+    {"id":"nep-lma","nombre":"NEP — Labor Markets: Supply, Demand, and Wages","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-lma/latest","area_clep":"trabajo-distribucion","prioridad":35},
+    {"id":"nep-his","nombre":"NEP — Business, Economic and Financial History","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-his/latest","area_clep":"historia-economica","prioridad":35},
+    {"id":"nep-lam","nombre":"NEP — Latin America","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-lam/latest","area_clep":"america-latina","prioridad":20},
+    {"id":"nep-ecm","nombre":"NEP — Econometrics","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-ecm/latest","area_clep":"metodos","prioridad":40},
+    {"id":"nep-tid","nombre":"NEP — Technology and Industrial Dynamics","tipo":"nep_report","flujo_editorial":"novedad","habilitada":true,"url":"https://nep.repec.org/nep-tid/latest","area_clep":"desarrollo-estructura","prioridad":35}
+  ]
+}
