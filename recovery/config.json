@@ -22,7 +22,19 @@
       "repec"
     ],
     "retry_http_429": true,
-    "retry_only_pending": true
+    "retry_only_pending": true,
+    "daily_search_batch": 10,
+    "search_policy": "process_up_to_10_unresolved_historical_posts_per_day",
+    "replacement_transaction": {
+      "require_identified_work": true,
+      "require_verified_legitimate_open_access": true,
+      "create_new_post_first": true,
+      "verify_new_post_id": true,
+      "delete_old_post_only_after_new_post_verified": true,
+      "on_search_failure": "keep_old_post_and_retry_later",
+      "on_publish_failure": "keep_old_post_and_retry_later",
+      "on_delete_failure": "keep_new_post_record_both_and_flag_manual_review"
+    }
   },
   "generative_ai": {
     "enabled": false
