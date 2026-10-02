@@ -97,10 +97,12 @@
     "preference": [
       "official_landing_page_screenshot",
       "verified_official_cover_or_thumbnail",
-      "deterministic_clep_card",
-      "no_image"
+      "deterministic_clep_card"
     ],
-    "require_verified_source": true
+    "require_verified_source": true,
+    "required_for_every_post": true,
+    "fallback": "deterministic_clep_card",
+    "on_failure": "block_publication_and_retry"
   },
   "text_policy": {
     "generative_ai": false,
