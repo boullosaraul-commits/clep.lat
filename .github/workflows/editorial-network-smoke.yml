@@ -51,7 +51,7 @@ jobs:
       - name: Test books and structured catalogs
         run: |
           python scripts/editorial/ingerir_doab.py
-          ACADEMIC_QUERY_LIMIT=1 CROSSREF_ROWS=5 python scripts/editorial/ingerir_novedades_academicas.py
+          ACADEMIC_QUERY_LIMIT=1 CROSSREF_ROWS=5 ACADEMIC_OAI_MAX_RECORDS=60 python scripts/editorial/ingerir_novedades_academicas.py
           python scripts/editorial/ingerir_catalogos.py
       - name: Test statistical adapters
         run: python scripts/editorial/detectar_actualizaciones.py
