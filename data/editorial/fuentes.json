@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "politica": {
     "nota": "Fuentes oficiales verificadas. Detectar no implica publicar.",
     "publicacion_directa": false,
@@ -30,7 +30,18 @@
         "China",
         "Estados Unidos"
       ],
-      "regla": "preferir fuente estadística oficial primaria; usar organismos internacionales para armonización y comparación multinacional"
+      "regla": "preferir fuente estadística oficial primaria; usar organismos internacionales para armonización y comparación multinacional",
+      "fuentes_globales_primarias": [
+        "UNSD/UNdata",
+        "UNCTAD Data Hub",
+        "FAOSTAT",
+        "BIS Data Portal",
+        "ILOSTAT",
+        "World Bank",
+        "IMF",
+        "OECD"
+      ],
+      "bis_ai_search": "prohibited; use SDMX API only"
     }
   },
   "fuentes": [
@@ -680,6 +691,81 @@
       "metodo": "REST",
       "auth": "key_for_higher_usage",
       "nota": "ACS, censos, Economic Census, County Business Patterns, comercio y otros datasets."
+    },
+    {
+      "id": "unsd-undata",
+      "nombre": "UNSD — UNdata",
+      "pais": "Global",
+      "tipo": "global_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://data.un.org/Host.aspx?Content=API",
+      "area_clep": "internacional-comparada",
+      "prioridad": 20,
+      "contenido": "dataset_grafica",
+      "metodo": "REST/SDMX/SOAP",
+      "auth": "none_or_source_specific",
+      "nota": "Portal global UNSD. Usar REST/SDMX y metadatos oficiales; evitar depender de wrappers de terceros."
+    },
+    {
+      "id": "unsd-ama",
+      "nombre": "UNSD — Analysis of Main Aggregates",
+      "pais": "Global",
+      "tipo": "global_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://unstats.un.org/unsd/amaapi/",
+      "area_clep": "macroeconomia-dinero",
+      "prioridad": 15,
+      "contenido": "dataset_grafica",
+      "metodo": "REST/OpenAPI",
+      "auth": "none",
+      "nota": "Agregados principales con endpoints de países, series, disponibilidad, última actualización, datos, metadatos y notas."
+    },
+    {
+      "id": "unctad-datahub",
+      "nombre": "UNCTAD Data Hub",
+      "pais": "Global",
+      "tipo": "global_statistics_source",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://unctadstat.unctad.org/",
+      "area_clep": "desarrollo-estructura",
+      "prioridad": 15,
+      "contenido": "dataset_grafica",
+      "metodo": "official_datahub/download",
+      "auth": "source_specific",
+      "nota": "Comercio, desarrollo, estructura productiva, inversión y economía internacional. Automatizar únicamente interfaces/descargas oficiales verificadas."
+    },
+    {
+      "id": "faostat",
+      "nombre": "FAOSTAT — Statistics API",
+      "pais": "Global",
+      "tipo": "global_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://www.fao.org/faostat/",
+      "area_clep": "desarrollo-estructura",
+      "prioridad": 15,
+      "contenido": "dataset_grafica",
+      "metodo": "REST/JSON/CSV",
+      "auth": "source_specific",
+      "nota": "API oficial FAOSTAT 2026: dominios, áreas, ítems, elementos, años, metadatos y códigos; agricultura, alimentos, tierra, precios y balances."
+    },
+    {
+      "id": "bis-data",
+      "nombre": "BIS Data Portal — SDMX API",
+      "pais": "Global",
+      "tipo": "global_statistics_api",
+      "flujo_editorial": "recurso",
+      "habilitada": true,
+      "url": "https://stats.bis.org/api-doc/v2/",
+      "area_clep": "macroeconomia-dinero",
+      "prioridad": 10,
+      "contenido": "dataset_grafica",
+      "metodo": "SDMX REST v2.1/JSON/XML/CSV",
+      "auth": "none",
+      "nota": "Crédito, banca internacional, deuda, liquidez global, derivados, precios inmobiliarios, tipos de cambio, bancos centrales y pagos. Usar API determinista, nunca búsqueda asistida por IA del portal."
     }
   ]
 }
