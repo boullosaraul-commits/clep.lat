@@ -1,0 +1,49 @@
+name: Historical recovery
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "35 12 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: historical-recovery
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Search up to 10 unresolved historical posts
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python recovery/historical_worker.py
+
+      - name: Validate editorial queue
+        run: python scripts/editorial/verificar_cola.py
+
+      - name: Persist recovery state and new fichas
+        run: |
+          if git diff --quiet -- recovery/state/historical_recovery.json data/editorial/cola.csv; then
+            echo "No recovery changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f recovery/state/historical_recovery.json
+          git add data/editorial/cola.csv
+          git commit -m "recovery: record daily historical search"
+          git pull --rebase origin main
+          git push
