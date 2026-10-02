@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "policy": {
+    "generative_ai": false,
+    "emit_on_first_seen": false,
+    "change_rule": "emit_when_latest_period_or_value_changes",
+    "source_facts_only": true
+  },
+  "watches": [
+    {
+      "id": "bls-us-unemployment",
+      "adapter": "bls_latest",
+      "series": "LNS14000000",
+      "indicator": "Unemployment rate",
+      "geography": "United States",
+      "unit": "%",
+      "official_source": "U.S. Bureau of Labor Statistics",
+      "access_url": "https://www.bls.gov/cps/",
+      "area_clep": "trabajo-distribucion",
+      "priority": 10
+    },
+    {
+      "id": "wb-mx-gdp-growth",
+      "adapter": "worldbank_latest",
+      "country": "MEX",
+      "indicator_code": "NY.GDP.MKTP.KD.ZG",
+      "indicator": "GDP growth (annual %)",
+      "geography": "Mexico",
+      "unit": "%",
+      "official_source": "World Bank — World Development Indicators",
+      "access_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=MX",
+      "area_clep": "america-latina",
+      "priority": 20
+    },
+    {
+      "id": "wb-br-gdp-growth",
+      "adapter": "worldbank_latest",
+      "country": "BRA",
+      "indicator_code": "NY.GDP.MKTP.KD.ZG",
+      "indicator": "GDP growth (annual %)",
+      "geography": "Brazil",
+      "unit": "%",
+      "official_source": "World Bank — World Development Indicators",
+      "access_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=BR",
+      "area_clep": "america-latina",
+      "priority": 20
+    },
+    {
+      "id": "wb-ar-gdp-growth",
+      "adapter": "worldbank_latest",
+      "country": "ARG",
+      "indicator_code": "NY.GDP.MKTP.KD.ZG",
+      "indicator": "GDP growth (annual %)",
+      "geography": "Argentina",
+      "unit": "%",
+      "official_source": "World Bank — World Development Indicators",
+      "access_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=AR",
+      "area_clep": "america-latina",
+      "priority": 20
+    },
+    {
+      "id": "imf-mx-real-gdp",
+      "adapter": "imf_datamapper",
+      "country": "MEX",
+      "indicator_code": "NGDP_RPCH",
+      "indicator": "Real GDP growth",
+      "geography": "Mexico",
+      "unit": "%",
+      "official_source": "IMF DataMapper",
+      "access_url": "https://www.imf.org/external/datamapper/NGDP_RPCH@WEO/MEX",
+      "area_clep": "macroeconomia-dinero",
+      "priority": 35
+    },
+    {
+      "id": "imf-cn-real-gdp",
+      "adapter": "imf_datamapper",
+      "country": "CHN",
+      "indicator_code": "NGDP_RPCH",
+      "indicator": "Real GDP growth",
+      "geography": "China",
+      "unit": "%",
+      "official_source": "IMF DataMapper",
+      "access_url": "https://www.imf.org/external/datamapper/NGDP_RPCH@WEO/CHN",
+      "area_clep": "internacional-comparada",
+      "priority": 35
+    },
+    {
+      "id": "imf-in-real-gdp",
+      "adapter": "imf_datamapper",
+      "country": "IND",
+      "indicator_code": "NGDP_RPCH",
+      "indicator": "Real GDP growth",
+      "geography": "India",
+      "unit": "%",
+      "official_source": "IMF DataMapper",
+      "access_url": "https://www.imf.org/external/datamapper/NGDP_RPCH@WEO/IND",
+      "area_clep": "internacional-comparada",
+      "priority": 35
+    },
+    {
+      "id": "eurostat-ea20-unemployment",
+      "adapter": "eurostat_latest",
+      "dataset": "une_rt_m",
+      "filters": {
+        "freq": "M",
+        "s_adj": "SA",
+        "age": "TOTAL",
+        "sex": "T",
+        "unit": "PC_ACT",
+        "geo": "EA20"
+      },
+      "indicator": "Unemployment rate",
+      "geography": "Euro area (20 countries)",
+      "unit": "%",
+      "official_source": "Eurostat",
+      "access_url": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
+      "area_clep": "internacional-comparada",
+      "priority": 20
+    }
+  ]
+}
