@@ -97,6 +97,8 @@ def main():
             r["notes"]=((r.get("notes") or "")+" | Metadatos obtenidos por OAI-PMH oficial de RePEc; OA aún por verificar.").strip(" |")
             enriched+=1
         except Exception as e:
+            if failed < 5:
+                print(f"RePEc OAI ERROR {h}: {type(e).__name__}: {e}")
             r["notes"]=((r.get("notes") or "")+f" | RePEc OAI pendiente: {type(e).__name__}: {e}").strip(" |")
             failed+=1
     with P.open("w",encoding="utf-8",newline="") as f:
