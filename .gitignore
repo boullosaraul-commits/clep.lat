@@ -1,0 +1,9 @@
+# CLEP recovery: generated/local bulk data
+recovery/data/raw/
+recovery/data/cache/
+recovery/data/checkpoints/
+recovery/data/media/
+recovery/data/**/*.json
+recovery/data/**/*.csv
+!recovery/data/**/*.example.csv
+!recovery/data/**/*.schema.json
