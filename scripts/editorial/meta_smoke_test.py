@@ -37,17 +37,25 @@ def multipart(fields,file_field,path):
                f"--{boundary}--\r\n".encode()]
     return boundary,b"".join(chunks)
 
-def post_form(url,fields):
+def http_json(req,token,timeout=60):
+    try:
+        with urllib.request.urlopen(req,timeout=timeout) as r:
+            return json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        body=e.read().decode("utf-8","replace").replace(token,"***")
+        raise RuntimeError(f"Meta HTTP {e.code}: {body[:1000]}") from None
+
+def post_form(url,fields,token):
     data=urllib.parse.urlencode(fields).encode()
     req=urllib.request.Request(url,data=data,method="POST")
-    with urllib.request.urlopen(req,timeout=60) as r:return json.loads(r.read().decode())
+    return http_json(req,token)
 
 def upload_photo(page,token,path):
     url=f"https://graph.facebook.com/{API}/{page}/photos"
     boundary,body=multipart({"published":"false","access_token":token},"source",path)
     req=urllib.request.Request(url,data=body,method="POST",
         headers={"Content-Type":f"multipart/form-data; boundary={boundary}"})
-    with urllib.request.urlopen(req,timeout=90) as r:return json.loads(r.read().decode())
+    return http_json(req,token,timeout=90)
 
 def graph_get(object_id,token,fields):
     q=urllib.parse.urlencode({"fields":fields,"access_token":token})
@@ -86,7 +94,7 @@ def main():
               "published":"false","scheduled_publish_time":str(int(when.timestamp())),
               "attached_media[0]":json.dumps({"media_fbid":photo_id},separators=(",",":")),
               "access_token":token
-            })
+            },token)
             post_id=str(feed.get("id") or "")
             if not post_id:raise RuntimeError("Meta no devolvió feed post ID")
             obj=graph_get(post_id,token,"id,is_published")
