@@ -31,6 +31,12 @@ jobs:
       - name: Enrich RePEc metadata
         run: python scripts/editorial/enriquecer_repec.py
 
+      - name: Install non-generative translator
+        run: pip install argostranslate
+
+      - name: Translate abstracts to Spanish
+        run: python scripts/editorial/traducir_abstracts.py
+
       - name: Evaluate candidates
         run: python scripts/editorial/evaluar_candidatos.py
 
