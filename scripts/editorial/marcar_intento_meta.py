@@ -8,12 +8,12 @@ queda IN_FLIGHT y futuras ejecuciones no la reintentan automáticamente.
 Escribe el editorial_id reservado en el archivo indicado por --output.
 Exit 3 = no hay nada nuevo que reservar.
 """
-import argparse,csv
+import argparse,csv,os
 from datetime import datetime
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
-COLA=ROOT/"data/editorial/cola.csv"
+COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 
 def pri(r):
     try:p=int(r.get("prioridad") or 999)
