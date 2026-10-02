@@ -89,12 +89,50 @@ jobs:
             git push
           fi
 
-      - name: Schedule image posts in Facebook
+      - name: Schedule image posts one by one with durable reservations
         env:
           CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
           CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
           META_GRAPH_VERSION: "v26.0"
-        run: python scripts/editorial/programar_facebook.py
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in $(seq 1 16); do
+            rm -f /tmp/clep_meta_attempt_id
+            set +e
+            python scripts/editorial/marcar_intento_meta.py --output /tmp/clep_meta_attempt_id
+            mark_rc=$?
+            set -e
+            if [ "$mark_rc" -eq 3 ]; then
+              echo "No more posts to reserve."
+              break
+            fi
+            if [ "$mark_rc" -ne 0 ]; then
+              exit "$mark_rc"
+            fi
+
+            eid="$(cat /tmp/clep_meta_attempt_id)"
+            git add data/editorial/cola.csv
+            git commit -m "editorial: reserve Meta attempt $eid"
+            git pull --rebase origin main
+            git push
+
+            set +e
+            python scripts/editorial/programar_facebook.py --editorial-id "$eid"
+            publish_rc=$?
+            set -e
+
+            if ! git diff --quiet -- data/editorial/cola.csv; then
+              git add data/editorial/cola.csv
+              git commit -m "editorial: record Meta attempt $eid"
+              git pull --rebase origin main
+              git push
+            fi
+
+            if [ "$publish_rc" -ne 0 ]; then
+              echo "Meta attempt $eid requires review; continuing without automatic retry."
+            fi
+          done
 
       - name: Verify already published posts
         env:
