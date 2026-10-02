@@ -34,7 +34,11 @@
       "on_search_failure": "keep_old_post_and_retry_later",
       "on_publish_failure": "keep_old_post_and_retry_later",
       "on_delete_failure": "keep_new_post_record_both_and_flag_manual_review"
-    }
+    },
+    "campaign_end": null,
+    "stop_when_target_date_reached": false,
+    "completion_policy": "continue_until_backlog_exhausted",
+    "target_date_role": "planning_reference_only"
   },
   "generative_ai": {
     "enabled": false
