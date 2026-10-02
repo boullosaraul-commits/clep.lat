@@ -34,7 +34,7 @@ def main():
         except Exception as e:
             print(f"VERIFY {pid}: {e}",file=sys.stderr);continue
         if o.get("is_published") is not True:continue
-        r["estado_editorial"]="PUBLICADO"
+        r["estado_editorial"]="PUBLICADO"\n        r["meta_attempt_status"]="PUBLISHED"
         if o.get("permalink_url"):r["post_nuevo_url"]=o["permalink_url"]
         if o.get("created_time"):r["fecha_publicacion"]=o["created_time"]
         r["notas"]=((r.get("notas") or "")+" | publicación verificada en Meta").strip(" |")
