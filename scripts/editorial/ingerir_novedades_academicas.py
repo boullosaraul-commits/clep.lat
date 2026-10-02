@@ -154,7 +154,6 @@ def ingest_crossref(src,rows,fields,seen,dedupes,now):
             params={
               "filter":f"from-pub-date:{start},until-pub-date:{end},type:{ctype}",
               "query.bibliographic":query,"rows":str(rowcap),
-              "select":"DOI,title,author,editor,abstract,URL,link,license,type,publisher,container-title,published-online,published-print,published,issued,created,language,relation,edition-number",
               "mailto":"contacto@clep.lat"
             }
             url=src["url"]+"?"+urllib.parse.urlencode(params)
@@ -219,7 +218,9 @@ def ingest_oai(src,rows,fields,seen,dedupes,now):
             if not access:continue
             kind=classify_oai(vals(dc,"type"),title,src.get("tipo_por_defecto","report"))
             authors="; ".join(dict.fromkeys(vals(dc,"creator")))
-            pub=first(vals(dc,"date"));year=(re.search(r"\b(?:19|20)\d{2}\b",pub) or [None])[0] if pub else ""
+            pub=first(vals(dc,"date"))
+            ym=re.search(r"\b(?:19|20)\d{2}\b",pub) if pub else None
+            year=ym.group(0) if ym else ""
             desc=first(vals(dc,"description"));rights=" ".join(vals(dc,"rights"))
             explicit_oa=bool(CC_RE.search(rights) or re.search(r"\b(open access|acceso abierto)\b",rights,re.I))
             d=hkey("url:"+access)
