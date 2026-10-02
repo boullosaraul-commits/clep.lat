@@ -39,6 +39,22 @@ def meta_for(kind,r):
     if kind=="book":
         return {"title":clean(r.get("title")),"authors_or_editors":clean(r.get("authors")),
                 "year":year(r),"access_url":u}
+    if kind=="chapter":
+        return {"title":clean(r.get("title")),"authors":clean(r.get("authors")),
+                "container_title":clean(r.get("venue") or source_name(r)),"year":year(r),"access_url":u}
+    if kind in {"report","policy_brief"}:
+        return {"title":clean(r.get("title")),"authors_or_institution":clean(r.get("authors") or r.get("venue") or source_name(r)),
+                "year":year(r),"access_url":u}
+    if kind=="special_issue":
+        return {"title":clean(r.get("title")),"journal":clean(r.get("venue") or source_name(r)),
+                "year":year(r),"access_url":u}
+    if kind=="thesis":
+        return {"title":clean(r.get("title")),"authors":clean(r.get("authors")),
+                "institution":clean(r.get("venue") or source_name(r)),"year":year(r),"access_url":u}
+    if kind=="edition_translation":
+        note="traducción" if "edition_event=translation" in (r.get("notes") or "") else clean(re.search(r"edition_number=([^|]+)",r.get("notes") or "").group(1) if re.search(r"edition_number=([^|]+)",r.get("notes") or "") else "nueva edición")
+        return {"title":clean(r.get("title")),"authors_or_editors":clean(r.get("authors")),
+                "edition_note":note,"year":year(r),"access_url":u}
     if kind=="dataset_grafica":
         return {"indicator_or_dataset":clean(r.get("indicator_or_dataset") or r.get("title")),
                 "geography":clean(r.get("geography")),"reference_period":clean(r.get("reference_period")),
@@ -59,11 +75,14 @@ def eligible(r,kind):
     try: score=int(r.get("relevance_score") or 0)
     except ValueError: score=0
     if score < 15:return False
-    if r.get("source_id")=="doab-economics" or r.get("source_type") in {"doab_oai","doab_rest"}:
+    if r.get("source_id")=="doab-economics" or r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai"}:
         if "decision=PROMOCION_AUTOMATICA" not in (r.get("relevance_reasons") or ""):return False
     if not clean(r.get("title")) or not access(r):return False
-    if kind in {"paper","book"}:
-        return r.get("oa_status") in {"VERIFICADO","VERIFICADO_FUENTE","OA_VERIFICADO"} and bool(clean(r.get("authors"))) and bool(year(r))
+    academic={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
+    if kind in academic:
+        if r.get("oa_status") not in {"VERIFICADO","VERIFICADO_FUENTE","OA_VERIFICADO"} or not year(r):return False
+        if kind in {"paper","book","chapter","thesis","edition_translation"} and not clean(r.get("authors")):return False
+        return True
     return r.get("access_status") in {"OFFICIAL_SOURCE_VERIFIED","PUBLIC_ACCESS_VERIFIED","VERIFICADO"} or clean(r.get("source_url")).startswith("https://")
 
 def download_verified_image(r):
@@ -94,6 +113,9 @@ def deterministic_visual(kind,r):
     else:svg=None
     if svg is None:
         label={"paper":"PAPER ABIERTO · CLEP","book":"LIBRO ABIERTO · CLEP",
+               "chapter":"CAPÍTULO ABIERTO · CLEP","report":"INFORME ABIERTO · CLEP",
+               "policy_brief":"POLICY BRIEF · CLEP","special_issue":"NÚMERO ESPECIAL · CLEP",
+               "thesis":"TESIS ABIERTA · CLEP","edition_translation":"NUEVA EDICIÓN / TRADUCCIÓN · CLEP",
                "dataset_grafica":"DATOS · CLEP","convocatoria_evento":"AGENDA · CLEP",
                "video":"VIDEO · CLEP","recurso":"RECURSO · CLEP"}.get(kind,"CLEP")
         y=year(r)
@@ -130,8 +152,8 @@ def main():
           "prioridad":r.get("priority") or "100","estado_editorial":"FICHA_LISTA","url_id":r["candidate_id"],
           "url_original":r.get("source_url",""),"titulo_original":clean(r.get("title")),"responsables":clean(r.get("authors")),
           "tipo_recurso":kind,"anio":year(r),"idioma_obra":r.get("language",""),
-          "obra_estado":"OBRA_VERIFICADA","edicion_estado":"EDICION_VERIFICADA" if kind in {"paper","book"} else "NO_APLICA",
-          "oa_estado":"OA_VERIFICADO" if kind in {"paper","book"} else "NO_APLICA","doi":r.get("doi",""),
+          "obra_estado":"OBRA_VERIFICADA","edicion_estado":"EDICION_VERIFICADA" if kind in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"} else "NO_APLICA",
+          "oa_estado":"OA_VERIFICADO" if kind in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"} else "NO_APLICA","doi":r.get("doi",""),
           "oa_url":access(r),"oa_fuente":source_name(r),"area_clep":r.get("area_clep",""),
           "ficha_es":text,"notas":f"Origen {source_name(r)}; relevance_score={r.get('relevance_score') or '0'}; indice_editorial={min(10.0, float(r.get('relevance_score') or 0)/10):.1f}; preparación atómica determinista sin IA generativa.",
           "text_method":"deterministic_template","text_template":kind,"text_status":"VERIFICADO",**visual
