@@ -1,0 +1,20 @@
+name: Facebook publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publication automation not enabled
+        run: |
+          echo "CLEP Facebook publication is intentionally disabled."
+          echo "This workflow is a placeholder until the queue, Meta permissions,"
+          echo "token lifecycle, publication verification and rollback are validated."
