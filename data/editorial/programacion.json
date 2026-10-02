@@ -1,44 +1,32 @@
 {
   "timezone": "America/Mexico_City",
-  "minimum_gap_minutes": 90,
-  "ventana_diaria": {
-    "inicio": "07:30",
-    "fin": "22:30"
-  },
+  "minimum_gap_minutes": 60,
+  "ventana_diaria": {"inicio":"07:00","fin":"23:30"},
+  "objetivo_recuperacion_meses": 4,
   "contenido_actual": {
-    "maximo_diario": 6,
-    "textos": {
-      "maximo_diario": 2,
-      "tipos": ["articulo", "working_paper", "libro", "capitulo", "tesis", "informe_academico"]
-    },
+    "nuevos": {"maximo_diario_inicial":6},
     "no_textos": {
-      "reserva_diaria": 4,
-      "maximo_diario": 4,
-      "tipos": ["actividad_clep", "convocatoria", "recurso", "video", "grafica", "material_didactico", "efemeride", "anuncio_institucional"]
+      "maximo_diario_inicial":4,
+      "tipos":["actividad_clep","convocatoria","recurso","video","grafica","material_didactico","efemeride","anuncio_institucional"]
     }
   },
   "archivo_historico": {
-    "maximo_diario": 6,
-    "cede_slot_a_contenido_actual": true
+    "maximo_diario_inicial":6,
+    "escalones_preferidos":[6,4,3,2,1,0],
+    "modo":"adaptativo_por_backlog_y_fecha_objetivo",
+    "cede_capacidad_a_contenido_actual":true,
+    "nota":"El planificador debe escoger el menor escalón que todavía permita agotar el backlog recuperable antes de la fecha objetivo; si el ritmo queda corto, conserva o recupera temporalmente un escalón superior."
   },
-  "slots_preferentes": [
-    "07:30",
-    "09:00",
-    "10:30",
-    "12:00",
-    "13:30",
-    "15:00",
-    "16:30",
-    "18:00",
-    "19:30",
-    "21:00",
-    "22:30"
-  ],
-  "reglas": {
-    "los_maximos_no_son_cuotas": true,
-    "no_rellenar_por_rellenar": true,
-    "priorizar_contenido_actual": true,
-    "distribuir_durante_todo_el_dia": true
+  "relevo": {
+    "activo":true,
+    "principio":"Cada slot histórico que deja de ser necesario aumenta capacidad disponible para nuevos/no-textos; no obliga a rellenarlo.",
+    "prioridad":["contenido_actual","archivo_historico"]
   },
-  "nota": "Política inicial: hasta 6 contenidos actuales (máximo 2 textos y hasta 4 no-textos) más hasta 6 recuperaciones históricas. Los máximos no obligan a publicar. Revisar con Insights tras 4-6 semanas."
+  "slots_preferentes":["07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"],
+  "reglas":{
+    "los_maximos_no_son_cuotas":true,
+    "no_rellenar_por_rellenar":true,
+    "distribuir_durante_todo_el_dia":true,
+    "objetivo_agotar_backlog":true
+  }
 }
