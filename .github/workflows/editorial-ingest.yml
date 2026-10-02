@@ -2,14 +2,12 @@ name: Editorial ingest
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 12 * * *"
 
 permissions:
   contents: write
 
 concurrency:
-  group: editorial-ingest
+  group: clep-editorial
   cancel-in-progress: false
 
 jobs:
@@ -17,10 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Migrate legacy NEP rows
+        run: python scripts/editorial/migrar_nep_legacy.py
 
       - name: Ingest configured feeds
         run: python scripts/editorial/ingerir_feeds.py
@@ -31,19 +34,22 @@ jobs:
       - name: Enrich RePEc metadata
         run: python scripts/editorial/enriquecer_repec.py
 
-      - name: Install non-generative translator
-        run: pip install argostranslate
+      - name: Ingest recent DOAB books
+        run: python scripts/editorial/ingerir_doab.py
 
-      - name: Translate abstracts to Spanish
-        run: python scripts/editorial/traducir_abstracts.py
+      - name: Ingest structured events and videos
+        run: python scripts/editorial/ingerir_catalogos.py
 
-      - name: Verify open-access PDFs
+      - name: Detect statistical updates
+        run: python scripts/editorial/detectar_actualizaciones.py
+
+      - name: Verify public access and OA evidence
         run: python scripts/editorial/verificar_oa.py
 
       - name: Evaluate candidates
         run: python scripts/editorial/evaluar_candidatos.py
 
-      - name: Prepare verified candidates atomically
+      - name: Prepare candidates atomically
         run: python scripts/editorial/preparar_publicacion.py
 
       - name: Validate editorial queue
@@ -51,12 +57,13 @@ jobs:
 
       - name: Commit candidate changes
         run: |
-          if git diff --quiet -- data/editorial/candidatos.csv data/editorial/cola.csv data/editorial/media; then
-            echo "No new candidates."
+          if git diff --quiet -- data/editorial/candidatos.csv data/editorial/cola.csv data/editorial/media data/editorial/state; then
+            echo "No editorial changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/editorial/candidatos.csv data/editorial/cola.csv data/editorial/media
-          git commit -m "editorial: ingest new candidates"
+          git add data/editorial/candidatos.csv data/editorial/cola.csv data/editorial/media data/editorial/state
+          git commit -m "editorial: ingest and prepare candidates"
+          git pull --rebase origin main
           git push
