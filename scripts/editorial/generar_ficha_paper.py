@@ -13,5 +13,5 @@ def ficha_paper(meta):
     tail=" · ".join(x for x in (str(meta.get("venue","")).strip(),str(meta.get("year","")).strip()) if x)
     authors_line=str(meta["authors"]).strip()+((" · "+tail) if tail else "")
     return TPL["plantilla"].format(title=str(meta["title"]).strip(),authors_line=authors_line,
-        summary=str(meta["summary"]).strip(),access_url=str(meta["access_url"]).strip(),
+        summary=str(meta["summary"]).strip(),translation_block=((str(meta.get("translation_label","")).strip()+"\n"+str(meta.get("summary_es","")).strip()+"\n\n") if str(meta.get("summary_es","")).strip() else ""),access_url=str(meta["access_url"]).strip(),
         doi_display=str(meta.get("doi","")).strip() or "Sin DOI identificado")
