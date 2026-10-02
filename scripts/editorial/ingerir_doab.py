@@ -1,93 +1,120 @@
 #!/usr/bin/env python3
-"""Ingesta determinista de libros OA recientes desde DOAB REST.
+"""Ingesta determinista de libros OA recientes desde DOAB.
 
-DOAB es la fuente de identidad/OA. El script no interpreta contenido ni genera
-resúmenes. Recupera metadatos declarados y deja la selección temática a las
-reglas editoriales.
+Ruta principal: OAI-PMH oficial, que DOAB documenta para cosecha de metadatos.
+Se usa oai_dc para evitar depender del endpoint REST que desde GitHub Actions
+puede responder 403. No se interpreta el contenido ni se genera texto.
 """
-import csv, hashlib, json, re, urllib.parse, urllib.request
-from datetime import datetime, timezone
+import csv, hashlib, re, urllib.parse, urllib.request, urllib.error, xml.etree.ElementTree as ET
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
 P=ROOT/"data/editorial/candidatos.csv"
-UA="CLEP-editorial/2.0 (+https://clep.lat)"
+UA="CLEP-editorial/2.1 (+https://clep.lat)"
+BASE="https://directory.doabooks.org/oai/request"
+NS={
+ "oai":"http://www.openarchives.org/OAI/2.0/",
+ "dc":"http://purl.org/dc/elements/1.1/",
+}
 
-def get_json(url):
-    req=urllib.request.Request(url,headers={"User-Agent":UA,"Accept":"application/json"})
-    with urllib.request.urlopen(req,timeout=45) as r:return json.loads(r.read().decode("utf-8","replace"))
+def get_xml(params):
+    url=BASE+"?"+urllib.parse.urlencode(params)
+    req=urllib.request.Request(url,headers={"User-Agent":UA,"Accept":"application/xml,text/xml;q=0.9,*/*;q=0.5"})
+    with urllib.request.urlopen(req,timeout=45) as r:
+        return ET.fromstring(r.read(8_000_000))
 
-def metadata(item):
-    out={}
-    raw=item.get("metadata") or []
-    if isinstance(raw,dict):
-        for k,v in raw.items():
-            vals=v if isinstance(v,list) else [v]
-            out[k]=[str(x.get("value") if isinstance(x,dict) else x) for x in vals]
-    else:
-        for x in raw:
-            if not isinstance(x,dict):continue
-            k=x.get("key") or x.get("name");v=x.get("value")
-            if k and v is not None:out.setdefault(k,[]).append(str(v))
-    return out
+def vals(meta,tag):
+    return [re.sub(r"\s+"," ",(x.text or "")).strip() for x in meta.findall(f".//dc:{tag}",NS) if (x.text or "").strip()]
 
-def first(md,*keys):
-    for k in keys:
-        vals=md.get(k) or []
-        if vals:return vals[0].strip()
+def first(meta,*tags):
+    for t in tags:
+        v=vals(meta,t)
+        if v:return v[0]
     return ""
 
-def allv(md,*keys):
-    out=[]
-    for k in keys:out.extend(md.get(k) or [])
-    return [x.strip() for x in out if x and x.strip()]
+def handle_from_identifier(identifier):
+    p="oai:doabooks.org:"
+    return identifier[len(p):] if identifier.startswith(p) else identifier
+
+def doi_from(values):
+    for s in values:
+        m=re.search(r"10\.\d{4,9}/[-._;()/:A-Z0-9]+",s,flags=re.I)
+        if m:return m.group(0).rstrip(".,;)")
+    return ""
+
+def landing(handle,identifiers):
+    for s in identifiers:
+        if "directory.doabooks.org/handle/" in s:return s
+    return "https://directory.doabooks.org/handle/"+handle
 
 def main():
     with P.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
     existing={r.get("dedupe_key") for r in rows if r.get("dedupe_key")}
-    q='dc.date.accessioned_dt:[NOW-7DAY/DAY TO NOW]'
-    url="https://directory.doabooks.org/rest/search?"+urllib.parse.urlencode(
-        {"query":q,"expand":"metadata,bitstreams","sort":"dc.date.accessioned_dt","limit":"100"})
+    since=(datetime.now(timezone.utc)-timedelta(days=14)).date().isoformat()
+    params={"verb":"ListRecords","metadataPrefix":"oai_dc","from":since}
     try:
-        data=get_json(url)
+        root=get_xml(params)
     except Exception as e:
-        print(f"DOAB no disponible en esta ejecución: {type(e).__name__}: {e}")
+        print(f"DOAB OAI no disponible en esta ejecución: {type(e).__name__}: {e}")
         return
-    items=data if isinstance(data,list) else (data.get("items") or data.get("results") or [])
-    now=datetime.now(timezone.utc).isoformat(timespec="seconds");added=0
-    for item in items:
-        if not isinstance(item,dict):continue
-        md=metadata(item)
-        title=first(md,"dc.title")
-        authors=allv(md,"dc.contributor.author","dc.creator")
-        year=first(md,"dc.date.issued","dc.date.created")
-        ym=re.search(r"\b(?:18|19|20)\d{2}\b",year);year=ym.group(0) if ym else ""
-        handle=str(item.get("handle") or first(md,"dc.identifier.uri") or item.get("uuid") or "")
-        if not title or not handle:continue
-        key=hashlib.sha256(("doab:"+handle).encode()).hexdigest()[:24]
-        if key in existing:continue
-        doi=first(md,"dc.identifier.doi")
-        doi=doi.replace("https://doi.org/","").replace("http://doi.org/","")
-        lang=first(md,"dc.language","dc.language.iso")
-        abstract=first(md,"dc.description.abstract","dc.description")
-        license_text=first(md,"dc.rights","dc.rights.uri","dc.rights.license")
-        landing=handle if handle.startswith("http") else "https://directory.doabooks.org/handle/"+handle
-        row={k:"" for k in fields}
-        row.update({
-          "candidate_id":"CAND-"+hashlib.sha256(("doab|"+handle).encode()).hexdigest()[:16].upper(),
-          "source_id":"doab-economics","source_type":"doab_rest","source_item_id":handle,
-          "detected_at":now,"published_at":year,"title":title,"authors":"; ".join(dict.fromkeys(authors)),
-          "summary":abstract,"source_url":landing,"access_url":landing,"doi":doi,"language":lang,
-          "area_clep":"libros-economia","flujo_editorial":"novedad","priority":"20",
-          "relevance_score":"0","relevance_reasons":"pendiente_reglas","oa_status":"VERIFICADO_FUENTE",
-          "access_status":"OFFICIAL_SOURCE_VERIFIED","rights_status":"LINK_ONLY","dedupe_key":key,
-          "status":"METADATOS_OBTENIDOS","content_type":"book","source_name":"Directory of Open Access Books (DOAB)",
-          "publication_year":year,"notes":"Metadatos DOAB; libro OA indexado por DOAB. Licencia declarada: "+license_text
-        })
-        rows.append(row);existing.add(key);added+=1
+    now=datetime.now(timezone.utc).isoformat(timespec="seconds");added=0;seen_records=0
+    # Limitamos páginas para mantener el job acotado; resumptionToken permite continuar.
+    for page in range(3):
+        err=root.find(".//oai:error",NS)
+        if err is not None:
+            print(f"DOAB OAI: {err.get('code','error')}: {(err.text or '').strip()}")
+            break
+        for rec in root.findall(".//oai:record",NS):
+            header=rec.find("oai:header",NS)
+            meta=rec.find("oai:metadata",NS)
+            if header is None or meta is None or header.get("status")=="deleted":continue
+            identifier=(header.findtext("oai:identifier",default="",namespaces=NS) or "").strip()
+            handle=handle_from_identifier(identifier)
+            title=first(meta,"title")
+            creators=vals(meta,"creator")
+            if not title or not handle:continue
+            seen_records+=1
+            key=hashlib.sha256(("doab:"+handle).encode()).hexdigest()[:24]
+            if key in existing:continue
+            identifiers=vals(meta,"identifier")
+            doi=doi_from(identifiers)
+            dates=vals(meta,"date")
+            year=""
+            for d in dates:
+                m=re.search(r"\b(?:18|19|20)\d{2}\b",d)
+                if m:year=m.group(0);break
+            languages=vals(meta,"language")
+            descs=vals(meta,"description")
+            rights=vals(meta,"rights")
+            subjects=vals(meta,"subject")
+            url=landing(handle,identifiers)
+            row={k:"" for k in fields}
+            row.update({
+              "candidate_id":"CAND-"+hashlib.sha256(("doab|"+handle).encode()).hexdigest()[:16].upper(),
+              "source_id":"doab-economics","source_type":"doab_oai","source_item_id":handle,
+              "detected_at":now,"published_at":year,"title":title,
+              "authors":"; ".join(dict.fromkeys(creators)),
+              "summary":descs[0] if descs else "","source_url":url,"access_url":url,
+              "doi":doi,"language":languages[0] if languages else "",
+              "area_clep":"libros-economia","flujo_editorial":"novedad","priority":"20",
+              "relevance_score":"0","relevance_reasons":"pendiente_reglas",
+              "oa_status":"VERIFICADO_FUENTE","access_status":"OFFICIAL_SOURCE_VERIFIED",
+              "rights_status":"LINK_ONLY","dedupe_key":key,"status":"METADATOS_OBTENIDOS",
+              "content_type":"book","source_name":"Directory of Open Access Books (DOAB)",
+              "publication_year":year,
+              "notes":"Metadatos DOAB vía OAI-PMH; registro de libro OA. Derechos declarados: "
+                      +"; ".join(rights[:3])+" | Temas: "+"; ".join(subjects[:5])
+            })
+            rows.append(row);existing.add(key);added+=1
+        token=(root.findtext(".//oai:resumptionToken",default="",namespaces=NS) or "").strip()
+        if not token:break
+        try:root=get_xml({"verb":"ListRecords","resumptionToken":token})
+        except Exception as e:
+            print(f"DOAB OAI continuación detenida: {type(e).__name__}: {e}");break
     with P.open("w",encoding="utf-8",newline="") as f:
         w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
-    print(f"DOAB: libros nuevos={added}")
+    print(f"DOAB OAI: registros vistos={seen_records}; libros nuevos={added}")
 
 if __name__=="__main__":main()
