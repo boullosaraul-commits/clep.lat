@@ -35,6 +35,7 @@ jobs:
           python scripts/editorial/ingerir_nep.py
           python scripts/editorial/enriquecer_repec.py
           python scripts/editorial/ingerir_doab.py
+          python scripts/editorial/ingerir_novedades_academicas.py
           python scripts/editorial/ingerir_catalogos.py
           python scripts/editorial/detectar_actualizaciones.py
           python scripts/editorial/verificar_oa.py
