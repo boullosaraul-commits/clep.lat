@@ -1,8 +1,14 @@
 {
   "paper_abierto": {
     "encabezado": "PAPER ABIERTO · CLEP",
-    "campos_obligatorios": ["title", "authors", "summary", "access_url"],
+    "campos_obligatorios": [
+      "title",
+      "authors",
+      "summary",
+      "access_url"
+    ],
     "oa_obligatorio": true,
-    "plantilla": "PAPER ABIERTO · CLEP\n\n{title}\n\n{authors_line}\n\nPregunta:\n{question}\n\nResumen de los autores:\n{summary}\n\nES · {translation_label}\n{summary_es}\n\nAcceso abierto:\n{access_url}\n\nDOI:\n{doi_display}"
+    "plantilla": "PAPER ABIERTO · CLEP\\n\\n{title}\\n\\n{authors_line}\\n\\nResumen de los autores (original):\\n{summary}\\n\\nAcceso abierto:\\n{access_url}\\n\\nDOI:\\n{doi_display}",
+    "nota": "Ficha automática mínima sin IA generativa: reproduce metadatos y abstract original; no genera pregunta, resumen ni traducción."
   }
 }
