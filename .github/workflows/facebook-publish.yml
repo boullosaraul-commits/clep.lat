@@ -1,20 +1,41 @@
-name: Facebook publish
+name: Facebook schedule
 
 on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  dry-run:
+  schedule:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: editorial-infra-v1
 
-      - name: Publication automation not enabled
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate editorial queue
+        run: python scripts/editorial/verificar_cola.py
+
+      - name: Schedule approved posts in Facebook
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/programar_facebook.py
+
+      - name: Persist Meta scheduled post IDs
         run: |
-          echo "CLEP Facebook publication is intentionally disabled."
-          echo "This workflow is a placeholder until the queue, Meta permissions,"
-          echo "token lifecycle, publication verification and rollback are validated."
+          if git diff --quiet -- data/editorial/cola.csv; then
+            echo "Nothing scheduled."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/editorial/cola.csv
+          git commit -m "editorial: record Facebook scheduled posts"
+          git push
