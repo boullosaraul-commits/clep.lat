@@ -7,7 +7,23 @@
   },
   "contenido_actual": {
     "nuevos": {
-      "maximo_diario_inicial": 6
+      "maximo_diario_inicial": 6,
+      "maximo_diario_excepcional": 8,
+      "regla_elastica": {
+        "activa": true,
+        "umbral_indice_editorial_10": 9,
+        "minimo_candidatos_sobresalientes_para_expandir": 5,
+        "nota": "Las plazas 7 y 8 sólo se habilitan cuando al menos 5 candidatos publicables del día alcanzan un índice editorial >=9/10. El índice mide prioridad/pertinencia CLEP, no calidad académica."
+      },
+      "diversidad": {
+        "activa": true,
+        "doab": {
+          "maximo_diario_normal": 2,
+          "maximo_diario_excepcional": 2,
+          "minimo_si_hay_elegibles": 0
+        },
+        "principio": "Evitar que una sola fuente o formato monopolice novedades; reservar capacidad efectiva para papers y otras novedades cuando existan candidatos certificados."
+      }
     },
     "no_textos": {
       "maximo_diario_inicial": 4,
