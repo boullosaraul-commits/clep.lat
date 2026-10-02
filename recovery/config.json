@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "historical_recovery": {
+    "publication_priority": [
+      "IDENTIFICADO_OA_VERIFICADO",
+      "IDENTIFICADO_PENDIENTE_OA",
+      "CANDIDATO_PROBABLE",
+      "SIN_IDENTIFICAR"
+    ],
+    "auto_publish_requires": [
+      "obra_estado=IDENTIFICADO",
+      "oa_verificado=true"
+    ],
+    "never_auto_publish": [
+      "CANDIDATO_PROBABLE",
+      "SIN_IDENTIFICAR"
+    ],
+    "unresolved_action": "automatic_bibliographic_search",
+    "search_sources": [
+      "openlibrary",
+      "crossref",
+      "repec"
+    ],
+    "retry_http_429": true,
+    "retry_only_pending": true
+  },
+  "generative_ai": {
+    "enabled": false
+  }
+}
