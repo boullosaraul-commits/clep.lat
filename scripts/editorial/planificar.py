@@ -10,6 +10,7 @@ La fecha objetivo histórica es sólo referencia de ritmo: nunca apaga la
 campaña. Sólo agenda filas con texto e imagen ya certificados.
 """
 import csv,json,math
+from collections import Counter
 from datetime import datetime,timedelta,date
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -50,14 +51,41 @@ def is_doab(r):
     text=" ".join([r.get("oa_fuente") or "",r.get("notas") or "",r.get("url_original") or ""]).lower()
     return "doab" in text or "directory of open access books" in text
 
-def choose_diverse_textual(textual,capacity,doab_cap):
-    chosen=[];doab_n=0
+def choose_diverse_textual(textual,capacity,doab_cap,max_same_type=3,min_types=3,existing_type_counts=None,existing_doab=0):
+    """Selecciona novedades sin dejar que una fuente o formato monopolice el día.
+
+    Primera pasada: incorpora tipos aún no representados hasta alcanzar, si hay
+    oferta suficiente, el mínimo de diversidad. Segunda pasada: llena por
+    prioridad respetando el máximo por tipo y el máximo DOAB.
+    """
+    existing_type_counts=Counter(existing_type_counts or {})
+    counts=Counter(existing_type_counts)
+    represented={k for k,v in counts.items() if v>0}
+    chosen=[];used=set();doab_n=existing_doab
+
+    def can_take(r):
+        nonlocal doab_n
+        typ=r.get("tipo_recurso") or "otro"
+        if counts[typ]>=max_same_type:return False
+        if is_doab(r) and doab_n>=doab_cap:return False
+        return True
+
+    # Diversidad primero, pero siempre dentro del orden de prioridad.
+    target=min(min_types,len({r.get("tipo_recurso") or "otro" for r in textual}|represented))
+    if len(represented)<target:
+        for r in textual:
+            if len(chosen)>=capacity or len(represented)>=target:break
+            typ=r.get("tipo_recurso") or "otro"
+            if typ in represented or not can_take(r):continue
+            chosen.append(r);used.add(id(r));counts[typ]+=1;represented.add(typ)
+            if is_doab(r):doab_n+=1
+
     for r in textual:
         if len(chosen)>=capacity:break
-        if is_doab(r):
-            if doab_n>=doab_cap:continue
-            doab_n+=1
-        chosen.append(r)
+        if id(r) in used or not can_take(r):continue
+        typ=r.get("tipo_recurso") or "otro"
+        chosen.append(r);counts[typ]+=1
+        if is_doab(r):doab_n+=1
     return chosen
 
 def historical_cap(remaining,days_left,rungs,maxcap):
@@ -113,10 +141,13 @@ def main():
         effective_newmax=int(ncfg.get("maximo_diario_excepcional",newmax))
     diversity=ncfg.get("diversidad",{});dcfg=diversity.get("doab",{})
     doab_cap=int(dcfg.get("maximo_diario_excepcional" if effective_newmax>newmax else "maximo_diario_normal",2))
-    existing_doab=sum(1 for r in existing if r.get("flujo_editorial")!="archivo_historico"
-                      and r.get("tipo_recurso") not in NON_TEXT and is_doab(r))
-    choose_text=choose_diverse_textual(textual,max(0,effective_newmax-existing_new),
-                                       max(0,doab_cap-existing_doab))
+    existing_textual=[r for r in existing if r.get("flujo_editorial")!="archivo_historico" and r.get("tipo_recurso") not in NON_TEXT]
+    existing_doab=sum(1 for r in existing_textual if is_doab(r))
+    existing_types=Counter((r.get("tipo_recurso") or "otro") for r in existing_textual)
+    max_same=int(diversity.get("maximo_mismo_tipo_diario",3))
+    min_types=int(diversity.get("minimo_tipos_distintos_si_disponibles",3))
+    choose_text=choose_diverse_textual(textual,max(0,effective_newmax-existing_new),doab_cap,
+                                       max_same,min_types,existing_types,existing_doab)
     choose_nt=nontext[:max(0,ntmax-existing_nt)]
     choose_hist=hist[:max(0,hcap-existing_hist)]
     chosen=choose_text+choose_nt+choose_hist
