@@ -1,0 +1,112 @@
+name: CLEP daily editorial pipeline
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "10 11 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: clep-editorial
+  cancel-in-progress: false
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deterministic image rasterizer
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
+
+      - name: Migrate legacy NEP candidates
+        run: python scripts/editorial/migrar_nep_legacy.py
+
+      - name: Ingest feeds and NEP
+        run: |
+          python scripts/editorial/ingerir_feeds.py
+          python scripts/editorial/ingerir_nep.py
+          python scripts/editorial/enriquecer_repec.py
+
+      - name: Ingest books, events and videos
+        run: |
+          python scripts/editorial/ingerir_doab.py
+          python scripts/editorial/ingerir_catalogos.py
+
+      - name: Detect statistical updates
+        run: python scripts/editorial/detectar_actualizaciones.py
+
+      - name: Verify access, evaluate and prepare
+        run: |
+          python scripts/editorial/verificar_oa.py
+          python scripts/editorial/evaluar_candidatos.py
+          python scripts/editorial/preparar_publicacion.py
+
+      - name: Recover up to 10 historical cases
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python recovery/historical_worker.py
+
+      - name: Plan next day
+        run: |
+          python scripts/editorial/verificar_cola.py
+          python scripts/editorial/planificar.py
+          python scripts/editorial/verificar_cola.py
+
+      - name: Persist prepared state before Meta calls
+        run: |
+          if git diff --quiet -- data/editorial recovery/state; then
+            echo "No pre-Meta state changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/editorial
+            git add -f recovery/state/historical_recovery.json || true
+            git commit -m "editorial: prepare daily queue"
+            git pull --rebase origin main
+            git push
+          fi
+
+      - name: Schedule image posts in Facebook
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/programar_facebook.py
+
+      - name: Verify already published posts
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/verificar_publicaciones_facebook.py
+
+      - name: Retire historical originals only after verified replacement
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/cerrar_reemplazos_facebook.py
+
+      - name: Validate and persist Meta state
+        run: |
+          python scripts/editorial/verificar_cola.py
+          if git diff --quiet -- data/editorial/cola.csv; then
+            echo "No Meta state changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/editorial/cola.csv
+          git commit -m "editorial: record verified Meta state"
+          git pull --rebase origin main
+          git push
