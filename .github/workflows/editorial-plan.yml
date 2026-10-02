@@ -2,14 +2,12 @@ name: Editorial plan
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "15 13 * * *"
 
 permissions:
   contents: write
 
 concurrency:
-  group: editorial-plan
+  group: clep-editorial
   cancel-in-progress: false
 
 jobs:
