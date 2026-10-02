@@ -10,6 +10,7 @@ from matcher_v31 import evaluate, family
 from renderizar_texto import render as render_text
 from generar_tarjeta_clep import render as render_card
 from generar_grafica_clep import render as render_chart
+from evaluar_candidatos import doab_eval
 
 class MatcherV31Tests(unittest.TestCase):
     def test_main_title_rescue(self):
@@ -58,6 +59,36 @@ class RendererTests(unittest.TestCase):
         a=render_chart(d);b=render_chart(d)
         self.assertEqual(a,b)
         self.assertIn("DATOS · CLEP",a)
+
+class DOABRelevanceTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.cfg=json.loads((ROOT/"data/editorial/pertinencia_doab.json").read_text(encoding="utf-8"))
+
+    def test_multi_area_economics_promotes(self):
+        r={"title":"Monetary Policy, Income Distribution and Development in Latin America",
+           "summary":"A study of inflation, wages, structural change and central banking.",
+           "notes":"Temas: Economics; Political economy","publication_year":"2026"}
+        score,decision,area,reasons=doab_eval(r,self.cfg)
+        self.assertEqual(decision,"PROMOCION_AUTOMATICA")
+        self.assertGreaterEqual(score,self.cfg["thresholds"]["promocion_automatica"])
+        self.assertIn("areas=",reasons)
+
+    def test_medical_keyword_collision_does_not_promote(self):
+        r={"title":"Development of Labor-Saving Medical Devices",
+           "summary":"Clinical medicine, nursing and medical technology.",
+           "notes":"Temas: Medicine","publication_year":"2026"}
+        score,decision,area,reasons=doab_eval(r,self.cfg)
+        self.assertEqual(decision,"ARCHIVADO")
+        self.assertIn("disciplina=no_confirmada",reasons)
+
+    def test_single_relevant_area_goes_to_review(self):
+        r={"title":"Banking and Credit",
+           "summary":"An introduction to banking and financial institutions.",
+           "notes":"","publication_year":"2026"}
+        score,decision,area,reasons=doab_eval(r,self.cfg)
+        self.assertIn(decision,{"REVISION_EDITORIAL","PROMOCION_AUTOMATICA"})
+        self.assertNotEqual(decision,"ARCHIVADO")
 
 class ConfigTests(unittest.TestCase):
     def test_no_generative_ai_and_no_noimage_fallback(self):
