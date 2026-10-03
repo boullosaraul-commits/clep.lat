@@ -110,7 +110,13 @@ def main():
     try:
         when=datetime.fromisoformat(f"{fecha}T{hhmm}").replace(tzinfo=tz)
         if mode!="mock" and when<=datetime.now(tz):raise ValueError("horario programado ya pasó")
-        image=media_file(r)
+        if mode=="mock":
+            raw=(r.get("media_path") or "").strip()
+            image=(ROOT/raw).resolve()
+            if ROOT.resolve() not in image.parents or not image.is_file():
+                raise ValueError("imagen mock inexistente o fuera del repositorio")
+        else:
+            image=media_file(r)
         if mode=="mock":
             dig=hashlib.sha256((r.get("editorial_id","")+"|"+fecha+"|"+hhmm).encode()).hexdigest()[:16]
             photo_id="mock-photo-"+dig
