@@ -41,8 +41,9 @@ def identified_responsibility(r):
     return bool((r.get("authors") or "").strip() or (r.get("venue") or "").strip() or (r.get("source_name") or "").strip())
 
 def access_verified(r):
-    return (r.get("oa_status") in {"VERIFICADO","VERIFICADO_FUENTE","OA_VERIFICADO"}
-            or r.get("access_status") in {"OFFICIAL_SOURCE_VERIFIED","PUBLIC_ACCESS_VERIFIED","VERIFICADO"})
+    # Evidencia OA y enlace vivo son dimensiones distintas. La elegibilidad
+    # exige que el recurso haya sido comprobado por HTTP.
+    return r.get("access_status") in {"PUBLIC_ACCESS_VERIFIED","VERIFICADO"}
 
 def pertinence_component(r):
     reasons=r.get("relevance_reasons") or ""
