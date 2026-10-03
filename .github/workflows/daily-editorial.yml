@@ -41,6 +41,7 @@ jobs:
           python scripts/editorial/verificar_oa.py
           python scripts/editorial/evaluar_candidatos.py
           python scripts/editorial/calcular_prioridad_editorial.py
+          python scripts/editorial/auditar_prioridad.py
           python scripts/editorial/preparar_publicacion.py
           python scripts/editorial/verificar_cola.py
 
@@ -63,6 +64,26 @@ jobs:
           CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
           META_GRAPH_VERSION: "v26.0"
         run: python scripts/editorial/verificar_meta.py
+
+      - name: Reconcile ambiguous Meta attempts
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/reconciliar_meta.py
+
+      - name: Persist reconciled Meta state
+        run: |
+          if git diff --quiet -- data/editorial/cola.csv; then
+            echo "No reconciliation changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/editorial/cola.csv
+            git commit -m "meta: reconcile ambiguous attempts"
+            git pull --rebase origin main
+            git push
+          fi
 
       - name: Recover up to 10 historical cases
         env:
@@ -99,7 +120,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for i in $(seq 1 16); do
+          for i in $(seq 1 18); do
             rm -f /tmp/clep_meta_attempt_id
             set +e
             python scripts/editorial/marcar_intento_meta.py --output /tmp/clep_meta_attempt_id
