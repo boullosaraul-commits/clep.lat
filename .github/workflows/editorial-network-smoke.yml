@@ -60,6 +60,8 @@ jobs:
       - name: Test statistical adapters
         run: python scripts/editorial/detectar_actualizaciones.py
       - name: Evaluate, prepare, and validate without publishing
+        env:
+          CLEP_SCREENSHOT_LIMIT: "2"
         run: |
           python scripts/editorial/verificar_oa.py
           python scripts/editorial/evaluar_candidatos.py
