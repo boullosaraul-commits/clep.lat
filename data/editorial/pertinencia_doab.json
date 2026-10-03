@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "scope": "academic novelties: DOAB, NEP/RePEc, Crossref and academic OAI",
   "principle": "pertinencia temática CLEP reproducible; el puntaje no mide calidad académica ni prioridad editorial",
   "thresholds": {
@@ -42,7 +42,9 @@
       "desigualdad",
       "distribución del ingreso",
       "capitalismo",
-      "historia económica"
+      "historia económica",
+      "economic theory",
+      "teoría económica"
     ],
     "strong_exclusions": [
       "medicine",
@@ -175,7 +177,16 @@
         "pensamiento económico",
         "metodología económica",
         "pluralismo",
-        "heterodox"
+        "heterodox",
+        "economic theory",
+        "history of economic theory",
+        "concept of equilibrium",
+        "economic methodology",
+        "theory of value",
+        "teoría económica",
+        "historia de la teoría económica",
+        "concepto de equilibrio",
+        "teoría del valor"
       ]
     },
     "finanzas-sector-publico": {
@@ -252,5 +263,9 @@
     "multi_area_3": 8,
     "title_match": 4,
     "recent_3_years": 3
+  },
+  "pluralism_rescue": {
+    "enabled": true,
+    "principle": "Una señal explícita de pluralismo, historia del pensamiento o metodología económica puede rescatar un caso de REVISION_EDITORIAL para que la prioridad 0–10 decida; no convierte por sí sola el recurso en publicable."
   }
 }
