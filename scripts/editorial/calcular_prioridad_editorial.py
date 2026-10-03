@@ -12,6 +12,13 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 P=Path(os.getenv("CLEP_CANDIDATES_PATH",str(ROOT/"data/editorial/candidatos.csv"))).resolve()
 CFG=ROOT/"data/editorial/prioridad_editorial.json"
+def reference_now():
+    raw=(os.getenv("CLEP_REFERENCE_DATE") or "").strip()
+    if raw:
+        try:return datetime.fromisoformat(raw+"T12:00:00+00:00")
+        except ValueError:pass
+    return datetime.now(timezone.utc)
+
 ACADEMIC={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
 
 def norm(s):
@@ -120,7 +127,7 @@ def thematic_approved(r):
     return (score>=15,"THEMATIC_REVIEW" if score<15 else "")
 
 def evaluate(r,cfg,now=None):
-    now=now or datetime.now(timezone.utc)
+    now=now or reference_now()
     approved,thematic_decision=thematic_approved(r)
     if not approved:return 0.0,thematic_decision,"pertinencia_temática=no_aprobada"
     d,freshness_basis=freshness(r,cfg,now)
