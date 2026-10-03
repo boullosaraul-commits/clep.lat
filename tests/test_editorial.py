@@ -153,9 +153,33 @@ class EditorialPriorityTests(unittest.TestCase):
         r={"title":"Undated current-year item","authors":"A. Author","publication_year":"2026",
            "published_at":"2026","access_url":"https://example.org/item.pdf",
            "oa_status":"VERIFICADO_FUENTE","access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"paper",
-           "relevance_reasons":"disciplina=economia;areas=macroeconomia-dinero;anclas=economics"}
+           "relevance_score":"70",
+           "relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero;anclas=economics"}
         score,decision,_=editorial_evaluate(r,self.cfg)
         self.assertEqual((score,decision),(0.0,"INELIGIBLE"))
+
+    def test_outstanding_score_is_reachable(self):
+        r={"title":"New empirical research on monetary policy, income distribution and structural change in Latin America",
+           "authors":"A. Author","publication_year":"2026","published_at":"2026-10-01",
+           "access_url":"https://example.org/item.pdf","oa_status":"VERIFICADO_FUENTE",
+           "access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"edition_translation",
+           "summary":"New evidence and data. A revised edition for teaching economic methodology.",
+           "language":"es","venue":"Latin American Political Economy",
+           "relevance_score":"90",
+           "relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;anclas=economics,monetary"}
+        score,decision,_=editorial_evaluate(r,self.cfg)
+        self.assertGreaterEqual(score,9.0)
+        self.assertEqual(decision,"OUTSTANDING")
+
+    def test_thematic_review_cannot_become_publishable(self):
+        r={"title":"Monetary banking topic","authors":"A. Author","publication_year":"2026",
+           "published_at":"2026-10-01","access_url":"https://example.org/item.pdf",
+           "oa_status":"VERIFICADO_FUENTE","access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"book",
+           "relevance_score":"20",
+           "relevance_reasons":"decision=REVISION_EDITORIAL;disciplina=economia;areas=macroeconomia-dinero;anclas=monetary"}
+        score,decision,_=editorial_evaluate(r,self.cfg)
+        self.assertEqual(score,0.0)
+        self.assertEqual(decision,"THEMATIC_REVIEW")
 
 class ConfigTests(unittest.TestCase):
     def test_no_generative_ai_and_no_noimage_fallback(self):
@@ -166,8 +190,12 @@ class ConfigTests(unittest.TestCase):
 
     def test_expanded_academic_sources_are_configured(self):
         src=json.loads((ROOT/"data/editorial/fuentes.json").read_text(encoding="utf-8"))
-        ids={x["id"] for x in src["fuentes"] if x.get("habilitada")}
-        self.assertTrue({"scielo-books-oai","dialnet-articles-oai","dialnet-theses-oai","clacso-repository-oai"} <= ids)
+        by_id={x["id"]:x for x in src["fuentes"]}
+        self.assertTrue({"scielo-books-oai","dialnet-articles-oai","dialnet-theses-oai","clacso-repository-oai"} <= set(by_id))
+        self.assertTrue(by_id["clacso-repository-oai"]["habilitada"])
+        self.assertTrue(by_id["dialnet-articles-oai"]["habilitada"])
+        self.assertFalse(by_id["scielo-books-oai"]["habilitada"])
+        self.assertIn("TLS",by_id["scielo-books-oai"]["nota"])
 
 if __name__=="__main__":
     unittest.main()
