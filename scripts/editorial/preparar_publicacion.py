@@ -84,6 +84,7 @@ def eligible(r,kind):
     academic={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
     if kind in academic:
         if r.get("oa_status") not in {"VERIFICADO","VERIFICADO_FUENTE","OA_VERIFICADO"} or not year(r):return False
+        if r.get("access_status") not in {"PUBLIC_ACCESS_VERIFIED","VERIFICADO"}:return False
         if kind in {"paper","book","chapter","thesis","edition_translation"} and not clean(r.get("authors")):return False
         return True
     return r.get("access_status") in {"OFFICIAL_SOURCE_VERIFIED","PUBLIC_ACCESS_VERIFIED","VERIFICADO"} or clean(r.get("source_url")).startswith("https://")
@@ -158,6 +159,7 @@ def main():
           "obra_estado":"OBRA_VERIFICADA","edicion_estado":"EDICION_VERIFICADA" if kind in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"} else "NO_APLICA",
           "oa_estado":"OA_VERIFICADO" if kind in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"} else "NO_APLICA","doi":r.get("doi",""),
           "oa_url":access(r),"oa_fuente":source_name(r),"area_clep":r.get("area_clep",""),
+          "licencia":clean((re.search(r"license_url=([^|;\s]+)",r.get("notes") or "") or [None,""])[1]),
           "ficha_es":text,"notas":f"Origen {source_name(r)}; relevance_score={r.get('relevance_score') or '0'}; editorial_score={r.get('editorial_score') or '0'}; editorial_decision={r.get('editorial_decision') or ''}; venue={clean(r.get('venue'))}; preparación atómica determinista sin IA generativa.",
           "text_method":"deterministic_template","text_template":kind,"text_status":"VERIFICADO",**visual
         })
