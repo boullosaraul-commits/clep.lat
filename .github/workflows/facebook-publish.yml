@@ -36,6 +36,26 @@ jobs:
           META_GRAPH_VERSION: "v26.0"
         run: python scripts/editorial/verificar_meta.py
 
+      - name: Reconcile ambiguous Meta attempts
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/reconciliar_meta.py
+
+      - name: Persist reconciled Meta state
+        run: |
+          if git diff --quiet -- data/editorial/cola.csv; then
+            echo "No reconciliation changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/editorial/cola.csv
+            git commit -m "meta: reconcile ambiguous attempts"
+            git pull --rebase origin main
+            git push
+          fi
+
       - name: Schedule reserved posts one by one
         env:
           CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
@@ -44,7 +64,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for i in $(seq 1 16); do
+          for i in $(seq 1 18); do
             rm -f /tmp/clep_meta_attempt_id
             set +e
             python scripts/editorial/marcar_intento_meta.py --output /tmp/clep_meta_attempt_id
