@@ -7,13 +7,13 @@ post ID. Cero coincidencias convierte IN_FLIGHT en REVIEW; varias coincidencias
 permanecen REVIEW. Si Meta no puede consultarse, termina con error para impedir
 nuevos writes en esa ejecución.
 """
-import csv,json,os,re,sys,urllib.error,urllib.parse,urllib.request
+import argparse,csv,json,os,re,sys,urllib.error,urllib.parse,urllib.request
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 ROOT=Path(__file__).resolve().parents[2]
-COLA=ROOT/"data/editorial/cola.csv"
+COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 CFG=ROOT/"data/editorial/programacion.json"
 API=os.getenv("META_GRAPH_VERSION","v26.0")
 
@@ -55,8 +55,13 @@ def obj_timestamp(o):
     return None
 
 def main():
+    ap=argparse.ArgumentParser();ap.add_argument("--probe",action="store_true");args=ap.parse_args()
     token=os.getenv("CLEP_FB_TOKEN");page=os.getenv("CLEP_FB_PAGE_ID")
     if not token or not page:sys.exit("Faltan CLEP_FB_TOKEN o CLEP_FB_PAGE_ID")
+    if args.probe:
+        objects=scheduled_objects(page,token)
+        print(f"Meta reconcile probe: lectura OK; programados visibles={len(objects)}")
+        return
     cfg=json.loads(CFG.read_text(encoding="utf-8"));tz=ZoneInfo(cfg["timezone"])
     with COLA.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
