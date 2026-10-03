@@ -124,7 +124,7 @@ class EditorialPriorityTests(unittest.TestCase):
         r={"title":"Monetary Policy and Distribution in Latin America","authors":"A. Author",
            "publication_year":"2026","published_at":"2026-10-01","access_url":"https://example.org/a.pdf",
            "oa_status":"VERIFICADO","access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"paper",
-           "summary":"New empirical evidence and data for research.",
+           "summary":"Post-Keynesian effective demand with new empirical evidence and data for research.",
            "relevance_score":"77",
            "relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,trabajo-distribucion-bienestar;anclas=monetary,economics",
            "language":"es","venue":"Example Series","source_name":"Example"}
