@@ -48,6 +48,22 @@ def landing(handle,identifiers):
         if "directory.doabooks.org/handle/" in s:return s
     return "https://directory.doabooks.org/handle/"+handle
 
+def direct_access(identifiers):
+    https=[s.strip() for s in identifiers if s.strip().startswith("https://")]
+    for s in https:
+        p=urllib.parse.urlparse(s).path.lower()
+        if p.endswith(".pdf"):return s
+    for s in https:
+        p=urllib.parse.urlparse(s).path.lower()
+        if p.endswith(".epub"):return s
+    return ""
+
+def license_url(rights,identifiers):
+    for s in list(rights)+list(identifiers):
+        m=re.search(r"https?://creativecommons\.org/(?:licenses|publicdomain)/[^\s<>]+",s,re.I)
+        if m:return m.group(0).rstrip(".,;)")
+    return ""
+
 def main():
     with P.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
@@ -89,23 +105,29 @@ def main():
             descs=vals(meta,"description")
             rights=vals(meta,"rights")
             subjects=vals(meta,"subject")
-            url=landing(handle,identifiers)
+            landing_url=landing(handle,identifiers)
+            direct=direct_access(identifiers)
+            url=direct or landing_url
+            lic=license_url(rights,identifiers)
             row={k:"" for k in fields}
             row.update({
               "candidate_id":"CAND-"+hashlib.sha256(("doab|"+handle).encode()).hexdigest()[:16].upper(),
               "source_id":"doab-economics","source_type":"doab_oai","source_item_id":handle,
               "detected_at":now,"published_at":year,"title":title,
               "authors":"; ".join(dict.fromkeys(creators)),
-              "summary":descs[0] if descs else "","source_url":url,"access_url":url,
+              "summary":descs[0] if descs else "","source_url":landing_url,"access_url":url,
               "doi":doi,"language":languages[0] if languages else "",
               "area_clep":"libros-economia","flujo_editorial":"novedad","priority":"20",
               "relevance_score":"0","relevance_reasons":"pendiente_reglas",
-              "oa_status":"VERIFICADO_FUENTE","access_status":"OFFICIAL_SOURCE_VERIFIED",
+              "oa_status":"VERIFICADO_FUENTE","access_status":"SOURCE_OA_UNCHECKED",
               "rights_status":"LINK_ONLY","dedupe_key":key,"status":"METADATOS_OBTENIDOS",
               "content_type":"book","source_name":"Directory of Open Access Books (DOAB)",
               "publication_year":year,
-              "notes":"Metadatos DOAB vía OAI-PMH; registro de libro OA. Derechos declarados: "
-                      +"; ".join(rights[:3])+" | Temas: "+"; ".join(subjects[:5])
+              "notes":"Metadatos DOAB vía OAI-PMH; registro de libro OA"
+                      +(" | license_url="+lic if lic else "")
+                      +(" | direct_access="+direct if direct else "")
+                      +" | Derechos declarados: "+"; ".join(rights[:3])
+                      +" | Temas: "+"; ".join(subjects[:5])
             })
             rows.append(row);existing.add(key);added+=1
         token=(root.findtext(".//oai:resumptionToken",default="",namespaces=NS) or "").strip()
