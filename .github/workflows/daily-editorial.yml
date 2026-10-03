@@ -2,6 +2,10 @@ name: CLEP daily editorial pipeline
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/clep-controlled-trigger"
   schedule:
     - cron: "10 11 * * *"
 
@@ -15,6 +19,8 @@ concurrency:
 jobs:
   daily:
     runs-on: ubuntu-latest
+    env:
+      CLEP_ALLOWED_URL_IDS: "CAND-00667A602648E2A3,CAND-04A7C400510D8804,CAND-21AE46114119E6BE"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -86,6 +92,7 @@ jobs:
           fi
 
       - name: Recover up to 10 historical cases
+        if: env.CLEP_ALLOWED_URL_IDS == ''
         id: historical_recovery
         continue-on-error: true
         timeout-minutes: 8
