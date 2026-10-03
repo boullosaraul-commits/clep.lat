@@ -13,7 +13,7 @@
         "activa": true,
         "umbral_indice_editorial_10": 9,
         "minimo_candidatos_sobresalientes_para_expandir": 5,
-        "nota": "Las plazas 7 y 8 sólo se habilitan cuando al menos 5 candidatos publicables del día alcanzan un índice editorial >=9/10. El índice mide prioridad/pertinencia CLEP, no calidad académica."
+        "nota": "Las plazas 7 y 8 sólo se habilitan cuando al menos 5 candidatos PUBLICABLES del día alcanzan editorial_score >=9/10. editorial_score es prioridad editorial, independiente de relevance_score y no mide calidad científica."
       },
       "diversidad": {
         "activa": true,
@@ -22,7 +22,7 @@
           "maximo_diario_excepcional": 2,
           "minimo_si_hay_elegibles": 0
         },
-        "principio": "Evitar que una sola fuente o formato monopolice novedades; reservar capacidad efectiva para papers y otras novedades cuando existan candidatos certificados.",
+        "principio": "Evitar monopolio por fuente, institución, serie o formato; no rellenar plazas con candidatos por debajo de editorial_score 7.",
         "maximo_mismo_tipo_diario": 3,
         "minimo_tipos_distintos_si_disponibles": 3,
         "tipos_academicos": [
@@ -34,8 +34,10 @@
           "special_issue",
           "thesis",
           "edition_translation"
-        ]
-      }
+        ],
+        "maximo_misma_institucion_serie_diario": 2
+      },
+      "umbral_publicable_indice_editorial_10": 7
     },
     "no_textos": {
       "maximo_diario_inicial": 4,
