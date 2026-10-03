@@ -102,7 +102,7 @@ def thematic_approved(r):
     reasons=r.get("relevance_reasons") or ""
     if "decision=REVISION_EDITORIAL" in reasons:return False,"THEMATIC_REVIEW"
     if "decision=ARCHIVADO" in reasons:return False,"THEMATIC_REJECTED"
-    if r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai"}:
+    if r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai","nep_report"}:
         return ("decision=PROMOCION_AUTOMATICA" in reasons,
                 "THEMATIC_REJECTED" if "decision=PROMOCION_AUTOMATICA" not in reasons else "")
     try:score=float(r.get("relevance_score") or 0)
