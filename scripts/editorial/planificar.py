@@ -137,7 +137,13 @@ def main():
     ready=[r for r in rows if r.get("estado_editorial") in READY and not r.get("fecha_programada") and certified(r)]
     hist=sorted([r for r in ready if r.get("flujo_editorial")=="archivo_historico"],key=priority)
     current=[r for r in ready if r.get("flujo_editorial")!="archivo_historico"]
-    nontext=sorted([r for r in current if r.get("tipo_recurso") in NON_TEXT],key=priority)
+    allowed_raw=(os.getenv("CLEP_ALLOWED_URL_IDS") or "").strip()
+    allowed={x.strip() for x in allowed_raw.split(",") if x.strip()}
+    controlled=bool(allowed)
+    if controlled:
+        current=[r for r in current if (r.get("url_id") or "") in allowed]
+        hist=[]
+    nontext=[] if controlled else sorted([r for r in current if r.get("tipo_recurso") in NON_TEXT],key=priority)
     textual=[r for r in current if r.get("tipo_recurso") not in NON_TEXT and editorial_index_10(r)>=7.0]
     textual=sorted(textual,key=lambda r:(-editorial_index_10(r),)+priority(r))
 
@@ -190,6 +196,7 @@ def main():
 
     with Q.open("w",encoding="utf-8",newline="") as f:
         w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
-    print(f"Programados {target_day}: total={len(chosen)}; nuevos={len(choose_text)}/{effective_newmax}; DOAB={sum(is_doab(r) for r in choose_text)}/{doab_cap}; sobresalientes9={high}; no-texto={len(choose_nt)}; histórico={len(choose_hist)}; cap histórico={hcap}; backlog ref restante={remaining}")
+    mode=("controlado" if controlled else "normal")
+    print(f"Programados {target_day}: modo={mode}; total={len(chosen)}; nuevos={len(choose_text)}/{effective_newmax}; DOAB={sum(is_doab(r) for r in choose_text)}/{doab_cap}; sobresalientes9={high}; no-texto={len(choose_nt)}; histórico={len(choose_hist)}; cap histórico={hcap}; backlog ref restante={remaining}")
 
 if __name__=="__main__":main()

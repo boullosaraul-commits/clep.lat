@@ -338,8 +338,22 @@ def main():
                    "last_checked":datetime.now(timezone.utc).isoformat()}
         time.sleep(.5)
     state["last_run"]=datetime.now(timezone.utc).isoformat()
+    state["last_run_status"]="OK";state["last_run_error"]=""
     state["last_run_searched"]=searched;state["last_run_queued"]=queued
     save_state(state)
     print(f"Histórico v3.1: buscados={searched}, preparados={queued}, originales retirados=0.")
 
-if __name__=="__main__":main()
+if __name__=="__main__":
+    try:
+        main()
+    except Exception as e:
+        try:
+            state=load_state()
+            state["last_run"]=datetime.now(timezone.utc).isoformat()
+            state["last_run_status"]="ERROR"
+            state["last_run_error"]=f"{type(e).__name__}: {e}"[:500]
+            save_state(state)
+        except Exception:
+            pass
+        print(f"Histórico v3.1 ERROR aislado: {type(e).__name__}: {e}",file=sys.stderr)
+        raise

@@ -94,6 +94,18 @@ def main():
         with queue.open(encoding="utf-8",newline="") as f:qrows=list(csv.DictReader(f))
         assert len(qrows)==2 and all(r["estado_editorial"]=="FICHA_LISTA" for r in qrows),qrows
 
+        controlled=env.copy();controlled["CLEP_ALLOWED_URL_IDS"]="CAND-E2E-PERU"
+        run("scripts/editorial/planificar.py",env=controlled)
+        run("scripts/editorial/verificar_cola.py",env=controlled)
+        with queue.open(encoding="utf-8",newline="") as f:
+            qr=csv.DictReader(f);qrows=list(qr);qfields=qr.fieldnames
+        peru_q=next(r for r in qrows if r["url_id"]=="CAND-E2E-PERU")
+        chaos_q=next(r for r in qrows if r["url_id"]=="CAND-E2E-CHAOS")
+        assert peru_q["estado_editorial"]=="PROGRAMADO" and chaos_q["estado_editorial"]=="FICHA_LISTA",qrows
+        peru_q["estado_editorial"]="FICHA_LISTA";peru_q["fecha_programada"]="";peru_q["orden_dia"]=""
+        with queue.open("w",encoding="utf-8",newline="") as f:
+            w=csv.DictWriter(f,fieldnames=qfields);w.writeheader();w.writerows(qrows)
+
         run("scripts/editorial/planificar.py",env=env)
         run("scripts/editorial/verificar_cola.py",env=env)
         with queue.open(encoding="utf-8",newline="") as f:qrows=list(csv.DictReader(f))

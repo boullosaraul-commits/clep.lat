@@ -43,11 +43,11 @@ jobs:
       - name: Detect statistical updates
         run: python scripts/editorial/detectar_actualizaciones.py
 
-      - name: Verify public access and OA evidence
-        run: python scripts/editorial/verificar_oa.py
-
-      - name: Evaluate candidates
+      - name: Evaluate thematic relevance before access verification
         run: python scripts/editorial/evaluar_candidatos.py
+
+      - name: Verify public access and OA evidence by prepublication potential
+        run: python scripts/editorial/verificar_oa.py
 
       - name: Calculate editorial priority
         run: |
