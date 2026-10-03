@@ -5,13 +5,17 @@ La fuente puede acreditar OA, pero la elegibilidad exige además que el enlace
 concreto responda. Las verificaciones HTTP son concurrentes y acotadas para que
 un backlog grande no bloquee el job diario.
 """
-import csv,os,urllib.request
+import csv,json,os,sys,urllib.request
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT=Path(__file__).resolve().parents[2]
-P=ROOT/"data/editorial/candidatos.csv"
+P=Path(os.getenv("CLEP_CANDIDATES_PATH",str(ROOT/"data/editorial/candidatos.csv"))).resolve()
+sys.path.insert(0,str(ROOT/"scripts/editorial"))
+from calcular_prioridad_editorial import (editorial_value,freshness,pertinence_component,
+    pluralism_value,recency_from_days,regional_value,norm,reference_now)
+PRIORITY_CFG=ROOT/"data/editorial/prioridad_editorial.json"
 UA="CLEP-editorial/3.0 (+https://clep.lat)"
 LEGIT_SOURCE_TYPES={"nep_report","doab_rest","doab_oai"}
 LEGIT_SOURCE_IDS={"doab-economics"}
@@ -50,6 +54,23 @@ def needs_check(r):
         pdf_required=True
     return url,pdf_required
 
+
+def preverification_score(r,cfg,now):
+    """Potencial editorial antes de O: P+V+A+R+H.
+
+    No sustituye el índice final y nunca hace elegible un enlace no verificado;
+    sólo decide qué URL comprobar primero dentro del cupo diario.
+    """
+    text=norm(" ".join([r.get("title",""),r.get("summary",""),r.get("notes",""),
+                        r.get("venue",""),r.get("source_name","")]))
+    p,_=pertinence_component(r,cfg)
+    v=editorial_value(r,cfg,text)
+    d,_=freshness(r,cfg,now)
+    a=recency_from_days(d)
+    reg=regional_value(r,cfg,text)
+    h,*_=pluralism_value(r,cfg,text)
+    return round(p+v+a+reg+h,1)
+
 def legitimate_oa(r):
     explicit_open_license="open_license_url=" in (r.get("notes") or "")
     return (r.get("source_type") in LEGIT_SOURCE_TYPES
@@ -65,15 +86,17 @@ def main():
     with P.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
     limit=int(os.getenv("OA_VERIFY_LIMIT","80"));workers=max(1,min(int(os.getenv("OA_VERIFY_WORKERS","8")),16))
+    cfg=json.loads(PRIORITY_CFG.read_text(encoding="utf-8"));now=reference_now()
     jobs=[]
     for i,r in enumerate(rows):
         spec=needs_check(r)
-        if spec:jobs.append((i,*spec))
+        if spec:jobs.append((i,*spec,preverification_score(r,cfg,now)))
+    jobs.sort(key=lambda x:(-x[3], rows[x[0]].get("candidate_id") or ""))
     selected=jobs[:limit]
     access_yes=oa_yes=failed=0
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs={ex.submit(verify_public_url,url,pdf):i for i,url,pdf in selected}
+        futs={ex.submit(verify_public_url,url,pdf):i for i,url,pdf,_ in selected}
         for fut in as_completed(futs):
             i=futs[fut];r=rows[i]
             try:ok,final,_=fut.result()
@@ -99,6 +122,8 @@ def main():
 
     with P.open("w",encoding="utf-8",newline="") as f:
         w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
-    print(f"Verificación acceso: candidatos={len(jobs)}; intentados={len(selected)}; vivos={access_yes}; fallidos={failed}; OA+acceso={oa_yes}; pendientes={max(0,len(jobs)-len(selected))}")
+    scores=[x[3] for x in selected]
+    rng=(f"{min(scores):.1f}-{max(scores):.1f}" if scores else "n/a")
+    print(f"Verificación acceso priorizada P+V+A+R+H: candidatos={len(jobs)}; intentados={len(selected)}; potencial={rng}; vivos={access_yes}; fallidos={failed}; OA+acceso={oa_yes}; pendientes={max(0,len(jobs)-len(selected))}")
 
 if __name__=="__main__":main()
