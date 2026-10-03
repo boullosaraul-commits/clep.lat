@@ -16,6 +16,10 @@ on:
       - "data/editorial/plantillas.json"
       - "data/editorial/fuentes.json"
       - "scripts/editorial/verificar_oa.py"
+      - "scripts/editorial/reconciliar_meta.py"
+      - "data/editorial/prioridad_editorial.json"
+      - "scripts/editorial/auditar_prioridad.py"
+      - "scripts/editorial/calcular_prioridad_editorial.py"
       - "data/editorial/pertinencia_doab.json"
       - "scripts/editorial/preparar_publicacion.py"
       - "scripts/editorial/evaluar_candidatos.py"
@@ -51,7 +55,7 @@ jobs:
       - name: Test books and structured catalogs
         run: |
           python scripts/editorial/ingerir_doab.py
-          ACADEMIC_QUERY_LIMIT=1 CROSSREF_ROWS=5 ACADEMIC_OAI_MAX_RECORDS=60 python scripts/editorial/ingerir_novedades_academicas.py
+          ACADEMIC_QUERY_LIMIT=1 CROSSREF_ROWS=5 ACADEMIC_OAI_MAX_RECORDS=20 python scripts/editorial/ingerir_novedades_academicas.py
           python scripts/editorial/ingerir_catalogos.py
       - name: Test statistical adapters
         run: python scripts/editorial/detectar_actualizaciones.py
@@ -60,5 +64,6 @@ jobs:
           python scripts/editorial/verificar_oa.py
           python scripts/editorial/evaluar_candidatos.py
           python scripts/editorial/calcular_prioridad_editorial.py
+          python scripts/editorial/auditar_prioridad.py
           python scripts/editorial/preparar_publicacion.py
           python scripts/editorial/verificar_cola.py
