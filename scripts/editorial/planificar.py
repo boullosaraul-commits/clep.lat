@@ -24,7 +24,7 @@ NON_TEXT={"actividad_clep","convocatoria","convocatoria_evento","recurso","video
 
 def certified(r):
     return (r.get("text_status")=="VERIFICADO" and bool((r.get("ficha_es") or "").strip())
-            and r.get("media_rights_status") in {"VERIFICADO","PROPIO_DETERMINISTA"}
+            and r.get("media_rights_status") in {"VERIFICADO","CAPTURA_LANDING_OFICIAL","PROPIO_DETERMINISTA"}
             and bool((r.get("media_path") or r.get("media_url") or "").strip()))
 
 def priority(r):
