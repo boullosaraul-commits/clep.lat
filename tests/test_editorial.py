@@ -183,6 +183,31 @@ class EditorialPriorityTests(unittest.TestCase):
         self.assertGreaterEqual(score,9.0)
         self.assertEqual(decision,"OUTSTANDING")
 
+    def test_pluralist_non_latin_work_gets_pluralism_points(self):
+        r={"title":"Post-Keynesian Effective Demand and Endogenous Money","authors":"A. Author",
+           "publication_year":"2026","published_at":"2026-10-01","access_url":"https://example.org/p.pdf",
+           "oa_status":"VERIFICADO","access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"paper",
+           "summary":"A post-Keynesian model of effective demand and endogenous money.",
+           "language":"en","venue":"Cambridge Working Papers","source_name":"Example",
+           "relevance_score":"80",
+           "relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,finanzas-sector-publico;anclas=monetary,economics"}
+        score,decision,reasons=editorial_evaluate(r,self.cfg)
+        self.assertIn("H=2.0",reasons)
+        self.assertIn("R=0.0",reasons)
+        self.assertGreaterEqual(score,7.0)
+
+    def test_latin_america_does_not_imply_pluralism(self):
+        r={"title":"Food Labelling Regulation in Peru","authors":"A. Author",
+           "publication_year":"2026","published_at":"2026-10-01","access_url":"https://example.org/p.pdf",
+           "oa_status":"VERIFICADO","access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"book",
+           "summary":"Regulation, institutions and consumer information in Peru.",
+           "language":"es","venue":"Example","source_name":"Example",
+           "relevance_score":"70",
+           "relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones;anclas=economics"}
+        score,decision,reasons=editorial_evaluate(r,self.cfg)
+        self.assertIn("R=1.0",reasons)
+        self.assertIn("H=0.0",reasons)
+
     def test_thematic_review_cannot_become_publishable(self):
         r={"title":"Monetary banking topic","authors":"A. Author","publication_year":"2026",
            "published_at":"2026-10-01","access_url":"https://example.org/item.pdf",
