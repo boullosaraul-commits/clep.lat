@@ -25,6 +25,7 @@ jobs:
           python-version: "3.12"
 
       - name: Search up to 10 unresolved historical posts
+        timeout-minutes: 8
         env:
           CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
           CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
