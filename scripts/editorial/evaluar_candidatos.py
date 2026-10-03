@@ -110,7 +110,7 @@ def main():
     counts={"PROMOCION_AUTOMATICA":0,"REVISION_EDITORIAL":0,"ARCHIVADO":0}
     academic_counts={"PROMOCION_AUTOMATICA":0,"REVISION_EDITORIAL":0,"ARCHIVADO":0}
     for r in rows:
-        if r.get("status") not in {"DETECTADO","EVALUADO","METADATOS_OBTENIDOS","OA_VERIFICADO","REVISION_EDITORIAL","ARCHIVADO"}:continue
+        if r.get("status") not in {"DETECTADO","EVALUADO","METADATOS_OBTENIDOS","OA_VERIFICADO","REVISION_EDITORIAL","ARCHIVADO","FICHA_LISTA"}:continue
         if r.get("source_type")=="statistical_watch" and int(r.get("relevance_score") or 0)>=100:
             r["status"]="EVALUADO";continue
         if r.get("source_type") in {"doab_oai","doab_rest"} or r.get("source_id")=="doab-economics":
