@@ -82,6 +82,9 @@ def main():
                 src=" ".join([r.get("oa_fuente") or "",notes,r.get("url_original") or ""]).lower()
                 if "doab" in src or "directory of open access books" in src:day_counts[day]["doab"]+=1
                 day_counts[day]["types"][r.get("tipo_recurso") or "otro"]+=1
+                sm=re.search(r"venue=([^;|]+)",notes,re.I)
+                sk=(sm.group(1).strip().lower() if sm and sm.group(1).strip() else (r.get("oa_fuente") or "").strip().lower())
+                if sk:day_counts[day].setdefault("sources",Counter())[sk]+=1
 
         if flow=="archivo_historico":
             if truthy(r.get("original_retirado")) and not r.get("post_nuevo_id"):
@@ -102,6 +105,8 @@ def main():
         if c["doab"]>2:errors.append(f"{day}: libros DOAB={c['doab']} > 2")
         for typ,n in c["types"].items():
             if n>3:errors.append(f"{day}: novedades tipo {typ}={n} > 3")
+        for src,n in c.get("sources",{}).items():
+            if n>2:errors.append(f"{day}: novedades misma institución/serie {src}={n} > 2")
         if c["nontext"]>4:errors.append(f"{day}: no-texto={c['nontext']} > 4")
     for day,times in day_times.items():
         dup=[x for x,n in Counter(times).items() if n>1]
