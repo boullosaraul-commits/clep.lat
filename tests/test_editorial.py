@@ -135,10 +135,27 @@ class EditorialPriorityTests(unittest.TestCase):
 
     def test_ineligible_cannot_buy_entry_with_relevance(self):
         r={"title":"Relevant but closed","authors":"A. Author","publication_year":"2026",
-           "access_url":"https://example.org/closed","oa_status":"POR_VERIFICAR",
+           "published_at":"2026-10-01","access_url":"https://example.org/closed","oa_status":"POR_VERIFICAR",
+           "access_status":"SOURCE_UNCHECKED","content_type":"paper",
            "relevance_score":"100","relevance_reasons":"disciplina=economia;areas=macroeconomia-dinero;anclas=economics"}
         score,decision,_=editorial_evaluate(r,self.cfg)
         self.assertEqual(score,0.0);self.assertEqual(decision,"INELIGIBLE")
+
+    def test_source_oa_without_live_link_is_ineligible(self):
+        r={"title":"OA source but unchecked URL","authors":"A. Author","publication_year":"2026",
+           "published_at":"2026-10-01","access_url":"https://example.org/item",
+           "oa_status":"VERIFICADO_FUENTE","access_status":"SOURCE_OA_UNCHECKED","content_type":"book",
+           "relevance_reasons":"disciplina=economia;areas=macroeconomia-dinero;anclas=economics"}
+        score,decision,_=editorial_evaluate(r,self.cfg)
+        self.assertEqual((score,decision),(0.0,"INELIGIBLE"))
+
+    def test_exact_novelty_date_required(self):
+        r={"title":"Undated current-year item","authors":"A. Author","publication_year":"2026",
+           "published_at":"2026","access_url":"https://example.org/item.pdf",
+           "oa_status":"VERIFICADO_FUENTE","access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"paper",
+           "relevance_reasons":"disciplina=economia;areas=macroeconomia-dinero;anclas=economics"}
+        score,decision,_=editorial_evaluate(r,self.cfg)
+        self.assertEqual((score,decision),(0.0,"INELIGIBLE"))
 
 class ConfigTests(unittest.TestCase):
     def test_no_generative_ai_and_no_noimage_fallback(self):
@@ -146,6 +163,11 @@ class ConfigTests(unittest.TestCase):
         self.assertFalse(cfg["generative_ai"]["enabled"])
         self.assertNotIn("no_image",cfg["paper_visual"]["preference"])
         self.assertFalse(cfg["archivo_historico"]["stop_when_target_date_reached"])
+
+    def test_expanded_academic_sources_are_configured(self):
+        src=json.loads((ROOT/"data/editorial/fuentes.json").read_text(encoding="utf-8"))
+        ids={x["id"] for x in src["fuentes"] if x.get("habilitada")}
+        self.assertTrue({"scielo-books-oai","dialnet-articles-oai","dialnet-theses-oai","clacso-repository-oai"} <= ids)
 
 if __name__=="__main__":
     unittest.main()
