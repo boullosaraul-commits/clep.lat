@@ -1,79 +1,173 @@
 {
-  "generated_at": "2026-10-03T15:13:21+00:00",
-  "records": 1082,
-  "academic_records": 828,
+  "generated_at": "2026-10-03T17:50:04+00:00",
+  "records": 1213,
+  "academic_records": 998,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 827,
-    "7_8_9": 1
+    "0_4_9": 993,
+    "5_6_9": 5
   },
   "decisions": {
-    "THEMATIC_REJECTED": 528,
-    "THEMATIC_REVIEW": 219,
-    "INELIGIBLE": 80,
-    "PUBLISHABLE": 1
+    "THEMATIC_REJECTED": 604,
+    "INELIGIBLE": 105,
+    "THEMATIC_REVIEW": 282,
+    "ARCHIVE": 2,
+    "REVIEW": 5
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 600
+      "0_4_9": 731
     },
     "crossref_academic": {
       "0_4_9": 126
     },
     "doab_oai": {
       "0_4_9": 101,
-      "7_8_9": 1
+      "5_6_9": 1
+    },
+    "nep_report": {
+      "0_4_9": 35,
+      "5_6_9": 4
     }
   },
   "by_type": {
     "book": {
       "0_4_9": 101,
-      "7_8_9": 1
+      "5_6_9": 1
     },
     "chapter": {
-      "0_4_9": 104
+      "0_4_9": 116
     },
     "edition_translation": {
-      "0_4_9": 15
+      "0_4_9": 17
     },
     "paper": {
-      "0_4_9": 195
+      "0_4_9": 230,
+      "5_6_9": 4
     },
     "report": {
-      "0_4_9": 405
+      "0_4_9": 520
     },
     "thesis": {
-      "0_4_9": 7
+      "0_4_9": 9
     }
   },
   "top_candidates": [
+    {
+      "candidate_id": "CAND-04A7C400510D8804",
+      "title": "The Making of Modern Latin American Agriculture: A Long-Run Perspective (1870-2020)",
+      "source": "nep-mac",
+      "type": "paper",
+      "score": "6.0",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=2.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,desarrollo-estructura;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "33",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
     {
       "candidate_id": "CAND-21AE46114119E6BE",
       "title": "Desafíos y limitaciones en la implementación del etiquetado de alimentos transgénicos en el Perú",
       "source": "doab-economics",
       "type": "book",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones",
+      "score": "6.0",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=2.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "34",
       "access_status": "PUBLIC_ACCESS_VERIFIED"
     },
     {
-      "candidate_id": "CAND-934433BF7605A31D",
-      "title": "Bioethics in Apocalyptic Times",
-      "source": "doab-economics",
-      "type": "book",
+      "candidate_id": "CAND-107ADEC174561D19",
+      "title": "Hegemonic Competition, Alliance Networks, and Strategic Autonomy: Strategy in an Emerging Multipolar Geopolitical Order",
+      "source": "nep-mac",
+      "type": "paper",
+      "score": "5.0",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=2.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "42",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-12193A6C32A65F21",
+      "title": "Exact Inference in Fixed-Effect Regressions with Concentrated Identifying Variation",
+      "source": "nep-ecm",
+      "type": "paper",
+      "score": "5.0",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=2.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-1849574D8AEA0346",
+      "title": "Monetary policy transmission by securitising banks",
+      "source": "nep-mon",
+      "type": "paper",
+      "score": "5.0",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=2.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "33",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-0286444C0D1D3E6C",
+      "title": "Climate Change and Monetary Policy: Navigating Physical Risks",
+      "source": "nep-mon",
+      "type": "paper",
+      "score": "4.5",
+      "decision": "ARCHIVE",
+      "components": "editorial_decision=ARCHIVE;P=2.0;V=1.0;A=1.0;O=0.5;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "34",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-07D04162E832C138",
+      "title": "Forecasting Indian Core Inflation: Simple Made Simpler",
+      "source": "nep-mon",
+      "type": "paper",
+      "score": "4.5",
+      "decision": "ARCHIVE",
+      "components": "editorial_decision=ARCHIVE;P=2.0;V=1.0;A=1.0;O=0.5;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "33",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-00667A602648E2A3",
+      "title": "From the Point to Chaos: The Evolution of the Concept of Equilibrium in Economic Theory",
+      "source": "nep-hme",
+      "type": "paper",
       "score": "0.0",
       "decision": "THEMATIC_REJECTED",
       "components": "pertinencia_temática=no_aprobada",
-      "relevance_score": "13",
-      "access_status": "ACCESS_FAILED"
+      "relevance_score": "3",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
     },
     {
-      "candidate_id": "CAND-65773DC58CD6443B",
-      "title": "Mujeres que transforman conocimiento. Innovación educativa e investigación interdisciplinaria para la sostenibilidad",
-      "source": "doab-economics",
-      "type": "book",
+      "candidate_id": "CAND-00E2EF8CDB60FDF9",
+      "title": "The Green Revolution, Structural Transformation, and Economic Development via Market Mechanisms",
+      "source": "nep-his",
+      "type": "paper",
+      "score": "0.0",
+      "decision": "INELIGIBLE",
+      "components": "eligibilidad=fallida",
+      "relevance_score": "35",
+      "access_status": ""
+    },
+    {
+      "candidate_id": "CAND-01A22858A6789DEE",
+      "title": "Dynamic Discrete Choice and Inverse Reinforcement Learning: Inferring Preferences and Beliefs From Human Behavior",
+      "source": "nep-ecm",
+      "type": "paper",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "3",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-01C3235D8D1B5CD4",
+      "title": "Der Euro als internationale Leitwährung: Ökonomische Bedingungen und politische Voraussetzungen",
+      "source": "nep-mac",
+      "type": "paper",
       "score": "0.0",
       "decision": "THEMATIC_REVIEW",
       "components": "pertinencia_temática=no_aprobada",
@@ -81,103 +175,15 @@
       "access_status": "PUBLIC_ACCESS_VERIFIED"
     },
     {
-      "candidate_id": "CAND-3DCCB11C78AF30BD",
-      "title": "Las teorías del aprendizaje y el pensamiento educativo de David Ausubel: Análisis crítico y sistemático",
-      "source": "doab-economics",
-      "type": "book",
+      "candidate_id": "CAND-036A0AD115D52964",
+      "title": "Human Capital in Venture Capital: Evidence From 100,000 Venture Capitalists",
+      "source": "nep-lma",
+      "type": "paper",
       "score": "0.0",
       "decision": "THEMATIC_REJECTED",
       "components": "pertinencia_temática=no_aprobada",
       "relevance_score": "3",
-      "access_status": "PUBLIC_ACCESS_VERIFIED"
-    },
-    {
-      "candidate_id": "CAND-7238284F90C0F2D5",
-      "title": "Medicina y odontología en emergencias y desastres. Competencias clínicas, gestión del riesgo y atención en escenarios de recursos limitados. Tomo I",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "0.0",
-      "decision": "THEMATIC_REJECTED",
-      "components": "pertinencia_temática=no_aprobada",
-      "relevance_score": "0",
-      "access_status": "PUBLIC_ACCESS_VERIFIED"
-    },
-    {
-      "candidate_id": "CAND-6A27482D469F6AC6",
-      "title": "Salud pública y odontología sostenible: huella de carbono, prácticas verdes",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "0.0",
-      "decision": "THEMATIC_REJECTED",
-      "components": "pertinencia_temática=no_aprobada",
-      "relevance_score": "0",
-      "access_status": "PUBLIC_ACCESS_VERIFIED"
-    },
-    {
-      "candidate_id": "CAND-588284962B06FD73",
-      "title": "Psicopatología en estudiantes de educación superior: Criterio interpersonal o social",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "0.0",
-      "decision": "THEMATIC_REJECTED",
-      "components": "pertinencia_temática=no_aprobada",
-      "relevance_score": "3",
-      "access_status": "PUBLIC_ACCESS_VERIFIED"
-    },
-    {
-      "candidate_id": "CAND-19E7007485993103",
-      "title": "Educomunicação no contexto pandêmico",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "0.0",
-      "decision": "THEMATIC_REJECTED",
-      "components": "pertinencia_temática=no_aprobada",
-      "relevance_score": "3",
-      "access_status": "SOURCE_OA_UNCHECKED"
-    },
-    {
-      "candidate_id": "CAND-5B02E4CDBEE13B6C",
-      "title": "Inklusion – Exklusion",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "0.0",
-      "decision": "THEMATIC_REJECTED",
-      "components": "pertinencia_temática=no_aprobada",
-      "relevance_score": "13",
-      "access_status": "SOURCE_OA_UNCHECKED"
-    },
-    {
-      "candidate_id": "CAND-F61CD5366A0890AD",
-      "title": "Rameaus operaer",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "0.0",
-      "decision": "THEMATIC_REJECTED",
-      "components": "pertinencia_temática=no_aprobada",
-      "relevance_score": "0",
-      "access_status": "ACCESS_FAILED"
-    },
-    {
-      "candidate_id": "CAND-2E5A78AD3E1D5A76",
-      "title": "Säädellyt sävyt",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "0.0",
-      "decision": "THEMATIC_REVIEW",
-      "components": "pertinencia_temática=no_aprobada",
-      "relevance_score": "28",
-      "access_status": "SOURCE_OA_UNCHECKED"
-    },
-    {
-      "candidate_id": "CAND-35C8C0ADB09E951D",
-      "title": "Contested Knowledge",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "0.0",
-      "decision": "THEMATIC_REJECTED",
-      "components": "pertinencia_temática=no_aprobada",
-      "relevance_score": "3",
-      "access_status": "SOURCE_OA_UNCHECKED"
+      "access_status": ""
     }
   ]
 }
