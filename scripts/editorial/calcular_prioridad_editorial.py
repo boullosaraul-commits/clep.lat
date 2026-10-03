@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 P=ROOT/"data/editorial/candidatos.csv"
 CFG=ROOT/"data/editorial/prioridad_editorial.json"
+ACADEMIC={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
 
 def norm(s):
     s=unicodedata.normalize("NFKC",str(s or "")).lower()
@@ -90,7 +91,7 @@ def evaluate(r,cfg,now=None):
     eligible=(bool((r.get("title") or "").strip()) and bool(year(r))
               and bool((r.get("access_url") or "").strip()) and access_verified(r)
               and identified_responsibility(r)
-              and (d is None or d<=int(cfg["eligibility"]["max_age_days"])))
+              and d is not None and d<=int(cfg["eligibility"]["max_age_days"]))
     if not eligible:
         return 0.0,"INELIGIBLE","eligibilidad=fallida"
     text=norm(" ".join([r.get("title",""),r.get("summary",""),r.get("notes",""),r.get("venue",""),r.get("source_name","")]))
@@ -113,7 +114,8 @@ def main():
         if field not in fields:fields.append(field)
     counts={}
     for r in rows:
-        # Sólo se priorizan candidatos que ya pasaron por pertinencia temática.
+        # El índice 0–10 sólo gobierna novedades académicas.
+        if (r.get("content_type") or "") not in ACADEMIC:continue
         if not (r.get("relevance_reasons") or ""):continue
         score,decision,reasons=evaluate(r,cfg)
         r["editorial_score"]=f"{score:.1f}";r["editorial_decision"]=decision;r["editorial_score_reasons"]=reasons
