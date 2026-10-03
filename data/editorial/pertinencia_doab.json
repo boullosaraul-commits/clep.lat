@@ -1,7 +1,7 @@
 {
-  "version": 1,
-  "scope": "DOAB books",
-  "principle": "pertinencia editorial reproducible; el puntaje no mide calidad académica",
+  "version": 2,
+  "scope": "academic novelties: DOAB, NEP/RePEc, Crossref and academic OAI",
+  "principle": "pertinencia temática CLEP reproducible; el puntaje no mide calidad académica ni prioridad editorial",
   "thresholds": {
     "promocion_automatica": 30,
     "revision_editorial": 14
