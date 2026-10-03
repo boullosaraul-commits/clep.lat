@@ -6,7 +6,7 @@ generativa. Para visuales aplica:
   imagen oficial con derechos verificados > gráfica determinista > tarjeta CLEP.
 """
 from __future__ import annotations
-import csv, hashlib, json, mimetypes, re, shutil, subprocess, sys, urllib.request
+import csv, hashlib, json, mimetypes, os, re, shutil, subprocess, sys, urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -20,6 +20,7 @@ C=ROOT/"data/editorial/candidatos.csv"
 Q=ROOT/"data/editorial/cola.csv"
 MEDIA=ROOT/"data/editorial/media"
 UA="CLEP-editorial/2.1 (+https://clep.lat)"
+SCREENSHOT_ATTEMPTS=0
 
 def clean(x):return re.sub(r"\s+"," ",str(x or "")).strip()
 def year(r):
@@ -113,18 +114,22 @@ def capture_official_landing(r):
     CAPTURA_LANDING_OFICIAL y sólo se usa para representar el recurso enlazado.
     Si Chrome no está disponible o la página falla, se usa la tarjeta CLEP.
     """
+    global SCREENSHOT_ATTEMPTS
+    limit=int(os.getenv("CLEP_SCREENSHOT_LIMIT","8"))
+    if SCREENSHOT_ATTEMPTS>=limit:return None
     url=clean(r.get("source_url") or r.get("access_url"))
     if not url or urlparse(url).scheme!="https":return None
+    SCREENSHOT_ATTEMPTS+=1
     chrome=shutil.which("google-chrome") or shutil.which("google-chrome-stable") or shutil.which("chromium")
     if not chrome:return None
     dig=hashlib.sha256(url.encode()).hexdigest()[:16]
     rel=f"data/editorial/media/{r['candidate_id']}-landing-{dig}.png"
     out=ROOT/rel
     cmd=[chrome,"--headless=new","--disable-gpu","--no-sandbox","--disable-dev-shm-usage",
-         "--hide-scrollbars","--window-size=1200,1500","--virtual-time-budget=5000",
+         "--hide-scrollbars","--window-size=1200,1500","--virtual-time-budget=3000",
          f"--screenshot={out}",url]
     try:
-        subprocess.run(cmd,check=True,timeout=35,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        subprocess.run(cmd,check=True,timeout=15,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     except Exception:return None
     if not out.is_file() or out.stat().st_size<5000:return None
     return {"media_type":"image/png","media_path":rel,"media_source":url,
