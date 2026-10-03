@@ -1,5 +1,5 @@
 {
-  "version": 9,
+  "version": 10,
   "politica": {
     "nota": "Fuentes oficiales verificadas. Detectar no implica publicar.",
     "publicacion_directa": false,
@@ -811,6 +811,73 @@
       "max_paginas": 3,
       "tipo_por_defecto": "report",
       "nota": "Repositorio institucional oficial. Se conservan derechos y tipos declarados en Dublin Core; acceso abierto sólo se acredita automáticamente cuando los metadatos lo indican explícitamente."
+    },
+    {
+      "id": "scielo-books-oai",
+      "nombre": "SciELO Libros — OAI-PMH",
+      "tipo": "academic_oai",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://oai.books.scielo.org/oai-pmh",
+      "area_clep": "america-latina",
+      "prioridad": 18,
+      "metodo": "OAI-PMH/oai_dc",
+      "ventana_dias": 21,
+      "max_paginas": 3,
+      "tipo_por_defecto": "book",
+      "source_oa_guarantee": false,
+      "nota": "Fuente oficial SciELO Libros; contiene títulos OA y comerciales, por lo que OA se acredita registro por registro."
+    },
+    {
+      "id": "dialnet-articles-oai",
+      "nombre": "Dialnet — artículos OAI-PMH",
+      "tipo": "academic_oai",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://dialnet.unirioja.es/oai/OAIHandler",
+      "area_clep": "por_clasificar",
+      "prioridad": 32,
+      "metodo": "OAI-PMH/oai_dc",
+      "ventana_dias": 21,
+      "max_paginas": 2,
+      "tipo_por_defecto": "paper",
+      "source_oa_guarantee": false,
+      "nota": "Descubrimiento en español; Dialnet no se interpreta como garantía OA del texto completo."
+    },
+    {
+      "id": "dialnet-theses-oai",
+      "nombre": "Dialnet — tesis OAI-PMH",
+      "tipo": "academic_oai",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://dialnet.unirioja.es/oaites/OAIHandler",
+      "area_clep": "por_clasificar",
+      "prioridad": 35,
+      "metodo": "OAI-PMH/oai_dc",
+      "ventana_dias": 21,
+      "max_paginas": 2,
+      "tipo_por_defecto": "thesis",
+      "source_oa_guarantee": false,
+      "nota": "Descubrimiento de tesis; requiere acceso verificado y pertinencia CLEP antes de preparar."
+    },
+    {
+      "id": "clacso-repository-oai",
+      "nombre": "CLACSO — Repositorio Digital",
+      "tipo": "academic_oai",
+      "flujo_editorial": "novedad",
+      "habilitada": true,
+      "url": "https://biblioteca-repositorio.clacso.edu.ar/server/oai/request",
+      "fallback_urls": [
+        "https://biblioteca-repositorio.clacso.edu.ar/oai/request"
+      ],
+      "area_clep": "internacional-latinoamerica",
+      "prioridad": 12,
+      "metodo": "OAI-PMH/oai_dc",
+      "ventana_dias": 21,
+      "max_paginas": 3,
+      "tipo_por_defecto": "report",
+      "source_oa_guarantee": true,
+      "nota": "Repositorio Digital de CLACSO; infraestructura regional de acceso abierto. Se verifica además que el enlace concreto responda."
     }
   ]
 }
