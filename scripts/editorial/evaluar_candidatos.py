@@ -24,6 +24,14 @@ POS={
 }
 MIN_AUTO=15
 
+def reference_year():
+    raw=(os.getenv("CLEP_REFERENCE_DATE") or "").strip()
+    if raw:
+        try:return datetime.fromisoformat(raw).year
+        except ValueError:pass
+    return datetime.now(timezone.utc).year
+
+
 def norm(s):
     s=unicodedata.normalize("NFKC",str(s or "")).lower()
     return re.sub(r"\s+"," ",s).strip()
@@ -67,7 +75,7 @@ def doab_eval(r,cfg,priority_cfg=None):
     y=0
     try:y=int(r.get("publication_year") or 0)
     except ValueError:pass
-    if y and y>=datetime.now(timezone.utc).year-2:score+=int(cfg["bonuses"]["recent_3_years"])
+    if y and y>=reference_year()-2:score+=int(cfg["bonuses"]["recent_3_years"])
     discipline_ok=bool(anchors or area_scores)
     if exclusions and not anchors:
         score-=int(cfg["discipline_gate"]["exclusion_penalty"]);discipline_ok=False
