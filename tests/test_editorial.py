@@ -14,6 +14,7 @@ from evaluar_candidatos import doab_eval
 from ingerir_novedades_academicas import classify_crossref, explicit_revision_or_translation
 from calcular_prioridad_editorial import evaluate as editorial_evaluate
 from planificar import editorial_index_10
+from verificar_oa import preverification_score
 
 class MatcherV31Tests(unittest.TestCase):
     def test_main_title_rescue(self):
@@ -226,6 +227,20 @@ class EditorialPriorityTests(unittest.TestCase):
         score,decision,_=editorial_evaluate(r,self.cfg)
         self.assertEqual(score,0.0)
         self.assertEqual(decision,"THEMATIC_REVIEW")
+
+
+    def test_oa_preverification_prioritizes_pluralist_and_regional_value(self):
+        from calcular_prioridad_editorial import reference_now
+        cfg=self.cfg
+        base={"authors":"A. Author","publication_year":"2026","published_at":"2026-10-02",
+              "access_url":"https://example.org/x","content_type":"paper","source_name":"Example",
+              "relevance_score":"30","relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero;anclas=economics"}
+        ordinary=dict(base,title="A Monetary Economics Paper",summary="A conventional monetary economics study.")
+        plural=dict(base,title="Post-Keynesian Effective Demand",summary="Post-Keynesian effective demand and endogenous money.")
+        regional=dict(base,title="Economic Development in Peru",summary="Economic development and institutions in Peru.")
+        now=reference_now()
+        self.assertGreater(preverification_score(plural,cfg,now),preverification_score(ordinary,cfg,now))
+        self.assertGreater(preverification_score(regional,cfg,now),preverification_score(ordinary,cfg,now))
 
     def test_planner_reads_canonical_score_only(self):
         self.assertEqual(editorial_index_10({"editorial_score":"8.5","notas":"indice_editorial=2"}),8.5)
