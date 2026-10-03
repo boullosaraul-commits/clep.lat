@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "principle": "prioridad editorial reproducible; no mide calidad científica",
   "eligibility": {
     "max_age_days": 21,
@@ -24,11 +24,12 @@
     "review": 5
   },
   "weights": {
-    "pertinence_max": 4,
-    "editorial_value_max": 3,
+    "pertinence_max": 3,
+    "editorial_value_max": 2,
     "recency_max": 1,
     "access_max": 1,
-    "regional_pluralist_max": 1
+    "regional_max": 1,
+    "pluralism_max": 2
   },
   "editorial_value": {
     "substantive_types": [
@@ -89,7 +90,13 @@
     ],
     "first_point": "Un tipo académico sustantivo verificado obtiene 1 punto; no depende de que el resumen contenga literalmente research/evidence."
   },
-  "regional_pluralist": {
+  "diversity": {
+    "max_same_type_daily": 3,
+    "max_doab_books_daily": 2,
+    "max_same_institution_or_series_daily": 2,
+    "min_distinct_types_if_available": 3
+  },
+  "regional": {
     "terms": [
       "latin america",
       "latin american",
@@ -106,33 +113,121 @@
       "américa latina",
       "latinoamérica",
       "caribe",
-      "heterodox",
-      "heterodox economics",
-      "pluralism",
-      "pluralist",
-      "history of economic thought",
-      "economic thought",
-      "heterodoxo",
-      "heterodoxa",
-      "pluralismo",
-      "historia del pensamiento económico",
-      "pensamiento económico"
+      "uruguay",
+      "paraguay",
+      "bolivia",
+      "ecuador",
+      "venezuela",
+      "costa rica",
+      "guatemala",
+      "honduras",
+      "el salvador",
+      "nicaragua",
+      "panama",
+      "panamá",
+      "dominican republic",
+      "república dominicana",
+      "cuba"
     ],
-    "languages": [
-      "es",
-      "spa",
-      "pt",
-      "por",
-      "español",
-      "spanish",
-      "portuguese",
-      "português"
-    ]
+    "languages": []
   },
-  "diversity": {
-    "max_same_type_daily": 3,
-    "max_doab_books_daily": 2,
-    "max_same_institution_or_series_daily": 2,
-    "min_distinct_types_if_available": 3
+  "pluralism": {
+    "principle": "Premia evidencia explícita de tradiciones, conceptos o métodos pluralistas/heterodoxos; no es requisito de elegibilidad ni sustituye pertinencia económica.",
+    "explicit_traditions": {
+      "points": 2,
+      "terms": [
+        "heterodox economics",
+        "heterodox",
+        "pluralist economics",
+        "economic pluralism",
+        "post-keynesian",
+        "post keynesian",
+        "postkeynesian",
+        "poskeynesiano",
+        "poskeynesiana",
+        "kaleckian",
+        "kaleckiano",
+        "marxian economics",
+        "marxian",
+        "marxist economics",
+        "marxista",
+        "institutionalist economics",
+        "institutional economics",
+        "old institutional economics",
+        "evolutionary economics",
+        "economía evolucionista",
+        "structuralist economics",
+        "economic structuralism",
+        "estructuralismo económico",
+        "feminist economics",
+        "economía feminista",
+        "ecological economics",
+        "economía ecológica",
+        "circuit theory",
+        "monetary circuit",
+        "teoría del circuito monetario",
+        "modern monetary theory",
+        "modern money theory",
+        "mmt",
+        "teoría monetaria moderna",
+        "stock-flow consistent",
+        "stock flow consistent",
+        "sfc model",
+        "social provisioning",
+        "classical political economy",
+        "economía política clásica"
+      ]
+    },
+    "characteristic_concepts": {
+      "points": 1,
+      "terms": [
+        "effective demand",
+        "demanda efectiva",
+        "financialization",
+        "financialisation",
+        "financiarización",
+        "functional finance",
+        "finanzas funcionales",
+        "social reproduction",
+        "reproducción social",
+        "input-output",
+        "input output",
+        "insumo-producto",
+        "surplus approach",
+        "enfoque del excedente",
+        "endogenous money",
+        "dinero endógeno",
+        "sectoral balances",
+        "balances sectoriales",
+        "cumulative causation",
+        "causación acumulativa",
+        "supermultiplier",
+        "supermultiplicador",
+        "fundamental uncertainty",
+        "incertidumbre fundamental",
+        "administered prices",
+        "precios administrados",
+        "conflict inflation",
+        "inflación por conflicto",
+        "wage-led",
+        "profit-led",
+        "demand-led growth",
+        "crecimiento liderado por la demanda"
+      ]
+    },
+    "history_method": {
+      "points": 1,
+      "terms": [
+        "history of economic thought",
+        "historia del pensamiento económico",
+        "methodology of economics",
+        "metodología de la economía",
+        "history of economics",
+        "historia de la economía",
+        "political economy",
+        "economía política"
+      ]
+    },
+    "cap": 2
   }
 }
