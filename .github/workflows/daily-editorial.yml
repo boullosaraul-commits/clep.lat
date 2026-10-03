@@ -126,7 +126,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for i in $(seq 1 18); do
+          for i in $(seq 1 17); do
             rm -f /tmp/clep_meta_attempt_id
             set +e
             python scripts/editorial/marcar_intento_meta.py --output /tmp/clep_meta_attempt_id
