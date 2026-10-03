@@ -76,6 +76,24 @@ def main():
             assert r["candidate_fingerprint"] and r["editorial_policy_fingerprint"],r
             if r.get("media_path"):media_created.append(ROOT/r["media_path"])
 
+        # Regresión: una ficha vieja deja de ser programable si cambia la decisión.
+        with cand.open(encoding="utf-8",newline="") as f:
+            cr=csv.DictReader(f);crows=list(cr);cfields=cr.fieldnames
+        peru=next(r for r in crows if r["candidate_id"]=="CAND-E2E-PERU")
+        peru["editorial_score"]="6.0";peru["editorial_decision"]="REVIEW"
+        with cand.open("w",encoding="utf-8",newline="") as f:
+            w=csv.DictWriter(f,fieldnames=cfields);w.writeheader();w.writerows(crows)
+        run("scripts/editorial/preparar_publicacion.py",env=env)
+        with queue.open(encoding="utf-8",newline="") as f:qrows=list(csv.DictReader(f))
+        assert next(r for r in qrows if r["url_id"]=="CAND-E2E-PERU")["estado_editorial"]=="REVALIDAR",qrows
+
+        # Restaurar mediante la política real y comprobar reconstrucción de la misma fila.
+        run("scripts/editorial/evaluar_candidatos.py",env=env)
+        run("scripts/editorial/calcular_prioridad_editorial.py",env=env)
+        run("scripts/editorial/preparar_publicacion.py",env=env)
+        with queue.open(encoding="utf-8",newline="") as f:qrows=list(csv.DictReader(f))
+        assert len(qrows)==2 and all(r["estado_editorial"]=="FICHA_LISTA" for r in qrows),qrows
+
         run("scripts/editorial/planificar.py",env=env)
         run("scripts/editorial/verificar_cola.py",env=env)
         with queue.open(encoding="utf-8",newline="") as f:qrows=list(csv.DictReader(f))
