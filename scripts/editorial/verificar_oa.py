@@ -16,16 +16,20 @@ UA="CLEP-editorial/2.0 (+https://clep.lat)"
 LEGIT_SOURCE_TYPES={"nep_report","doab_rest","doab_oai"}
 LEGIT_SOURCE_IDS={"doab-economics"}
 
-def verify_public_pdf(url):
+def verify_public_url(url,pdf_required=False):
     if not url or urlparse(url).scheme!="https":return False,"",""
     for method in ("HEAD","GET"):
         try:
-            headers={"User-Agent":UA}
-            if method=="GET":headers["Range"]="bytes=0-1023"
+            headers={"User-Agent":UA,"Accept":"text/html,application/pdf,*/*;q=0.5"}
+            if method=="GET":headers["Range"]="bytes=0-2047"
             req=urllib.request.Request(url,headers=headers,method=method)
             with urllib.request.urlopen(req,timeout=25) as r:
                 final=r.geturl();ct=(r.headers.get("Content-Type") or "").lower()
-                ok=(urlparse(final).scheme=="https" and ("application/pdf" in ct or urlparse(final).path.lower().endswith(".pdf")))
+                if urlparse(final).scheme!="https":continue
+                if pdf_required:
+                    ok=("application/pdf" in ct or urlparse(final).path.lower().endswith(".pdf"))
+                else:
+                    ok=(200<=getattr(r,"status",200)<400)
                 if ok:return True,final,ct
         except Exception:pass
     return False,"",""
@@ -37,19 +41,21 @@ def main():
     for r in rows:
         if r.get("content_type") and r.get("content_type") not in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}:continue
         if not r.get("title"):continue
-        # Un OAI institucional con derecho OA explícito ya trae evidencia de fuente.
-        if r.get("source_type")=="academic_oai" and r.get("oa_status")=="VERIFICADO_FUENTE":
-            r["status"]="OA_VERIFICADO";oa_yes+=1
-            continue
         url=(r.get("access_url") or "").strip()
         # Crossref es descubrimiento, no prueba de OA. Sin full text PDF directo no
         # hacemos peticiones inútiles a la landing del DOI.
+        pdf_required=False
         if r.get("source_type")=="crossref_academic":
             if not (url.lower().endswith(".pdf") or "pdf" in url.lower()):
                 continue
+            pdf_required=True
         if r.get("content_type") in {"paper","book","chapter","thesis","edition_translation"} and not r.get("authors"):continue
-        ok,final,_=verify_public_pdf(url)
-        if not ok:continue
+        ok,final,_=verify_public_url(url,pdf_required=pdf_required)
+        if not ok:
+            if r.get("oa_status") in {"VERIFICADO_FUENTE","OA_VERIFICADO"}:
+                r["access_status"]="ACCESS_FAILED"
+                if r.get("status")=="OA_VERIFICADO":r["status"]="METADATOS_OBTENIDOS"
+            continue
         r["access_url"]=final;r["access_status"]="PUBLIC_ACCESS_VERIFIED";r["rights_status"]="LINK_ONLY";access_yes+=1
         explicit_open_license="open_license_url=" in (r.get("notes") or "")
         legitimate=(r.get("source_type") in LEGIT_SOURCE_TYPES or r.get("source_id") in LEGIT_SOURCE_IDS
