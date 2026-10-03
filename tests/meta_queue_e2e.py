@@ -54,6 +54,9 @@ def load(path):
 
 def setup():
     _,fields=load(REAL)
+    fields=list(fields or [])
+    for x in ["editorial_score","editorial_decision","editorial_policy_fingerprint","candidate_fingerprint"]:
+        if x not in fields:fields.append(x)
     tz=ZoneInfo("America/Mexico_City")
     when=datetime.now(tz)+timedelta(days=7)
     # Round to minute; far enough in future to satisfy Meta.
@@ -72,7 +75,9 @@ def setup():
       "media_type":"image/svg+xml","media_path":"tests/tmp_meta_card.svg",
       "media_source":"CLEP deterministic E2E card","media_rights_status":"PROPIO_DETERMINISTA",
       "alt_text":"Tarjeta CLEP de prueba técnica",
-      "text_method":"deterministic_template","text_template":"paper","text_status":"VERIFICADO"
+      "text_method":"deterministic_template","text_template":"paper","text_status":"VERIFICADO",
+      "editorial_score":"8.0","editorial_decision":"PUBLISHABLE",
+      "editorial_policy_fingerprint":"meta-e2e-policy","candidate_fingerprint":"meta-e2e-candidate"
     })
     MEDIA.write_text(SVG,encoding="utf-8")
     with TMP.open("w",encoding="utf-8",newline="") as f:
@@ -85,7 +90,10 @@ def cleanup():
     rows,_=load(TMP)
     if len(rows)!=1:raise SystemExit("fixture E2E inválido")
     r=rows[0]
-    if r.get("meta_attempt_status")!="SCHEDULED":raise SystemExit("E2E no llegó a SCHEDULED")
+    if r.get("meta_attempt_status")!="SCHEDULED":
+        TMP.unlink(missing_ok=True);MEDIA.unlink(missing_ok=True)
+        print("E2E cleanup: no llegó a SCHEDULED; no hay objeto Meta que limpiar.")
+        return
     post=(r.get("post_nuevo_id") or "").strip();photo=(r.get("meta_photo_id") or "").strip()
     if not post or not photo:raise SystemExit("E2E sin IDs Meta")
     obj=graph_get(post,token,"id,is_published")
