@@ -37,11 +37,10 @@ def editorial_index_10(r):
     No representa calidad académica."""
     raw=""
     notes=(r.get("notas") or "")
-    m=__import__("re").search(r"(?:indice_editorial|relevance_score)\s*[=:]\s*(\d+(?:\.\d+)?)",notes,re.I)
+    m=__import__("re").search(r"editorial_score\s*=\s*(\d+(?:\.\d+)?)",notes,re.I)
     if m: raw=m.group(1)
-    # Las filas de cola no conservan relevance_score como columna; para DOAB la
-    # prioridad se deriva del candidato y puede incorporarse a notas. Si no está,
-    # no cuenta como sobresaliente: comportamiento conservador.
+    # El índice editorial viaja explícitamente en notas desde candidatos.csv.
+    # Nunca se reconstruye desde relevance_score.
     try:
         x=float(raw)
         return x/10 if x>10 else x
@@ -51,7 +50,13 @@ def is_doab(r):
     text=" ".join([r.get("oa_fuente") or "",r.get("notas") or "",r.get("url_original") or ""]).lower()
     return "doab" in text or "directory of open access books" in text
 
-def choose_diverse_textual(textual,capacity,doab_cap,max_same_type=3,min_types=3,existing_type_counts=None,existing_doab=0):
+def institution_series(r):
+    import re
+    notes=r.get("notas") or ""
+    m=re.search(r"venue=([^;|]+)",notes,re.I)
+    return (m.group(1).strip().lower() if m and m.group(1).strip() else (r.get("oa_fuente") or "").strip().lower())
+
+def choose_diverse_textual(textual,capacity,doab_cap,max_same_type=3,min_types=3,max_same_source=2,existing_type_counts=None,existing_doab=0,existing_source_counts=None):
     """Selecciona novedades sin dejar que una fuente o formato monopolice el día.
 
     Primera pasada: incorpora tipos aún no representados hasta alcanzar, si hay
@@ -60,6 +65,7 @@ def choose_diverse_textual(textual,capacity,doab_cap,max_same_type=3,min_types=3
     """
     existing_type_counts=Counter(existing_type_counts or {})
     counts=Counter(existing_type_counts)
+    source_counts=Counter(existing_source_counts or {})
     represented={k for k,v in counts.items() if v>0}
     chosen=[];used=set();doab_n=existing_doab
 
@@ -67,6 +73,8 @@ def choose_diverse_textual(textual,capacity,doab_cap,max_same_type=3,min_types=3
         nonlocal doab_n
         typ=r.get("tipo_recurso") or "otro"
         if counts[typ]>=max_same_type:return False
+        src=institution_series(r)
+        if src and source_counts[src]>=max_same_source:return False
         if is_doab(r) and doab_n>=doab_cap:return False
         return True
 
@@ -78,6 +86,8 @@ def choose_diverse_textual(textual,capacity,doab_cap,max_same_type=3,min_types=3
             typ=r.get("tipo_recurso") or "otro"
             if typ in represented or not can_take(r):continue
             chosen.append(r);used.add(id(r));counts[typ]+=1;represented.add(typ)
+            src=institution_series(r)
+            if src:source_counts[src]+=1
             if is_doab(r):doab_n+=1
 
     for r in textual:
@@ -85,6 +95,8 @@ def choose_diverse_textual(textual,capacity,doab_cap,max_same_type=3,min_types=3
         if id(r) in used or not can_take(r):continue
         typ=r.get("tipo_recurso") or "otro"
         chosen.append(r);counts[typ]+=1
+        src=institution_series(r)
+        if src:source_counts[src]+=1
         if is_doab(r):doab_n+=1
     return chosen
 
@@ -128,7 +140,8 @@ def main():
     hist=sorted([r for r in ready if r.get("flujo_editorial")=="archivo_historico"],key=priority)
     current=[r for r in ready if r.get("flujo_editorial")!="archivo_historico"]
     nontext=sorted([r for r in current if r.get("tipo_recurso") in NON_TEXT],key=priority)
-    textual=sorted([r for r in current if r.get("tipo_recurso") not in NON_TEXT],key=priority)
+    textual=[r for r in current if r.get("tipo_recurso") not in NON_TEXT and editorial_index_10(r)>=7.0]
+    textual=sorted(textual,key=lambda r:(-editorial_index_10(r),)+priority(r))
 
     # Capacidad elástica: 6 normalmente; hasta 8 sólo con >=5 candidatos
     # sobresalientes (índice editorial >=9/10). No es una cuota.
@@ -144,10 +157,12 @@ def main():
     existing_textual=[r for r in existing if r.get("flujo_editorial")!="archivo_historico" and r.get("tipo_recurso") not in NON_TEXT]
     existing_doab=sum(1 for r in existing_textual if is_doab(r))
     existing_types=Counter((r.get("tipo_recurso") or "otro") for r in existing_textual)
+    existing_sources=Counter(institution_series(r) for r in existing_textual if institution_series(r))
     max_same=int(diversity.get("maximo_mismo_tipo_diario",3))
+    max_same_source=int(diversity.get("maximo_misma_institucion_serie_diario",2))
     min_types=int(diversity.get("minimo_tipos_distintos_si_disponibles",3))
     choose_text=choose_diverse_textual(textual,max(0,effective_newmax-existing_new),doab_cap,
-                                       max_same,min_types,existing_types,existing_doab)
+                                       max_same,min_types,max_same_source,existing_types,existing_doab,existing_sources)
     choose_nt=nontext[:max(0,ntmax-existing_nt)]
     choose_hist=hist[:max(0,hcap-existing_hist)]
     chosen=choose_text+choose_nt+choose_hist
