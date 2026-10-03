@@ -10,7 +10,7 @@ Contrato de seguridad:
 Esto evita duplicados automáticos si un runner cae después de que Meta acepte
 el post pero antes de que GitHub reciba el estado final.
 """
-import argparse,csv,os,json,mimetypes,os,subprocess,sys,urllib.error,urllib.parse,urllib.request,uuid
+import argparse,csv,hashlib,os,json,mimetypes,subprocess,sys,urllib.error,urllib.parse,urllib.request,uuid
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -92,8 +92,9 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--editorial-id",required=True)
     args=ap.parse_args()
+    mode=(os.getenv("CLEP_META_MODE") or "live").strip().lower()
     token=os.getenv("CLEP_FB_TOKEN");page=os.getenv("CLEP_FB_PAGE_ID")
-    if not token or not page:sys.exit("Faltan CLEP_FB_TOKEN o CLEP_FB_PAGE_ID")
+    if mode!="mock" and (not token or not page):sys.exit("Faltan CLEP_FB_TOKEN o CLEP_FB_PAGE_ID")
     cfg=json.loads(CFG.read_text(encoding="utf-8"));tz=ZoneInfo(cfg["timezone"])
     with COLA.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
@@ -108,8 +109,19 @@ def main():
     photo_id="";feed_attempted=False
     try:
         when=datetime.fromisoformat(f"{fecha}T{hhmm}").replace(tzinfo=tz)
-        if when<=datetime.now(tz):raise ValueError("horario programado ya pasó")
+        if mode!="mock" and when<=datetime.now(tz):raise ValueError("horario programado ya pasó")
         image=media_file(r)
+        if mode=="mock":
+            dig=hashlib.sha256((r.get("editorial_id","")+"|"+fecha+"|"+hhmm).encode()).hexdigest()[:16]
+            photo_id="mock-photo-"+dig
+            post_id="mock-post-"+dig
+            r["meta_photo_id"]=photo_id
+            r["post_nuevo_id"]=post_id
+            r["meta_attempt_status"]="SCHEDULED"
+            append_note(r,f"Meta mock foto {photo_id}; feed simulado {post_id}")
+            save(rows,fields)
+            print(f"MOCK {r.get('editorial_id')} -> {post_id} @ {when.isoformat()}")
+            return
         photo=upload_photo(page,token,image)
         photo_id=str(photo.get("id") or "")
         if not photo_id:raise RuntimeError("Meta no devolvió photo_id")
