@@ -5,12 +5,12 @@ No evalúa calidad científica. Ordena candidatos ya pertinentes según utilidad
 editorial verificable para CLEP. Sólo usa campos/metadatos y vocabularios
 explícitos; no usa IA generativa.
 """
-import csv,json,re,unicodedata
+import csv,json,os,re,unicodedata
 from datetime import datetime,timezone
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
-P=ROOT/"data/editorial/candidatos.csv"
+P=Path(os.getenv("CLEP_CANDIDATES_PATH",str(ROOT/"data/editorial/candidatos.csv"))).resolve()
 CFG=ROOT/"data/editorial/prioridad_editorial.json"
 ACADEMIC={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
 
@@ -59,7 +59,7 @@ def access_verified(r):
     # exige que el recurso haya sido comprobado por HTTP.
     return r.get("access_status") in {"PUBLIC_ACCESS_VERIFIED","VERIFICADO"}
 
-def pertinence_component(r):
+def pertinence_component(r,cfg):
     reasons=r.get("relevance_reasons") or ""
     m=re.search(r"(?:^|;)areas=([^;]+)",reasons)
     areas=[] if not m or m.group(1)=="ninguna" else [x for x in m.group(1).split(",") if x]
@@ -70,7 +70,7 @@ def pertinence_component(r):
     # Ancla económica + área temática = economía como objeto central para este
     # clasificador determinista, no mera coincidencia incidental.
     if areas and "anclas=ninguna" not in reasons:pts+=1.0
-    return min(2.0,pts),areas
+    return min(float(cfg["weights"]["pertinence_max"]),pts),areas
 
 def editorial_value(r,cfg,text):
     ev=cfg["editorial_value"];pts=0.0;kind=r.get("content_type") or ""
@@ -78,7 +78,7 @@ def editorial_value(r,cfg,text):
     if kind in ev["substantive_types"]:pts+=1.0
     if any(has(text,t) for t in ev["training_research_terms"]):pts+=1.0
     if kind in ev["special_utility_types"] or any(has(text,t) for t in ev["special_utility_terms"]):pts+=1.0
-    return min(3.0,pts)
+    return min(float(cfg["weights"]["editorial_value_max"]),pts)
 
 def recency_from_days(d):
     if d is None:return 0.0
@@ -86,11 +86,10 @@ def recency_from_days(d):
     if d<=21:return 0.5
     return 0.0
 
-def access_value(r):
-    u=(r.get("access_url") or "").lower()
+def access_value(r,cfg):
     if r.get("oa_status") not in {"VERIFICADO","VERIFICADO_FUENTE","OA_VERIFICADO"}:return 0.0
-    if u.endswith(".pdf") or "pdf" in u:return 1.0
-    return 0.5
+    if not access_verified(r):return 0.0
+    return float(cfg["weights"]["access_max"])
 
 def regional_value(r,cfg,text):
     reg=cfg["regional"]
@@ -109,7 +108,9 @@ def pluralism_value(r,cfg,text):
 
 def thematic_approved(r):
     reasons=r.get("relevance_reasons") or ""
-    if "decision=REVISION_EDITORIAL" in reasons:return False,"THEMATIC_REVIEW"
+    if "decision=REVISION_EDITORIAL" in reasons:
+        if "pluralismo_rescate=si" in reasons:return True,""
+        return False,"THEMATIC_REVIEW"
     if "decision=ARCHIVADO" in reasons:return False,"THEMATIC_REJECTED"
     if r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai","nep_report"}:
         return ("decision=PROMOCION_AUTOMATICA" in reasons,
@@ -130,8 +131,8 @@ def evaluate(r,cfg,now=None):
     if not eligible:
         return 0.0,"INELIGIBLE","eligibilidad=fallida"
     text=norm(" ".join([r.get("title",""),r.get("summary",""),r.get("notes",""),r.get("venue",""),r.get("source_name","")]))
-    p,areas=pertinence_component(r)
-    v=editorial_value(r,cfg,text);a=recency_from_days(d);o=access_value(r)
+    p,areas=pertinence_component(r,cfg)
+    v=editorial_value(r,cfg,text);a=recency_from_days(d);o=access_value(r,cfg)
     regional=regional_value(r,cfg,text)
     plural,plural_explicit,plural_concepts,plural_history=pluralism_value(r,cfg,text)
     score=round(min(10.0,p+v+a+o+regional+plural),1)
