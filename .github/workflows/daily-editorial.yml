@@ -88,6 +88,7 @@ jobs:
       - name: Recover up to 10 historical cases
         id: historical_recovery
         continue-on-error: true
+        timeout-minutes: 8
         env:
           CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
           CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
