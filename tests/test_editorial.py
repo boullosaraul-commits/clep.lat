@@ -175,7 +175,7 @@ class EditorialPriorityTests(unittest.TestCase):
            "authors":"A. Author","publication_year":"2026","published_at":"2026-10-01",
            "access_url":"https://example.org/item.pdf","oa_status":"VERIFICADO_FUENTE",
            "access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"edition_translation",
-           "summary":"New evidence and data. A revised edition for teaching economic methodology.",
+           "summary":"Post-Keynesian effective demand and endogenous money. New evidence and data. A revised edition for teaching economic methodology.",
            "language":"es","venue":"Latin American Political Economy",
            "relevance_score":"90",
            "relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;anclas=economics,monetary"}
