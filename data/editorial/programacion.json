@@ -129,14 +129,20 @@
   },
   "paper_visual": {
     "preference": [
-      "official_landing_page_screenshot",
       "verified_official_cover_or_thumbnail",
+      "official_landing_page_screenshot",
       "deterministic_clep_card"
     ],
     "require_verified_source": true,
     "required_for_every_post": true,
     "fallback": "deterministic_clep_card",
-    "on_failure": "block_publication_and_retry"
+    "on_failure": "block_publication_and_retry",
+    "allowed_media_rights_status": [
+      "VERIFICADO",
+      "CAPTURA_LANDING_OFICIAL",
+      "PROPIO_DETERMINISTA"
+    ],
+    "note": "CAPTURA_LANDING_OFICIAL identifica una captura referencial de la página enlazada; no se etiqueta como licencia de reutilización del arte original."
   },
   "text_policy": {
     "generative_ai": false,
