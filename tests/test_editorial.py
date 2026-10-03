@@ -159,6 +159,17 @@ class EditorialPriorityTests(unittest.TestCase):
         score,decision,_=editorial_evaluate(r,self.cfg)
         self.assertEqual((score,decision),(0.0,"INELIGIBLE"))
 
+    def test_bounded_recent_stream_can_supply_freshness(self):
+        r={"title":"Recent OAI monetary report","authors":"Institution","publication_year":"2026",
+           "published_at":"2026","detected_at":"2026-10-02T18:00:00+00:00",
+           "access_url":"https://example.org/item.pdf","oa_status":"VERIFICADO_FUENTE",
+           "access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"report","source_type":"academic_oai",
+           "relevance_score":"70",
+           "relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,finanzas-sector-publico;anclas=economics,monetary"}
+        score,decision,reasons=editorial_evaluate(r,self.cfg)
+        self.assertGreater(score,0)
+        self.assertIn("freshness=bounded_stream_detection",reasons)
+
     def test_outstanding_score_is_reachable(self):
         r={"title":"New empirical research on monetary policy, income distribution and structural change in Latin America",
            "authors":"A. Author","publication_year":"2026","published_at":"2026-10-01",
