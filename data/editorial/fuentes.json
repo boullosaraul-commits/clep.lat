@@ -1,5 +1,5 @@
 {
-  "version": 10,
+  "version": 11,
   "politica": {
     "nota": "Fuentes oficiales verificadas. Detectar no implica publicar.",
     "publicacion_directa": false,
@@ -817,7 +817,7 @@
       "nombre": "SciELO Libros — OAI-PMH",
       "tipo": "academic_oai",
       "flujo_editorial": "novedad",
-      "habilitada": true,
+      "habilitada": false,
       "url": "https://oai.books.scielo.org/oai-pmh",
       "area_clep": "america-latina",
       "prioridad": 18,
@@ -826,7 +826,7 @@
       "max_paginas": 3,
       "tipo_por_defecto": "book",
       "source_oa_guarantee": false,
-      "nota": "Fuente oficial SciELO Libros; contiene títulos OA y comerciales, por lo que OA se acredita registro por registro."
+      "nota": "Fuente oficial conservada en catálogo, temporalmente deshabilitada: el endpoint OAI HTTPS presentó certificado TLS expirado en la verificación del 2026-10-02. No se degrada a HTTP ni se desactiva la validación TLS."
     },
     {
       "id": "dialnet-articles-oai",
