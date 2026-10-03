@@ -1,0 +1,183 @@
+{
+  "generated_at": "2026-10-03T15:13:21+00:00",
+  "records": 1082,
+  "academic_records": 828,
+  "missing_editorial_score": 0,
+  "buckets": {
+    "0_4_9": 827,
+    "7_8_9": 1
+  },
+  "decisions": {
+    "THEMATIC_REJECTED": 528,
+    "THEMATIC_REVIEW": 219,
+    "INELIGIBLE": 80,
+    "PUBLISHABLE": 1
+  },
+  "by_source": {
+    "academic_oai": {
+      "0_4_9": 600
+    },
+    "crossref_academic": {
+      "0_4_9": 126
+    },
+    "doab_oai": {
+      "0_4_9": 101,
+      "7_8_9": 1
+    }
+  },
+  "by_type": {
+    "book": {
+      "0_4_9": 101,
+      "7_8_9": 1
+    },
+    "chapter": {
+      "0_4_9": 104
+    },
+    "edition_translation": {
+      "0_4_9": 15
+    },
+    "paper": {
+      "0_4_9": 195
+    },
+    "report": {
+      "0_4_9": 405
+    },
+    "thesis": {
+      "0_4_9": 7
+    }
+  },
+  "top_candidates": [
+    {
+      "candidate_id": "CAND-21AE46114119E6BE",
+      "title": "Desafíos y limitaciones en la implementación del etiquetado de alimentos transgénicos en el Perú",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones",
+      "relevance_score": "34",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-934433BF7605A31D",
+      "title": "Bioethics in Apocalyptic Times",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "13",
+      "access_status": "ACCESS_FAILED"
+    },
+    {
+      "candidate_id": "CAND-65773DC58CD6443B",
+      "title": "Mujeres que transforman conocimiento. Innovación educativa e investigación interdisciplinaria para la sostenibilidad",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REVIEW",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "15",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-3DCCB11C78AF30BD",
+      "title": "Las teorías del aprendizaje y el pensamiento educativo de David Ausubel: Análisis crítico y sistemático",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "3",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-7238284F90C0F2D5",
+      "title": "Medicina y odontología en emergencias y desastres. Competencias clínicas, gestión del riesgo y atención en escenarios de recursos limitados. Tomo I",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "0",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-6A27482D469F6AC6",
+      "title": "Salud pública y odontología sostenible: huella de carbono, prácticas verdes",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "0",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-588284962B06FD73",
+      "title": "Psicopatología en estudiantes de educación superior: Criterio interpersonal o social",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "3",
+      "access_status": "PUBLIC_ACCESS_VERIFIED"
+    },
+    {
+      "candidate_id": "CAND-19E7007485993103",
+      "title": "Educomunicação no contexto pandêmico",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "3",
+      "access_status": "SOURCE_OA_UNCHECKED"
+    },
+    {
+      "candidate_id": "CAND-5B02E4CDBEE13B6C",
+      "title": "Inklusion – Exklusion",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "13",
+      "access_status": "SOURCE_OA_UNCHECKED"
+    },
+    {
+      "candidate_id": "CAND-F61CD5366A0890AD",
+      "title": "Rameaus operaer",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "0",
+      "access_status": "ACCESS_FAILED"
+    },
+    {
+      "candidate_id": "CAND-2E5A78AD3E1D5A76",
+      "title": "Säädellyt sävyt",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REVIEW",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "28",
+      "access_status": "SOURCE_OA_UNCHECKED"
+    },
+    {
+      "candidate_id": "CAND-35C8C0ADB09E951D",
+      "title": "Contested Knowledge",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "0.0",
+      "decision": "THEMATIC_REJECTED",
+      "components": "pertinencia_temática=no_aprobada",
+      "relevance_score": "3",
+      "access_status": "SOURCE_OA_UNCHECKED"
+    }
+  ]
+}

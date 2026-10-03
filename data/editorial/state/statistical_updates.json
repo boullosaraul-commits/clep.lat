@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "watches": {
+    "bls-us-unemployment": {
+      "status": "OK",
+      "last_fingerprint": "a8f50f52c85bbc1a4e8e3ec3",
+      "period": "September 2026",
+      "value": "4.2",
+      "checked_at": "2026-10-03T15:13:02+00:00",
+      "source_api": "https://api.bls.gov/publicAPI/v2/timeseries/data/LNS14000000?latest=true"
+    },
+    "wb-mx-gdp-growth": {
+      "status": "OK",
+      "last_fingerprint": "7ad252909c45884a0a9772d1",
+      "period": "2025",
+      "value": "0.562",
+      "checked_at": "2026-10-03T15:13:02+00:00",
+      "source_api": "https://api.worldbank.org/v2/country/MEX/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=10"
+    },
+    "wb-br-gdp-growth": {
+      "status": "OK",
+      "last_fingerprint": "1652f8e9b05582f66c8ba6e8",
+      "period": "2025",
+      "value": "2.286",
+      "checked_at": "2026-10-03T15:13:02+00:00",
+      "source_api": "https://api.worldbank.org/v2/country/BRA/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=10"
+    },
+    "wb-ar-gdp-growth": {
+      "status": "OK",
+      "last_fingerprint": "00ee1260ef4060adaa893961",
+      "period": "2025",
+      "value": "4.367",
+      "checked_at": "2026-10-03T15:13:02+00:00",
+      "source_api": "https://api.worldbank.org/v2/country/ARG/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=10"
+    },
+    "imf-mx-real-gdp": {
+      "status": "OK",
+      "last_fingerprint": "ced5de03f51fbf3203e7c8cf",
+      "period": "2031",
+      "value": "2",
+      "checked_at": "2026-10-03T15:13:02+00:00",
+      "source_api": "https://www.imf.org/external/datamapper/api/v2/NGDP_RPCH/MEX"
+    },
+    "imf-cn-real-gdp": {
+      "status": "OK",
+      "last_fingerprint": "a6c28b77da1b6ae035ac4363",
+      "period": "2031",
+      "value": "3.3",
+      "checked_at": "2026-10-03T15:13:02+00:00",
+      "source_api": "https://www.imf.org/external/datamapper/api/v2/NGDP_RPCH/CHN"
+    },
+    "imf-in-real-gdp": {
+      "status": "OK",
+      "last_fingerprint": "094440211c455f5d7744a0d9",
+      "period": "2031",
+      "value": "6.5",
+      "checked_at": "2026-10-03T15:13:02+00:00",
+      "source_api": "https://www.imf.org/external/datamapper/api/v2/NGDP_RPCH/IND"
+    },
+    "eurostat-ea20-unemployment": {
+      "status": "ERROR",
+      "error": "ValueError: Eurostat sin observaciones",
+      "checked_at": "2026-10-03T15:13:02+00:00",
+      "last_fingerprint": ""
+    }
+  }
+}
