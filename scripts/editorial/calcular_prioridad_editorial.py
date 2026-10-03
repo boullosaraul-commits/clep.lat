@@ -70,7 +70,7 @@ def pertinence_component(r):
     # Ancla económica + área temática = economía como objeto central para este
     # clasificador determinista, no mera coincidencia incidental.
     if areas and "anclas=ninguna" not in reasons:pts+=1.0
-    return min(4.0,pts),areas
+    return min(2.0,pts),areas
 
 def editorial_value(r,cfg,text):
     ev=cfg["editorial_value"];pts=0.0;kind=r.get("content_type") or ""
@@ -92,11 +92,20 @@ def access_value(r):
     if u.endswith(".pdf") or "pdf" in u:return 1.0
     return 0.5
 
-def regional_pluralist(r,cfg,text):
-    rp=cfg["regional_pluralist"]
-    if any(has(text,t) for t in rp["terms"]):return 1.0
-    if norm(r.get("language")) in {norm(x) for x in rp["languages"]}:return 1.0
-    return 0.0
+def regional_value(r,cfg,text):
+    reg=cfg["regional"]
+    return 1.0 if any(has(text,t) for t in reg["terms"]) else 0.0
+
+def pluralism_value(r,cfg,text):
+    pl=cfg["pluralism"]
+    explicit=[t for t in pl["explicit_traditions"]["terms"] if has(text,t)]
+    concepts=[t for t in pl["characteristic_concepts"]["terms"] if has(text,t)]
+    history=[t for t in pl["history_method"]["terms"] if has(text,t)]
+    pts=0.0
+    if explicit:pts=max(pts,float(pl["explicit_traditions"]["points"]))
+    if concepts:pts+=float(pl["characteristic_concepts"]["points"])
+    if history:pts+=float(pl["history_method"]["points"])
+    return min(float(pl["cap"]),pts),explicit,concepts,history
 
 def thematic_approved(r):
     reasons=r.get("relevance_reasons") or ""
@@ -122,14 +131,21 @@ def evaluate(r,cfg,now=None):
         return 0.0,"INELIGIBLE","eligibilidad=fallida"
     text=norm(" ".join([r.get("title",""),r.get("summary",""),r.get("notes",""),r.get("venue",""),r.get("source_name","")]))
     p,areas=pertinence_component(r)
-    v=editorial_value(r,cfg,text);a=recency_from_days(d);o=access_value(r);regional=regional_pluralist(r,cfg,text)
-    score=round(min(10.0,p+v+a+o+regional),1)
+    v=editorial_value(r,cfg,text);a=recency_from_days(d);o=access_value(r)
+    regional=regional_value(r,cfg,text)
+    plural,plural_explicit,plural_concepts,plural_history=pluralism_value(r,cfg,text)
+    score=round(min(10.0,p+v+a+o+regional+plural),1)
     th=cfg["thresholds"]
     if score>=float(th["outstanding"]):decision="OUTSTANDING"
     elif score>=float(th["publishable"]):decision="PUBLISHABLE"
     elif score>=float(th["review"]):decision="REVIEW"
     else:decision="ARCHIVE"
-    reasons=f"editorial_decision={decision};P={p:.1f};V={v:.1f};A={a:.1f};O={o:.1f};R={regional:.1f};freshness={freshness_basis};areas={','.join(areas) if areas else 'ninguna'}"
+    reasons=(f"editorial_decision={decision};P={p:.1f};V={v:.1f};A={a:.1f};O={o:.1f};"
+             f"R={regional:.1f};H={plural:.1f};freshness={freshness_basis};"
+             f"areas={','.join(areas) if areas else 'ninguna'};"
+             f"plural_explicit={','.join(plural_explicit[:4]) if plural_explicit else 'ninguna'};"
+             f"plural_concepts={','.join(plural_concepts[:4]) if plural_concepts else 'ninguna'};"
+             f"plural_history={','.join(plural_history[:3]) if plural_history else 'ninguna'}")
     return score,decision,reasons
 
 def main():
