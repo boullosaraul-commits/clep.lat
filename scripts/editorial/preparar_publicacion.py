@@ -75,9 +75,10 @@ def eligible(r,kind):
     try: relevance=int(r.get("relevance_score") or 0)
     except ValueError: relevance=0
     if relevance < 15:return False
-    try: editorial=float(r.get("editorial_score") or 0)
-    except ValueError: editorial=0.0
-    if editorial < 7.0 or r.get("editorial_decision") not in {"PUBLISHABLE","OUTSTANDING"}:return False
+    if kind in academic:
+        try: editorial=float(r.get("editorial_score") or 0)
+        except ValueError: editorial=0.0
+        if editorial < 7.0 or r.get("editorial_decision") not in {"PUBLISHABLE","OUTSTANDING"}:return False
     if r.get("source_id")=="doab-economics" or r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai"}:
         if "decision=PROMOCION_AUTOMATICA" not in (r.get("relevance_reasons") or ""):return False
     if not clean(r.get("title")) or not access(r):return False
