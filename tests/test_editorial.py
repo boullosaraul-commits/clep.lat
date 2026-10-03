@@ -145,7 +145,8 @@ class EditorialPriorityTests(unittest.TestCase):
         r={"title":"OA source but unchecked URL","authors":"A. Author","publication_year":"2026",
            "published_at":"2026-10-01","access_url":"https://example.org/item",
            "oa_status":"VERIFICADO_FUENTE","access_status":"SOURCE_OA_UNCHECKED","content_type":"book",
-           "relevance_reasons":"disciplina=economia;areas=macroeconomia-dinero;anclas=economics"}
+           "source_type":"doab_oai","relevance_score":"70",
+           "relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero;anclas=economics"}
         score,decision,_=editorial_evaluate(r,self.cfg)
         self.assertEqual((score,decision),(0.0,"INELIGIBLE"))
 
