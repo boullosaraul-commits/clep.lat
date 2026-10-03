@@ -249,7 +249,7 @@ def ingest_oai(src,rows,fields,seen,dedupes,now):
               "status":"METADATOS_OBTENIDOS",
               "notes":"OAI-PMH institucional"+(" | OA explícito en dc:rights" if explicit_oa else " | derechos OA no inferidos"),
               "content_type":kind,"source_name":src.get("nombre",""),"venue":first(vals(dc,"publisher") or vals(dc,"source")),
-              "publication_year":year,"access_status":"OFFICIAL_SOURCE_VERIFIED","rights_status":"LINK_ONLY"
+              "publication_year":year,"access_status":"SOURCE_OA_UNCHECKED" if explicit_oa else "SOURCE_UNCHECKED","rights_status":"LINK_ONLY"
             })
             rows.append(row);seen.add(pair);dedupes.add(d);added+=1
         if added>=max_records:break
