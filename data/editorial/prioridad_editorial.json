@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "principle": "prioridad editorial reproducible; no mide calidad científica",
+  "eligibility": {
+    "max_age_days": 21,
+    "required": ["title", "publication_year", "access_url", "verified_access_or_oa", "identified_responsibility"],
+    "note": "La elegibilidad es binaria y no puede compensarse con puntos."
+  },
+  "thresholds": {
+    "publishable": 7.0,
+    "outstanding": 9.0,
+    "review": 5.0
+  },
+  "weights": {
+    "pertinence_max": 4.0,
+    "editorial_value_max": 3.0,
+    "recency_max": 1.0,
+    "access_max": 1.0,
+    "regional_pluralist_max": 1.0
+  },
+  "editorial_value": {
+    "substantive_types": ["paper", "book", "chapter", "report", "policy_brief", "special_issue", "thesis", "edition_translation"],
+    "research_data_synthesis_terms": ["research", "evidence", "data", "dataset", "empirical", "review", "survey", "investigación", "evidencia", "datos", "empírico", "revisión"],
+    "training_research_terms": ["handbook", "textbook", "teaching", "methodology", "methods", "manual", "introducción", "metodología", "métodos", "docencia"],
+    "special_utility_types": ["policy_brief", "special_issue", "edition_translation"],
+    "special_utility_terms": ["new evidence", "new data", "translation", "translated", "revised edition", "new edition", "special issue", "nueva evidencia", "nuevos datos", "traducción", "edición revisada", "nueva edición", "número especial"]
+  },
+  "regional_pluralist": {
+    "terms": ["latin america", "latin american", "caribbean", "méxico", "mexico", "argentina", "brazil", "brasil", "chile", "colombia", "peru", "perú", "américa latina", "latinoamérica", "caribe", "heterodox", "heterodox economics", "pluralism", "pluralist", "history of economic thought", "economic thought", "heterodoxo", "heterodoxa", "pluralismo", "historia del pensamiento económico", "pensamiento económico"],
+    "languages": ["es", "spa", "pt", "por", "español", "spanish", "portuguese", "português"]
+  },
+  "diversity": {
+    "max_same_type_daily": 3,
+    "max_doab_books_daily": 2,
+    "max_same_institution_or_series_daily": 2,
+    "min_distinct_types_if_available": 3
+  }
+}
