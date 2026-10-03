@@ -61,13 +61,13 @@ def pertinence_component(r):
 
 def editorial_value(r,cfg,text):
     ev=cfg["editorial_value"];pts=0.0;kind=r.get("content_type") or ""
-    if kind in ev["substantive_types"] and any(has(text,t) for t in ev["research_data_synthesis_terms"]):pts+=1.0
+    # El primer punto corresponde al carácter académico sustantivo ya verificado.
+    if kind in ev["substantive_types"]:pts+=1.0
     if any(has(text,t) for t in ev["training_research_terms"]):pts+=1.0
     if kind in ev["special_utility_types"] or any(has(text,t) for t in ev["special_utility_terms"]):pts+=1.0
     return min(3.0,pts)
 
-def recency(r,now):
-    d=age_days(r,now)
+def recency_from_days(d):
     if d is None:return 0.0
     if d<=7:return 1.0
     if d<=21:return 0.5
@@ -100,7 +100,7 @@ def evaluate(r,cfg,now=None):
     now=now or datetime.now(timezone.utc)
     approved,thematic_decision=thematic_approved(r)
     if not approved:return 0.0,thematic_decision,"pertinencia_temática=no_aprobada"
-    d=age_days(r,now)
+    d,freshness_basis=freshness(r,cfg,now)
     eligible=(bool((r.get("title") or "").strip()) and bool(year(r))
               and bool((r.get("access_url") or "").strip()) and access_verified(r)
               and identified_responsibility(r)
@@ -109,14 +109,14 @@ def evaluate(r,cfg,now=None):
         return 0.0,"INELIGIBLE","eligibilidad=fallida"
     text=norm(" ".join([r.get("title",""),r.get("summary",""),r.get("notes",""),r.get("venue",""),r.get("source_name","")]))
     p,areas=pertinence_component(r)
-    v=editorial_value(r,cfg,text);a=recency(r,now);o=access_value(r);regional=regional_pluralist(r,cfg,text)
+    v=editorial_value(r,cfg,text);a=recency_from_days(d);o=access_value(r);regional=regional_pluralist(r,cfg,text)
     score=round(min(10.0,p+v+a+o+regional),1)
     th=cfg["thresholds"]
     if score>=float(th["outstanding"]):decision="OUTSTANDING"
     elif score>=float(th["publishable"]):decision="PUBLISHABLE"
     elif score>=float(th["review"]):decision="REVIEW"
     else:decision="ARCHIVE"
-    reasons=f"editorial_decision={decision};P={p:.1f};V={v:.1f};A={a:.1f};O={o:.1f};R={regional:.1f};areas={','.join(areas) if areas else 'ninguna'}"
+    reasons=f"editorial_decision={decision};P={p:.1f};V={v:.1f};A={a:.1f};O={o:.1f};R={regional:.1f};freshness={freshness_basis};areas={','.join(areas) if areas else 'ninguna'}"
     return score,decision,reasons
 
 def main():
