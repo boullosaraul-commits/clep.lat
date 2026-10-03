@@ -97,7 +97,7 @@ def main():
             if area:r["area_clep"]=area
             r["status"]="EVALUADO" if decision=="PROMOCION_AUTOMATICA" else decision
             counts[decision]+=1
-        elif r.get("source_type") in {"crossref_academic","academic_oai"}:
+        elif r.get("source_type") in {"crossref_academic","academic_oai","nep_report"}:
             score,decision,area,reasons=doab_eval(r,cfg)
             r["relevance_score"]=str(score);r["relevance_reasons"]=reasons
             if area:r["area_clep"]=area
