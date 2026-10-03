@@ -105,7 +105,7 @@ def main():
     if r.get("post_nuevo_id"):sys.exit("fila ya tiene post_nuevo_id")
     fecha=(r.get("fecha_programada") or "").strip();hhmm=(r.get("orden_dia") or "").strip()
     message=(r.get("ficha_es") or "").strip()
-    photo_id=""
+    photo_id="";feed_attempted=False
     try:
         when=datetime.fromisoformat(f"{fecha}T{hhmm}").replace(tzinfo=tz)
         if when<=datetime.now(tz):raise ValueError("horario programado ya pasó")
@@ -114,6 +114,7 @@ def main():
         photo_id=str(photo.get("id") or "")
         if not photo_id:raise RuntimeError("Meta no devolvió photo_id")
         r["meta_photo_id"]=photo_id
+        feed_attempted=True
         feed=schedule_feed(page,token,message,when,photo_id)
         post_id=str(feed.get("id") or "")
         if not post_id:raise RuntimeError("Meta no devolvió feed post ID")
@@ -124,15 +125,12 @@ def main():
         print(f"OK {r.get('editorial_id')} -> {post_id} @ {when.isoformat()}")
         return
     except Exception as e:
-        # Si conocimos un photo_id pero no obtuvimos feed ID, intentamos limpiar.
-        # Aun así REVIEW es conservador: una respuesta de red ambigua nunca se
-        # reintenta automáticamente.
-        cleaned=False
-        if photo_id and not r.get("post_nuevo_id"):
-            cleaned=delete_object(photo_id,token)
+        # Una vez iniciado el intento de feed no borramos la foto: el POST pudo
+        # haber sido aceptado aunque la respuesta se perdiera. La reconciliación
+        # posterior decide si existe el feed; nunca hay retry automático.
         r["meta_attempt_status"]="REVIEW"
         if photo_id:r["meta_photo_id"]=photo_id
-        append_note(r,f"Meta REVIEW: {type(e).__name__}: {e}; foto_limpiada={cleaned}")
+        append_note(r,f"Meta REVIEW: {type(e).__name__}: {e}; feed_attempted={feed_attempted}; foto_preservada={bool(photo_id)}")
         save(rows,fields)
         print(f"REVIEW {r.get('editorial_id')}: {e}",file=sys.stderr)
         raise SystemExit(2)
