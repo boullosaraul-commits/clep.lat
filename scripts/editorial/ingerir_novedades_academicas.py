@@ -198,22 +198,28 @@ def classify_oai(types,title,default_kind):
     if TRANSLATION_RE.search(blob) or EDITION_RE.search(blob):return "edition_translation"
     return default_kind or "report"
 
-def oai_page(src,token=""):
+def oai_page(src,token="",base=None):
     if token:
         params={"verb":"ListRecords","resumptionToken":token}
     else:
         start=(datetime.now(timezone.utc).date()-timedelta(days=int(src.get("ventana_dias",21)))).isoformat()
         params={"verb":"ListRecords","metadataPrefix":"oai_dc","from":start}
-    return get_xml(src["url"]+"?"+urllib.parse.urlencode(params))
+    return get_xml((base or src["url"])+"?"+urllib.parse.urlencode(params))
 
 def ingest_oai(src,rows,fields,seen,dedupes,now):
     added=0;token="";pages=0
     max_records=int(os.getenv("ACADEMIC_OAI_MAX_RECORDS","200"))
     max_pages=min(int(src.get("max_paginas",3)),10)
+    bases=[src["url"]]+list(src.get("fallback_urls") or [])
+    base=bases[0]
     while pages<max_pages:
-        try:root=oai_page(src,token)
-        except Exception as e:
-            print(f"ERROR {src['id']}: {type(e).__name__}: {e}",file=sys.stderr);break
+        root=None
+        for candidate_base in ([base] if token else bases):
+            try:
+                root=oai_page(src,token,candidate_base);base=candidate_base;break
+            except Exception as e:
+                print(f"ERROR {src['id']} {candidate_base}: {type(e).__name__}: {e}",file=sys.stderr)
+        if root is None:break
         pages+=1
         for rec in root.findall(f".//{{{OAI}}}record"):
             if added>=max_records:break
@@ -234,7 +240,7 @@ def ingest_oai(src,rows,fields,seen,dedupes,now):
             ym=re.search(r"\b(?:19|20)\d{2}\b",pub) if pub else None
             year=ym.group(0) if ym else ""
             desc=first(vals(dc,"description"));rights=" ".join(vals(dc,"rights"))
-            explicit_oa=bool(CC_RE.search(rights) or re.search(r"\b(open access|acceso abierto)\b",rights,re.I))
+            explicit_oa=bool(src.get("source_oa_guarantee") or CC_RE.search(rights) or re.search(r"\b(open access|acceso abierto)\b",rights,re.I))
             d=hkey("url:"+access)
             pair=(src["id"],item_id)
             if pair in seen or d in dedupes:continue
