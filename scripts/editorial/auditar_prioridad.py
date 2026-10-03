@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 P=ROOT/"data/editorial/candidatos.csv"
 OUT=ROOT/"data/editorial/auditoria_prioridad.json"
+ACADEMIC={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
 
 def bucket(x):
     if x>=9:return "9_10"
@@ -17,7 +18,8 @@ def bucket(x):
 def main():
     with P.open(encoding="utf-8",newline="") as f:rows=list(csv.DictReader(f))
     bins=Counter();decisions=Counter();sources=defaultdict(Counter);types=defaultdict(Counter);missing=0
-    for r in rows:
+    academic_rows=[r for r in rows if (r.get("content_type") or "") in ACADEMIC]
+    for r in academic_rows:
         try:x=float(r.get("editorial_score") or "")
         except ValueError:x=None
         if x is None:missing+=1;continue
@@ -26,7 +28,7 @@ def main():
         types[r.get("content_type") or "unknown"][b]+=1
     out={
       "generated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),
-      "records":len(rows),"missing_editorial_score":missing,
+      "records":len(rows),"academic_records":len(academic_rows),"missing_editorial_score":missing,
       "buckets":dict(bins),"decisions":dict(decisions),
       "by_source":{k:dict(v) for k,v in sorted(sources.items())},
       "by_type":{k:dict(v) for k,v in sorted(types.items())}
