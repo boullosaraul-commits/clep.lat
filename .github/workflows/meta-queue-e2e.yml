@@ -10,6 +10,7 @@ on:
       - "scripts/editorial/programar_facebook.py"
       - "scripts/editorial/marcar_intento_meta.py"
       - "scripts/editorial/verificar_cola.py"
+      - "scripts/editorial/reconciliar_meta.py"
 
 permissions:
   contents: read
@@ -32,6 +33,13 @@ jobs:
 
       - name: Install deterministic SVG rasterizer
         run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
+
+      - name: Probe scheduled-post reconciliation read
+        env:
+          CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
+          CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
+          META_GRAPH_VERSION: "v26.0"
+        run: python scripts/editorial/reconciliar_meta.py --probe
 
       - name: Build isolated PROGRAMADO queue
         run: python tests/meta_queue_e2e.py setup
