@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[2]
 COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 
 FLUJOS={"archivo_historico","novedad","recurso","actividad_clep","publicacion_clep","otro"}
-ESTADOS={"IDENTIFICANDO","OBRA_VERIFICADA","EDICION_VERIFICADA","OA_VERIFICADO","FICHA_LISTA","APROBADO","PROGRAMADO","PUBLICADO","ORIGINAL_RETIRADO","DESCARTADO"}
+ESTADOS={"IDENTIFICANDO","OBRA_VERIFICADA","EDICION_VERIFICADA","OA_VERIFICADO","FICHA_LISTA","APROBADO","REVALIDAR","PROGRAMADO","PUBLICADO","ORIGINAL_RETIRADO","DESCARTADO"}
 NON_TEXT={"actividad_clep","convocatoria","convocatoria_evento","recurso","video","grafica","dataset_grafica","material_didactico","efemeride","anuncio_institucional"}
 
 def truthy(x):return (x or "").strip().lower() in {"1","true","yes"}
@@ -77,8 +77,13 @@ def main():
             else:
                 day_counts[day]["new"]+=1
                 notes=(r.get("notas") or "")
-                m=re.search(r"indice_editorial\s*=\s*(\d+(?:\.\d+)?)",notes,re.I)
-                if m and float(m.group(1))>=9:day_counts[day]["new_high"]+=1
+                try:es=float(r.get("editorial_score") or 0)
+                except ValueError:es=0.0
+                if es>=9:day_counts[day]["new_high"]+=1
+                if r.get("tipo_recurso") not in NON_TEXT:
+                    if es<7:errors.append(f"línea {n}: novedad académica programada con editorial_score={es} < 7")
+                    if r.get("editorial_decision") not in {"PUBLISHABLE","OUTSTANDING"}:
+                        errors.append(f"línea {n}: novedad académica programada sin decisión publicable")
                 src=" ".join([r.get("oa_fuente") or "",notes,r.get("url_original") or ""]).lower()
                 if "doab" in src or "directory of open access books" in src:day_counts[day]["doab"]+=1
                 day_counts[day]["types"][r.get("tipo_recurso") or "otro"]+=1
@@ -98,6 +103,8 @@ def main():
                     errors.append(f"línea {n}: histórico FICHA_LISTA sin OA verificado")
 
     for day,c in sorted(day_counts.items()):
+        total=c["hist"]+c["new"]+c["nontext"]
+        if total>17:errors.append(f"{day}: total={total} > 17 slots")
         if c["hist"]>6:errors.append(f"{day}: históricos={c['hist']} > 6")
         if c["new"]>8:errors.append(f"{day}: novedades={c['new']} > 8")
         if c["new"]>6 and c["new_high"]<5:
@@ -125,7 +132,7 @@ def main():
         print("\nERRORES")
         for e in errors:print(" -",e)
         return 1
-    print("\nOK — cola válida: texto+imagen obligatorios; novedades 6 (hasta 8 con >=5 índice 9), DOAB <=2, mismo tipo <=3, histórico <=6, no-texto <=4.")
+    print("\nOK — cola válida: texto+imagen obligatorios; 17 slots totales; novedades 6 (hasta 8 con >=5 editorial_score 9), DOAB <=2, mismo tipo <=3, histórico <=6, no-texto <=4.")
     return 0
 
 if __name__=="__main__":sys.exit(main())

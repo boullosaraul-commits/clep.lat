@@ -13,6 +13,7 @@ from generar_grafica_clep import render as render_chart
 from evaluar_candidatos import doab_eval
 from ingerir_novedades_academicas import classify_crossref, explicit_revision_or_translation
 from calcular_prioridad_editorial import evaluate as editorial_evaluate
+from planificar import editorial_index_10
 
 class MatcherV31Tests(unittest.TestCase):
     def test_main_title_rescue(self):
@@ -83,6 +84,14 @@ class DOABRelevanceTests(unittest.TestCase):
         score,decision,area,reasons=doab_eval(r,self.cfg)
         self.assertEqual(decision,"ARCHIVADO")
         self.assertIn("disciplina=no_confirmada",reasons)
+
+    def test_history_of_equilibrium_gets_pluralist_rescue(self):
+        r={"title":"From the Point to Chaos: The Evolution of the Concept of Equilibrium in Economic Theory",
+           "summary":"A history of economic theory and economic methodology.","notes":"","publication_year":"2026"}
+        score,decision,area,reasons=doab_eval(r,self.cfg)
+        self.assertIn(area,{"historia-pensamiento-metodologia",""})
+        self.assertIn("pluralismo_rescate=si",reasons)
+        self.assertEqual(decision,"REVISION_EDITORIAL")
 
     def test_single_relevant_area_goes_to_review(self):
         r={"title":"Banking and Credit",
@@ -217,6 +226,10 @@ class EditorialPriorityTests(unittest.TestCase):
         score,decision,_=editorial_evaluate(r,self.cfg)
         self.assertEqual(score,0.0)
         self.assertEqual(decision,"THEMATIC_REVIEW")
+
+    def test_planner_reads_canonical_score_only(self):
+        self.assertEqual(editorial_index_10({"editorial_score":"8.5","notas":"indice_editorial=2"}),8.5)
+        self.assertEqual(editorial_index_10({"notas":"editorial_score=9"}),0.0)
 
 class ConfigTests(unittest.TestCase):
     def test_no_generative_ai_and_no_noimage_fallback(self):

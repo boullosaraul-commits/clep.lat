@@ -15,9 +15,10 @@ sys.path.insert(0,str(ROOT/"scripts/editorial"))
 from renderizar_texto import render as render_text
 from generar_tarjeta_clep import render as render_card
 from generar_grafica_clep import render as render_chart
+from estado_editorial import QUEUE_DERIVED_FIELDS, candidate_fingerprint, policy_fingerprint
 
-C=ROOT/"data/editorial/candidatos.csv"
-Q=ROOT/"data/editorial/cola.csv"
+C=Path(os.getenv("CLEP_CANDIDATES_PATH",str(ROOT/"data/editorial/candidatos.csv"))).resolve()
+Q=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 MEDIA=ROOT/"data/editorial/media"
 UA="CLEP-editorial/2.1 (+https://clep.lat)"
 SCREENSHOT_ATTEMPTS=0
@@ -73,7 +74,7 @@ def meta_for(kind,r):
 def eligible(r,kind):
     # La preparación nunca sustituye a la decisión de pertinencia.
     academic={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
-    if r.get("status") not in {"OA_VERIFICADO","EVALUADO","LISTO"}:return False
+    if r.get("status") not in {"OA_VERIFICADO","EVALUADO","LISTO","FICHA_LISTA","REVISION_EDITORIAL"}:return False
     try: relevance=int(r.get("relevance_score") or 0)
     except ValueError: relevance=0
     if relevance < 15:return False
@@ -82,7 +83,8 @@ def eligible(r,kind):
         except ValueError: editorial=0.0
         if editorial < 7.0 or r.get("editorial_decision") not in {"PUBLISHABLE","OUTSTANDING"}:return False
     if r.get("source_id")=="doab-economics" or r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai","nep_report"}:
-        if "decision=PROMOCION_AUTOMATICA" not in (r.get("relevance_reasons") or ""):return False
+        reasons=r.get("relevance_reasons") or ""
+        if "decision=PROMOCION_AUTOMATICA" not in reasons and "pluralismo_rescate=si" not in reasons:return False
     if not clean(r.get("title")) or not access(r):return False
     if kind in academic:
         if r.get("oa_status") not in {"VERIFICADO","VERIFICADO_FUENTE","OA_VERIFICADO"} or not year(r):return False
@@ -169,11 +171,42 @@ def main():
     with C.open(encoding="utf-8",newline="") as f:
         cr=csv.DictReader(f);candidates=list(cr);cfields=cr.fieldnames
     with Q.open(encoding="utf-8",newline="") as f:
-        qr=csv.DictReader(f);queue=list(qr);qfields=qr.fieldnames
-    existing={r.get("url_id","") for r in queue};prepared=blocked=0
+        qr=csv.DictReader(f);queue=list(qr);qfields=list(qr.fieldnames or [])
+    for field in QUEUE_DERIVED_FIELDS:
+        if field not in qfields:qfields.append(field)
+
+    policy_fp=policy_fingerprint()
+    cmap={r.get("candidate_id"):r for r in candidates if r.get("candidate_id")}
+    existing={r.get("url_id",""):r for r in queue if r.get("url_id")}
+    invalidated=0
+    for q in queue:
+        if q.get("flujo_editorial")=="archivo_historico":continue
+        cid=q.get("url_id") or ""
+        r=cmap.get(cid)
+        if not r:continue
+        if q.get("estado_editorial") in {"PUBLICADO","ORIGINAL_RETIRADO"}:continue
+        if q.get("meta_attempt_status")=="SCHEDULED" or q.get("post_nuevo_id"):continue
+        cf=candidate_fingerprint(r)
+        changed=(q.get("candidate_fingerprint")!=cf or q.get("editorial_policy_fingerprint")!=policy_fp
+                 or q.get("editorial_score")!=(r.get("editorial_score") or "")
+                 or q.get("editorial_decision")!=(r.get("editorial_decision") or ""))
+        q["editorial_score"]=r.get("editorial_score") or ""
+        q["editorial_decision"]=r.get("editorial_decision") or ""
+        q["candidate_fingerprint"]=cf
+        q["editorial_policy_fingerprint"]=policy_fp
+        if changed and q.get("estado_editorial") in {"FICHA_LISTA","APROBADO","PROGRAMADO","REVALIDAR"}:
+            q["estado_editorial"]="REVALIDAR"
+            q["fecha_programada"]="";q["orden_dia"]=""
+            q["meta_attempt_status"]="";q["meta_attempted_at"]=""
+            q["notas"]=((q.get("notas") or "")+" | invalidada para revalidación por cambio de candidato/política").strip(" |")
+            invalidated+=1
+
+    prepared=blocked=0
     visual_counts={"VERIFICADO":0,"CAPTURA_LANDING_OFICIAL":0,"PROPIO_DETERMINISTA":0}
     for r in candidates:
-        if r.get("candidate_id") in existing:continue
+        cid=r.get("candidate_id") or ""
+        qexisting=existing.get(cid)
+        if qexisting and qexisting.get("estado_editorial")!="REVALIDAR":continue
         kind=ctype(r)
         if not eligible(r,kind):continue
         try:
@@ -182,25 +215,36 @@ def main():
         except Exception as e:
             r["notes"]=((r.get("notes") or "")+f" | preparación bloqueada: {type(e).__name__}: {e}").strip(" |")
             blocked+=1;continue
-        q={k:"" for k in qfields}
+        q=qexisting if qexisting is not None else {k:"" for k in qfields}
+        for field in qfields:q.setdefault(field,"")
         q.update({
-          "editorial_id":"ED-"+r["candidate_id"].removeprefix("CAND-"),"flujo_editorial":r.get("flujo_editorial") or "novedad",
-          "prioridad":r.get("priority") or "100","estado_editorial":"FICHA_LISTA","url_id":r["candidate_id"],
+          "editorial_id":q.get("editorial_id") or "ED-"+cid.removeprefix("CAND-"),
+          "flujo_editorial":r.get("flujo_editorial") or "novedad",
+          "prioridad":r.get("priority") or q.get("prioridad") or "100","estado_editorial":"FICHA_LISTA","url_id":cid,
           "url_original":r.get("source_url",""),"titulo_original":clean(r.get("title")),"responsables":clean(r.get("authors")),
           "tipo_recurso":kind,"anio":year(r),"idioma_obra":r.get("language",""),
           "obra_estado":"OBRA_VERIFICADA","edicion_estado":"EDICION_VERIFICADA" if kind in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"} else "NO_APLICA",
           "oa_estado":"OA_VERIFICADO" if kind in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"} else "NO_APLICA","doi":r.get("doi",""),
           "oa_url":access(r),"oa_fuente":source_name(r),"area_clep":r.get("area_clep",""),
-          "licencia":clean((re.search(r"license_url=([^|;\s]+)",r.get("notes") or "") or [None,""])[1]),
-          "ficha_es":text,"notas":f"Origen {source_name(r)}; relevance_score={r.get('relevance_score') or '0'}; editorial_score={r.get('editorial_score') or '0'}; editorial_decision={r.get('editorial_decision') or ''}; venue={clean(r.get('venue'))}; preparación atómica determinista sin IA generativa.",
-          "text_method":"deterministic_template","text_template":kind,"text_status":"VERIFICADO",**visual
+          "licencia":clean((re.search(r"license_url=([^|;\\s]+)",r.get("notes") or "") or [None,""])[1]),
+          "ficha_es":text,
+          "notas":f"Origen {source_name(r)}; relevance_score={r.get('relevance_score') or '0'}; editorial_score={r.get('editorial_score') or '0'}; editorial_decision={r.get('editorial_decision') or ''}; venue={clean(r.get('venue'))}; preparación atómica determinista sin IA generativa.",
+          "text_method":"deterministic_template","text_template":kind,"text_status":"VERIFICADO",
+          "editorial_score":r.get("editorial_score") or "",
+          "editorial_decision":r.get("editorial_decision") or "",
+          "editorial_policy_fingerprint":policy_fp,
+          "candidate_fingerprint":candidate_fingerprint(r),
+          **visual
         })
-        queue.append(q);existing.add(r["candidate_id"]);r["status"]="FICHA_LISTA";prepared+=1
+        if qexisting is None:
+            queue.append(q);existing[cid]=q
+        r["status"]="FICHA_LISTA";prepared+=1
         visual_counts[visual["media_rights_status"]]=visual_counts.get(visual["media_rights_status"],0)+1
+
     with Q.open("w",encoding="utf-8",newline="") as f:
         w=csv.DictWriter(f,fieldnames=qfields);w.writeheader();w.writerows(queue)
     with C.open("w",encoding="utf-8",newline="") as f:
         w=csv.DictWriter(f,fieldnames=cfields);w.writeheader();w.writerows(candidates)
-    print(f"Preparados atómicamente: {prepared}; bloqueados: {blocked}; visuales={visual_counts}")
+    print(f"Preparados atómicamente: {prepared}; invalidados={invalidated}; bloqueados: {blocked}; visuales={visual_counts}")
 
 if __name__=="__main__":main()

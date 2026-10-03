@@ -49,6 +49,11 @@ jobs:
       - name: Evaluate candidates
         run: python scripts/editorial/evaluar_candidatos.py
 
+      - name: Calculate editorial priority
+        run: |
+          python scripts/editorial/calcular_prioridad_editorial.py
+          python scripts/editorial/auditar_prioridad.py
+
       - name: Prepare candidates atomically
         run: python scripts/editorial/preparar_publicacion.py
 

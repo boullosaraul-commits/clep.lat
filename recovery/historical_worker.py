@@ -258,6 +258,7 @@ def load_queue():
 def enqueue(post,hist,hit,oa):
     rows,fields=load_queue();pid=str(post["id"])
     if any(r.get("post_original_id")==pid for r in rows):return False
+    kind="book" if hit.get("type")=="book" else "paper"
     meta={"title":hit["title"],"authors_or_editors":hit["authors"],"year":hit["year"],"access_url":oa["url"]}
     text=render_text("book" if hit["type"]=="book" else "paper",
         meta if hit["type"]=="book" else {"title":hit["title"],"authors":hit["authors"],

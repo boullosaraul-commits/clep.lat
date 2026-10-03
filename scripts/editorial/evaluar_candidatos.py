@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Evaluación editorial determinista. El puntaje mide pertinencia CLEP, no calidad."""
-import csv,json,re,unicodedata
+import csv,json,os,re,unicodedata
 from datetime import datetime,timezone
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
-P=ROOT/"data/editorial/candidatos.csv"
+P=Path(os.getenv("CLEP_CANDIDATES_PATH",str(ROOT/"data/editorial/candidatos.csv"))).resolve()
 DOAB_CFG=ROOT/"data/editorial/pertinencia_doab.json"
+PRIORITY_CFG=ROOT/"data/editorial/prioridad_editorial.json"
 
 POS={
  "post-keynesian":25,"postkeynesian":25,"poskeynesian":25,"keynes":12,
@@ -23,6 +24,14 @@ POS={
 }
 MIN_AUTO=15
 
+def reference_year():
+    raw=(os.getenv("CLEP_REFERENCE_DATE") or "").strip()
+    if raw:
+        try:return datetime.fromisoformat(raw).year
+        except ValueError:pass
+    return datetime.now(timezone.utc).year
+
+
 def norm(s):
     s=unicodedata.normalize("NFKC",str(s or "")).lower()
     return re.sub(r"\s+"," ",s).strip()
@@ -30,9 +39,18 @@ def norm(s):
 def has(text,term):
     return bool(re.search(r"(?<!\w)"+re.escape(norm(term))+r"(?!\w)",text))
 
-def doab_eval(r,cfg):
+def pluralism_hits(body,priority_cfg):
+    pl=priority_cfg.get("pluralism",{})
+    groups=[]
+    for key in ("explicit_traditions","characteristic_concepts","history_method"):
+        groups.extend(pl.get(key,{}).get("terms",[]))
+    return [t for t in groups if has(body,t)]
+
+def doab_eval(r,cfg,priority_cfg=None):
     title=norm(r.get("title"));body=norm(" ".join([r.get("title",""),r.get("summary",""),r.get("notes","")]))
     anchors=[x for x in cfg["discipline_gate"]["economic_anchors"] if has(body,x)]
+    priority_cfg=priority_cfg or json.loads(PRIORITY_CFG.read_text(encoding="utf-8"))
+    plural_hits=pluralism_hits(body,priority_cfg)
     exclusions=[x for x in cfg["discipline_gate"]["strong_exclusions"] if has(body,x)]
     area_scores={};area_hits={}
     score=0
@@ -44,13 +62,20 @@ def doab_eval(r,cfg):
             title_hits=[t for t in hits if has(title,t)]
             if title_hits:pts+=int(cfg["bonuses"]["title_match"])
             area_scores[area]=pts;area_hits[area]=hits[:6];score+=pts
+    # El pluralismo/historia/metodología es también evidencia temática aguas arriba.
+    # Si no fue capturado literalmente por el área, lo asignamos al área correspondiente.
+    harea="historia-pensamiento-metodologia"
+    if plural_hits and harea not in area_scores:
+        pts=int(cfg["areas"][harea]["weight"])
+        if any(has(title,t) for t in plural_hits):pts+=int(cfg["bonuses"]["title_match"])
+        area_scores[harea]=pts;area_hits[harea]=plural_hits[:6];score+=pts
     n=len(area_scores)
     if n>=3:score+=int(cfg["bonuses"]["multi_area_3"])
     elif n>=2:score+=int(cfg["bonuses"]["multi_area_2"])
     y=0
     try:y=int(r.get("publication_year") or 0)
     except ValueError:pass
-    if y and y>=datetime.now(timezone.utc).year-2:score+=int(cfg["bonuses"]["recent_3_years"])
+    if y and y>=reference_year()-2:score+=int(cfg["bonuses"]["recent_3_years"])
     discipline_ok=bool(anchors or area_scores)
     if exclusions and not anchors:
         score-=int(cfg["discipline_gate"]["exclusion_penalty"]);discipline_ok=False
@@ -59,13 +84,17 @@ def doab_eval(r,cfg):
     if discipline_ok and score>=ta:decision="PROMOCION_AUTOMATICA"
     elif discipline_ok and score>=tr:decision="REVISION_EDITORIAL"
     else:decision="ARCHIVADO"
+    plural_rescue=(decision=="REVISION_EDITORIAL" and discipline_ok and bool(plural_hits)
+                   and cfg.get("pluralism_rescue",{}).get("enabled",False))
     ranked=sorted(area_scores,key=lambda a:(-area_scores[a],a))
     primary=ranked[0] if ranked else ""
     reasons=[
       "decision="+decision,
       "disciplina="+("economia" if discipline_ok else "no_confirmada"),
       "areas="+(",".join(ranked) if ranked else "ninguna"),
-      "anclas="+(",".join(anchors[:5]) if anchors else "ninguna")
+      "anclas="+(",".join(anchors[:5]) if anchors else "ninguna"),
+      "pluralismo_rescate="+("si" if plural_rescue else "no"),
+      "senales_pluralistas="+(",".join(plural_hits[:6]) if plural_hits else "ninguna")
     ]
     if exclusions:reasons.append("exclusiones="+",".join(exclusions[:4]))
     for a in ranked[:4]:reasons.append(a+"="+",".join(area_hits[a][:4]))
@@ -82,23 +111,24 @@ def generic_eval(r):
 
 def main():
     cfg=json.loads(DOAB_CFG.read_text(encoding="utf-8"))
+    priority_cfg=json.loads(PRIORITY_CFG.read_text(encoding="utf-8"))
     with P.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
     evaluated=0
     counts={"PROMOCION_AUTOMATICA":0,"REVISION_EDITORIAL":0,"ARCHIVADO":0}
     academic_counts={"PROMOCION_AUTOMATICA":0,"REVISION_EDITORIAL":0,"ARCHIVADO":0}
     for r in rows:
-        if r.get("status") not in {"DETECTADO","EVALUADO","METADATOS_OBTENIDOS","OA_VERIFICADO","REVISION_EDITORIAL","ARCHIVADO"}:continue
+        if r.get("status") not in {"DETECTADO","EVALUADO","METADATOS_OBTENIDOS","OA_VERIFICADO","REVISION_EDITORIAL","ARCHIVADO","FICHA_LISTA"}:continue
         if r.get("source_type")=="statistical_watch" and int(r.get("relevance_score") or 0)>=100:
             r["status"]="EVALUADO";continue
         if r.get("source_type") in {"doab_oai","doab_rest"} or r.get("source_id")=="doab-economics":
-            score,decision,area,reasons=doab_eval(r,cfg)
+            score,decision,area,reasons=doab_eval(r,cfg,priority_cfg)
             r["relevance_score"]=str(score);r["relevance_reasons"]=reasons
             if area:r["area_clep"]=area
             r["status"]="EVALUADO" if decision=="PROMOCION_AUTOMATICA" else decision
             counts[decision]+=1
         elif r.get("source_type") in {"crossref_academic","academic_oai","nep_report"}:
-            score,decision,area,reasons=doab_eval(r,cfg)
+            score,decision,area,reasons=doab_eval(r,cfg,priority_cfg)
             r["relevance_score"]=str(score);r["relevance_reasons"]=reasons
             if area:r["area_clep"]=area
             r["status"]="EVALUADO" if decision=="PROMOCION_AUTOMATICA" else decision

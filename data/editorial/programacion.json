@@ -248,5 +248,7 @@
     },
     "fallback": "block_publication",
     "rule": "si los metadatos verificados no bastan para construir un texto informativo corto, no publicar"
-  }
+  },
+  "maximo_total_diario": 17,
+  "capacidad_principle": "La geometría 07:00–23:00 con separación mínima de 60 minutos admite 17 slots; contenido actual y no-texto consumen capacidad antes que archivo histórico."
 }
