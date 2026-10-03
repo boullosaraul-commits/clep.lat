@@ -71,6 +71,7 @@ def meta_for(kind,r):
 
 def eligible(r,kind):
     # La preparación nunca sustituye a la decisión de pertinencia.
+    academic={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
     if r.get("status") not in {"OA_VERIFICADO","EVALUADO","LISTO"}:return False
     try: relevance=int(r.get("relevance_score") or 0)
     except ValueError: relevance=0
@@ -82,7 +83,6 @@ def eligible(r,kind):
     if r.get("source_id")=="doab-economics" or r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai"}:
         if "decision=PROMOCION_AUTOMATICA" not in (r.get("relevance_reasons") or ""):return False
     if not clean(r.get("title")) or not access(r):return False
-    academic={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
     if kind in academic:
         if r.get("oa_status") not in {"VERIFICADO","VERIFICADO_FUENTE","OA_VERIFICADO"} or not year(r):return False
         if r.get("access_status") not in {"PUBLIC_ACCESS_VERIFIED","VERIFICADO"}:return False
@@ -166,6 +166,7 @@ def main():
     with Q.open(encoding="utf-8",newline="") as f:
         qr=csv.DictReader(f);queue=list(qr);qfields=qr.fieldnames
     existing={r.get("url_id","") for r in queue};prepared=blocked=0
+    visual_counts={"VERIFICADO":0,"CAPTURA_LANDING_OFICIAL":0,"PROPIO_DETERMINISTA":0}
     for r in candidates:
         if r.get("candidate_id") in existing:continue
         kind=ctype(r)
@@ -190,10 +191,11 @@ def main():
           "text_method":"deterministic_template","text_template":kind,"text_status":"VERIFICADO",**visual
         })
         queue.append(q);existing.add(r["candidate_id"]);r["status"]="FICHA_LISTA";prepared+=1
+        visual_counts[visual["media_rights_status"]]=visual_counts.get(visual["media_rights_status"],0)+1
     with Q.open("w",encoding="utf-8",newline="") as f:
         w=csv.DictWriter(f,fieldnames=qfields);w.writeheader();w.writerows(queue)
     with C.open("w",encoding="utf-8",newline="") as f:
         w=csv.DictWriter(f,fieldnames=cfields);w.writeheader();w.writerows(candidates)
-    print(f"Preparados atómicamente: {prepared}; bloqueados: {blocked}")
+    print(f"Preparados atómicamente: {prepared}; bloqueados: {blocked}; visuales={visual_counts}")
 
 if __name__=="__main__":main()
