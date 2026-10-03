@@ -90,8 +90,8 @@ jobs:
           OA_VERIFY_WORKERS: "8"
           OA_HTTP_TIMEOUT: "8"
         run: |
-          python scripts/editorial/verificar_oa.py
           python scripts/editorial/evaluar_candidatos.py
+          python scripts/editorial/verificar_oa.py
           python scripts/editorial/calcular_prioridad_editorial.py
           python scripts/editorial/auditar_prioridad.py
           python scripts/editorial/preparar_publicacion.py
