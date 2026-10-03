@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "principle": "prioridad editorial reproducible; no mide calidad científica",
   "eligibility": {
     "max_age_days": 21,
@@ -225,9 +225,20 @@
         "history of economics",
         "historia de la economía",
         "political economy",
-        "economía política"
+        "economía política",
+        "economic theory",
+        "history of economic theory",
+        "concept of equilibrium",
+        "economic methodology",
+        "theory of value",
+        "teoría económica",
+        "historia de la teoría económica",
+        "concepto de equilibrio",
+        "metodología económica",
+        "teoría del valor"
       ]
     },
     "cap": 2
-  }
+  },
+  "access_principle": "El punto de acceso premia acceso abierto vivo y verificado; no discrimina entre PDF directo y landing oficial funcional."
 }
