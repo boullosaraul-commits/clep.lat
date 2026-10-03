@@ -9,14 +9,14 @@ Máximos independientes:
 La fecha objetivo histórica es sólo referencia de ritmo: nunca apaga la
 campaña. Sólo agenda filas con texto e imagen ya certificados.
 """
-import csv,json,math
+import csv,json,math,os,re
 from collections import Counter
 from datetime import datetime,timedelta,date
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 ROOT=Path(__file__).resolve().parents[2]
-Q=ROOT/"data/editorial/cola.csv"
+Q=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 CFG=ROOT/"data/editorial/programacion.json"
 
 READY={"FICHA_LISTA","APROBADO"}
@@ -33,18 +33,15 @@ def priority(r):
     return (p,r.get("editorial_id") or "")
 
 def editorial_index_10(r):
-    """Índice editorial determinista 0–10 derivado de pertinencia 0–100.
-    No representa calidad académica."""
-    raw=""
-    notes=(r.get("notas") or "")
-    m=__import__("re").search(r"editorial_score\s*=\s*(\d+(?:\.\d+)?)",notes,re.I)
-    if m: raw=m.group(1)
-    # El índice editorial viaja explícitamente en notas desde candidatos.csv.
-    # Nunca se reconstruye desde relevance_score.
-    try:
-        x=float(raw)
-        return x/10 if x>10 else x
-    except Exception:return 0.0
+    """Índice editorial canónico 0–10 almacenado en columna propia."""
+    try:return float(r.get("editorial_score") or 0)
+    except (TypeError,ValueError):return 0.0
+
+def reference_now(tz):
+    raw=(os.getenv("CLEP_REFERENCE_DATE") or "").strip()
+    if raw:
+        return datetime.fromisoformat(raw+"T12:00:00").replace(tzinfo=tz)
+    return datetime.now(tz)
 
 def is_doab(r):
     text=" ".join([r.get("oa_fuente") or "",r.get("notas") or "",r.get("url_original") or ""]).lower()
@@ -110,11 +107,12 @@ def historical_cap(remaining,days_left,rungs,maxcap):
 
 def main():
     cfg=json.loads(CFG.read_text(encoding="utf-8"))
-    tz=ZoneInfo(cfg["timezone"]);now=datetime.now(tz);target_day=now.date()+timedelta(days=1)
+    tz=ZoneInfo(cfg["timezone"]);now=reference_now(tz);target_day=now.date()+timedelta(days=1)
     with Q.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
 
     slots=list(cfg["slots_preferentes"])
+    total_cap=min(int(cfg.get("maximo_total_diario",len(slots))),len(slots))
     ncfg=cfg["contenido_actual"]["nuevos"]
     newmax=int(ncfg["maximo_diario_inicial"])
     ntmax=int(cfg["contenido_actual"]["no_textos"]["maximo_diario_inicial"])
@@ -163,8 +161,10 @@ def main():
     min_types=int(diversity.get("minimo_tipos_distintos_si_disponibles",3))
     choose_text=choose_diverse_textual(textual,max(0,effective_newmax-existing_new),doab_cap,
                                        max_same,min_types,max_same_source,existing_types,existing_doab,existing_sources)
-    choose_nt=nontext[:max(0,ntmax-existing_nt)]
-    choose_hist=hist[:max(0,hcap-existing_hist)]
+    remaining_after_new=max(0,total_cap-len(existing)-len(choose_text))
+    choose_nt=nontext[:min(max(0,ntmax-existing_nt),remaining_after_new)]
+    remaining_after_current=max(0,total_cap-len(existing)-len(choose_text)-len(choose_nt))
+    choose_hist=hist[:min(max(0,hcap-existing_hist),remaining_after_current)]
     chosen=choose_text+choose_nt+choose_hist
     chosen.sort(key=priority)
 
