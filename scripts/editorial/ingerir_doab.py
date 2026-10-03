@@ -97,10 +97,13 @@ def main():
             identifiers=vals(meta,"identifier")
             doi=doi_from(identifiers)
             dates=vals(meta,"date")
-            year=""
+            year="";published=""
             for d in dates:
                 m=re.search(r"\b(?:18|19|20)\d{2}\b",d)
-                if m:year=m.group(0);break
+                if m and not year:year=m.group(0)
+                if re.match(r"^(?:18|19|20)\d{2}-\d{2}-\d{2}",d) and not published:
+                    published=d[:10]
+            if not published:published=year
             languages=vals(meta,"language")
             descs=vals(meta,"description")
             rights=vals(meta,"rights")
@@ -113,7 +116,7 @@ def main():
             row.update({
               "candidate_id":"CAND-"+hashlib.sha256(("doab|"+handle).encode()).hexdigest()[:16].upper(),
               "source_id":"doab-economics","source_type":"doab_oai","source_item_id":handle,
-              "detected_at":now,"published_at":year,"title":title,
+              "detected_at":now,"published_at":published,"title":title,
               "authors":"; ".join(dict.fromkeys(creators)),
               "summary":descs[0] if descs else "","source_url":landing_url,"access_url":url,
               "doi":doi,"language":languages[0] if languages else "",
