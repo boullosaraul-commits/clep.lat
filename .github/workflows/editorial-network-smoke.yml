@@ -59,5 +59,6 @@ jobs:
         run: |
           python scripts/editorial/verificar_oa.py
           python scripts/editorial/evaluar_candidatos.py
+          python scripts/editorial/calcular_prioridad_editorial.py
           python scripts/editorial/preparar_publicacion.py
           python scripts/editorial/verificar_cola.py
