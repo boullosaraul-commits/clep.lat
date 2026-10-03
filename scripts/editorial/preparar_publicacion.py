@@ -72,9 +72,12 @@ def meta_for(kind,r):
 def eligible(r,kind):
     # La preparación nunca sustituye a la decisión de pertinencia.
     if r.get("status") not in {"OA_VERIFICADO","EVALUADO","LISTO"}:return False
-    try: score=int(r.get("relevance_score") or 0)
-    except ValueError: score=0
-    if score < 15:return False
+    try: relevance=int(r.get("relevance_score") or 0)
+    except ValueError: relevance=0
+    if relevance < 15:return False
+    try: editorial=float(r.get("editorial_score") or 0)
+    except ValueError: editorial=0.0
+    if editorial < 7.0 or r.get("editorial_decision") not in {"PUBLISHABLE","OUTSTANDING"}:return False
     if r.get("source_id")=="doab-economics" or r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai"}:
         if "decision=PROMOCION_AUTOMATICA" not in (r.get("relevance_reasons") or ""):return False
     if not clean(r.get("title")) or not access(r):return False
@@ -155,7 +158,7 @@ def main():
           "obra_estado":"OBRA_VERIFICADA","edicion_estado":"EDICION_VERIFICADA" if kind in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"} else "NO_APLICA",
           "oa_estado":"OA_VERIFICADO" if kind in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"} else "NO_APLICA","doi":r.get("doi",""),
           "oa_url":access(r),"oa_fuente":source_name(r),"area_clep":r.get("area_clep",""),
-          "ficha_es":text,"notas":f"Origen {source_name(r)}; relevance_score={r.get('relevance_score') or '0'}; indice_editorial={min(10.0, float(r.get('relevance_score') or 0)/10):.1f}; preparación atómica determinista sin IA generativa.",
+          "ficha_es":text,"notas":f"Origen {source_name(r)}; relevance_score={r.get('relevance_score') or '0'}; editorial_score={r.get('editorial_score') or '0'}; editorial_decision={r.get('editorial_decision') or ''}; venue={clean(r.get('venue'))}; preparación atómica determinista sin IA generativa.",
           "text_method":"deterministic_template","text_template":kind,"text_status":"VERIFICADO",**visual
         })
         queue.append(q);existing.add(r["candidate_id"]);r["status"]="FICHA_LISTA";prepared+=1
