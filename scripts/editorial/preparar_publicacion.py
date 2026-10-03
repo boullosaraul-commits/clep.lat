@@ -6,7 +6,7 @@ generativa. Para visuales aplica:
   imagen oficial con derechos verificados > gráfica determinista > tarjeta CLEP.
 """
 from __future__ import annotations
-import csv, hashlib, json, mimetypes, re, sys, urllib.request
+import csv, hashlib, json, mimetypes, re, shutil, subprocess, sys, urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -105,6 +105,31 @@ def download_verified_image(r):
     return {"media_type":ctype,"media_path":rel,"media_source":clean(r.get("official_image_source") or url),
             "media_rights_status":"VERIFICADO","alt_text":clean(r.get("title"))}
 
+def capture_official_landing(r):
+    """Captura determinista de la landing oficial con Chrome headless.
+
+    No se presenta como imagen con licencia reutilizable: queda registrada como
+    CAPTURA_LANDING_OFICIAL y sólo se usa para representar el recurso enlazado.
+    Si Chrome no está disponible o la página falla, se usa la tarjeta CLEP.
+    """
+    url=clean(r.get("source_url") or r.get("access_url"))
+    if not url or urlparse(url).scheme!="https":return None
+    chrome=shutil.which("google-chrome") or shutil.which("google-chrome-stable") or shutil.which("chromium")
+    if not chrome:return None
+    dig=hashlib.sha256(url.encode()).hexdigest()[:16]
+    rel=f"data/editorial/media/{r['candidate_id']}-landing-{dig}.png"
+    out=ROOT/rel
+    cmd=[chrome,"--headless=new","--disable-gpu","--no-sandbox","--disable-dev-shm-usage",
+         "--hide-scrollbars","--window-size=1200,1500","--virtual-time-budget=5000",
+         f"--screenshot={out}",url]
+    try:
+        subprocess.run(cmd,check=True,timeout=35,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    except Exception:return None
+    if not out.is_file() or out.stat().st_size<5000:return None
+    return {"media_type":"image/png","media_path":rel,"media_source":url,
+            "media_rights_status":"CAPTURA_LANDING_OFICIAL",
+            "alt_text":f"Captura de la página oficial: {clean(r.get('title'))}"}
+
 def deterministic_visual(kind,r):
     if kind=="dataset_grafica" and clean(r.get("data_points_json")):
         try:points=json.loads(r["data_points_json"])
@@ -146,7 +171,7 @@ def main():
         if not eligible(r,kind):continue
         try:
             meta=meta_for(kind,r);text=render_text(kind,meta)
-            visual=download_verified_image(r) or deterministic_visual(kind,r)
+            visual=download_verified_image(r) or capture_official_landing(r) or deterministic_visual(kind,r)
         except Exception as e:
             r["notes"]=((r.get("notes") or "")+f" | preparación bloqueada: {type(e).__name__}: {e}").strip(" |")
             blocked+=1;continue
