@@ -86,11 +86,17 @@ jobs:
           fi
 
       - name: Recover up to 10 historical cases
+        id: historical_recovery
+        continue-on-error: true
         env:
           CLEP_FB_TOKEN: ${{ secrets.CLEP_FB_TOKEN }}
           CLEP_FB_PAGE_ID: ${{ secrets.CLEP_FB_PAGE_ID }}
           META_GRAPH_VERSION: "v26.0"
         run: python recovery/historical_worker.py
+
+      - name: Report historical recovery isolation
+        if: steps.historical_recovery.outcome == 'failure'
+        run: echo "::warning::Historical recovery failed; current-content planning and publication will continue."
 
       - name: Plan next day
         run: |
