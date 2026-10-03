@@ -67,7 +67,7 @@ def main():
                 errors.append(f"línea {n}: PROGRAMADO sin imagen")
             if not (r.get("media_source") or "").strip():
                 errors.append(f"línea {n}: PROGRAMADO sin media_source")
-            if r.get("media_rights_status") not in {"VERIFICADO","PROPIO_DETERMINISTA"}:
+            if r.get("media_rights_status") not in {"VERIFICADO","CAPTURA_LANDING_OFICIAL","PROPIO_DETERMINISTA"}:
                 errors.append(f"línea {n}: derechos de imagen no verificados")
             if day and tm:day_times[day].append(tm)
 
