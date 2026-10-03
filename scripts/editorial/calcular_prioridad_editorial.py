@@ -25,9 +25,10 @@ def year(r):
     try:return int(r.get("publication_year") or 0)
     except ValueError:return 0
 
-def age_days(r,now):
-    raw=(r.get("published_at") or "").strip()
+def parse_age(raw,now):
+    raw=(raw or "").strip()
     if not raw:return None
+    if re.fullmatch(r"(?:18|19|20)\d{2}",raw):return None
     try:
         d=datetime.fromisoformat(raw.replace("Z","+00:00"))
         if d.tzinfo is None:d=d.replace(tzinfo=timezone.utc)
@@ -37,6 +38,18 @@ def age_days(r,now):
         if not m:return None
         try:return max(0,(now.date()-datetime.strptime(m.group(0),"%Y-%m-%d").date()).days)
         except Exception:return None
+
+def freshness(r,cfg,now):
+    d=parse_age(r.get("published_at"),now)
+    if d is not None:return d,"publication_date"
+    allowed=set(cfg["eligibility"].get("detected_at_freshness_sources",[]))
+    if r.get("source_type") in allowed:
+        d=parse_age(r.get("detected_at"),now)
+        if d is not None:return d,"bounded_stream_detection"
+    return None,"none"
+
+def age_days(r,now):
+    return parse_age(r.get("published_at"),now)
 
 def identified_responsibility(r):
     return bool((r.get("authors") or "").strip() or (r.get("venue") or "").strip() or (r.get("source_name") or "").strip())
