@@ -16,9 +16,11 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parents[2]
-sys.path.insert(0,str(ROOT/"recovery"))
-sys.path.insert(0,str(ROOT/"scripts/editorial"))
+ROOT=Path(__file__).resolve().parents[1]
+RECOVERY_DIR=Path(__file__).resolve().parent
+EDITORIAL_DIR=ROOT/"scripts"/"editorial"
+for p in (RECOVERY_DIR,EDITORIAL_DIR):
+    if str(p) not in sys.path:sys.path.insert(0,str(p))
 from matcher_v31 import evaluate, family
 from renderizar_texto import render as render_text
 from generar_tarjeta_clep import render as render_card
