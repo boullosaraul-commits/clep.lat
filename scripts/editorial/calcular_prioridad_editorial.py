@@ -85,8 +85,21 @@ def regional_pluralist(r,cfg,text):
     if norm(r.get("language")) in {norm(x) for x in rp["languages"]}:return 1.0
     return 0.0
 
+def thematic_approved(r):
+    reasons=r.get("relevance_reasons") or ""
+    if "decision=REVISION_EDITORIAL" in reasons:return False,"THEMATIC_REVIEW"
+    if "decision=ARCHIVADO" in reasons:return False,"THEMATIC_REJECTED"
+    if r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai"}:
+        return ("decision=PROMOCION_AUTOMATICA" in reasons,
+                "THEMATIC_REJECTED" if "decision=PROMOCION_AUTOMATICA" not in reasons else "")
+    try:score=float(r.get("relevance_score") or 0)
+    except ValueError:score=0
+    return (score>=15,"THEMATIC_REVIEW" if score<15 else "")
+
 def evaluate(r,cfg,now=None):
     now=now or datetime.now(timezone.utc)
+    approved,thematic_decision=thematic_approved(r)
+    if not approved:return 0.0,thematic_decision,"pertinencia_temática=no_aprobada"
     d=age_days(r,now)
     eligible=(bool((r.get("title") or "").strip()) and bool(year(r))
               and bool((r.get("access_url") or "").strip()) and access_verified(r)
