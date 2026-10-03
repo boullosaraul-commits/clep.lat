@@ -72,3 +72,6 @@ jobs:
           python scripts/editorial/auditar_prioridad.py
           python scripts/editorial/preparar_publicacion.py
           python scripts/editorial/verificar_cola.py
+          cp data/editorial/cola.csv /tmp/clep-smoke-cola.csv
+          CLEP_QUEUE_PATH=/tmp/clep-smoke-cola.csv python scripts/editorial/planificar.py
+          CLEP_QUEUE_PATH=/tmp/clep-smoke-cola.csv python scripts/editorial/verificar_cola.py
