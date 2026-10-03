@@ -18,7 +18,7 @@ UA="CLEP-editorial/1.1 (+https://clep.lat)"
 FIELDS=["candidate_id","source_id","source_type","source_item_id","detected_at","published_at",
 "title","authors","summary","source_url","access_url","doi","language","area_clep",
 "flujo_editorial","priority","relevance_score","relevance_reasons","oa_status",
-"dedupe_key","status","notes","summary_es","translation_engine","translation_status","content_type","source_name","venue","publication_year","access_status","rights_status","official_image_url","official_image_source","official_image_rights","indicator_or_dataset","geography","reference_period","value_or_change","official_source","organizer","date_or_deadline","speaker_or_organization","data_points_json"]
+"dedupe_key","status","notes","editorial_score","editorial_decision","editorial_score_reasons","summary_es","translation_engine","translation_status","content_type","source_name","venue","publication_year","access_status","rights_status","official_image_url","official_image_source","official_image_rights","indicator_or_dataset","geography","reference_period","value_or_change","official_source","organizer","date_or_deadline","speaker_or_organization","data_points_json"]
 
 def clean(s):
     return re.sub(r"\s+"," ",html.unescape(s or "")).strip()
