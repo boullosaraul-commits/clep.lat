@@ -12,6 +12,7 @@ from generar_tarjeta_clep import render as render_card
 from generar_grafica_clep import render as render_chart
 from evaluar_candidatos import doab_eval
 from ingerir_novedades_academicas import classify_crossref, explicit_revision_or_translation
+from calcular_prioridad_editorial import evaluate as editorial_evaluate
 
 class MatcherV31Tests(unittest.TestCase):
     def test_main_title_rescue(self):
@@ -112,6 +113,32 @@ class AcademicNoveltyTests(unittest.TestCase):
         self.assertIn("CAPÍTULO ABIERTO · CLEP",chapter)
         self.assertIn("INFORME ABIERTO · CLEP",report)
         self.assertIn("TESIS ABIERTA · CLEP",thesis)
+
+
+class EditorialPriorityTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.cfg=json.loads((ROOT/"data/editorial/prioridad_editorial.json").read_text(encoding="utf-8"))
+
+    def test_relevance_and_editorial_priority_are_separate(self):
+        r={"title":"Monetary Policy and Distribution in Latin America","authors":"A. Author",
+           "publication_year":"2026","published_at":"2026-10-01","access_url":"https://example.org/a.pdf",
+           "oa_status":"VERIFICADO","access_status":"PUBLIC_ACCESS_VERIFIED","content_type":"paper",
+           "summary":"New empirical evidence and data for research.",
+           "relevance_score":"77",
+           "relevance_reasons":"decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,trabajo-distribucion-bienestar;anclas=monetary,economics",
+           "language":"es","venue":"Example Series","source_name":"Example"}
+        score,decision,reasons=editorial_evaluate(r,self.cfg)
+        self.assertGreaterEqual(score,7)
+        self.assertIn(decision,{"PUBLISHABLE","OUTSTANDING"})
+        self.assertNotEqual(score,7.7)
+
+    def test_ineligible_cannot_buy_entry_with_relevance(self):
+        r={"title":"Relevant but closed","authors":"A. Author","publication_year":"2026",
+           "access_url":"https://example.org/closed","oa_status":"POR_VERIFICAR",
+           "relevance_score":"100","relevance_reasons":"disciplina=economia;areas=macroeconomia-dinero;anclas=economics"}
+        score,decision,_=editorial_evaluate(r,self.cfg)
+        self.assertEqual(score,0.0);self.assertEqual(decision,"INELIGIBLE")
 
 class ConfigTests(unittest.TestCase):
     def test_no_generative_ai_and_no_noimage_fallback(self):
