@@ -62,6 +62,9 @@ jobs:
       - name: Evaluate, prepare, and validate without publishing
         env:
           CLEP_SCREENSHOT_LIMIT: "2"
+          OA_VERIFY_LIMIT: "30"
+          OA_VERIFY_WORKERS: "8"
+          OA_HTTP_TIMEOUT: "8"
         run: |
           python scripts/editorial/verificar_oa.py
           python scripts/editorial/evaluar_candidatos.py
