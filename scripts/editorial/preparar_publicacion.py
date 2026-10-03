@@ -74,7 +74,7 @@ def meta_for(kind,r):
 def eligible(r,kind):
     # La preparación nunca sustituye a la decisión de pertinencia.
     academic={"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"}
-    if r.get("status") not in {"OA_VERIFICADO","EVALUADO","LISTO","FICHA_LISTA"}:return False
+    if r.get("status") not in {"OA_VERIFICADO","EVALUADO","LISTO","FICHA_LISTA","REVISION_EDITORIAL"}:return False
     try: relevance=int(r.get("relevance_score") or 0)
     except ValueError: relevance=0
     if relevance < 15:return False
@@ -83,7 +83,8 @@ def eligible(r,kind):
         except ValueError: editorial=0.0
         if editorial < 7.0 or r.get("editorial_decision") not in {"PUBLISHABLE","OUTSTANDING"}:return False
     if r.get("source_id")=="doab-economics" or r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai","nep_report"}:
-        if "decision=PROMOCION_AUTOMATICA" not in (r.get("relevance_reasons") or ""):return False
+        reasons=r.get("relevance_reasons") or ""
+        if "decision=PROMOCION_AUTOMATICA" not in reasons and "pluralismo_rescate=si" not in reasons:return False
     if not clean(r.get("title")) or not access(r):return False
     if kind in academic:
         if r.get("oa_status") not in {"VERIFICADO","VERIFICADO_FUENTE","OA_VERIFICADO"} or not year(r):return False
