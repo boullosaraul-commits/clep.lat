@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-10-03T18:50:28+00:00",
-  "records": 1213,
-  "academic_records": 1015,
+  "generated_at": "2026-10-04T15:51:13+00:00",
+  "records": 1340,
+  "academic_records": 1158,
   "missing_editorial_score": 0,
   "buckets": {
     "7_8_9": 10,
-    "0_4_9": 986,
-    "5_6_9": 19
+    "0_4_9": 1121,
+    "5_6_9": 27
   },
   "decisions": {
     "PUBLISHABLE": 10,
-    "INELIGIBLE": 102,
-    "THEMATIC_REJECTED": 610,
-    "THEMATIC_REVIEW": 274,
-    "REVIEW": 19
+    "INELIGIBLE": 104,
+    "THEMATIC_REJECTED": 733,
+    "THEMATIC_REVIEW": 284,
+    "REVIEW": 27
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 711,
-      "5_6_9": 14,
+      "0_4_9": 828,
+      "5_6_9": 18,
       "7_8_9": 6
     },
     "crossref_academic": {
       "0_4_9": 126
     },
     "doab_oai": {
-      "0_4_9": 101,
+      "0_4_9": 107,
       "7_8_9": 1
     },
     "nep_report": {
       "7_8_9": 3,
-      "0_4_9": 48,
-      "5_6_9": 5
+      "0_4_9": 60,
+      "5_6_9": 9
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 101,
+      "0_4_9": 107,
       "7_8_9": 1
     },
     "chapter": {
@@ -48,16 +48,16 @@
     },
     "paper": {
       "7_8_9": 3,
-      "0_4_9": 243,
-      "5_6_9": 5
+      "0_4_9": 372,
+      "5_6_9": 12
     },
     "report": {
-      "0_4_9": 503,
-      "5_6_9": 11,
+      "0_4_9": 502,
+      "5_6_9": 12,
       "7_8_9": 6
     },
     "thesis": {
-      "0_4_9": 9
+      "0_4_9": 10
     }
   },
   "source_funnel": {
@@ -65,7 +65,7 @@
       "discovered": 297,
       "thematic_rejected": 115,
       "thematic_review": 130,
-      "access_verified": 44,
+      "access_verified": 74,
       "thematic_auto": 52,
       "publishable": 4
     },
@@ -73,7 +73,7 @@
       "discovered": 234,
       "thematic_rejected": 130,
       "oa_evidence": 234,
-      "access_verified": 22,
+      "access_verified": 43,
       "thematic_review": 75,
       "thematic_auto": 28,
       "publishable": 2,
@@ -87,20 +87,24 @@
       "access_verified": 1
     },
     "dialnet-articles-oai": {
-      "discovered": 200,
-      "thematic_rejected": 186,
-      "thematic_review": 13,
-      "access_verified": 10,
-      "thematic_auto": 1
+      "discovered": 321,
+      "thematic_rejected": 297,
+      "thematic_review": 20,
+      "access_verified": 24,
+      "thematic_auto": 4
     },
     "doab-economics": {
-      "discovered": 102,
-      "thematic_rejected": 86,
-      "oa_evidence": 102,
+      "discovered": 108,
+      "thematic_rejected": 92,
+      "oa_evidence": 108,
       "access_verified": 21,
       "thematic_auto": 6,
       "publishable": 1,
       "thematic_review": 10
+    },
+    "nep-dev": {
+      "discovered": 1,
+      "thematic_rejected": 1
     },
     "nep-ecm": {
       "discovered": 12,
@@ -120,25 +124,32 @@
       "thematic_review": 2
     },
     "nep-hme": {
-      "discovered": 4,
+      "discovered": 6,
       "thematic_rescue": 1,
       "access_verified": 4,
       "oa_evidence": 4,
       "publishable": 1,
-      "thematic_rejected": 1,
-      "thematic_review": 2
-    },
-    "nep-inv": {
-      "discovered": 8,
-      "thematic_rejected": 5,
-      "access_verified": 5,
-      "oa_evidence": 5,
+      "thematic_rejected": 2,
       "thematic_review": 2,
       "thematic_auto": 1
     },
+    "nep-inv": {
+      "discovered": 10,
+      "thematic_rejected": 5,
+      "access_verified": 6,
+      "oa_evidence": 6,
+      "thematic_review": 4,
+      "thematic_auto": 1
+    },
+    "nep-lam": {
+      "discovered": 1,
+      "thematic_rejected": 1,
+      "access_verified": 1,
+      "oa_evidence": 1
+    },
     "nep-lma": {
-      "discovered": 4,
-      "thematic_rejected": 3,
+      "discovered": 6,
+      "thematic_rejected": 5,
       "thematic_auto": 1
     },
     "nep-ltv": {
@@ -146,27 +157,28 @@
       "thematic_review": 1
     },
     "nep-mac": {
-      "discovered": 7,
-      "thematic_review": 4,
-      "access_verified": 5,
-      "oa_evidence": 5,
-      "thematic_auto": 2,
-      "publishable": 1,
-      "thematic_rejected": 1
-    },
-    "nep-mon": {
-      "discovered": 8,
-      "thematic_auto": 4,
+      "discovered": 10,
+      "thematic_review": 5,
       "access_verified": 8,
       "oa_evidence": 8,
+      "thematic_auto": 3,
+      "publishable": 1,
+      "thematic_rejected": 2
+    },
+    "nep-mon": {
+      "discovered": 11,
+      "thematic_auto": 7,
+      "access_verified": 11,
+      "oa_evidence": 11,
       "thematic_rejected": 2,
       "thematic_review": 2
     },
     "nep-pke": {
-      "discovered": 1,
+      "discovered": 2,
       "thematic_review": 1,
-      "access_verified": 1,
-      "oa_evidence": 1
+      "access_verified": 2,
+      "oa_evidence": 2,
+      "thematic_rescue": 1
     },
     "nep-pub": {
       "discovered": 2,
@@ -174,13 +186,17 @@
       "access_verified": 2,
       "oa_evidence": 2,
       "thematic_rejected": 1
+    },
+    "nep-tid": {
+      "discovered": 1,
+      "thematic_auto": 1
     }
   },
   "health": {
-    "oa_pending": 883,
-    "repec_metadata_pending": 198,
+    "oa_pending": 952,
+    "repec_metadata_pending": 182,
     "publishable": 10,
-    "pluralist_rescues_total": 2
+    "pluralist_rescues_total": 3
   },
   "calibration_sample": {
     "pluralist_rescues": [
@@ -194,6 +210,19 @@
         "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=1.0;freshness=bounded_stream_detection;areas=historia-pensamiento-metodologia;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=economic theory,concept of equilibrium",
         "relevance_score": "17",
         "relevance_reasons": "decision=REVISION_EDITORIAL;disciplina=economia;areas=historia-pensamiento-metodologia;anclas=economic,economic theory;pluralismo_rescate=si;senales_pluralistas=economic theory,concept of equilibrium;historia-pensamiento-metodologia=economic theory,concept of equilibrium",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-4975C4B526EEE49E",
+        "title": "Global reproductive justice: a new agenda for feminist economics?",
+        "source": "nep-pke",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "INELIGIBLE",
+        "components": "eligibilidad=fallida",
+        "relevance_score": "17",
+        "relevance_reasons": "decision=REVISION_EDITORIAL;disciplina=economia;areas=historia-pensamiento-metodologia;anclas=economics;pluralismo_rescate=si;senales_pluralistas=feminist economics;historia-pensamiento-metodologia=feminist economics",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
       },
@@ -631,6 +660,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-0561204C6D31E5A5",
+        "title": "La promoción de estilos de vida. Reto y necesidad en la Universidad Cubana Actual",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-06413FE8B97F35BE",
         "title": "Intra-Household Relative Income and Happiness: The Role of Unpaid Work Division During COVID and Afterwards",
         "source": "nep-hme",
@@ -709,6 +751,32 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-088EE5310F80E85A",
+        "title": "Software tutorial. Un recurso didáctico en el proceso de enseñanza y aprendizaje",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-08B5F9FC7C2766A5",
+        "title": "La orientación hacia la actividad de estudio: diagnóstico y aproximación a una posible solución",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-08C973950B5E7717",
         "title": "Vivir sin miedo : feminicidio, juntanzas y acciones colectivas de mujeres por la vida",
         "source": "clacso-repository-oai",
@@ -720,45 +788,6 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_OA_UNCHECKED",
         "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-093B497F8BDDC03A",
-        "title": "An evidence review of worker retraining",
-        "source": "nep-mac",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "13",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=employment",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-09BDD17E7AD17697",
-        "title": "Libya",
-        "source": "crossref-academic-novelties",
-        "type": "edition_translation",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-0A09F285DF279CB3",
-        "title": "Legislating Longevity: State Public Health Laws and Mortality in the Early Twentieth Century",
-        "source": "nep-his",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "",
-        "oa_status": "POR_VERIFICAR"
       }
     ],
     "borderline": [
@@ -906,6 +935,58 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-2BB5A26A60BA27E7",
+        "title": "Inflation narratives and risk premia",
+        "source": "nep-mon",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "33",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,finanzas-sector-publico;anclas=financial;pluralismo_rescate=no;senales_pluralistas=ninguna;macroeconomia-dinero=inflation;finanzas-sector-publico=financial",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-33AEFDFAB936B01F",
+        "title": "Transparency and accountability as drivers of cultural change. A comparative analysis of central banks and national competent authorities",
+        "source": "nep-inv",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,macroeconomia-dinero,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "44",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,macroeconomia-dinero,finanzas-sector-publico;anclas=economy,monetary,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;macroeconomia-dinero=monetary;finanzas-sector-publico=financial",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-3DF3ABFA30B67B4C",
+        "title": "Una alternativa metodológica para la planificación de la clase utilizando medios informáticos",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=1.0;O=0.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "31",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=class,clase;trabajo-distribucion-bienestar=labor",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-43948BCC486176BE",
+        "title": "Optimal monetary and exchange rate frameworks for commodity-exposed economies",
+        "source": "nep-mon",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=publication_date;areas=macroeconomia-dinero,internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "46",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,internacional-latinoamerica,finanzas-sector-publico;anclas=economy,monetary,financial,trade;pluralismo_rescate=no;senales_pluralistas=ninguna;macroeconomia-dinero=monetary;internacional-latinoamerica=trade;finanzas-sector-publico=financial",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
         "candidate_id": "CAND-4B8F9FEA1719511D",
         "title": "Migración interestatal y descentralización migratoria en el Brasil en el siglo XXI: censos de 2000, 2010 y 2022",
         "source": "cepal-oai-publications",
@@ -917,6 +998,32 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;trabajo-distribucion-bienestar=distribución",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-53EBBC5973BA3176",
+        "title": "A New Approach to Estimating Portfolio-Balance Models of the Yield Curve",
+        "source": "nep-mon",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,macroeconomia-dinero;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,macroeconomia-dinero;anclas=macroeconomic,monetary;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=class;macroeconomia-dinero=macroeconomic,monetary",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-94C70E357DED3388",
+        "title": "Condiciones laborales : un análisis político-epistémico desde el trabajo social emancipador",
+        "source": "clacso-repository-oai",
+        "type": "report",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=publication_date;areas=trabajo-distribucion-bienestar,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,economia-politica-instituciones;anclas=economía,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=trabajo;economia-politica-instituciones=poder",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
       },
       {
         "candidate_id": "CAND-F22CA34C1C002BD1",
