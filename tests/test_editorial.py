@@ -246,6 +246,20 @@ class EditorialPriorityTests(unittest.TestCase):
         self.assertEqual(editorial_index_10({"editorial_score":"8.5","notas":"indice_editorial=2"}),8.5)
         self.assertEqual(editorial_index_10({"notas":"editorial_score=9"}),0.0)
 
+class TemplateRenderingTests(unittest.TestCase):
+    def test_templates_render_real_newlines(self):
+        paper=render_text("paper",{
+            "title":"Título","authors":"A. Autora","source_or_series":"Serie","year":"2026",
+            "access_url":"https://example.org/paper.pdf"})
+        self.assertIn("\n\nTítulo\n\n",paper)
+        self.assertNotIn("\\\\n",paper)
+
+        book=render_text("book",{
+            "title":"Libro","authors_or_editors":"B. Autor","year":"2026",
+            "access_url":"https://example.org/book.pdf"})
+        self.assertIn("\n\nLibro\n\n",book)
+        self.assertNotIn("\\\\n",book)
+
 class ConfigTests(unittest.TestCase):
     def test_no_generative_ai_and_no_noimage_fallback(self):
         cfg=json.loads((ROOT/"data/editorial/programacion.json").read_text(encoding="utf-8"))

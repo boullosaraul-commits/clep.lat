@@ -21,9 +21,12 @@ def render(kind, data):
     d.setdefault("date_label","Fecha")
     try: body=spec["template"].format_map(d)
     except KeyError as e: raise ValueError(f"falta campo de plantilla: {e.args[0]}")
+    # Defensa contra plantillas antiguas que hayan persistido saltos como texto literal.
+    body=body.replace("\\\\n","\n")
     text=(spec["label"]+"\n\n"+body).strip()
     text=re.sub(r"[ \t]+\n","\n",text)
     text=re.sub(r"\n{3,}","\n\n",text)
+    if "\\\\n" in text: raise ValueError("plantilla contiene saltos de línea escapados literalmente")
     if len(text)>int(policy["max_chars"]):
         raise ValueError(f"texto excede máximo: {len(text)} > {policy['max_chars']}")
     paras=[p for p in text.split("\n\n") if p.strip()]

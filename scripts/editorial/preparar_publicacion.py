@@ -128,7 +128,8 @@ def capture_official_landing(r):
     rel=f"data/editorial/media/{r['candidate_id']}-landing-{dig}.png"
     out=ROOT/rel
     cmd=[chrome,"--headless=new","--disable-gpu","--no-sandbox","--disable-dev-shm-usage",
-         "--hide-scrollbars","--window-size=1200,1500","--virtual-time-budget=3000",
+         "--hide-scrollbars","--window-size=1200,1500","--run-all-compositor-stages-before-draw",
+         "--virtual-time-budget=5000",
          f"--screenshot={out}",url]
     try:
         subprocess.run(cmd,check=True,timeout=15,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
