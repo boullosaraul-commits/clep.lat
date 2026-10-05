@@ -5,6 +5,9 @@ from datetime import date,datetime
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/"scripts/editorial"))
+from editorial_rules import check_meta_ready, check_publishable
+
 COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 
 FLUJOS={"archivo_historico","novedad","recurso","actividad_clep","publicacion_clep","otro"}
@@ -47,8 +50,10 @@ def main():
                 errors.append(f"línea {n}: PROGRAMADO con post_nuevo_id pero sin SCHEDULED")
             if attempt=="SCHEDULED" and not r.get("post_nuevo_id"):
                 errors.append(f"línea {n}: SCHEDULED sin post_nuevo_id")
-            if attempt=="IN_FLIGHT" and not r.get("meta_attempted_at"):
-                errors.append(f"línea {n}: IN_FLIGHT sin meta_attempted_at")
+            if attempt=="IN_FLIGHT":
+                meta_check=check_meta_ready(r)
+                if not meta_check:
+                    errors.append(f"línea {n}: reserva Meta inválida [{meta_check.code}]: {meta_check.detail}")
             if not day or not tm:errors.append(f"línea {n}: PROGRAMADO sin fecha/hora")
             text=(r.get("ficha_es") or "").strip()
             if not text:errors.append(f"línea {n}: PROGRAMADO sin texto editorial")
@@ -80,10 +85,9 @@ def main():
                 try:es=float(r.get("editorial_score") or 0)
                 except ValueError:es=0.0
                 if es>=9:day_counts[day]["new_high"]+=1
-                if r.get("tipo_recurso") not in NON_TEXT:
-                    if es<7:errors.append(f"línea {n}: novedad académica programada con editorial_score={es} < 7")
-                    if r.get("editorial_decision") not in {"PUBLISHABLE","OUTSTANDING"}:
-                        errors.append(f"línea {n}: novedad académica programada sin decisión publicable")
+                publishable_check=check_publishable(r)
+                if not publishable_check:
+                    errors.append(f"línea {n}: novedad académica no publicable [{publishable_check.code}]: {publishable_check.detail}")
                 src=" ".join([r.get("oa_fuente") or "",notes,r.get("url_original") or ""]).lower()
                 if "doab" in src or "directory of open access books" in src:day_counts[day]["doab"]+=1
                 day_counts[day]["types"][r.get("tipo_recurso") or "otro"]+=1

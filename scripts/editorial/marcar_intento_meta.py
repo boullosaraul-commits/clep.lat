@@ -12,6 +12,8 @@ import argparse,csv,os
 from datetime import datetime
 from pathlib import Path
 
+from editorial_rules import check_meta_reservable
+
 ROOT=Path(__file__).resolve().parents[2]
 COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 
@@ -26,9 +28,7 @@ def main():
     args=ap.parse_args()
     with COLA.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
-    candidates=[r for r in rows if r.get("estado_editorial")=="PROGRAMADO"
-                and not (r.get("post_nuevo_id") or "").strip()
-                and not (r.get("meta_attempt_status") or "").strip()]
+    candidates=[r for r in rows if check_meta_reservable(r)]
     candidates.sort(key=pri)
     if not candidates:
         Path(args.output).unlink(missing_ok=True)

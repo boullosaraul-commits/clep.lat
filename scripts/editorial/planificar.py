@@ -9,23 +9,20 @@ Máximos independientes:
 La fecha objetivo histórica es sólo referencia de ritmo: nunca apaga la
 campaña. Sólo agenda filas con texto e imagen ya certificados.
 """
-import csv,json,math,os,re
+import csv,json,math,os,re,sys
 from collections import Counter
 from datetime import datetime,timedelta,date
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/"scripts/editorial"))
+from editorial_rules import is_schedulable
+
 Q=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 CFG=ROOT/"data/editorial/programacion.json"
 
-READY={"FICHA_LISTA","APROBADO"}
 NON_TEXT={"actividad_clep","convocatoria","convocatoria_evento","recurso","video","grafica","dataset_grafica","material_didactico","efemeride","anuncio_institucional"}
-
-def certified(r):
-    return (r.get("text_status")=="VERIFICADO" and bool((r.get("ficha_es") or "").strip())
-            and r.get("media_rights_status") in {"VERIFICADO","CAPTURA_LANDING_OFICIAL","PROPIO_DETERMINISTA"}
-            and bool((r.get("media_path") or r.get("media_url") or "").strip()))
 
 def priority(r):
     try:p=int(r.get("prioridad") or 999)
@@ -33,7 +30,7 @@ def priority(r):
     return (p,r.get("editorial_id") or "")
 
 def editorial_index_10(r):
-    """Índice editorial canónico 0–10 almacenado en columna propia."""
+    """Índice editorial canónico 0–10 usado sólo para ordenar/capacidad elástica."""
     try:return float(r.get("editorial_score") or 0)
     except (TypeError,ValueError):return 0.0
 
@@ -75,7 +72,6 @@ def choose_diverse_textual(textual,capacity,doab_cap,max_same_type=3,min_types=3
         if is_doab(r) and doab_n>=doab_cap:return False
         return True
 
-    # Diversidad primero, pero siempre dentro del orden de prioridad.
     target=min(min_types,len({r.get("tipo_recurso") or "otro" for r in textual}|represented))
     if len(represented)<target:
         for r in textual:
@@ -118,7 +114,6 @@ def main():
     ntmax=int(cfg["contenido_actual"]["no_textos"]["maximo_diario_inicial"])
     hmax=int(cfg["archivo_historico"]["maximo_diario_inicial"])
 
-    # Ritmo histórico: target = referencia, no condición de apagado.
     retired=sum(1 for r in rows if r.get("flujo_editorial")=="archivo_historico"
                 and (r.get("original_retirado") or "").lower() in {"1","true","yes"})
     backlog_ref=int(cfg["archivo_historico"].get("backlog_referencia",0))
@@ -134,7 +129,7 @@ def main():
     existing_nt=sum(1 for r in existing if r.get("flujo_editorial")!="archivo_historico" and r.get("tipo_recurso") in NON_TEXT)
     existing_new=sum(1 for r in existing if r.get("flujo_editorial")!="archivo_historico" and r.get("tipo_recurso") not in NON_TEXT)
 
-    ready=[r for r in rows if r.get("estado_editorial") in READY and not r.get("fecha_programada") and certified(r)]
+    ready=[r for r in rows if is_schedulable(r)]
     hist=sorted([r for r in ready if r.get("flujo_editorial")=="archivo_historico"],key=priority)
     current=[r for r in ready if r.get("flujo_editorial")!="archivo_historico"]
     allowed_raw=(os.getenv("CLEP_ALLOWED_URL_IDS") or "").strip()
@@ -144,11 +139,9 @@ def main():
         current=[r for r in current if (r.get("url_id") or "") in allowed]
         hist=[]
     nontext=[] if controlled else sorted([r for r in current if r.get("tipo_recurso") in NON_TEXT],key=priority)
-    textual=[r for r in current if r.get("tipo_recurso") not in NON_TEXT and editorial_index_10(r)>=7.0]
+    textual=[r for r in current if r.get("tipo_recurso") not in NON_TEXT]
     textual=sorted(textual,key=lambda r:(-editorial_index_10(r),)+priority(r))
 
-    # Capacidad elástica: 6 normalmente; hasta 8 sólo con >=5 candidatos
-    # sobresalientes (índice editorial >=9/10). No es una cuota.
     elastic=ncfg.get("regla_elastica",{})
     threshold=float(elastic.get("umbral_indice_editorial_10",9))
     min_high=int(elastic.get("minimo_candidatos_sobresalientes_para_expandir",5))
@@ -177,7 +170,6 @@ def main():
     occupied={r.get("orden_dia") for r in existing if r.get("orden_dia")}
     free=[x for x in slots if x not in occupied]
     if len(chosen)>len(free):chosen=chosen[:len(free)]
-    # Distribuir por toda la ventana disponible.
     if chosen:
         idx=[round(i*(len(free)-1)/max(1,len(chosen)-1)) for i in range(len(chosen))]
         assigned=[];used=set()

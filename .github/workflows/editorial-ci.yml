@@ -43,6 +43,7 @@ jobs:
         run: |
           python -m unittest -v tests/test_editorial.py
           python -m unittest -v tests/test_editorial_schema.py
+          python -m unittest -v tests/test_editorial_rules.py
       - name: Deterministic end-to-end dry run
         run: python tests/editorial_e2e.py
       - name: Validate current queue

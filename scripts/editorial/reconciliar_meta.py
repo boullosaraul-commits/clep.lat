@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Reconcilia reservas Meta ambiguas sin reintentar publicaciones.
 
-Busca PROGRAMADO + IN_FLIGHT/REVIEW sin post_nuevo_id en la lista de posts
+Busca PROGRAMADO + intento Meta ambiguo sin post_nuevo_id en la lista de posts
 programados de la página. Una coincidencia única de mensaje y hora recupera el
 post ID. Cero coincidencias convierte IN_FLIGHT en REVIEW; varias coincidencias
 permanecen REVIEW. Si Meta no puede consultarse, termina con error para impedir
@@ -11,6 +11,8 @@ import argparse,csv,json,os,re,sys,urllib.error,urllib.parse,urllib.request
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
+
+from editorial_rules import is_meta_ambiguous
 
 ROOT=Path(__file__).resolve().parents[2]
 COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
@@ -65,9 +67,7 @@ def main():
     cfg=json.loads(CFG.read_text(encoding="utf-8"));tz=ZoneInfo(cfg["timezone"])
     with COLA.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
-    pending=[r for r in rows if r.get("estado_editorial")=="PROGRAMADO"
-             and r.get("meta_attempt_status") in {"IN_FLIGHT","REVIEW"}
-             and not (r.get("post_nuevo_id") or "").strip()]
+    pending=[r for r in rows if r.get("estado_editorial")=="PROGRAMADO" and is_meta_ambiguous(r)]
     if not pending:
         print("Meta reconcile: sin intentos ambiguos.")
         return
