@@ -126,16 +126,74 @@ class PublicationContractTests(unittest.TestCase):
             "meta_status": "NONE",
         }
 
+    def ready(self):
+        row = self.base()
+        row.update({
+            "preparation_status": "READY",
+            "text_status": "VERIFIED",
+            "media_status": "VERIFIED",
+            "candidate_status": "ELIGIBLE",
+            "editorial_decision": "PUBLISHABLE",
+        })
+        return row
+
     def test_minimal_publication_is_valid(self):
         validate_publication(self.base())
 
-    def test_ready_requires_verified_text_and_media(self):
+    def test_validated_requires_verified_text_and_media(self):
         row = self.base()
-        row["preparation_status"] = "READY"
-        row["text_status"] = "READY"
-        row["media_status"] = "VERIFIED"
+        row.update({
+            "preparation_status": "VALIDATED",
+            "text_status": "READY",
+            "media_status": "VERIFIED",
+        })
         with self.assertRaises(SchemaError):
             validate_publication(row)
+
+    def test_validated_with_verified_text_and_media_is_valid(self):
+        row = self.base()
+        row.update({
+            "preparation_status": "VALIDATED",
+            "text_status": "VERIFIED",
+            "media_status": "VERIFIED",
+        })
+        validate_publication(row)
+
+    def test_ready_requires_verified_text_and_media(self):
+        row = self.ready()
+        row["text_status"] = "READY"
+        with self.assertRaises(SchemaError):
+            validate_publication(row)
+
+    def test_ready_requires_eligible_candidate(self):
+        row = self.ready()
+        row["candidate_status"] = "EVALUATED"
+        with self.assertRaises(SchemaError):
+            validate_publication(row)
+
+    def test_ready_requires_publishable_decision(self):
+        row = self.ready()
+        row["editorial_decision"] = "REVIEW"
+        with self.assertRaises(SchemaError):
+            validate_publication(row)
+
+    def test_ready_with_all_invariants_is_valid(self):
+        validate_publication(self.ready())
+
+    def test_meta_reserved_requires_persisted_reservation(self):
+        row = self.base()
+        row["meta_status"] = "RESERVED"
+        with self.assertRaises(SchemaError):
+            validate_publication(row)
+
+    def test_meta_reserved_with_attempt_and_payload_is_valid(self):
+        row = self.base()
+        row.update({
+            "meta_status": "RESERVED",
+            "meta_attempt_id": "ATTEMPT-1",
+            "meta_payload_hash": "sha256:test",
+        })
+        validate_publication(row)
 
     def test_queued_requires_ready_preparation(self):
         row = self.base()
@@ -144,11 +202,8 @@ class PublicationContractTests(unittest.TestCase):
             validate_publication(row)
 
     def test_scheduled_requires_meta_post(self):
-        row = self.base()
+        row = self.ready()
         row.update({
-            "preparation_status": "READY",
-            "text_status": "VERIFIED",
-            "media_status": "VERIFIED",
             "publication_status": "SCHEDULED",
             "meta_status": "SCHEDULED",
         })
@@ -156,11 +211,8 @@ class PublicationContractTests(unittest.TestCase):
             validate_publication(row)
 
     def test_published_requires_meta_verification(self):
-        row = self.base()
+        row = self.ready()
         row.update({
-            "preparation_status": "READY",
-            "text_status": "VERIFIED",
-            "media_status": "VERIFIED",
             "publication_status": "PUBLISHED",
             "meta_status": "PUBLISHED",
             "meta_post_id": "123",
