@@ -40,7 +40,9 @@ jobs:
       - name: Compile Python
         run: python -m compileall -q scripts recovery tests
       - name: Unit tests
-        run: python -m unittest -v tests/test_editorial.py
+        run: |
+          python -m unittest -v tests/test_editorial.py
+          python -m unittest -v tests/test_editorial_schema.py
       - name: Deterministic end-to-end dry run
         run: python tests/editorial_e2e.py
       - name: Validate current queue
