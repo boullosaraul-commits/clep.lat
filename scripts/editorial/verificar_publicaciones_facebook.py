@@ -7,6 +7,8 @@ cuando Meta confirma is_published=true.
 import csv,json,os,sys,urllib.parse,urllib.request,urllib.error
 from pathlib import Path
 
+from editorial_rules import validate_transition
+
 ROOT=Path(__file__).resolve().parents[2]
 COLA=ROOT/"data/editorial/cola.csv"
 API=os.getenv("META_GRAPH_VERSION","v26.0")
@@ -34,6 +36,8 @@ def main():
         except Exception as e:
             print(f"VERIFY {pid}: {e}",file=sys.stderr);continue
         if o.get("is_published") is not True:continue
+        validate_transition("publication","SCHEDULED","PUBLISHED")
+        validate_transition("meta","SCHEDULED","PUBLISHED")
         r["estado_editorial"]="PUBLICADO"
         r["meta_attempt_status"]="PUBLISHED"
         if o.get("permalink_url"):r["post_nuevo_url"]=o["permalink_url"]
