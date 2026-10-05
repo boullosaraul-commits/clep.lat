@@ -212,9 +212,16 @@ def validate_publication(row: Mapping[str, object]) -> None:
     _require(row, PUBLICATION_REQUIRED)
     _validate_known_enums(row)
     _validate_translation(row)
-    if row.get("preparation_status") == "READY":
+    if row.get("preparation_status") in {"VALIDATED", "READY"}:
         if row.get("text_status") != "VERIFIED" or row.get("media_status") != "VERIFIED":
-            raise SchemaError("preparation READY requiere texto y media verificados")
+            raise SchemaError("preparation VALIDATED/READY requiere texto y media verificados")
+    if row.get("preparation_status") == "READY":
+        if row.get("candidate_status") != "ELIGIBLE":
+            raise SchemaError("preparation READY requiere candidate_status=ELIGIBLE")
+        if row.get("editorial_decision") not in {"PUBLISHABLE", "OUTSTANDING"}:
+            raise SchemaError("preparation READY requiere decisión editorial publicable")
+    if row.get("meta_status") == "RESERVED":
+        _require(row, {"meta_attempt_id", "meta_payload_hash"})
     if row.get("publication_status") == "QUEUED" and row.get("preparation_status") != "READY":
         raise SchemaError("publication QUEUED requiere preparation READY")
     if row.get("publication_status") == "SCHEDULED":
