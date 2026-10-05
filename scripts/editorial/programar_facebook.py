@@ -15,6 +15,8 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from editorial_rules import check_meta_ready
+
 ROOT=Path(__file__).resolve().parents[2]
 COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
 CFG=ROOT/"data/editorial/programacion.json"
@@ -101,9 +103,10 @@ def main():
     matches=[r for r in rows if r.get("editorial_id")==args.editorial_id]
     if len(matches)!=1:sys.exit("editorial_id no existe o no es único")
     r=matches[0]
-    if r.get("estado_editorial")!="PROGRAMADO":sys.exit("fila no está PROGRAMADO")
-    if r.get("meta_attempt_status")!="IN_FLIGHT":sys.exit("fila no tiene reserva IN_FLIGHT")
-    if r.get("post_nuevo_id"):sys.exit("fila ya tiene post_nuevo_id")
+    ready=check_meta_ready(r)
+    if not ready:
+        detail=f": {ready.detail}" if ready.detail else ""
+        sys.exit(f"fila no lista para Meta: {ready.code}{detail}")
     fecha=(r.get("fecha_programada") or "").strip();hhmm=(r.get("orden_dia") or "").strip()
     message=(r.get("ficha_es") or "").strip()
     photo_id="";feed_attempted=False
