@@ -16,6 +16,7 @@ from renderizar_texto import render as render_text
 from generar_tarjeta_clep import render as render_card
 from generar_grafica_clep import render as render_chart
 from estado_editorial import QUEUE_DERIVED_FIELDS, candidate_fingerprint, policy_fingerprint
+from editorial_rules import check_publishable
 
 C=Path(os.getenv("CLEP_CANDIDATES_PATH",str(ROOT/"data/editorial/candidatos.csv"))).resolve()
 Q=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve()
@@ -78,10 +79,7 @@ def eligible(r,kind):
     try: relevance=int(r.get("relevance_score") or 0)
     except ValueError: relevance=0
     if relevance < 15:return False
-    if kind in academic:
-        try: editorial=float(r.get("editorial_score") or 0)
-        except ValueError: editorial=0.0
-        if editorial < 7.0 or r.get("editorial_decision") not in {"PUBLISHABLE","OUTSTANDING"}:return False
+    if kind in academic and not check_publishable(r):return False
     if r.get("source_id")=="doab-economics" or r.get("source_type") in {"doab_oai","doab_rest","crossref_academic","academic_oai","nep_report"}:
         reasons=r.get("relevance_reasons") or ""
         if "decision=PROMOCION_AUTOMATICA" not in reasons and "pluralismo_rescate=si" not in reasons:return False
