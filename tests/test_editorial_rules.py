@@ -75,6 +75,8 @@ class PublishableRuleTests(EditorialRulesBase):
         result = check_publishable(row)
         self.assertFalse(result)
         self.assertEqual(result.code, "INVALID_EDITORIAL_DECISION")
+        self.assertEqual(result.field, "editorial_decision")
+        self.assertIn("REVIEW", result.detail)
 
     def test_score_below_threshold_is_not_publishable(self):
         row = self.candidate_v1()
@@ -82,6 +84,8 @@ class PublishableRuleTests(EditorialRulesBase):
         result = check_publishable(row)
         self.assertFalse(result)
         self.assertEqual(result.code, "EDITORIAL_SCORE_BELOW_THRESHOLD")
+        self.assertEqual(result.field, "editorial_score")
+        self.assertIn("threshold=", result.detail)
 
     def test_v1_candidate_must_be_eligible(self):
         row = self.candidate_v1()
@@ -89,6 +93,7 @@ class PublishableRuleTests(EditorialRulesBase):
         result = check_publishable(row)
         self.assertFalse(result)
         self.assertEqual(result.code, "CANDIDATE_NOT_ELIGIBLE")
+        self.assertEqual(result.field, "candidate_status")
 
     def test_nonacademic_resource_uses_other_policy(self):
         row = self.candidate_v1()
@@ -195,6 +200,7 @@ class MetaReadyRuleTests(EditorialRulesBase):
         result = check_meta_ready(row)
         self.assertFalse(result)
         self.assertEqual(result.code, "META_ATTEMPT_ID_MISSING")
+        self.assertEqual(result.field, "meta_attempt_id")
 
     def test_payload_hash_is_required(self):
         row = self.reserved_v1()
@@ -202,6 +208,7 @@ class MetaReadyRuleTests(EditorialRulesBase):
         result = check_meta_ready(row)
         self.assertFalse(result)
         self.assertEqual(result.code, "META_PAYLOAD_HASH_MISSING")
+        self.assertEqual(result.field, "meta_payload_hash")
 
     def test_post_text_is_required(self):
         row = self.reserved_v1()
@@ -290,6 +297,44 @@ class AmbiguityAndTransitionTests(EditorialRulesBase):
 
     def test_quarantine_can_return_to_pending(self):
         validate_transition("preparation", "QUARANTINED", "PENDING")
+
+    def test_publication_scheduled_can_become_published(self):
+        validate_transition("publication", "SCHEDULED", "PUBLISHED")
+
+    def test_meta_scheduled_can_become_published(self):
+        validate_transition("meta", "SCHEDULED", "PUBLISHED")
+
+
+class CrossStageConsistencyTests(EditorialRulesBase):
+    def test_schedulable_academic_row_is_also_publishable(self):
+        row = self.publication_v1()
+        self.assertTrue(check_schedulable(row))
+        self.assertTrue(check_publishable(row))
+
+    def test_legacy_schedulable_academic_row_uses_same_publicability_rule(self):
+        row = self.publication_legacy()
+        self.assertTrue(check_schedulable(row))
+        self.assertTrue(check_publishable(row))
+
+    def test_scheduling_then_reservation_preserves_single_policy_path(self):
+        row = self.publication_legacy()
+        self.assertTrue(check_schedulable(row))
+        row["estado_editorial"] = "PROGRAMADO"
+        row["fecha_programada"] = "2026-10-06"
+        row["orden_dia"] = "10:00"
+        self.assertTrue(check_meta_reservable(row))
+
+    def test_reserved_legacy_row_becomes_meta_ready_without_new_policy_decision(self):
+        row = self.publication_legacy()
+        row.update({
+            "estado_editorial": "PROGRAMADO",
+            "fecha_programada": "2026-10-06",
+            "orden_dia": "10:00",
+        })
+        self.assertTrue(check_meta_reservable(row))
+        row["meta_attempt_status"] = "IN_FLIGHT"
+        row["meta_attempted_at"] = "2026-10-05T12:00:00-06:00"
+        self.assertTrue(check_meta_ready(row))
 
 
 if __name__ == "__main__":
