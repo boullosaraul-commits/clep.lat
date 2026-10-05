@@ -1,46 +1,46 @@
 {
-  "generated_at": "2026-10-04T15:51:13+00:00",
-  "records": 1340,
-  "academic_records": 1158,
+  "generated_at": "2026-10-05T19:51:06+00:00",
+  "records": 1472,
+  "academic_records": 1190,
   "missing_editorial_score": 0,
   "buckets": {
-    "7_8_9": 10,
-    "0_4_9": 1121,
-    "5_6_9": 27
+    "7_8_9": 9,
+    "0_4_9": 1151,
+    "5_6_9": 30
   },
   "decisions": {
-    "PUBLISHABLE": 10,
-    "INELIGIBLE": 104,
-    "THEMATIC_REJECTED": 733,
-    "THEMATIC_REVIEW": 284,
-    "REVIEW": 27
+    "PUBLISHABLE": 9,
+    "INELIGIBLE": 105,
+    "THEMATIC_REJECTED": 757,
+    "THEMATIC_REVIEW": 289,
+    "REVIEW": 30
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 828,
-      "5_6_9": 18,
+      "0_4_9": 843,
+      "5_6_9": 19,
       "7_8_9": 6
     },
     "crossref_academic": {
-      "0_4_9": 126
+      "0_4_9": 131
     },
     "doab_oai": {
       "0_4_9": 107,
-      "7_8_9": 1
+      "5_6_9": 1
     },
     "nep_report": {
       "7_8_9": 3,
-      "0_4_9": 60,
-      "5_6_9": 9
+      "0_4_9": 70,
+      "5_6_9": 10
     }
   },
   "by_type": {
     "book": {
       "0_4_9": 107,
-      "7_8_9": 1
+      "5_6_9": 1
     },
     "chapter": {
-      "0_4_9": 113,
+      "0_4_9": 116,
       "5_6_9": 3
     },
     "edition_translation": {
@@ -48,11 +48,11 @@
     },
     "paper": {
       "7_8_9": 3,
-      "0_4_9": 372,
-      "5_6_9": 12
+      "0_4_9": 383,
+      "5_6_9": 14
     },
     "report": {
-      "0_4_9": 502,
+      "0_4_9": 518,
       "5_6_9": 12,
       "7_8_9": 6
     },
@@ -65,32 +65,32 @@
       "discovered": 297,
       "thematic_rejected": 115,
       "thematic_review": 130,
-      "access_verified": 74,
+      "access_verified": 95,
       "thematic_auto": 52,
       "publishable": 4
     },
     "clacso-repository-oai": {
-      "discovered": 234,
-      "thematic_rejected": 130,
-      "oa_evidence": 234,
-      "access_verified": 43,
-      "thematic_review": 75,
+      "discovered": 248,
+      "thematic_rejected": 143,
+      "oa_evidence": 248,
+      "access_verified": 68,
+      "thematic_review": 76,
       "thematic_auto": 28,
       "publishable": 2,
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 126,
-      "thematic_rejected": 69,
+      "discovered": 131,
+      "thematic_rejected": 74,
       "thematic_review": 29,
       "thematic_auto": 28,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
-      "discovered": 321,
-      "thematic_rejected": 297,
+      "discovered": 323,
+      "thematic_rejected": 299,
       "thematic_review": 20,
-      "access_verified": 24,
+      "access_verified": 35,
       "thematic_auto": 4
     },
     "doab-economics": {
@@ -99,7 +99,6 @@
       "oa_evidence": 108,
       "access_verified": 21,
       "thematic_auto": 6,
-      "publishable": 1,
       "thematic_review": 10
     },
     "nep-dev": {
@@ -107,17 +106,17 @@
       "thematic_rejected": 1
     },
     "nep-ecm": {
-      "discovered": 12,
-      "thematic_rejected": 8,
-      "access_verified": 7,
-      "oa_evidence": 7,
+      "discovered": 14,
+      "thematic_rejected": 9,
+      "access_verified": 8,
+      "oa_evidence": 8,
       "thematic_auto": 2,
-      "thematic_review": 2,
+      "thematic_review": 3,
       "publishable": 1
     },
     "nep-his": {
-      "discovered": 9,
-      "thematic_auto": 4,
+      "discovered": 10,
+      "thematic_auto": 5,
       "thematic_rejected": 3,
       "access_verified": 2,
       "oa_evidence": 2,
@@ -134,40 +133,43 @@
       "thematic_auto": 1
     },
     "nep-inv": {
-      "discovered": 10,
-      "thematic_rejected": 5,
+      "discovered": 13,
+      "thematic_rejected": 7,
       "access_verified": 6,
       "oa_evidence": 6,
-      "thematic_review": 4,
+      "thematic_review": 5,
       "thematic_auto": 1
     },
     "nep-lam": {
-      "discovered": 1,
+      "discovered": 2,
       "thematic_rejected": 1,
-      "access_verified": 1,
-      "oa_evidence": 1
+      "access_verified": 2,
+      "oa_evidence": 2,
+      "thematic_review": 1
     },
     "nep-lma": {
-      "discovered": 6,
+      "discovered": 7,
       "thematic_rejected": 5,
-      "thematic_auto": 1
+      "thematic_auto": 2,
+      "access_verified": 1,
+      "oa_evidence": 1
     },
     "nep-ltv": {
       "discovered": 1,
       "thematic_review": 1
     },
     "nep-mac": {
-      "discovered": 10,
+      "discovered": 11,
       "thematic_review": 5,
       "access_verified": 8,
       "oa_evidence": 8,
       "thematic_auto": 3,
       "publishable": 1,
-      "thematic_rejected": 2
+      "thematic_rejected": 3
     },
     "nep-mon": {
-      "discovered": 11,
-      "thematic_auto": 7,
+      "discovered": 12,
+      "thematic_auto": 8,
       "access_verified": 11,
       "oa_evidence": 11,
       "thematic_rejected": 2,
@@ -188,14 +190,15 @@
       "thematic_rejected": 1
     },
     "nep-tid": {
-      "discovered": 1,
-      "thematic_auto": 1
+      "discovered": 2,
+      "thematic_auto": 1,
+      "thematic_review": 1
     }
   },
   "health": {
-    "oa_pending": 952,
-    "repec_metadata_pending": 182,
-    "publishable": 10,
+    "oa_pending": 924,
+    "repec_metadata_pending": 282,
+    "publishable": 9,
     "pluralist_rescues_total": 3
   },
   "calibration_sample": {
@@ -268,19 +271,6 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
-        "candidate_id": "CAND-21AE46114119E6BE",
-        "title": "Desafíos y limitaciones en la implementación del etiquetado de alimentos transgénicos en el Perú",
-        "source": "doab-economics",
-        "type": "book",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,peru,perú;economia-politica-instituciones=institutions",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-C9C13551BC8F1002",
         "title": "Trump, el imperio y el cambio social mundial : ¿hacia dónde vamos?",
         "source": "clacso-repository-oai",
@@ -303,6 +293,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=trabajo",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-21AE46114119E6BE",
+        "title": "Desafíos y limitaciones en la implementación del etiquetado de alimentos transgénicos en el Perú",
+        "source": "doab-economics",
+        "type": "book",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,peru,perú;economia-politica-instituciones=institutions",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
       },
@@ -502,6 +505,19 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_UNCHECKED",
         "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-01734892BAE817FD",
+        "title": "Situación de las universidades latinoamericanas al producirse el movimiento de Córdoba",
+        "source": "clacso-repository-oai",
+        "type": "report",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_OA_UNCHECKED",
+        "oa_status": "VERIFICADO_FUENTE"
       },
       {
         "candidate_id": "CAND-01A22858A6789DEE",
@@ -775,19 +791,6 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_UNCHECKED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-08C973950B5E7717",
-        "title": "Vivir sin miedo : feminicidio, juntanzas y acciones colectivas de mujeres por la vida",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_OA_UNCHECKED",
-        "oa_status": "VERIFICADO_FUENTE"
       }
     ],
     "borderline": [
@@ -801,6 +804,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=trabajo",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-21AE46114119E6BE",
+        "title": "Desafíos y limitaciones en la implementación del etiquetado de alimentos transgénicos en el Perú",
+        "source": "doab-economics",
+        "type": "book",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,peru,perú;economia-politica-instituciones=institutions",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
       },
@@ -1013,6 +1029,19 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-64798E62480A795B",
+        "title": "Sharing the Burden: The Impacts of Pharmacy Sector Reforms on the Labor Market for Pharmacists in Portugal",
+        "source": "nep-lma",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "31",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,finanzas-sector-publico;anclas=financial;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,employment,wages;finanzas-sector-publico=financial",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
         "candidate_id": "CAND-94C70E357DED3388",
         "title": "Condiciones laborales : un análisis político-epistémico desde el trabajo social emancipador",
         "source": "clacso-repository-oai",
@@ -1089,32 +1118,6 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,macroeconomia-dinero,trabajo-distribucion-bienestar;anclas=económica;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina,caribe;macroeconomia-dinero=inflación;trabajo-distribucion-bienestar=pobreza,bienestar",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-D8B0831115765CEC",
-        "title": "Aportes del Seminario Regional de Desarrollo Social al debate sobre la desigualdad social en América Latina y el Caribe",
-        "source": "cepal-oai-publications",
-        "type": "chapter",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "36",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina,caribe;trabajo-distribucion-bienestar=desigualdad",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-F0D25A8F53D6EC6A",
-        "title": "Del consumo energético a la recuperación de energía en el sector de agua y saneamiento en América Latina y el Caribe: auditorías energéticas y aprovechamiento del metano a partir de aguas residuales",
-        "source": "cepal-oai-publications",
-        "type": "report",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economía,económica;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia,américa latina,caribe;trabajo-distribucion-bienestar=distribución",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
       }
     ]
   },
@@ -1155,19 +1158,6 @@
       "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=desarrollo-estructura,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "32",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=desarrollo-estructura,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;desarrollo-estructura=structural change;finanzas-sector-publico=credit",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "VERIFICADO_FUENTE"
-    },
-    {
-      "candidate_id": "CAND-21AE46114119E6BE",
-      "title": "Desafíos y limitaciones en la implementación del etiquetado de alimentos transgénicos en el Perú",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "34",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,peru,perú;economia-politica-instituciones=institutions",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "VERIFICADO_FUENTE"
     },
@@ -1248,6 +1238,19 @@
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economía,económica,economía política,macroeconomía,desigualdad;pluralismo_rescate=no;senales_pluralistas=economía política;economia-politica-instituciones=economía política,instituciones;macroeconomia-dinero=macroeconomía;historia-pensamiento-metodologia=economía política;internacional-latinoamerica=américa latina,caribe",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-21AE46114119E6BE",
+      "title": "Desafíos y limitaciones en la implementación del etiquetado de alimentos transgénicos en el Perú",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "34",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,peru,perú;economia-politica-instituciones=institutions",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "VERIFICADO_FUENTE"
     },
     {
       "candidate_id": "CAND-184BF962E4CEA30B",
