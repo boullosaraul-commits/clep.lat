@@ -51,6 +51,24 @@ def visual_fixture(**overrides):
     return data
 
 
+def ready_queue_fixture(**overrides):
+    data = {
+        "estado_editorial": "FICHA_LISTA",
+        "ficha_es": "Texto determinista",
+        "text_status": "VERIFICADO",
+        "text_method": "deterministic_template",
+        "text_template": "textos_cortos.paper",
+        "text_template_version": "1",
+        "candidate_fingerprint": "candidate-fp",
+        "editorial_policy_fingerprint": "policy-fp",
+        "preparation_version": "1",
+        "preparation_fingerprint": "b" * 64,
+        **visual_fixture(),
+    }
+    data.update(overrides)
+    return data
+
+
 class PreparationContractTests(unittest.TestCase):
     def base_row(self):
         return {
@@ -110,15 +128,19 @@ class PreparationContractTests(unittest.TestCase):
                 "media_rights_status": "PROPIO_DETERMINISTA",
             }
 
+        def fake_validate(queued):
+            order.append("validate")
+
         with patch.object(prep, "eligible", return_value=True), \
              patch.object(prep, "meta_for", side_effect=fake_meta), \
              patch.object(prep, "text_context", side_effect=fake_context), \
              patch.object(prep, "render_result", side_effect=fake_render), \
              patch.object(prep, "resolve_acquire_validate_media", side_effect=fake_media), \
-             patch.object(prep, "_assemble_queue_row", side_effect=fake_assemble):
+             patch.object(prep, "_assemble_queue_row", side_effect=fake_assemble), \
+             patch.object(prep, "_validate_ready_contract", side_effect=fake_validate):
             outcome = prep.prepare_one(row, None, ["editorial_id"], "policy")
 
-        self.assertEqual(order, ["meta", "context", "text", "media", "assemble"])
+        self.assertEqual(order, ["meta", "context", "text", "media", "assemble", "validate"])
         self.assertTrue(outcome.ready)
         self.assertEqual(outcome.stage, prep.STAGE_COMPLETE)
         self.assertEqual(outcome.candidate_updates, {"status": "FICHA_LISTA"})
@@ -138,6 +160,8 @@ class PreparationContractTests(unittest.TestCase):
         self.assertIsNone(outcome.queue_row)
         self.assertEqual(outcome.error_code, "TEXT_TEST")
         self.assertEqual(outcome.error_detail, "texto inválido")
+        self.assertEqual(outcome.quarantine_reason, prep.QUARANTINE_TEXT_ERROR)
+        self.assertEqual(outcome.error_class, prep.ERROR_CLASS_PERMANENT)
         self.assertIn("TEXT_RENDER", outcome.candidate_updates["notes"])
         self.assertIn("TEXT_TEST", outcome.candidate_updates["notes"])
 
@@ -214,6 +238,101 @@ class PreparationContractTests(unittest.TestCase):
         once = prep._append_note(row, note)
         twice = prep._append_note({"notes": once}, note)
         self.assertEqual(once, twice)
+
+
+class FailClosedReadyContractTests(unittest.TestCase):
+    def test_complete_row_passes_final_gate(self):
+        prep._validate_ready_contract(ready_queue_fixture())
+
+    def test_unverified_text_is_rejected(self):
+        with self.assertRaises(prep.PreparationContractError) as ctx:
+            prep._validate_ready_contract(ready_queue_fixture(text_status="INVALID"))
+        self.assertEqual(ctx.exception.code, "TEXT_NOT_VERIFIED")
+
+    def test_invalid_material_certificate_is_rejected_by_central_rule(self):
+        with self.assertRaises(prep.PreparationContractError) as ctx:
+            prep._validate_ready_contract(
+                ready_queue_fixture(media_validation_status="INVALID")
+            )
+        self.assertEqual(ctx.exception.code, "MEDIA_MATERIAL_NOT_VALIDATED")
+
+    def test_missing_provenance_is_rejected(self):
+        with self.assertRaises(prep.PreparationContractError) as ctx:
+            prep._validate_ready_contract(
+                ready_queue_fixture(media_resolution_fingerprint="")
+            )
+        self.assertEqual(ctx.exception.code, "PREPARATION_PROVENANCE_INCOMPLETE")
+        self.assertEqual(ctx.exception.field, "media_resolution_fingerprint")
+
+    def test_invalid_preparation_fingerprint_is_rejected(self):
+        with self.assertRaises(prep.PreparationContractError) as ctx:
+            prep._validate_ready_contract(
+                ready_queue_fixture(preparation_fingerprint="not-a-sha")
+            )
+        self.assertEqual(ctx.exception.code, "PREPARATION_FINGERPRINT_INVALID")
+
+    def test_invalid_media_bytes_size_is_rejected(self):
+        with self.assertRaises(prep.PreparationContractError) as ctx:
+            prep._validate_ready_contract(ready_queue_fixture(media_bytes_size="0"))
+        self.assertEqual(ctx.exception.code, "MEDIA_BYTES_SIZE_INVALID")
+
+
+class QuarantineInterfaceTests(unittest.TestCase):
+    def test_blocked_outcome_exports_schema_v1_quarantine_payload(self):
+        outcome = prep.PreparationOutcome(
+            status=prep.PREPARATION_BLOCKED,
+            candidate_id="CAND-Q",
+            stage=prep.STAGE_MEDIA,
+            error_code="MEDIA_DOWNLOAD_FAILED",
+            error_detail="red no disponible",
+            quarantine_reason=prep.QUARANTINE_MEDIA_ERROR,
+            error_class=prep.ERROR_CLASS_TEMPORARY,
+        )
+
+        payload = outcome.quarantine_fields("2026-10-06T20:00:00Z")
+
+        self.assertEqual(
+            payload,
+            {
+                "preparation_status": "QUARANTINED",
+                "quarantine_reason": "MEDIA_ERROR",
+                "quarantine_error_code": "MEDIA_DOWNLOAD_FAILED",
+                "quarantine_step": prep.STAGE_MEDIA,
+                "quarantined_at": "2026-10-06T20:00:00Z",
+                "error_class": "TEMPORARY",
+            },
+        )
+
+    def test_ready_outcome_cannot_be_exported_as_quarantine(self):
+        outcome = prep.PreparationOutcome(
+            status=prep.PREPARATION_READY,
+            candidate_id="CAND-Q",
+            stage=prep.STAGE_COMPLETE,
+        )
+        with self.assertRaisesRegex(ValueError, "BLOCKED"):
+            outcome.quarantine_fields("2026-10-06T20:00:00Z")
+
+    def test_quarantine_timestamp_is_required(self):
+        outcome = prep.PreparationOutcome(
+            status=prep.PREPARATION_BLOCKED,
+            candidate_id="CAND-Q",
+            stage=prep.STAGE_TEXT,
+            error_code="TEXT_TEST",
+            quarantine_reason=prep.QUARANTINE_TEXT_ERROR,
+            error_class=prep.ERROR_CLASS_PERMANENT,
+        )
+        with self.assertRaisesRegex(ValueError, "quarantined_at"):
+            outcome.quarantine_fields("")
+
+    def test_error_classification_is_explicit(self):
+        self.assertEqual(
+            prep._error_class("MEDIA_DOWNLOAD_FAILED"), prep.ERROR_CLASS_TEMPORARY
+        )
+        self.assertEqual(
+            prep._error_class(prep.ERROR_MEDIA_FALLBACK_EXHAUSTED),
+            prep.ERROR_CLASS_AMBIGUOUS,
+        )
+        self.assertEqual(prep._error_class("TEXT_TEST"), prep.ERROR_CLASS_PERMANENT)
 
 
 class PreparationFingerprintTests(unittest.TestCase):
