@@ -43,6 +43,12 @@ class EditorialRulesBase(unittest.TestCase):
             "post_text": "Texto editorial determinista.",
             "media_status": "VERIFIED",
             "media_path": "data/editorial/media/test.svg",
+            "media_validation_status": "VALID",
+            "media_validation_version": "2",
+            "detected_media_type": "image/svg+xml",
+            "media_content_sha256": "a" * 64,
+            "media_width": "1200",
+            "media_height": "1500",
         })
         return row
 
@@ -57,6 +63,12 @@ class EditorialRulesBase(unittest.TestCase):
             "ficha_es": "Texto editorial determinista.",
             "media_rights_status": "PROPIO_DETERMINISTA",
             "media_path": "data/editorial/media/test.svg",
+            "media_validation_status": "VALID",
+            "media_validation_version": "2",
+            "detected_media_type": "image/svg+xml",
+            "media_content_sha256": "a" * 64,
+            "media_width": "1200",
+            "media_height": "1500",
         }
 
 
@@ -130,6 +142,21 @@ class SchedulableRuleTests(EditorialRulesBase):
         self.assertFalse(result)
         self.assertEqual(result.code, "MEDIA_MISSING")
 
+    def test_material_validation_is_required_for_scheduling(self):
+        row = self.publication_v1()
+        row["media_validation_status"] = ""
+        result = check_schedulable(row)
+        self.assertFalse(result)
+        self.assertEqual(result.code, "MEDIA_PHYSICAL_VALIDATION_REQUIRED")
+        self.assertEqual(result.field, "media_validation_status")
+
+    def test_invalid_material_validation_blocks_scheduling(self):
+        row = self.publication_legacy()
+        row["media_validation_status"] = "INVALID"
+        result = check_schedulable(row)
+        self.assertFalse(result)
+        self.assertEqual(result.code, "MEDIA_PHYSICAL_VALIDATION_REQUIRED")
+
     def test_scheduled_v1_publication_is_not_schedulable_again(self):
         row = self.publication_v1()
         row["publication_status"] = "SCHEDULED"
@@ -146,6 +173,15 @@ class SchedulableRuleTests(EditorialRulesBase):
         result = check_schedulable(row)
         self.assertFalse(result)
         self.assertEqual(result.code, "ALREADY_SCHEDULED")
+
+    def test_documented_historical_legacy_exception_is_schedulable(self):
+        row = self.publication_legacy()
+        row.update({
+            "flujo_editorial": "archivo_historico",
+            "media_validation_status": "",
+            "notas": "legacy_media_validation_exception=si",
+        })
+        self.assertTrue(check_schedulable(row))
 
 
 class MetaReservationRuleTests(EditorialRulesBase):
@@ -223,6 +259,14 @@ class MetaReadyRuleTests(EditorialRulesBase):
         result = check_meta_ready(row)
         self.assertFalse(result)
         self.assertEqual(result.code, "MEDIA_MISSING")
+
+    def test_material_validation_is_required_before_meta_write(self):
+        row = self.reserved_v1()
+        row["media_validation_status"] = ""
+        result = check_meta_ready(row)
+        self.assertFalse(result)
+        self.assertEqual(result.code, "MEDIA_PHYSICAL_VALIDATION_REQUIRED")
+        self.assertEqual(result.field, "media_validation_status")
 
     def test_schedule_is_required(self):
         row = self.reserved_v1()
