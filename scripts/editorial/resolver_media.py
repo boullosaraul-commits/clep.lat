@@ -7,6 +7,7 @@ Principios:
 - la jerarquía de fuentes es explícita y estable;
 - los rechazos esperables de una fuente permiten fallback;
 - los errores internos/contractuales detienen el resolver;
+- los assets deterministas son idempotentes por contenido;
 - la validación material del asset pertenece a validar_media.py (Paso 5).
 """
 from __future__ import annotations
@@ -91,6 +92,7 @@ ERROR_ALT_TEXT_MISSING = "MEDIA_ALT_TEXT_MISSING"
 ERROR_RESOLVER_VERSION_INVALID = "MEDIA_RESOLVER_VERSION_INVALID"
 ERROR_FALLBACK_LEVEL_INVALID = "MEDIA_FALLBACK_LEVEL_INVALID"
 ERROR_FINGERPRINT_MISSING = "MEDIA_FINGERPRINT_MISSING"
+ERROR_ASSET_CONFLICT = "MEDIA_ASSET_CONFLICT"
 
 MEDIA_HIERARCHY: tuple[tuple[int, str], ...] = (
     (1, MEDIA_METHOD_OFFICIAL_IMAGE),
@@ -222,6 +224,35 @@ def _year(candidate: dict[str, Any]) -> str:
         return value
     match = re.search(r"\b(?:18|19|20)\d{2}\b", clean(candidate.get("published_at")))
     return match.group(0) if match else ""
+
+
+def _asset_path(candidate: dict[str, Any], mode: str, digest: str, suffix: str) -> str:
+    candidate_id = clean(candidate.get("candidate_id"))
+    stem = candidate_id or digest
+    return f"data/editorial/media/{stem}-{mode}-{digest}.{suffix}"
+
+
+def _materialize_text_once(relative_path: str, content: str) -> None:
+    """Escribe sólo si falta; una colisión distinta falla cerrado."""
+    out = ROOT / relative_path
+    if out.exists():
+        try:
+            current = out.read_text(encoding="utf-8")
+        except OSError as exc:
+            raise MediaResolutionError(
+                ERROR_ASSET_CONFLICT,
+                f"no se pudo leer asset existente {relative_path}: {exc}",
+                "media_path",
+            ) from exc
+        if current != content:
+            raise MediaResolutionError(
+                ERROR_ASSET_CONFLICT,
+                f"asset existente no coincide con el contenido determinista esperado: {relative_path}",
+                "media_path",
+            )
+        return
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(content, encoding="utf-8")
 
 
 def factual_alt_text(method: str, candidate: dict[str, Any], explicit_alt: str = "") -> str:
@@ -357,14 +388,12 @@ def _resolve_official_landing_capture(candidate: dict[str, Any], attempts: tuple
     source = clean(candidate.get("official_landing_source") or candidate.get("official_source") or candidate.get("source_name") or urlparse(url).netloc)
     if not source:
         return StrategyResult(None, OUTCOME_SOURCE_MISSING, "landing oficial sin provenance de fuente", url)
-    candidate_id = clean(candidate.get("candidate_id"))
     url_digest = hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
-    stem = candidate_id or url_digest
-    media_path = f"data/editorial/media/{stem}-landing-{url_digest}.png"
+    media_path = _asset_path(candidate, "landing", url_digest, "png")
     payload = {
         "official_landing_url": url,
         "official_landing_source": source,
-        "candidate_id": candidate_id,
+        "candidate_id": clean(candidate.get("candidate_id")),
         "viewport": "1200x1500",
         "virtual_time_budget_ms": 5000,
         "media_path": media_path,
@@ -389,7 +418,7 @@ def _resolve_deterministic_chart(candidate: dict[str, Any], attempts: tuple[Medi
             return StrategyResult(None, OUTCOME_MISSING, "data_points_json ausente")
         try:
             points = json.loads(raw)
-        except Exception:
+        except json.JSONDecodeError:
             return StrategyResult(None, OUTCOME_INVALID_DATA, "data_points_json no es JSON válido")
     elif isinstance(raw, list):
         points = raw
@@ -405,24 +434,34 @@ def _resolve_deterministic_chart(candidate: dict[str, Any], attempts: tuple[Medi
     source = _source_name(candidate)
     if not source:
         return StrategyResult(None, OUTCOME_SOURCE_MISSING, "gráfica requiere fuente verificada")
-    chart_input = {"title": title, "geography": clean(candidate.get("geography")), "source": source, "points": points}
+    chart_input = {
+        "title": title,
+        "geography": clean(candidate.get("geography")),
+        "source": source,
+        "points": points,
+    }
     try:
         svg = render_chart(chart_input)
     except (TypeError, ValueError) as exc:
         return StrategyResult(None, OUTCOME_INVALID_DATA, f"datos no renderizables: {exc}")
     svg_sha256 = hashlib.sha256(svg.encode("utf-8")).hexdigest()
     svg_digest = svg_sha256[:16]
-    candidate_id = clean(candidate.get("candidate_id"))
-    stem = candidate_id or svg_digest
-    media_path = f"data/editorial/media/{stem}-chart-{svg_digest}.svg"
-    out = ROOT / media_path
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(svg, encoding="utf-8")
+    media_path = _asset_path(candidate, "chart", svg_digest, "svg")
+    _materialize_text_once(media_path, svg)
     source_url = clean(candidate.get("source_url") or candidate.get("access_url"))
     if source_url and not _is_https_url(source_url):
         source_url = ""
     alt_text = factual_alt_text(MEDIA_METHOD_DETERMINISTIC_CHART, candidate)
-    payload = {"content_type": content_type, "title": title, "geography": chart_input["geography"], "source": source, "points": points, "svg_sha256": svg_sha256, "media_path": media_path, "alt_text": alt_text}
+    payload = {
+        "content_type": content_type,
+        "title": title,
+        "geography": chart_input["geography"],
+        "source": source,
+        "points": points,
+        "svg_sha256": svg_sha256,
+        "media_path": media_path,
+        "alt_text": alt_text,
+    }
     return StrategyResult(
         MediaResolution(MEDIA_STATUS_RESOLVED, "image/svg+xml", media_path, "", "CLEP deterministic chart", source_url, MEDIA_METHOD_DETERMINISTIC_CHART, RIGHTS_OWN_DETERMINISTIC, alt_text, RESOLVER_VERSION, 4, _fingerprint(MEDIA_METHOD_DETERMINISTIC_CHART, payload)),
         OUTCOME_RESOLVED,
@@ -441,7 +480,15 @@ def _resolve_deterministic_card(candidate: dict[str, Any], attempts: tuple[Media
     if not source:
         return StrategyResult(None, OUTCOME_SOURCE_MISSING, "tarjeta CLEP requiere fuente verificada")
     label = CARD_LABELS.get(content_type, "CLEP")
-    metadata = " · ".join(part for part in (clean(candidate.get("authors")), clean(candidate.get("geography")), _year(candidate)) if part)
+    metadata = " · ".join(
+        part
+        for part in (
+            clean(candidate.get("authors")),
+            clean(candidate.get("geography")),
+            _year(candidate),
+        )
+        if part
+    )
     card_input = {"label": label, "title": title, "meta": metadata, "source": source}
     try:
         svg = render_card(card_input)
@@ -449,17 +496,22 @@ def _resolve_deterministic_card(candidate: dict[str, Any], attempts: tuple[Media
         return StrategyResult(None, OUTCOME_METADATA_INVALID, f"tarjeta no renderizable: {exc}")
     svg_sha256 = hashlib.sha256(svg.encode("utf-8")).hexdigest()
     svg_digest = svg_sha256[:16]
-    candidate_id = clean(candidate.get("candidate_id"))
-    stem = candidate_id or svg_digest
-    media_path = f"data/editorial/media/{stem}-card-{svg_digest}.svg"
-    out = ROOT / media_path
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(svg, encoding="utf-8")
+    media_path = _asset_path(candidate, "card", svg_digest, "svg")
+    _materialize_text_once(media_path, svg)
     source_url = clean(candidate.get("source_url") or candidate.get("access_url"))
     if source_url and not _is_https_url(source_url):
         source_url = ""
     alt_text = factual_alt_text(MEDIA_METHOD_DETERMINISTIC_CARD, candidate)
-    payload = {"content_type": content_type, "label": label, "title": title, "meta": metadata, "source": source, "svg_sha256": svg_sha256, "media_path": media_path, "alt_text": alt_text}
+    payload = {
+        "content_type": content_type,
+        "label": label,
+        "title": title,
+        "meta": metadata,
+        "source": source,
+        "svg_sha256": svg_sha256,
+        "media_path": media_path,
+        "alt_text": alt_text,
+    }
     return StrategyResult(
         MediaResolution(MEDIA_STATUS_RESOLVED, "image/svg+xml", media_path, "", "CLEP deterministic card", source_url, MEDIA_METHOD_DETERMINISTIC_CARD, RIGHTS_OWN_DETERMINISTIC, alt_text, RESOLVER_VERSION, 4, _fingerprint(MEDIA_METHOD_DETERMINISTIC_CARD, payload)),
         OUTCOME_RESOLVED,
@@ -533,7 +585,10 @@ def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
             )
         attempts.append(MediaAttempt(level, method, False, result.outcome, result.reason, result.source_url))
 
-    detail = "; ".join(f"L{attempt.level}:{attempt.method}={attempt.outcome}" for attempt in attempts)
+    detail = "; ".join(
+        f"L{attempt.level}:{attempt.method}={attempt.outcome}"
+        for attempt in attempts
+    )
     raise MediaResolutionError(
         ERROR_RESOLUTION_FAILED,
         "ninguna estrategia produjo una resolución" + (f" ({detail})" if detail else ""),
