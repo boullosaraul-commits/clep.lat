@@ -3,6 +3,7 @@ import copy
 import sys
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -96,19 +97,31 @@ class PreparationContractTests(unittest.TestCase):
         self.assertEqual(outcome.candidate_updates, {"status": "FICHA_LISTA"})
         self.assertEqual(outcome.queue_row["estado_editorial"], "FICHA_LISTA")
 
-    def test_expected_failure_returns_blocked_without_queue_row(self):
+    def test_structured_text_failure_returns_blocked_with_canonical_code(self):
         row = self.base_row()
+        error = prep.TextRenderError("TEXT_TEST", "texto inválido", "title")
         with patch.object(prep, "eligible", return_value=True), \
              patch.object(prep, "meta_for", return_value={}), \
              patch.object(prep, "text_context", return_value={}), \
-             patch.object(prep, "render_result", side_effect=ValueError("texto inválido")):
+             patch.object(prep, "render_result", side_effect=error):
             outcome = prep.prepare_one(row, None, ["editorial_id"], "policy")
 
         self.assertTrue(outcome.blocked)
         self.assertEqual(outcome.stage, prep.STAGE_TEXT)
         self.assertIsNone(outcome.queue_row)
-        self.assertEqual(outcome.error_code, "ValueError")
+        self.assertEqual(outcome.error_code, "TEXT_TEST")
+        self.assertEqual(outcome.error_detail, "texto inválido")
         self.assertIn("TEXT_RENDER", outcome.candidate_updates["notes"])
+        self.assertIn("TEXT_TEST", outcome.candidate_updates["notes"])
+
+    def test_plain_value_error_propagates_fail_closed(self):
+        row = self.base_row()
+        with patch.object(prep, "eligible", return_value=True), \
+             patch.object(prep, "meta_for", return_value={}), \
+             patch.object(prep, "text_context", return_value={}), \
+             patch.object(prep, "render_result", side_effect=ValueError("bug de contrato")):
+            with self.assertRaisesRegex(ValueError, "bug de contrato"):
+                prep.prepare_one(row, None, ["editorial_id"], "policy")
 
     def test_unexpected_failure_propagates_fail_closed(self):
         row = self.base_row()
@@ -171,6 +184,116 @@ class PreparationContractTests(unittest.TestCase):
         self.assertIn("media_validation_status", fields)
         self.assertIn("media_content_sha256", fields)
         self.assertEqual(len(fields), len(set(fields)))
+
+
+class MediaFallbackContractTests(unittest.TestCase):
+    def resolution(self, method):
+        return SimpleNamespace(
+            media_method=method,
+            media_source="Fuente",
+            media_source_url="https://example.org",
+            media_rights_status="VERIFICADO",
+            resolution_fingerprint=f"fp-{method}",
+            alt_text="Alt",
+        )
+
+    def acquired(self, method):
+        return SimpleNamespace(
+            media_type_declared="image/png",
+            media_path=f"data/editorial/media/{method}.png",
+            content_sha256="a" * 64,
+            reused_existing=False,
+        )
+
+    def valid(self):
+        return SimpleNamespace(
+            valid=True,
+            status="VALID",
+            validation_version=2,
+            detected_type="image/png",
+            width=1200,
+            height=1500,
+            errors=(),
+        )
+
+    def invalid(self, code):
+        return SimpleNamespace(
+            valid=False,
+            errors=(SimpleNamespace(code=code, detail="asset inválido"),),
+        )
+
+    def test_acquisition_fallback_requests_next_resolver_method(self):
+        first = self.resolution("official_image")
+        second = self.resolution("deterministic_card")
+        error = prep.MediaAcquisitionError("MEDIA_DOWNLOAD_FAILED", "caída")
+
+        with patch.object(prep, "resolve_media", side_effect=[first, second]) as resolver, \
+             patch.object(prep, "acquire_media", side_effect=[error, self.acquired("deterministic_card")]), \
+             patch.object(prep, "validate_media", return_value=self.valid()):
+            visual = prep.resolve_acquire_validate_media({"candidate_id": "CAND-X"}, "paper")
+
+        self.assertEqual(visual["media_method"], "deterministic_card")
+        self.assertEqual(resolver.call_count, 2)
+        rejected = resolver.call_args_list[1].kwargs["rejected_methods"]
+        self.assertIn("official_image", rejected)
+
+    def test_validation_fallback_requests_next_resolver_method(self):
+        first = self.resolution("official_image")
+        second = self.resolution("deterministic_card")
+
+        with patch.object(prep, "resolve_media", side_effect=[first, second]) as resolver, \
+             patch.object(
+                 prep,
+                 "acquire_media",
+                 side_effect=[self.acquired("official_image"), self.acquired("deterministic_card")],
+             ), \
+             patch.object(
+                 prep,
+                 "validate_media",
+                 side_effect=[self.invalid("MEDIA_RASTER_CORRUPT"), self.valid()],
+             ):
+            visual = prep.resolve_acquire_validate_media({"candidate_id": "CAND-X"}, "paper")
+
+        self.assertEqual(visual["media_method"], "deterministic_card")
+        self.assertEqual(resolver.call_count, 2)
+        rejected = resolver.call_args_list[1].kwargs["rejected_methods"]
+        self.assertIn("official_image", rejected)
+
+    def test_repeated_resolver_method_fails_closed(self):
+        repeated = self.resolution("official_image")
+        error = prep.MediaAcquisitionError("MEDIA_DOWNLOAD_FAILED", "caída")
+
+        with patch.object(prep, "resolve_media", side_effect=[repeated, repeated]), \
+             patch.object(prep, "acquire_media", side_effect=error):
+            with self.assertRaises(prep.MediaFallbackError) as ctx:
+                prep.resolve_acquire_validate_media({"candidate_id": "CAND-X"}, "paper")
+
+        self.assertEqual(ctx.exception.code, prep.ERROR_MEDIA_METHOD_REPEATED)
+
+    def test_fallback_attempt_limit_is_explicit(self):
+        first = self.resolution("official_image")
+        second = self.resolution("explicit_cover")
+        error = prep.MediaAcquisitionError("MEDIA_DOWNLOAD_FAILED", "caída")
+
+        with patch.object(prep, "MAX_MEDIA_ATTEMPTS", 2), \
+             patch.object(prep, "resolve_media", side_effect=[first, second]), \
+             patch.object(prep, "acquire_media", side_effect=error):
+            with self.assertRaises(prep.MediaFallbackError) as ctx:
+                prep.resolve_acquire_validate_media({"candidate_id": "CAND-X"}, "paper")
+
+        self.assertEqual(ctx.exception.code, prep.ERROR_MEDIA_FALLBACK_EXHAUSTED)
+
+    def test_nonfallback_validation_error_stops_immediately(self):
+        resolution = self.resolution("official_image")
+        with patch.object(prep, "resolve_media", return_value=resolution), \
+             patch.object(prep, "acquire_media", return_value=self.acquired("official_image")), \
+             patch.object(
+                 prep,
+                 "validate_media",
+                 return_value=self.invalid("MEDIA_HASH_MISMATCH"),
+             ):
+            with self.assertRaises(prep.MediaValidationBlocked):
+                prep.resolve_acquire_validate_media({"candidate_id": "CAND-X"}, "paper")
 
 
 class InvalidationBoundaryTests(unittest.TestCase):
