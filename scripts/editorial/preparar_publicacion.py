@@ -12,9 +12,12 @@ valida media y sólo entonces construye una fila completa lista para persistir.
 from __future__ import annotations
 
 import csv
+import hashlib
+import json
 import os
 import re
 import sys
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
@@ -34,6 +37,8 @@ C = Path(
     os.getenv("CLEP_CANDIDATES_PATH", str(ROOT / "data/editorial/candidatos.csv"))
 ).resolve()
 Q = Path(os.getenv("CLEP_QUEUE_PATH", str(ROOT / "data/editorial/cola.csv"))).resolve()
+
+PREPARATION_VERSION = 1
 
 TEXT_PROVENANCE_FIELDS = (
     "source_summary",
@@ -55,8 +60,12 @@ MEDIA_PROVENANCE_FIELDS = (
     "media_source_url",
     "media_rights_status",
     "media_method",
+    "media_resolver_version",
+    "media_fallback_level",
     "media_resolution_fingerprint",
+    "media_acquisition_method",
     "media_content_sha256",
+    "media_bytes_size",
     "media_acquisition_reused",
     "alt_text",
     "media_validation_status",
@@ -64,6 +73,10 @@ MEDIA_PROVENANCE_FIELDS = (
     "detected_media_type",
     "media_width",
     "media_height",
+)
+PREPARATION_PROVENANCE_FIELDS = (
+    "preparation_version",
+    "preparation_fingerprint",
 )
 
 PREPARATION_READY = "READY"
@@ -396,8 +409,12 @@ def resolve_acquire_validate_media(row, kind):
             "media_source_url": resolution.media_source_url,
             "media_rights_status": resolution.media_rights_status,
             "media_method": method,
+            "media_resolver_version": str(resolution.resolver_version),
+            "media_fallback_level": str(resolution.fallback_level),
             "media_resolution_fingerprint": resolution.resolution_fingerprint,
+            "media_acquisition_method": acquired.acquisition_method,
             "media_content_sha256": acquired.content_sha256,
+            "media_bytes_size": str(acquired.bytes_written),
             "media_acquisition_reused": "si" if acquired.reused_existing else "no",
             "alt_text": resolution.alt_text,
         }
@@ -430,14 +447,77 @@ def resolve_acquire_validate_media(row, kind):
 
 def _queue_fieldnames(existing_fields):
     fields = list(existing_fields or [])
-    for field in QUEUE_DERIVED_FIELDS + TEXT_PROVENANCE_FIELDS + MEDIA_PROVENANCE_FIELDS:
+    for field in (
+        QUEUE_DERIVED_FIELDS
+        + TEXT_PROVENANCE_FIELDS
+        + MEDIA_PROVENANCE_FIELDS
+        + PREPARATION_PROVENANCE_FIELDS
+    ):
         if field not in fields:
             fields.append(field)
     return fields
 
 
 def _append_note(row: Mapping[str, Any], note: str) -> str:
-    return ((row.get("notes") or "") + f" | {note}").strip(" |")
+    current = str(row.get("notes") or "").strip()
+    if note in current:
+        return current
+    return (current + f" | {note}").strip(" |")
+
+
+def _preparation_fingerprint(
+    row: Mapping[str, str],
+    policy_fp: str,
+    text_result,
+    visual: Mapping[str, str],
+) -> str:
+    """Fingerprint del producto preparado, excluyendo metadata operacional mutable."""
+    payload = {
+        "preparation_version": PREPARATION_VERSION,
+        "candidate_fingerprint": candidate_fingerprint(row),
+        "editorial_policy_fingerprint": policy_fp,
+        "text": {
+            "post_text": text_result.post_text,
+            "source_summary": text_result.source_summary,
+            "source_summary_es": text_result.source_summary_es,
+            "editorial_description": text_result.editorial_description,
+            "text_method": text_result.text_method,
+            "text_template": text_result.text_template,
+            "text_template_version": str(text_result.text_template_version),
+            "text_status": text_result.text_status,
+            "translation": text_result.translation,
+        },
+        "media": {
+            key: str(visual.get(key) or "")
+            for key in (
+                "media_type",
+                "media_path",
+                "media_source",
+                "media_source_url",
+                "media_rights_status",
+                "media_method",
+                "media_resolver_version",
+                "media_fallback_level",
+                "media_resolution_fingerprint",
+                "media_acquisition_method",
+                "media_content_sha256",
+                "media_bytes_size",
+                "alt_text",
+                "media_validation_status",
+                "media_validation_version",
+                "detected_media_type",
+                "media_width",
+                "media_height",
+            )
+        },
+    }
+    canonical = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 def _assemble_queue_row(
@@ -456,6 +536,7 @@ def _assemble_queue_row(
 
     cid = row.get("candidate_id") or ""
     translation = text_result.translation if text_result.translation.get("present") else {}
+    preparation_fp = _preparation_fingerprint(row, policy_fp, text_result, visual)
     queued.update(
         {
             "editorial_id": queued.get("editorial_id") or "ED-" + cid.removeprefix("CAND-"),
@@ -516,6 +597,8 @@ def _assemble_queue_row(
             "editorial_decision": row.get("editorial_decision") or "",
             "editorial_policy_fingerprint": policy_fp,
             "candidate_fingerprint": candidate_fingerprint(row),
+            "preparation_version": str(PREPARATION_VERSION),
+            "preparation_fingerprint": preparation_fp,
             **visual,
         }
     )
@@ -639,6 +722,39 @@ def invalidate_stale_queue_rows(queue, cmap, policy_fp):
     return invalidated
 
 
+def _write_csv_atomic(path: Path, fieldnames, rows) -> bool:
+    """Serializa completo, fsync y reemplaza sólo si los bytes cambian."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            newline="",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as handle:
+            temp_path = Path(handle.name)
+            writer = csv.DictWriter(handle, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(rows)
+            handle.flush()
+            os.fsync(handle.fileno())
+
+        new_bytes = temp_path.read_bytes()
+        if path.exists() and path.read_bytes() == new_bytes:
+            temp_path.unlink()
+            return False
+        os.replace(temp_path, path)
+        temp_path = None
+        return True
+    finally:
+        if temp_path is not None and temp_path.exists():
+            temp_path.unlink()
+
+
 def main():
     with C.open(encoding="utf-8", newline="") as file:
         reader = csv.DictReader(file)
@@ -693,18 +809,13 @@ def main():
         rights = outcome.queue_row.get("media_rights_status", "")
         visual_counts[rights] = visual_counts.get(rights, 0) + 1
 
-    with Q.open("w", encoding="utf-8", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=qfields)
-        writer.writeheader()
-        writer.writerows(queue)
-    with C.open("w", encoding="utf-8", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=cfields)
-        writer.writeheader()
-        writer.writerows(candidates)
+    queue_written = _write_csv_atomic(Q, qfields, queue)
+    candidates_written = _write_csv_atomic(C, cfields, candidates)
 
     print(
         f"Preparados atómicamente: {prepared}; invalidados={invalidated}; "
-        f"bloqueados: {blocked}; visuales={visual_counts}"
+        f"bloqueados: {blocked}; visuales={visual_counts}; "
+        f"writes=cola:{int(queue_written)},candidatos:{int(candidates_written)}"
     )
 
 
