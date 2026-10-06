@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
-"""Autoridad única de resolución de media editorial CLEP.
+"""Autoridad pura de resolución de media editorial CLEP.
 
-Principios:
-- una candidatura produce como máximo una resolución activa;
-- toda resolución debe ser trazable y determinista;
-- la jerarquía de fuentes es explícita y estable;
-- los rechazos esperables de una fuente permiten fallback;
-- los errores internos/contractuales detienen el resolver;
-- los assets deterministas son idempotentes por contenido;
-- la validación material del asset pertenece a validar_media.py (Paso 5).
+Este módulo decide qué media corresponde y produce un plan determinista.
+No descarga, no captura, no renderiza archivos y no escribe al filesystem.
+La adquisición/materialización pertenece a adquirir_media.py y la validación
+material del asset a validar_media.py (Paso 5).
 """
 from __future__ import annotations
 
@@ -16,18 +12,15 @@ import hashlib
 import json
 import re
 from dataclasses import asdict, dataclass, field
-from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import urlparse
 
-from generar_grafica_clep import render as render_chart
-from generar_tarjeta_clep import render as render_card
-
-ROOT = Path(__file__).resolve().parents[2]
 RESOLVER_VERSION = 1
+CHART_RENDERER_VERSION = 1
+CARD_RENDERER_VERSION = 1
+CAPTURE_POLICY_VERSION = 1
 
 MEDIA_STATUS_RESOLVED = "RESOLVED"
-MEDIA_STATUS_FAILED = "FAILED"
 
 MEDIA_METHOD_OFFICIAL_IMAGE = "official_image"
 MEDIA_METHOD_EXPLICIT_COVER = "explicit_cover"
@@ -92,7 +85,6 @@ ERROR_ALT_TEXT_MISSING = "MEDIA_ALT_TEXT_MISSING"
 ERROR_RESOLVER_VERSION_INVALID = "MEDIA_RESOLVER_VERSION_INVALID"
 ERROR_FALLBACK_LEVEL_INVALID = "MEDIA_FALLBACK_LEVEL_INVALID"
 ERROR_FINGERPRINT_MISSING = "MEDIA_FINGERPRINT_MISSING"
-ERROR_ASSET_CONFLICT = "MEDIA_ASSET_CONFLICT"
 
 MEDIA_HIERARCHY: tuple[tuple[int, str], ...] = (
     (1, MEDIA_METHOD_OFFICIAL_IMAGE),
@@ -171,6 +163,7 @@ class MediaResolution:
     resolver_version: int
     fallback_level: int
     resolution_fingerprint: str
+    acquisition_payload: dict[str, Any] = field(default_factory=dict)
     attempts: tuple[MediaAttempt, ...] = field(default_factory=tuple)
 
     def to_dict(self) -> dict[str, Any]:
@@ -199,14 +192,24 @@ def _is_https_url(value: str) -> bool:
     return parsed.scheme.lower() == "https" and bool(parsed.netloc)
 
 
-def _fingerprint(method: str, payload: dict[str, Any]) -> str:
+def _canonical_hash(payload: dict[str, Any]) -> str:
     canonical = json.dumps(
-        {"resolver_version": RESOLVER_VERSION, "method": method, "payload": payload},
+        payload,
         ensure_ascii=False,
         sort_keys=True,
         separators=(",", ":"),
     )
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def _fingerprint(method: str, payload: dict[str, Any]) -> str:
+    return _canonical_hash(
+        {
+            "resolver_version": RESOLVER_VERSION,
+            "method": method,
+            "payload": payload,
+        }
+    )
 
 
 def _source_name(candidate: dict[str, Any]) -> str:
@@ -230,29 +233,6 @@ def _asset_path(candidate: dict[str, Any], mode: str, digest: str, suffix: str) 
     candidate_id = clean(candidate.get("candidate_id"))
     stem = candidate_id or digest
     return f"data/editorial/media/{stem}-{mode}-{digest}.{suffix}"
-
-
-def _materialize_text_once(relative_path: str, content: str) -> None:
-    """Escribe sólo si falta; una colisión distinta falla cerrado."""
-    out = ROOT / relative_path
-    if out.exists():
-        try:
-            current = out.read_text(encoding="utf-8")
-        except OSError as exc:
-            raise MediaResolutionError(
-                ERROR_ASSET_CONFLICT,
-                f"no se pudo leer asset existente {relative_path}: {exc}",
-                "media_path",
-            ) from exc
-        if current != content:
-            raise MediaResolutionError(
-                ERROR_ASSET_CONFLICT,
-                f"asset existente no coincide con el contenido determinista esperado: {relative_path}",
-                "media_path",
-            )
-        return
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(content, encoding="utf-8")
 
 
 def factual_alt_text(method: str, candidate: dict[str, Any], explicit_alt: str = "") -> str:
@@ -294,6 +274,36 @@ def validate_resolution(result: MediaResolution) -> MediaResolution:
     return result
 
 
+def _resolution(
+    *,
+    media_type: str,
+    media_path: str,
+    media_url: str,
+    media_source: str,
+    media_source_url: str,
+    method: str,
+    rights: str,
+    alt_text: str,
+    level: int,
+    payload: dict[str, Any],
+) -> MediaResolution:
+    return MediaResolution(
+        media_status=MEDIA_STATUS_RESOLVED,
+        media_type=media_type,
+        media_path=media_path,
+        media_url=media_url,
+        media_source=media_source,
+        media_source_url=media_source_url,
+        media_method=method,
+        media_rights_status=rights,
+        alt_text=alt_text,
+        resolver_version=RESOLVER_VERSION,
+        fallback_level=level,
+        resolution_fingerprint=_fingerprint(method, payload),
+        acquisition_payload=payload,
+    )
+
+
 def _resolve_official_image(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
     del attempts
     url = clean(candidate.get("official_image_url"))
@@ -315,15 +325,27 @@ def _resolve_official_image(candidate: dict[str, Any], attempts: tuple[MediaAtte
         return StrategyResult(None, OUTCOME_ALT_TEXT_MISSING, "imagen oficial sin alt factual ni título", url)
     media_type = clean(candidate.get("official_image_type") or "image")
     payload = {
-        "official_image_url": url,
-        "official_image_source": source,
-        "official_image_source_url": source_url,
-        "official_image_rights": rights,
-        "official_image_alt": alt_text,
-        "official_image_type": media_type,
+        "kind": "remote_image",
+        "url": url,
+        "source": source,
+        "source_url": source_url,
+        "rights": rights,
+        "alt_text": alt_text,
+        "declared_media_type": media_type,
     }
     return StrategyResult(
-        MediaResolution(MEDIA_STATUS_RESOLVED, media_type, "", url, source, source_url, MEDIA_METHOD_OFFICIAL_IMAGE, RIGHTS_VERIFIED, alt_text, RESOLVER_VERSION, 1, _fingerprint(MEDIA_METHOD_OFFICIAL_IMAGE, payload)),
+        _resolution(
+            media_type=media_type,
+            media_path="",
+            media_url=url,
+            media_source=source,
+            media_source_url=source_url,
+            method=MEDIA_METHOD_OFFICIAL_IMAGE,
+            rights=RIGHTS_VERIFIED,
+            alt_text=alt_text,
+            level=1,
+            payload=payload,
+        ),
         OUTCOME_RESOLVED,
         "imagen oficial explícita con derechos y provenance verificados",
         url,
@@ -350,15 +372,27 @@ def _resolve_structured_asset(candidate: dict[str, Any], *, method: str, prefix:
         return StrategyResult(None, OUTCOME_ALT_TEXT_MISSING, f"{prefix} sin alt factual ni título", url)
     media_type = clean(candidate.get(f"{prefix}_type") or "image")
     payload = {
-        f"{prefix}_url": url,
-        f"{prefix}_source": source,
-        f"{prefix}_source_url": source_url,
-        f"{prefix}_rights": rights,
-        f"{prefix}_alt": alt_text,
-        f"{prefix}_type": media_type,
+        "kind": "remote_image",
+        "url": url,
+        "source": source,
+        "source_url": source_url,
+        "rights": rights,
+        "alt_text": alt_text,
+        "declared_media_type": media_type,
     }
     return StrategyResult(
-        MediaResolution(MEDIA_STATUS_RESOLVED, media_type, "", url, source, source_url, method, RIGHTS_VERIFIED, alt_text, RESOLVER_VERSION, 2, _fingerprint(method, payload)),
+        _resolution(
+            media_type=media_type,
+            media_path="",
+            media_url=url,
+            media_source=source,
+            media_source_url=source_url,
+            method=method,
+            rights=RIGHTS_VERIFIED,
+            alt_text=alt_text,
+            level=2,
+            payload=payload,
+        ),
         OUTCOME_RESOLVED,
         f"{prefix} explícita con derechos y provenance verificados",
         url,
@@ -388,44 +422,63 @@ def _resolve_official_landing_capture(candidate: dict[str, Any], attempts: tuple
     source = clean(candidate.get("official_landing_source") or candidate.get("official_source") or candidate.get("source_name") or urlparse(url).netloc)
     if not source:
         return StrategyResult(None, OUTCOME_SOURCE_MISSING, "landing oficial sin provenance de fuente", url)
-    url_digest = hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
-    media_path = _asset_path(candidate, "landing", url_digest, "png")
     payload = {
-        "official_landing_url": url,
-        "official_landing_source": source,
-        "candidate_id": clean(candidate.get("candidate_id")),
+        "kind": "landing_capture",
+        "capture_policy_version": CAPTURE_POLICY_VERSION,
+        "url": url,
+        "source": source,
         "viewport": "1200x1500",
         "virtual_time_budget_ms": 5000,
-        "media_path": media_path,
         "alt_text": alt_text,
     }
+    digest = _canonical_hash(payload)[:16]
+    media_path = _asset_path(candidate, "landing", digest, "png")
+    payload["media_path"] = media_path
     return StrategyResult(
-        MediaResolution(MEDIA_STATUS_RESOLVED, "image/png", media_path, "", source, url, MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE, RIGHTS_OFFICIAL_CAPTURE, alt_text, RESOLVER_VERSION, 3, _fingerprint(MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE, payload)),
+        _resolution(
+            media_type="image/png",
+            media_path=media_path,
+            media_url="",
+            media_source=source,
+            media_source_url=url,
+            method=MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE,
+            rights=RIGHTS_OFFICIAL_CAPTURE,
+            alt_text=alt_text,
+            level=3,
+            payload=payload,
+        ),
         OUTCOME_RESOLVED,
         "landing oficial HTTPS seleccionada para captura determinista",
         url,
     )
 
 
-def _resolve_deterministic_chart(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
-    del attempts
-    content_type = clean(candidate.get("content_type"))
-    if content_type != "dataset_grafica":
-        return StrategyResult(None, OUTCOME_NOT_APPLICABLE, "content_type no es dataset_grafica")
+def _parse_points(candidate: dict[str, Any]) -> list[Any] | None:
     raw = candidate.get("data_points_json")
     if isinstance(raw, str):
         if not clean(raw):
-            return StrategyResult(None, OUTCOME_MISSING, "data_points_json ausente")
+            return None
         try:
-            points = json.loads(raw)
+            parsed = json.loads(raw)
         except json.JSONDecodeError:
-            return StrategyResult(None, OUTCOME_INVALID_DATA, "data_points_json no es JSON válido")
-    elif isinstance(raw, list):
-        points = raw
-    else:
-        points = candidate.get("data_points")
-        if not isinstance(points, list):
-            return StrategyResult(None, OUTCOME_MISSING, "datos estructurados ausentes")
+            raise ValueError("data_points_json no es JSON válido")
+        return parsed if isinstance(parsed, list) else []
+    if isinstance(raw, list):
+        return raw
+    points = candidate.get("data_points")
+    return points if isinstance(points, list) else None
+
+
+def _resolve_deterministic_chart(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
+    del attempts
+    if clean(candidate.get("content_type")) != "dataset_grafica":
+        return StrategyResult(None, OUTCOME_NOT_APPLICABLE, "content_type no es dataset_grafica")
+    try:
+        points = _parse_points(candidate)
+    except ValueError as exc:
+        return StrategyResult(None, OUTCOME_INVALID_DATA, str(exc))
+    if points is None:
+        return StrategyResult(None, OUTCOME_MISSING, "datos estructurados ausentes")
     if len(points) < 2:
         return StrategyResult(None, OUTCOME_INSUFFICIENT_DATA, "gráfica requiere al menos dos observaciones")
     title = clean(candidate.get("indicator_or_dataset") or candidate.get("title"))
@@ -434,38 +487,37 @@ def _resolve_deterministic_chart(candidate: dict[str, Any], attempts: tuple[Medi
     source = _source_name(candidate)
     if not source:
         return StrategyResult(None, OUTCOME_SOURCE_MISSING, "gráfica requiere fuente verificada")
-    chart_input = {
-        "title": title,
-        "geography": clean(candidate.get("geography")),
-        "source": source,
-        "points": points,
-    }
-    try:
-        svg = render_chart(chart_input)
-    except (TypeError, ValueError) as exc:
-        return StrategyResult(None, OUTCOME_INVALID_DATA, f"datos no renderizables: {exc}")
-    svg_sha256 = hashlib.sha256(svg.encode("utf-8")).hexdigest()
-    svg_digest = svg_sha256[:16]
-    media_path = _asset_path(candidate, "chart", svg_digest, "svg")
-    _materialize_text_once(media_path, svg)
     source_url = clean(candidate.get("source_url") or candidate.get("access_url"))
     if source_url and not _is_https_url(source_url):
         source_url = ""
     alt_text = factual_alt_text(MEDIA_METHOD_DETERMINISTIC_CHART, candidate)
     payload = {
-        "content_type": content_type,
+        "kind": "deterministic_chart",
+        "renderer_version": CHART_RENDERER_VERSION,
         "title": title,
-        "geography": chart_input["geography"],
+        "geography": clean(candidate.get("geography")),
         "source": source,
         "points": points,
-        "svg_sha256": svg_sha256,
-        "media_path": media_path,
         "alt_text": alt_text,
     }
+    digest = _canonical_hash(payload)[:16]
+    media_path = _asset_path(candidate, "chart", digest, "svg")
+    payload["media_path"] = media_path
     return StrategyResult(
-        MediaResolution(MEDIA_STATUS_RESOLVED, "image/svg+xml", media_path, "", "CLEP deterministic chart", source_url, MEDIA_METHOD_DETERMINISTIC_CHART, RIGHTS_OWN_DETERMINISTIC, alt_text, RESOLVER_VERSION, 4, _fingerprint(MEDIA_METHOD_DETERMINISTIC_CHART, payload)),
+        _resolution(
+            media_type="image/svg+xml",
+            media_path=media_path,
+            media_url="",
+            media_source="CLEP deterministic chart",
+            media_source_url=source_url,
+            method=MEDIA_METHOD_DETERMINISTIC_CHART,
+            rights=RIGHTS_OWN_DETERMINISTIC,
+            alt_text=alt_text,
+            level=4,
+            payload=payload,
+        ),
         OUTCOME_RESOLVED,
-        "dataset con datos suficientes renderizado como gráfica CLEP determinista",
+        "dataset con datos suficientes planificado como gráfica CLEP determinista",
         source_url,
     )
 
@@ -489,33 +541,37 @@ def _resolve_deterministic_card(candidate: dict[str, Any], attempts: tuple[Media
         )
         if part
     )
-    card_input = {"label": label, "title": title, "meta": metadata, "source": source}
-    try:
-        svg = render_card(card_input)
-    except (TypeError, ValueError) as exc:
-        return StrategyResult(None, OUTCOME_METADATA_INVALID, f"tarjeta no renderizable: {exc}")
-    svg_sha256 = hashlib.sha256(svg.encode("utf-8")).hexdigest()
-    svg_digest = svg_sha256[:16]
-    media_path = _asset_path(candidate, "card", svg_digest, "svg")
-    _materialize_text_once(media_path, svg)
     source_url = clean(candidate.get("source_url") or candidate.get("access_url"))
     if source_url and not _is_https_url(source_url):
         source_url = ""
     alt_text = factual_alt_text(MEDIA_METHOD_DETERMINISTIC_CARD, candidate)
     payload = {
-        "content_type": content_type,
+        "kind": "deterministic_card",
+        "renderer_version": CARD_RENDERER_VERSION,
         "label": label,
         "title": title,
         "meta": metadata,
         "source": source,
-        "svg_sha256": svg_sha256,
-        "media_path": media_path,
         "alt_text": alt_text,
     }
+    digest = _canonical_hash(payload)[:16]
+    media_path = _asset_path(candidate, "card", digest, "svg")
+    payload["media_path"] = media_path
     return StrategyResult(
-        MediaResolution(MEDIA_STATUS_RESOLVED, "image/svg+xml", media_path, "", "CLEP deterministic card", source_url, MEDIA_METHOD_DETERMINISTIC_CARD, RIGHTS_OWN_DETERMINISTIC, alt_text, RESOLVER_VERSION, 4, _fingerprint(MEDIA_METHOD_DETERMINISTIC_CARD, payload)),
+        _resolution(
+            media_type="image/svg+xml",
+            media_path=media_path,
+            media_url="",
+            media_source="CLEP deterministic card",
+            media_source_url=source_url,
+            method=MEDIA_METHOD_DETERMINISTIC_CARD,
+            rights=RIGHTS_OWN_DETERMINISTIC,
+            alt_text=alt_text,
+            level=4,
+            payload=payload,
+        ),
         OUTCOME_RESOLVED,
-        "fallback factual renderizado como tarjeta CLEP determinista",
+        "fallback factual planificado como tarjeta CLEP determinista",
         source_url,
     )
 
@@ -531,6 +587,7 @@ STRATEGIES: dict[str, Strategy] = {
 
 
 def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
+    """Decide una única estrategia sin ejecutar efectos laterales."""
     if not isinstance(candidate, dict):
         raise MediaResolutionError(ERROR_CANDIDATE_INVALID, "candidate debe ser un diccionario", "candidate")
 
@@ -557,23 +614,24 @@ def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
                     f"{method} devolvió resolución con outcome={result.outcome!r}",
                     attempts=tuple(attempts),
                 )
-            selected_attempt = MediaAttempt(level, method, True, OUTCOME_RESOLVED, result.reason, result.source_url)
+            selected = MediaAttempt(level, method, True, OUTCOME_RESOLVED, result.reason, result.source_url)
             final = result.resolution
             return validate_resolution(
                 MediaResolution(
-                    final.media_status,
-                    final.media_type,
-                    final.media_path,
-                    final.media_url,
-                    final.media_source,
-                    final.media_source_url,
-                    method,
-                    final.media_rights_status,
-                    final.alt_text,
-                    RESOLVER_VERSION,
-                    level,
-                    final.resolution_fingerprint,
-                    tuple([*attempts, selected_attempt]),
+                    media_status=final.media_status,
+                    media_type=final.media_type,
+                    media_path=final.media_path,
+                    media_url=final.media_url,
+                    media_source=final.media_source,
+                    media_source_url=final.media_source_url,
+                    media_method=method,
+                    media_rights_status=final.media_rights_status,
+                    alt_text=final.alt_text,
+                    resolver_version=RESOLVER_VERSION,
+                    fallback_level=level,
+                    resolution_fingerprint=final.resolution_fingerprint,
+                    acquisition_payload=dict(final.acquisition_payload),
+                    attempts=tuple([*attempts, selected]),
                 )
             )
 
@@ -585,10 +643,7 @@ def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
             )
         attempts.append(MediaAttempt(level, method, False, result.outcome, result.reason, result.source_url))
 
-    detail = "; ".join(
-        f"L{attempt.level}:{attempt.method}={attempt.outcome}"
-        for attempt in attempts
-    )
+    detail = "; ".join(f"L{attempt.level}:{attempt.method}={attempt.outcome}" for attempt in attempts)
     raise MediaResolutionError(
         ERROR_RESOLUTION_FAILED,
         "ninguna estrategia produjo una resolución" + (f" ({detail})" if detail else ""),
