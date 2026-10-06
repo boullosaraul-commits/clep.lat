@@ -199,6 +199,9 @@ def render_result(kind: str, data: dict[str, Any]) -> TextRenderResult:
     translation = _validated_translation(data, translated)
     description = _editorial_description(kind, data, source, translated)
     post_text, template_id, template_version = _render_template(kind, data)
+    translation_data = {"present": False}
+    if translation:
+        translation_data = {"present": True, **translation.to_dict()}
 
     return TextRenderResult(
         content_type=kind,
@@ -210,7 +213,7 @@ def render_result(kind: str, data: dict[str, Any]) -> TextRenderResult:
         text_template=template_id,
         text_template_version=template_version,
         text_status=TEXT_STATUS,
-        translation=translation.to_dict() if translation else {"present": False},
+        translation=translation_data,
     )
 
 
