@@ -10,8 +10,12 @@ Principios:
 """
 from __future__ import annotations
 
+import hashlib
+import json
+import re
 from dataclasses import asdict, dataclass, field
 from typing import Any, Callable
+from urllib.parse import urlparse
 
 RESOLVER_VERSION = 1
 
@@ -118,6 +122,29 @@ class StrategyResult:
 Strategy = Callable[[dict[str, Any], tuple[MediaAttempt, ...]], StrategyResult]
 
 
+def clean(value: Any) -> str:
+    return re.sub(r"\s+", " ", str(value or "")).strip()
+
+
+def _is_https_url(value: str) -> bool:
+    parsed = urlparse(value)
+    return parsed.scheme.lower() == "https" and bool(parsed.netloc)
+
+
+def _fingerprint(method: str, payload: dict[str, Any]) -> str:
+    canonical = json.dumps(
+        {
+            "resolver_version": RESOLVER_VERSION,
+            "method": method,
+            "payload": payload,
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def validate_resolution(result: MediaResolution) -> MediaResolution:
     """Valida sólo el contrato lógico, no el archivo físico."""
     if result.media_status != MEDIA_STATUS_RESOLVED:
@@ -177,8 +204,99 @@ def validate_resolution(result: MediaResolution) -> MediaResolution:
     return result
 
 
+def _resolve_official_image(
+    candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]
+) -> StrategyResult:
+    """Resuelve una imagen oficial explícita sin descargarla ni validarla físicamente."""
+    del attempts
+    url = clean(candidate.get("official_image_url"))
+    if not url:
+        return StrategyResult(
+            resolution=None,
+            outcome="MISSING",
+            reason="official_image_url ausente",
+        )
+    if not _is_https_url(url):
+        return StrategyResult(
+            resolution=None,
+            outcome="INVALID_URL",
+            reason="official_image_url debe ser HTTPS",
+            source_url=url,
+        )
+
+    rights = clean(candidate.get("official_image_rights"))
+    if rights != RIGHTS_VERIFIED:
+        return StrategyResult(
+            resolution=None,
+            outcome="RIGHTS_UNVERIFIED",
+            reason="official_image_rights debe ser VERIFICADO",
+            source_url=url,
+        )
+
+    source = clean(
+        candidate.get("official_image_source")
+        or candidate.get("official_source")
+        or candidate.get("source_name")
+    )
+    if not source:
+        return StrategyResult(
+            resolution=None,
+            outcome="SOURCE_MISSING",
+            reason="imagen oficial sin provenance de fuente",
+            source_url=url,
+        )
+
+    source_url = clean(candidate.get("official_image_source_url") or url)
+    if source_url and not _is_https_url(source_url):
+        return StrategyResult(
+            resolution=None,
+            outcome="SOURCE_URL_INVALID",
+            reason="official_image_source_url debe ser HTTPS",
+            source_url=url,
+        )
+
+    alt_text = clean(candidate.get("official_image_alt") or candidate.get("title"))
+    if not alt_text:
+        return StrategyResult(
+            resolution=None,
+            outcome="ALT_TEXT_MISSING",
+            reason="imagen oficial sin alt_text factual ni título",
+            source_url=url,
+        )
+
+    media_type = clean(candidate.get("official_image_type") or "image")
+    payload = {
+        "official_image_url": url,
+        "official_image_source": source,
+        "official_image_source_url": source_url,
+        "official_image_rights": rights,
+        "official_image_alt": alt_text,
+        "official_image_type": media_type,
+    }
+    resolution = MediaResolution(
+        media_status=MEDIA_STATUS_RESOLVED,
+        media_type=media_type,
+        media_path="",
+        media_url=url,
+        media_source=source,
+        media_source_url=source_url,
+        media_method=MEDIA_METHOD_OFFICIAL_IMAGE,
+        media_rights_status=RIGHTS_VERIFIED,
+        alt_text=alt_text,
+        resolver_version=RESOLVER_VERSION,
+        fallback_level=1,
+        resolution_fingerprint=_fingerprint(MEDIA_METHOD_OFFICIAL_IMAGE, payload),
+    )
+    return StrategyResult(
+        resolution=resolution,
+        outcome="RESOLVED",
+        reason="imagen oficial explícita con derechos y provenance verificados",
+        source_url=url,
+    )
+
+
 def _not_implemented(method: str) -> Strategy:
-    """Placeholder explícito para estrategias aún pendientes de 4.4–4.8."""
+    """Placeholder explícito para estrategias aún pendientes de 4.5–4.8."""
 
     def strategy(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
         del candidate, attempts
@@ -194,6 +312,7 @@ def _not_implemented(method: str) -> Strategy:
 STRATEGIES: dict[str, Strategy] = {
     method: _not_implemented(method) for _, method in MEDIA_HIERARCHY
 }
+STRATEGIES[MEDIA_METHOD_OFFICIAL_IMAGE] = _resolve_official_image
 
 
 def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
