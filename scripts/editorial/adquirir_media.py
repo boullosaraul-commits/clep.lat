@@ -37,6 +37,17 @@ MEDIA_ROOT = ROOT / "data/editorial/media"
 UA = "CLEP-editorial/3.0 (+https://clep.lat)"
 MAX_DOWNLOAD_BYTES = 12 * 1024 * 1024
 
+# Sólo estos fallos significan que una fuente concreta no pudo materializarse
+# y permiten pedir al resolver el siguiente fallback. Errores de contrato,
+# rutas, colisiones o métodos desconocidos siguen siendo fail-closed.
+FALLBACK_ACQUISITION_ERRORS = {
+    "MEDIA_DOWNLOAD_FAILED",
+    "MEDIA_DOWNLOAD_TOO_LARGE",
+    "MEDIA_CAPTURE_BROWSER_MISSING",
+    "MEDIA_CAPTURE_FAILED",
+    "MEDIA_RENDER_FAILED",
+}
+
 
 class MediaAcquisitionError(RuntimeError):
     def __init__(self, code: str, detail: str, field_name: str = ""):
@@ -47,6 +58,11 @@ class MediaAcquisitionError(RuntimeError):
 
     def to_dict(self) -> dict[str, str]:
         return {"code": self.code, "detail": self.detail, "field": self.field}
+
+
+def is_fallback_acquisition_error(error: MediaAcquisitionError) -> bool:
+    """Indica si el fallo afecta a la fuente y admite el siguiente fallback."""
+    return error.code in FALLBACK_ACQUISITION_ERRORS
 
 
 @dataclass(frozen=True)
