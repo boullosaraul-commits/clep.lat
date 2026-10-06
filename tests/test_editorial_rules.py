@@ -147,7 +147,7 @@ class SchedulableRuleTests(EditorialRulesBase):
         row["media_validation_status"] = ""
         result = check_schedulable(row)
         self.assertFalse(result)
-        self.assertEqual(result.code, "MEDIA_PHYSICAL_VALIDATION_REQUIRED")
+        self.assertEqual(result.code, "MEDIA_MATERIAL_NOT_VALIDATED")
         self.assertEqual(result.field, "media_validation_status")
 
     def test_invalid_material_validation_blocks_scheduling(self):
@@ -155,7 +155,7 @@ class SchedulableRuleTests(EditorialRulesBase):
         row["media_validation_status"] = "INVALID"
         result = check_schedulable(row)
         self.assertFalse(result)
-        self.assertEqual(result.code, "MEDIA_PHYSICAL_VALIDATION_REQUIRED")
+        self.assertEqual(result.code, "MEDIA_MATERIAL_NOT_VALIDATED")
 
     def test_scheduled_v1_publication_is_not_schedulable_again(self):
         row = self.publication_v1()
@@ -265,7 +265,7 @@ class MetaReadyRuleTests(EditorialRulesBase):
         row["media_validation_status"] = ""
         result = check_meta_ready(row)
         self.assertFalse(result)
-        self.assertEqual(result.code, "MEDIA_PHYSICAL_VALIDATION_REQUIRED")
+        self.assertEqual(result.code, "MEDIA_MATERIAL_NOT_VALIDATED")
         self.assertEqual(result.field, "media_validation_status")
 
     def test_schedule_is_required(self):
