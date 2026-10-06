@@ -2,8 +2,8 @@
 """Preparación editorial atómica CLEP: texto + media + procedencia.
 
 La preparación no decide qué media usar. La autoridad de prioridad es
-`resolver_media.py`; `adquirir_media.py` materializa la resolución elegida.
-La validación física completa pertenece al Paso 5 (`validar_media.py`).
+`resolver_media.py`; `adquirir_media.py` materializa la resolución elegida y
+`validar_media.py` certifica físicamente el asset antes de FICHA_LISTA.
 """
 from __future__ import annotations
 
@@ -25,6 +25,17 @@ from editorial_rules import check_publishable
 from estado_editorial import QUEUE_DERIVED_FIELDS, candidate_fingerprint, policy_fingerprint
 from renderizar_texto import render_result
 from resolver_media import MediaResolutionError, resolve_media
+from validar_media import (
+    ERROR_DIMENSIONS_TOO_LARGE,
+    ERROR_DIMENSIONS_TOO_SMALL,
+    ERROR_EXTENSION_MISMATCH,
+    ERROR_FILE_EMPTY,
+    ERROR_FILE_TOO_LARGE,
+    ERROR_FORMAT_UNSUPPORTED,
+    ERROR_RASTER_CORRUPT,
+    ERROR_TYPE_MISMATCH,
+    validate_media,
+)
 
 C = Path(
     os.getenv("CLEP_CANDIDATES_PATH", str(ROOT / "data/editorial/candidatos.csv"))
@@ -55,7 +66,33 @@ MEDIA_PROVENANCE_FIELDS = (
     "media_content_sha256",
     "media_acquisition_reused",
     "alt_text",
+    "media_validation_status",
+    "media_validation_version",
+    "detected_media_type",
+    "media_width",
+    "media_height",
 )
+
+# Estos fallos describen un asset concreto no publicable y permiten pedir al
+# resolver el siguiente método. Rutas, hashes, SVG inseguro, incoherencias del
+# contrato y errores internos siguen siendo fail-closed.
+FALLBACK_VALIDATION_ERRORS = {
+    ERROR_FILE_EMPTY,
+    ERROR_FILE_TOO_LARGE,
+    ERROR_FORMAT_UNSUPPORTED,
+    ERROR_TYPE_MISMATCH,
+    ERROR_EXTENSION_MISMATCH,
+    ERROR_RASTER_CORRUPT,
+    ERROR_DIMENSIONS_TOO_SMALL,
+    ERROR_DIMENSIONS_TOO_LARGE,
+}
+
+
+class MediaValidationBlocked(RuntimeError):
+    def __init__(self, result):
+        self.result = result
+        detail = "; ".join(f"{issue.code}: {issue.detail}" for issue in result.errors)
+        super().__init__(detail or "media inválida")
 
 
 def clean(value):
@@ -288,8 +325,14 @@ def eligible(row, kind):
     } or clean(row.get("source_url")).startswith("https://")
 
 
-def resolve_and_acquire_media(row, kind):
-    """Pide media al resolver y materializa; nunca elige el siguiente fallback."""
+def _validation_can_fallback(result):
+    return bool(result.errors) and all(
+        issue.code in FALLBACK_VALIDATION_ERRORS for issue in result.errors
+    )
+
+
+def resolve_acquire_validate_media(row, kind):
+    """Resuelve, materializa y certifica media antes de devolverla."""
     candidate = dict(row)
     candidate["content_type"] = kind
     rejected_methods: dict[str, str] = {}
@@ -304,7 +347,7 @@ def resolve_and_acquire_media(row, kind):
             rejected_methods[resolution.media_method] = f"{exc.code}: {exc.detail}"
             continue
 
-        return {
+        visual = {
             "media_type": acquired.media_type_declared,
             "media_path": acquired.media_path,
             "media_source": resolution.media_source,
@@ -316,6 +359,26 @@ def resolve_and_acquire_media(row, kind):
             "media_acquisition_reused": "si" if acquired.reused_existing else "no",
             "alt_text": resolution.alt_text,
         }
+        validation = validate_media(visual)
+        if not validation.valid:
+            if _validation_can_fallback(validation):
+                reason = "; ".join(
+                    f"{issue.code}: {issue.detail}" for issue in validation.errors
+                )
+                rejected_methods[resolution.media_method] = f"validation: {reason}"
+                continue
+            raise MediaValidationBlocked(validation)
+
+        visual.update(
+            {
+                "media_validation_status": validation.status,
+                "media_validation_version": str(validation.validation_version),
+                "detected_media_type": validation.detected_type,
+                "media_width": str(validation.width or ""),
+                "media_height": str(validation.height or ""),
+            }
+        )
+        return visual
 
 
 def main():
@@ -402,8 +465,8 @@ def main():
             meta = meta_for(kind, row)
             meta.update(text_context(row))
             text_result = render_result(kind, meta)
-            visual = resolve_and_acquire_media(row, kind)
-        except (MediaResolutionError, MediaAcquisitionError, Exception) as exc:
+            visual = resolve_acquire_validate_media(row, kind)
+        except Exception as exc:
             row["notes"] = (
                 (row.get("notes") or "")
                 + f" | preparación bloqueada: {type(exc).__name__}: {exc}"
