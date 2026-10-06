@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
+<rect width="1200" height="1500" fill="#f5f2e9"/>
+<rect x="0" y="0" width="1200" height="24" fill="#111111"/>
+<style>
+.label{font-family:Arial,Helvetica,sans-serif;font-size:38px;font-weight:700;letter-spacing:3px;fill:#111}
+.title{font-family:Georgia,'Times New Roman',serif;font-size:68px;font-weight:700;fill:#111}
+.meta{font-family:Arial,Helvetica,sans-serif;font-size:34px;fill:#333}
+.source{font-family:Arial,Helvetica,sans-serif;font-size:27px;fill:#555}
+.brand{font-family:Arial,Helvetica,sans-serif;font-size:34px;font-weight:700;fill:#111}
+</style>
+<text x="100" y="175" class="label">PAPER ABIERTO · CLEP</text>
+<line x1="100" y1="235" x2="1100" y2="235" stroke="#111" stroke-width="3"/>
+<text x="100" y="390" class="title">The Trump tariffs: an</text><text x="100" y="482" class="title">unpleasant political economy</text><text x="100" y="574" class="title">rationale</text>
+<text x="100" y="721" class="meta">Mark Setterfield · 2026</text>
+<line x1="100" y1="1280" x2="1100" y2="1280" stroke="#999" stroke-width="2"/>
+<text x="100" y="1345" class="source">Fuente: RePEc ReDIF</text>
+<text x="100" y="1420" class="brand">CLEP · Economía pluralista</text>
+</svg>
