@@ -46,9 +46,10 @@ jobs:
           python -m unittest -v tests/test_editorial_rules.py
           python -m unittest -v tests/test_text_renderer.py
           python -m unittest -v tests/test_media_resolver.py
+          python -m unittest -v tests/test_media_validator.py
       - name: Deterministic text multiformat E2E
         run: python tests/text_renderer_e2e.py
-      - name: Deterministic media resolution E2E
+      - name: Deterministic media resolution and validation E2E
         run: python tests/media_resolution_e2e.py
       - name: Deterministic editorial end-to-end dry run
         run: python tests/editorial_e2e.py
