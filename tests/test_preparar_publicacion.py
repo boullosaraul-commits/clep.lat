@@ -1,0 +1,205 @@
+#!/usr/bin/env python3
+import copy
+import sys
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts/editorial"))
+
+import preparar_publicacion as prep
+
+
+class FakeTextResult:
+    post_text = "Texto determinista"
+    source_summary = "Resumen fuente"
+    source_summary_es = "Resumen ES"
+    editorial_description = "Descripción"
+    text_method = "deterministic_template"
+    text_template = "paper"
+    text_template_version = 1
+    text_status = "VERIFIED"
+    translation = {"present": False}
+
+
+class PreparationContractTests(unittest.TestCase):
+    def base_row(self):
+        return {
+            "candidate_id": "CAND-STEP6",
+            "content_type": "paper",
+            "title": "Paper de prueba",
+            "authors": "Autora Uno",
+            "publication_year": "2026",
+            "access_url": "https://example.org/paper",
+            "source_url": "https://example.org/paper",
+            "source_name": "Fuente",
+            "status": "OA_VERIFICADO",
+            "relevance_score": "20",
+            "editorial_score": "7.0",
+            "editorial_decision": "PUBLISHABLE",
+            "oa_status": "OA_VERIFICADO",
+            "access_status": "PUBLIC_ACCESS_VERIFIED",
+        }
+
+    def test_skipped_precondition_never_runs_text_or_media(self):
+        row = self.base_row()
+        with patch.object(prep, "eligible", return_value=False), \
+             patch.object(prep, "render_result") as render, \
+             patch.object(prep, "resolve_acquire_validate_media") as media:
+            outcome = prep.prepare_one(row, None, ["editorial_id"], "policy")
+
+        self.assertEqual(outcome.status, prep.PREPARATION_SKIPPED)
+        self.assertEqual(outcome.stage, prep.STAGE_PRECONDITION)
+        render.assert_not_called()
+        media.assert_not_called()
+
+    def test_prepare_one_runs_single_linear_sequence(self):
+        row = self.base_row()
+        order = []
+
+        def fake_meta(kind, candidate):
+            order.append("meta")
+            return {"title": candidate["title"]}
+
+        def fake_context(candidate):
+            order.append("context")
+            return {}
+
+        def fake_render(kind, meta):
+            order.append("text")
+            return FakeTextResult()
+
+        def fake_media(candidate, kind):
+            order.append("media")
+            return {"media_rights_status": "PROPIO_DETERMINISTA"}
+
+        def fake_assemble(**kwargs):
+            order.append("assemble")
+            return {
+                "editorial_id": "ED-STEP6",
+                "estado_editorial": "FICHA_LISTA",
+                "media_rights_status": "PROPIO_DETERMINISTA",
+            }
+
+        with patch.object(prep, "eligible", return_value=True), \
+             patch.object(prep, "meta_for", side_effect=fake_meta), \
+             patch.object(prep, "text_context", side_effect=fake_context), \
+             patch.object(prep, "render_result", side_effect=fake_render), \
+             patch.object(prep, "resolve_acquire_validate_media", side_effect=fake_media), \
+             patch.object(prep, "_assemble_queue_row", side_effect=fake_assemble):
+            outcome = prep.prepare_one(row, None, ["editorial_id"], "policy")
+
+        self.assertEqual(order, ["meta", "context", "text", "media", "assemble"])
+        self.assertTrue(outcome.ready)
+        self.assertEqual(outcome.stage, prep.STAGE_COMPLETE)
+        self.assertEqual(outcome.candidate_updates, {"status": "FICHA_LISTA"})
+        self.assertEqual(outcome.queue_row["estado_editorial"], "FICHA_LISTA")
+
+    def test_expected_failure_returns_blocked_without_queue_row(self):
+        row = self.base_row()
+        with patch.object(prep, "eligible", return_value=True), \
+             patch.object(prep, "meta_for", return_value={}), \
+             patch.object(prep, "text_context", return_value={}), \
+             patch.object(prep, "render_result", side_effect=ValueError("texto inválido")):
+            outcome = prep.prepare_one(row, None, ["editorial_id"], "policy")
+
+        self.assertTrue(outcome.blocked)
+        self.assertEqual(outcome.stage, prep.STAGE_TEXT)
+        self.assertIsNone(outcome.queue_row)
+        self.assertEqual(outcome.error_code, "ValueError")
+        self.assertIn("TEXT_RENDER", outcome.candidate_updates["notes"])
+
+    def test_unexpected_failure_propagates_fail_closed(self):
+        row = self.base_row()
+        with patch.object(prep, "eligible", return_value=True), \
+             patch.object(prep, "meta_for", return_value={}), \
+             patch.object(prep, "text_context", return_value={}), \
+             patch.object(prep, "render_result", side_effect=RuntimeError("bug inesperado")):
+            with self.assertRaisesRegex(RuntimeError, "bug inesperado"):
+                prep.prepare_one(row, None, ["editorial_id"], "policy")
+
+    def test_prepare_one_does_not_mutate_inputs_before_commit(self):
+        row = self.base_row()
+        existing = {"editorial_id": "ED-STEP6", "estado_editorial": "REVALIDAR"}
+        original_row = copy.deepcopy(row)
+        original_existing = copy.deepcopy(existing)
+
+        with patch.object(prep, "eligible", return_value=True), \
+             patch.object(prep, "meta_for", return_value={"title": row["title"]}), \
+             patch.object(prep, "text_context", return_value={}), \
+             patch.object(prep, "render_result", return_value=FakeTextResult()), \
+             patch.object(
+                 prep,
+                 "resolve_acquire_validate_media",
+                 return_value={
+                     "media_type": "image/svg+xml",
+                     "media_path": "data/editorial/media/test.svg",
+                     "media_source": "CLEP deterministic card",
+                     "media_source_url": "",
+                     "media_rights_status": "PROPIO_DETERMINISTA",
+                     "media_method": "deterministic_card",
+                     "media_resolution_fingerprint": "fp",
+                     "media_content_sha256": "a" * 64,
+                     "media_acquisition_reused": "no",
+                     "alt_text": "Tarjeta CLEP",
+                     "media_validation_status": "VALID",
+                     "media_validation_version": "2",
+                     "detected_media_type": "image/svg+xml",
+                     "media_width": "1200",
+                     "media_height": "1500",
+                 },
+             ), \
+             patch.object(prep, "candidate_fingerprint", return_value="candidate-fp"):
+            outcome = prep.prepare_one(
+                row,
+                existing,
+                ["editorial_id", "estado_editorial", *prep.MEDIA_PROVENANCE_FIELDS],
+                "policy-fp",
+            )
+
+        self.assertTrue(outcome.ready)
+        self.assertEqual(row, original_row)
+        self.assertEqual(existing, original_existing)
+        self.assertIsNot(outcome.queue_row, existing)
+        self.assertEqual(outcome.queue_row["estado_editorial"], "FICHA_LISTA")
+        self.assertEqual(outcome.queue_row["media_validation_status"], "VALID")
+
+    def test_queue_fieldnames_include_text_and_media_contract(self):
+        fields = prep._queue_fieldnames(["editorial_id"])
+        self.assertIn("source_summary", fields)
+        self.assertIn("media_validation_status", fields)
+        self.assertIn("media_content_sha256", fields)
+        self.assertEqual(len(fields), len(set(fields)))
+
+
+class InvalidationBoundaryTests(unittest.TestCase):
+    def test_scheduled_meta_row_is_not_invalidated(self):
+        candidate = {
+            "candidate_id": "CAND-LOCKED",
+            "editorial_score": "9.0",
+            "editorial_decision": "PUBLISHABLE",
+        }
+        queued = {
+            "url_id": "CAND-LOCKED",
+            "flujo_editorial": "novedad",
+            "estado_editorial": "PROGRAMADO",
+            "meta_attempt_status": "SCHEDULED",
+            "post_nuevo_id": "123",
+            "candidate_fingerprint": "old",
+            "editorial_policy_fingerprint": "old",
+            "editorial_score": "7.0",
+            "editorial_decision": "PUBLISHABLE",
+        }
+        before = copy.deepcopy(queued)
+
+        count = prep.invalidate_stale_queue_rows(
+            [queued], {"CAND-LOCKED": candidate}, "new-policy"
+        )
+
+        self.assertEqual(count, 0)
+        self.assertEqual(queued, before)
+
+
+if __name__ == "__main__":
+    unittest.main()
