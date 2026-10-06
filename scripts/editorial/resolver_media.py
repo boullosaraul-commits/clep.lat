@@ -14,9 +14,13 @@ import hashlib
 import json
 import re
 from dataclasses import asdict, dataclass, field
+from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import urlparse
 
+from generar_grafica_clep import render as render_chart
+
+ROOT = Path(__file__).resolve().parents[2]
 RESOLVER_VERSION = 1
 
 MEDIA_STATUS_RESOLVED = "RESOLVED"
@@ -143,6 +147,15 @@ def _fingerprint(method: str, payload: dict[str, Any]) -> str:
         separators=(",", ":"),
     )
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def _source_name(candidate: dict[str, Any]) -> str:
+    return clean(
+        candidate.get("official_source")
+        or candidate.get("source_name")
+        or candidate.get("source_id")
+        or candidate.get("source_type")
+    )
 
 
 def validate_resolution(result: MediaResolution) -> MediaResolution:
@@ -437,8 +450,95 @@ def _resolve_official_landing_capture(
     )
 
 
+def _resolve_deterministic_chart(
+    candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]
+) -> StrategyResult:
+    """Genera una gráfica CLEP sólo para datasets con datos estructurados."""
+    del attempts
+    content_type = clean(candidate.get("content_type"))
+    if content_type != "dataset_grafica":
+        return StrategyResult(None, "NOT_APPLICABLE", "content_type no es dataset_grafica")
+
+    raw = candidate.get("data_points_json")
+    if isinstance(raw, str):
+        if not clean(raw):
+            return StrategyResult(None, "MISSING", "data_points_json ausente")
+        try:
+            points = json.loads(raw)
+        except Exception:
+            return StrategyResult(None, "INVALID_DATA", "data_points_json no es JSON válido")
+    elif isinstance(raw, list):
+        points = raw
+    else:
+        points = candidate.get("data_points")
+        if not isinstance(points, list):
+            return StrategyResult(None, "MISSING", "datos estructurados ausentes")
+
+    if len(points) < 2:
+        return StrategyResult(None, "INSUFFICIENT_DATA", "gráfica requiere al menos dos observaciones")
+
+    title = clean(candidate.get("indicator_or_dataset") or candidate.get("title"))
+    if not title:
+        return StrategyResult(None, "METADATA_MISSING", "gráfica requiere indicador o título")
+    source = _source_name(candidate)
+    if not source:
+        return StrategyResult(None, "SOURCE_MISSING", "gráfica requiere fuente verificada")
+
+    chart_input = {
+        "title": title,
+        "geography": clean(candidate.get("geography")),
+        "source": source,
+        "points": points,
+    }
+    try:
+        svg = render_chart(chart_input)
+    except Exception as exc:
+        return StrategyResult(None, "INVALID_DATA", f"datos no renderizables: {exc}")
+
+    svg_digest = hashlib.sha256(svg.encode("utf-8")).hexdigest()[:16]
+    candidate_id = clean(candidate.get("candidate_id"))
+    stem = candidate_id or svg_digest
+    media_path = f"data/editorial/media/{stem}-chart-{svg_digest}.svg"
+    out = ROOT / media_path
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(svg, encoding="utf-8")
+
+    source_url = clean(candidate.get("source_url") or candidate.get("access_url"))
+    if source_url and not _is_https_url(source_url):
+        source_url = ""
+    alt_text = f"Gráfica CLEP: {title}"
+    payload = {
+        "content_type": content_type,
+        "title": title,
+        "geography": chart_input["geography"],
+        "source": source,
+        "points": points,
+        "svg_sha256": hashlib.sha256(svg.encode("utf-8")).hexdigest(),
+        "media_path": media_path,
+    }
+    return StrategyResult(
+        resolution=MediaResolution(
+            media_status=MEDIA_STATUS_RESOLVED,
+            media_type="image/svg+xml",
+            media_path=media_path,
+            media_url="",
+            media_source="CLEP deterministic chart",
+            media_source_url=source_url,
+            media_method=MEDIA_METHOD_DETERMINISTIC_CHART,
+            media_rights_status=RIGHTS_OWN_DETERMINISTIC,
+            alt_text=alt_text,
+            resolver_version=RESOLVER_VERSION,
+            fallback_level=4,
+            resolution_fingerprint=_fingerprint(MEDIA_METHOD_DETERMINISTIC_CHART, payload),
+        ),
+        outcome="RESOLVED",
+        reason="dataset con datos suficientes renderizado como gráfica CLEP determinista",
+        source_url=source_url,
+    )
+
+
 def _not_implemented(method: str) -> Strategy:
-    """Placeholder explícito para estrategias aún pendientes de 4.7–4.8."""
+    """Placeholder explícito para estrategias aún pendientes de 4.8."""
 
     def strategy(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
         del candidate, attempts
@@ -458,6 +558,7 @@ STRATEGIES[MEDIA_METHOD_OFFICIAL_IMAGE] = _resolve_official_image
 STRATEGIES[MEDIA_METHOD_EXPLICIT_COVER] = _resolve_explicit_cover
 STRATEGIES[MEDIA_METHOD_EXPLICIT_THUMBNAIL] = _resolve_explicit_thumbnail
 STRATEGIES[MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE] = _resolve_official_landing_capture
+STRATEGIES[MEDIA_METHOD_DETERMINISTIC_CHART] = _resolve_deterministic_chart
 
 
 def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
