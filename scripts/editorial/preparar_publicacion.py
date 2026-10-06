@@ -4,6 +4,10 @@
 La preparación no decide qué media usar. La autoridad de prioridad es
 `resolver_media.py`; `adquirir_media.py` materializa la resolución elegida y
 `validar_media.py` certifica físicamente el asset antes de FICHA_LISTA.
+
+Paso 6: este módulo actúa como orquestador. La unidad de trabajo es
+`prepare_one()`: valida precondiciones, renderiza texto, resuelve/adquiere/
+valida media y sólo entonces construye una fila completa lista para persistir.
 """
 from __future__ import annotations
 
@@ -11,7 +15,9 @@ import csv
 import os
 import re
 import sys
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Mapping
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts/editorial"))
@@ -73,6 +79,16 @@ MEDIA_PROVENANCE_FIELDS = (
     "media_height",
 )
 
+PREPARATION_READY = "READY"
+PREPARATION_BLOCKED = "BLOCKED"
+PREPARATION_SKIPPED = "SKIPPED"
+
+STAGE_PRECONDITION = "PRECONDITION"
+STAGE_TEXT = "TEXT_RENDER"
+STAGE_MEDIA = "MEDIA_RESOLVE_ACQUIRE_VALIDATE"
+STAGE_ASSEMBLE = "ASSEMBLE"
+STAGE_COMPLETE = "COMPLETE"
+
 # Estos fallos describen un asset concreto no publicable y permiten pedir al
 # resolver el siguiente método. Rutas, hashes, SVG inseguro, incoherencias del
 # contrato y errores internos siguen siendo fail-closed.
@@ -93,6 +109,35 @@ class MediaValidationBlocked(RuntimeError):
         self.result = result
         detail = "; ".join(f"{issue.code}: {issue.detail}" for issue in result.errors)
         super().__init__(detail or "media inválida")
+
+
+@dataclass(frozen=True)
+class PreparationOutcome:
+    """Contrato de una preparación individual sin persistencia parcial."""
+
+    status: str
+    candidate_id: str
+    stage: str
+    queue_row: dict[str, str] | None = None
+    candidate_updates: dict[str, str] | None = None
+    error_code: str = ""
+    error_detail: str = ""
+
+    @property
+    def ready(self) -> bool:
+        return self.status == PREPARATION_READY
+
+    @property
+    def blocked(self) -> bool:
+        return self.status == PREPARATION_BLOCKED
+
+
+EXPECTED_PREPARATION_ERRORS = (
+    MediaResolutionError,
+    MediaAcquisitionError,
+    MediaValidationBlocked,
+    ValueError,
+)
 
 
 def clean(value):
@@ -258,7 +303,7 @@ def meta_for(kind, row):
 
 
 def eligible(row, kind):
-    # La preparación nunca sustituye a la decisión de pertinencia.
+    # Temporal durante Paso 6: la política se extraerá en la tanda correspondiente.
     academic = {
         "paper",
         "book",
@@ -381,31 +426,169 @@ def resolve_acquire_validate_media(row, kind):
         return visual
 
 
-def main():
-    with C.open(encoding="utf-8", newline="") as file:
-        reader = csv.DictReader(file)
-        candidates = list(reader)
-        cfields = reader.fieldnames
-    with Q.open(encoding="utf-8", newline="") as file:
-        reader = csv.DictReader(file)
-        queue = list(reader)
-        qfields = list(reader.fieldnames or [])
+def _queue_fieldnames(existing_fields):
+    fields = list(existing_fields or [])
+    for field in QUEUE_DERIVED_FIELDS + TEXT_PROVENANCE_FIELDS + MEDIA_PROVENANCE_FIELDS:
+        if field not in fields:
+            fields.append(field)
+    return fields
 
-    for field in QUEUE_DERIVED_FIELDS:
-        if field not in qfields:
-            qfields.append(field)
-    for field in TEXT_PROVENANCE_FIELDS:
-        if field not in qfields:
-            qfields.append(field)
-    for field in MEDIA_PROVENANCE_FIELDS:
-        if field not in qfields:
-            qfields.append(field)
 
-    policy_fp = policy_fingerprint()
-    cmap = {row.get("candidate_id"): row for row in candidates if row.get("candidate_id")}
-    existing = {row.get("url_id", ""): row for row in queue if row.get("url_id")}
+def _append_note(row: Mapping[str, Any], note: str) -> str:
+    return ((row.get("notes") or "") + f" | {note}").strip(" |")
+
+
+def _assemble_queue_row(
+    row: Mapping[str, str],
+    kind: str,
+    qexisting: Mapping[str, str] | None,
+    qfields: list[str],
+    policy_fp: str,
+    text_result,
+    visual: Mapping[str, str],
+) -> dict[str, str]:
+    """Construye una fila completa en memoria; no muta cola ni candidato."""
+    queued = dict(qexisting) if qexisting is not None else {key: "" for key in qfields}
+    for field in qfields:
+        queued.setdefault(field, "")
+
+    cid = row.get("candidate_id") or ""
+    translation = text_result.translation if text_result.translation.get("present") else {}
+    queued.update(
+        {
+            "editorial_id": queued.get("editorial_id") or "ED-" + cid.removeprefix("CAND-"),
+            "flujo_editorial": row.get("flujo_editorial") or "novedad",
+            "prioridad": row.get("priority") or queued.get("prioridad") or "100",
+            "estado_editorial": "FICHA_LISTA",
+            "url_id": cid,
+            "url_original": row.get("source_url", ""),
+            "titulo_original": clean(row.get("title")),
+            "responsables": clean(row.get("authors")),
+            "tipo_recurso": kind,
+            "anio": year(row),
+            "idioma_obra": row.get("language", ""),
+            "obra_estado": "OBRA_VERIFICADA",
+            "edicion_estado": "EDICION_VERIFICADA"
+            if kind in {
+                "paper", "book", "chapter", "report", "policy_brief",
+                "special_issue", "thesis", "edition_translation",
+            }
+            else "NO_APLICA",
+            "oa_estado": "OA_VERIFICADO"
+            if kind in {
+                "paper", "book", "chapter", "report", "policy_brief",
+                "special_issue", "thesis", "edition_translation",
+            }
+            else "NO_APLICA",
+            "doi": row.get("doi", ""),
+            "oa_url": access(row),
+            "oa_fuente": source_name(row),
+            "area_clep": row.get("area_clep", ""),
+            "licencia": clean(
+                (re.search(r"license_url=([^|;\\s]+)", row.get("notes") or "") or [None, ""])[1]
+            ),
+            "ficha_es": text_result.post_text,
+            "source_summary": text_result.source_summary,
+            "source_summary_es": text_result.source_summary_es,
+            "editorial_description": text_result.editorial_description,
+            "notas": (
+                f"Origen {source_name(row)}; relevance_score={row.get('relevance_score') or '0'}; "
+                f"editorial_score={row.get('editorial_score') or '0'}; "
+                f"editorial_decision={row.get('editorial_decision') or ''}; "
+                f"venue={clean(row.get('venue'))}; preparación atómica determinista sin IA generativa."
+            ),
+            "text_method": text_result.text_method,
+            "text_template": text_result.text_template,
+            "text_template_version": str(text_result.text_template_version),
+            "text_status": "VERIFICADO"
+            if text_result.text_status == "VERIFIED"
+            else text_result.text_status,
+            "translation_status": translation.get("status", ""),
+            "translation_method": translation.get("method", ""),
+            "translation_engine": translation.get("engine", ""),
+            "translation_engine_version": translation.get("engine_version", ""),
+            "translation_source_language": translation.get("source_language", ""),
+            "translation_target_language": translation.get("target_language", ""),
+            "translation_disclosure": translation.get("disclosure", ""),
+            "editorial_score": row.get("editorial_score") or "",
+            "editorial_decision": row.get("editorial_decision") or "",
+            "editorial_policy_fingerprint": policy_fp,
+            "candidate_fingerprint": candidate_fingerprint(row),
+            **visual,
+        }
+    )
+    return queued
+
+
+def prepare_one(
+    row: Mapping[str, str],
+    qexisting: Mapping[str, str] | None,
+    qfields: list[str],
+    policy_fp: str,
+) -> PreparationOutcome:
+    """Ejecuta una preparación lineal sin persistir estados intermedios.
+
+    Contrato:
+    - SKIPPED: la fila no cumple precondiciones y no se modifica.
+    - BLOCKED: fallo esperado; devuelve sólo diagnóstico para el candidato.
+    - READY: devuelve fila de cola completa + actualización final del candidato.
+    Los errores inesperados no se degradan silenciosamente a BLOCKED: se propagan.
+    """
+    cid = row.get("candidate_id") or ""
+    kind = ctype(row)
+    if not eligible(row, kind):
+        return PreparationOutcome(
+            status=PREPARATION_SKIPPED,
+            candidate_id=cid,
+            stage=STAGE_PRECONDITION,
+        )
+
+    stage = STAGE_TEXT
+    try:
+        meta = meta_for(kind, row)
+        meta.update(text_context(row))
+        text_result = render_result(kind, meta)
+
+        stage = STAGE_MEDIA
+        visual = resolve_acquire_validate_media(row, kind)
+
+        stage = STAGE_ASSEMBLE
+        queued = _assemble_queue_row(
+            row=row,
+            kind=kind,
+            qexisting=qexisting,
+            qfields=qfields,
+            policy_fp=policy_fp,
+            text_result=text_result,
+            visual=visual,
+        )
+    except EXPECTED_PREPARATION_ERRORS as exc:
+        return PreparationOutcome(
+            status=PREPARATION_BLOCKED,
+            candidate_id=cid,
+            stage=stage,
+            candidate_updates={
+                "notes": _append_note(
+                    row,
+                    f"preparación bloqueada [{stage}]: {type(exc).__name__}: {exc}",
+                )
+            },
+            error_code=type(exc).__name__,
+            error_detail=str(exc),
+        )
+
+    return PreparationOutcome(
+        status=PREPARATION_READY,
+        candidate_id=cid,
+        stage=STAGE_COMPLETE,
+        queue_row=queued,
+        candidate_updates={"status": "FICHA_LISTA"},
+    )
+
+
+def invalidate_stale_queue_rows(queue, cmap, policy_fp):
+    """Invalida sólo filas locales no publicadas ni reservadas en Meta."""
     invalidated = 0
-
     for queued in queue:
         if queued.get("flujo_editorial") == "archivo_historico":
             continue
@@ -429,10 +612,7 @@ def main():
         queued["candidate_fingerprint"] = candidate_fp
         queued["editorial_policy_fingerprint"] = policy_fp
         if changed and queued.get("estado_editorial") in {
-            "FICHA_LISTA",
-            "APROBADO",
-            "PROGRAMADO",
-            "REVALIDAR",
+            "FICHA_LISTA", "APROBADO", "PROGRAMADO", "REVALIDAR",
         }:
             queued["estado_editorial"] = "REVALIDAR"
             queued["fecha_programada"] = ""
@@ -444,6 +624,23 @@ def main():
                 + " | invalidada para revalidación por cambio de candidato/política"
             ).strip(" |")
             invalidated += 1
+    return invalidated
+
+
+def main():
+    with C.open(encoding="utf-8", newline="") as file:
+        reader = csv.DictReader(file)
+        candidates = list(reader)
+        cfields = reader.fieldnames
+    with Q.open(encoding="utf-8", newline="") as file:
+        reader = csv.DictReader(file)
+        queue = list(reader)
+        qfields = _queue_fieldnames(reader.fieldnames)
+
+    policy_fp = policy_fingerprint()
+    cmap = {row.get("candidate_id"): row for row in candidates if row.get("candidate_id")}
+    existing = {row.get("url_id", ""): row for row in queue if row.get("url_id")}
+    invalidated = invalidate_stale_queue_rows(queue, cmap, policy_fp)
 
     prepared = blocked = 0
     visual_counts = {
@@ -457,113 +654,32 @@ def main():
         qexisting = existing.get(cid)
         if qexisting and qexisting.get("estado_editorial") != "REVALIDAR":
             continue
-        kind = ctype(row)
-        if not eligible(row, kind):
-            continue
 
-        try:
-            meta = meta_for(kind, row)
-            meta.update(text_context(row))
-            text_result = render_result(kind, meta)
-            visual = resolve_acquire_validate_media(row, kind)
-        except Exception as exc:
-            row["notes"] = (
-                (row.get("notes") or "")
-                + f" | preparación bloqueada: {type(exc).__name__}: {exc}"
-            ).strip(" |")
+        outcome = prepare_one(row, qexisting, qfields, policy_fp)
+        if outcome.status == PREPARATION_SKIPPED:
+            continue
+        if outcome.blocked:
+            if outcome.candidate_updates:
+                row.update(outcome.candidate_updates)
             blocked += 1
             continue
 
-        queued = qexisting if qexisting is not None else {key: "" for key in qfields}
-        for field in qfields:
-            queued.setdefault(field, "")
-        translation = text_result.translation if text_result.translation.get("present") else {}
-        queued.update(
-            {
-                "editorial_id": queued.get("editorial_id")
-                or "ED-" + cid.removeprefix("CAND-"),
-                "flujo_editorial": row.get("flujo_editorial") or "novedad",
-                "prioridad": row.get("priority") or queued.get("prioridad") or "100",
-                "estado_editorial": "FICHA_LISTA",
-                "url_id": cid,
-                "url_original": row.get("source_url", ""),
-                "titulo_original": clean(row.get("title")),
-                "responsables": clean(row.get("authors")),
-                "tipo_recurso": kind,
-                "anio": year(row),
-                "idioma_obra": row.get("language", ""),
-                "obra_estado": "OBRA_VERIFICADA",
-                "edicion_estado": "EDICION_VERIFICADA"
-                if kind
-                in {
-                    "paper",
-                    "book",
-                    "chapter",
-                    "report",
-                    "policy_brief",
-                    "special_issue",
-                    "thesis",
-                    "edition_translation",
-                }
-                else "NO_APLICA",
-                "oa_estado": "OA_VERIFICADO"
-                if kind
-                in {
-                    "paper",
-                    "book",
-                    "chapter",
-                    "report",
-                    "policy_brief",
-                    "special_issue",
-                    "thesis",
-                    "edition_translation",
-                }
-                else "NO_APLICA",
-                "doi": row.get("doi", ""),
-                "oa_url": access(row),
-                "oa_fuente": source_name(row),
-                "area_clep": row.get("area_clep", ""),
-                "licencia": clean(
-                    (re.search(r"license_url=([^|;\\s]+)", row.get("notes") or "") or [None, ""])[1]
-                ),
-                "ficha_es": text_result.post_text,
-                "source_summary": text_result.source_summary,
-                "source_summary_es": text_result.source_summary_es,
-                "editorial_description": text_result.editorial_description,
-                "notas": (
-                    f"Origen {source_name(row)}; relevance_score={row.get('relevance_score') or '0'}; "
-                    f"editorial_score={row.get('editorial_score') or '0'}; "
-                    f"editorial_decision={row.get('editorial_decision') or ''}; "
-                    f"venue={clean(row.get('venue'))}; preparación atómica determinista sin IA generativa."
-                ),
-                "text_method": text_result.text_method,
-                "text_template": text_result.text_template,
-                "text_template_version": str(text_result.text_template_version),
-                "text_status": "VERIFICADO"
-                if text_result.text_status == "VERIFIED"
-                else text_result.text_status,
-                "translation_status": translation.get("status", ""),
-                "translation_method": translation.get("method", ""),
-                "translation_engine": translation.get("engine", ""),
-                "translation_engine_version": translation.get("engine_version", ""),
-                "translation_source_language": translation.get("source_language", ""),
-                "translation_target_language": translation.get("target_language", ""),
-                "translation_disclosure": translation.get("disclosure", ""),
-                "editorial_score": row.get("editorial_score") or "",
-                "editorial_decision": row.get("editorial_decision") or "",
-                "editorial_policy_fingerprint": policy_fp,
-                "candidate_fingerprint": candidate_fingerprint(row),
-                **visual,
-            }
-        )
+        if not outcome.ready or outcome.queue_row is None:
+            raise RuntimeError(f"resultado de preparación inconsistente para {cid}")
+
+        # Único punto de aplicación: no hay mutación parcial durante prepare_one().
         if qexisting is None:
-            queue.append(queued)
-            existing[cid] = queued
-        row["status"] = "FICHA_LISTA"
+            queue.append(outcome.queue_row)
+            existing[cid] = outcome.queue_row
+        else:
+            qexisting.clear()
+            qexisting.update(outcome.queue_row)
+        if outcome.candidate_updates:
+            row.update(outcome.candidate_updates)
+
         prepared += 1
-        visual_counts[visual["media_rights_status"]] = (
-            visual_counts.get(visual["media_rights_status"], 0) + 1
-        )
+        rights = outcome.queue_row.get("media_rights_status", "")
+        visual_counts[rights] = visual_counts.get(rights, 0) + 1
 
     with Q.open("w", encoding="utf-8", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=qfields)
