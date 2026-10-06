@@ -22,26 +22,13 @@ from typing import Any, Mapping
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts/editorial"))
 
-from adquirir_media import (
-    MediaAcquisitionError,
-    acquire_media,
-    is_fallback_acquisition_error,
-)
+from adquirir_media import MediaAcquisitionError, acquire_media
 from editorial_rules import check_publishable
 from estado_editorial import QUEUE_DERIVED_FIELDS, candidate_fingerprint, policy_fingerprint
-from renderizar_texto import render_result
-from resolver_media import MediaResolutionError, resolve_media
-from validar_media import (
-    ERROR_DIMENSIONS_TOO_LARGE,
-    ERROR_DIMENSIONS_TOO_SMALL,
-    ERROR_EXTENSION_MISMATCH,
-    ERROR_FILE_EMPTY,
-    ERROR_FILE_TOO_LARGE,
-    ERROR_FORMAT_UNSUPPORTED,
-    ERROR_RASTER_CORRUPT,
-    ERROR_TYPE_MISMATCH,
-    validate_media,
-)
+from media_fallback_policy import acquisition_can_fallback, validation_can_fallback
+from renderizar_texto import TextRenderError, render_result
+from resolver_media import ALLOWED_MEDIA_METHODS, MediaResolutionError, resolve_media
+from validar_media import validate_media
 
 C = Path(
     os.getenv("CLEP_CANDIDATES_PATH", str(ROOT / "data/editorial/candidatos.csv"))
@@ -89,26 +76,27 @@ STAGE_MEDIA = "MEDIA_RESOLVE_ACQUIRE_VALIDATE"
 STAGE_ASSEMBLE = "ASSEMBLE"
 STAGE_COMPLETE = "COMPLETE"
 
-# Estos fallos describen un asset concreto no publicable y permiten pedir al
-# resolver el siguiente método. Rutas, hashes, SVG inseguro, incoherencias del
-# contrato y errores internos siguen siendo fail-closed.
-FALLBACK_VALIDATION_ERRORS = {
-    ERROR_FILE_EMPTY,
-    ERROR_FILE_TOO_LARGE,
-    ERROR_FORMAT_UNSUPPORTED,
-    ERROR_TYPE_MISMATCH,
-    ERROR_EXTENSION_MISMATCH,
-    ERROR_RASTER_CORRUPT,
-    ERROR_DIMENSIONS_TOO_SMALL,
-    ERROR_DIMENSIONS_TOO_LARGE,
-}
+MAX_MEDIA_ATTEMPTS = len(ALLOWED_MEDIA_METHODS)
+ERROR_MEDIA_FALLBACK_EXHAUSTED = "MEDIA_FALLBACK_EXHAUSTED"
+ERROR_MEDIA_METHOD_REPEATED = "MEDIA_METHOD_REPEATED"
 
 
 class MediaValidationBlocked(RuntimeError):
+    code = "MEDIA_VALIDATION_BLOCKED"
+
     def __init__(self, result):
         self.result = result
-        detail = "; ".join(f"{issue.code}: {issue.detail}" for issue in result.errors)
-        super().__init__(detail or "media inválida")
+        self.detail = "; ".join(
+            f"{issue.code}: {issue.detail}" for issue in result.errors
+        ) or "media inválida"
+        super().__init__(self.detail)
+
+
+class MediaFallbackError(RuntimeError):
+    def __init__(self, code: str, detail: str):
+        self.code = code
+        self.detail = detail
+        super().__init__(f"{code}: {detail}")
 
 
 @dataclass(frozen=True)
@@ -133,10 +121,11 @@ class PreparationOutcome:
 
 
 EXPECTED_PREPARATION_ERRORS = (
+    TextRenderError,
     MediaResolutionError,
     MediaAcquisitionError,
     MediaValidationBlocked,
-    ValueError,
+    MediaFallbackError,
 )
 
 
@@ -174,7 +163,7 @@ def access(row):
 
 
 def text_context(row):
-    """Metadata textual común. No genera ni traduce contenido."""
+    """Adapta provenance textual; no decide plantilla, resumen ni fallback."""
     return {
         "source_summary": clean(
             row.get("source_summary")
@@ -201,6 +190,7 @@ def text_context(row):
 
 
 def meta_for(kind, row):
+    """Adapta campos de candidato al contrato del renderer; no renderiza texto."""
     url = access(row)
     if kind == "paper":
         return {
@@ -299,7 +289,11 @@ def meta_for(kind, row):
             "source": source_name(row),
             "access_url": url,
         }
-    raise ValueError(f"tipo no soportado: {kind}")
+    raise TextRenderError(
+        "CONTENT_TYPE_UNSUPPORTED",
+        f"tipo no soportado por adaptador: {kind}",
+        "content_type",
+    )
 
 
 def eligible(row, kind):
@@ -370,26 +364,29 @@ def eligible(row, kind):
     } or clean(row.get("source_url")).startswith("https://")
 
 
-def _validation_can_fallback(result):
-    return bool(result.errors) and all(
-        issue.code in FALLBACK_VALIDATION_ERRORS for issue in result.errors
-    )
-
-
 def resolve_acquire_validate_media(row, kind):
-    """Resuelve, materializa y certifica media antes de devolverla."""
+    """Orquesta media sin decidir prioridad ni clasificar fallos localmente."""
     candidate = dict(row)
     candidate["content_type"] = kind
     rejected_methods: dict[str, str] = {}
+    attempted_methods: set[str] = set()
 
-    while True:
+    for _ in range(MAX_MEDIA_ATTEMPTS):
         resolution = resolve_media(candidate, rejected_methods=rejected_methods)
+        method = resolution.media_method
+        if method in attempted_methods:
+            raise MediaFallbackError(
+                ERROR_MEDIA_METHOD_REPEATED,
+                f"resolver devolvió de nuevo método ya rechazado: {method}",
+            )
+        attempted_methods.add(method)
+
         try:
             acquired = acquire_media(resolution)
         except MediaAcquisitionError as exc:
-            if not is_fallback_acquisition_error(exc):
+            if not acquisition_can_fallback(exc):
                 raise
-            rejected_methods[resolution.media_method] = f"{exc.code}: {exc.detail}"
+            rejected_methods[method] = f"{exc.code}: {exc.detail}"
             continue
 
         visual = {
@@ -398,7 +395,7 @@ def resolve_acquire_validate_media(row, kind):
             "media_source": resolution.media_source,
             "media_source_url": resolution.media_source_url,
             "media_rights_status": resolution.media_rights_status,
-            "media_method": resolution.media_method,
+            "media_method": method,
             "media_resolution_fingerprint": resolution.resolution_fingerprint,
             "media_content_sha256": acquired.content_sha256,
             "media_acquisition_reused": "si" if acquired.reused_existing else "no",
@@ -406,11 +403,11 @@ def resolve_acquire_validate_media(row, kind):
         }
         validation = validate_media(visual)
         if not validation.valid:
-            if _validation_can_fallback(validation):
+            if validation_can_fallback(validation):
                 reason = "; ".join(
                     f"{issue.code}: {issue.detail}" for issue in validation.errors
                 )
-                rejected_methods[resolution.media_method] = f"validation: {reason}"
+                rejected_methods[method] = f"validation: {reason}"
                 continue
             raise MediaValidationBlocked(validation)
 
@@ -424,6 +421,11 @@ def resolve_acquire_validate_media(row, kind):
             }
         )
         return visual
+
+    raise MediaFallbackError(
+        ERROR_MEDIA_FALLBACK_EXHAUSTED,
+        f"se agotaron {MAX_MEDIA_ATTEMPTS} intentos de media; rechazados={rejected_methods}",
+    )
 
 
 def _queue_fieldnames(existing_fields):
@@ -520,6 +522,14 @@ def _assemble_queue_row(
     return queued
 
 
+def _error_code(exc: BaseException) -> str:
+    return clean(getattr(exc, "code", "")) or type(exc).__name__
+
+
+def _error_detail(exc: BaseException) -> str:
+    return clean(getattr(exc, "detail", "")) or str(exc)
+
+
 def prepare_one(
     row: Mapping[str, str],
     qexisting: Mapping[str, str] | None,
@@ -530,7 +540,7 @@ def prepare_one(
 
     Contrato:
     - SKIPPED: la fila no cumple precondiciones y no se modifica.
-    - BLOCKED: fallo esperado; devuelve sólo diagnóstico para el candidato.
+    - BLOCKED: fallo editorial estructurado; devuelve sólo diagnóstico.
     - READY: devuelve fila de cola completa + actualización final del candidato.
     Los errores inesperados no se degradan silenciosamente a BLOCKED: se propagan.
     """
@@ -563,6 +573,8 @@ def prepare_one(
             visual=visual,
         )
     except EXPECTED_PREPARATION_ERRORS as exc:
+        code = _error_code(exc)
+        detail = _error_detail(exc)
         return PreparationOutcome(
             status=PREPARATION_BLOCKED,
             candidate_id=cid,
@@ -570,11 +582,11 @@ def prepare_one(
             candidate_updates={
                 "notes": _append_note(
                     row,
-                    f"preparación bloqueada [{stage}]: {type(exc).__name__}: {exc}",
+                    f"preparación bloqueada [{stage}] {code}: {detail}",
                 )
             },
-            error_code=type(exc).__name__,
-            error_detail=str(exc),
+            error_code=code,
+            error_detail=detail,
         )
 
     return PreparationOutcome(
