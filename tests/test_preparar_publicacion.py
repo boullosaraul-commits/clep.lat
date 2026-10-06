@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import copy
+import tempfile
 import sys
 import unittest
 from pathlib import Path
@@ -22,6 +23,32 @@ class FakeTextResult:
     text_template_version = 1
     text_status = "VERIFIED"
     translation = {"present": False}
+
+
+def visual_fixture(**overrides):
+    data = {
+        "media_type": "image/svg+xml",
+        "media_path": "data/editorial/media/test.svg",
+        "media_source": "CLEP deterministic card",
+        "media_source_url": "",
+        "media_rights_status": "PROPIO_DETERMINISTA",
+        "media_method": "deterministic_card",
+        "media_resolver_version": "1",
+        "media_fallback_level": "4",
+        "media_resolution_fingerprint": "fp",
+        "media_acquisition_method": "deterministic_card",
+        "media_content_sha256": "a" * 64,
+        "media_bytes_size": "1269",
+        "media_acquisition_reused": "no",
+        "alt_text": "Tarjeta CLEP",
+        "media_validation_status": "VALID",
+        "media_validation_version": "2",
+        "detected_media_type": "image/svg+xml",
+        "media_width": "1200",
+        "media_height": "1500",
+    }
+    data.update(overrides)
+    return data
 
 
 class PreparationContractTests(unittest.TestCase):
@@ -142,32 +169,17 @@ class PreparationContractTests(unittest.TestCase):
              patch.object(prep, "meta_for", return_value={"title": row["title"]}), \
              patch.object(prep, "text_context", return_value={}), \
              patch.object(prep, "render_result", return_value=FakeTextResult()), \
-             patch.object(
-                 prep,
-                 "resolve_acquire_validate_media",
-                 return_value={
-                     "media_type": "image/svg+xml",
-                     "media_path": "data/editorial/media/test.svg",
-                     "media_source": "CLEP deterministic card",
-                     "media_source_url": "",
-                     "media_rights_status": "PROPIO_DETERMINISTA",
-                     "media_method": "deterministic_card",
-                     "media_resolution_fingerprint": "fp",
-                     "media_content_sha256": "a" * 64,
-                     "media_acquisition_reused": "no",
-                     "alt_text": "Tarjeta CLEP",
-                     "media_validation_status": "VALID",
-                     "media_validation_version": "2",
-                     "detected_media_type": "image/svg+xml",
-                     "media_width": "1200",
-                     "media_height": "1500",
-                 },
-             ), \
+             patch.object(prep, "resolve_acquire_validate_media", return_value=visual_fixture()), \
              patch.object(prep, "candidate_fingerprint", return_value="candidate-fp"):
             outcome = prep.prepare_one(
                 row,
                 existing,
-                ["editorial_id", "estado_editorial", *prep.MEDIA_PROVENANCE_FIELDS],
+                [
+                    "editorial_id",
+                    "estado_editorial",
+                    *prep.MEDIA_PROVENANCE_FIELDS,
+                    *prep.PREPARATION_PROVENANCE_FIELDS,
+                ],
                 "policy-fp",
             )
 
@@ -177,13 +189,95 @@ class PreparationContractTests(unittest.TestCase):
         self.assertIsNot(outcome.queue_row, existing)
         self.assertEqual(outcome.queue_row["estado_editorial"], "FICHA_LISTA")
         self.assertEqual(outcome.queue_row["media_validation_status"], "VALID")
+        self.assertEqual(outcome.queue_row["preparation_version"], "1")
+        self.assertEqual(len(outcome.queue_row["preparation_fingerprint"]), 64)
 
-    def test_queue_fieldnames_include_text_and_media_contract(self):
+    def test_queue_fieldnames_include_complete_provenance_contract(self):
         fields = prep._queue_fieldnames(["editorial_id"])
-        self.assertIn("source_summary", fields)
-        self.assertIn("media_validation_status", fields)
-        self.assertIn("media_content_sha256", fields)
+        for field in (
+            "source_summary",
+            "media_validation_status",
+            "media_content_sha256",
+            "media_resolver_version",
+            "media_fallback_level",
+            "media_acquisition_method",
+            "media_bytes_size",
+            "preparation_version",
+            "preparation_fingerprint",
+        ):
+            self.assertIn(field, fields)
         self.assertEqual(len(fields), len(set(fields)))
+
+    def test_blocked_note_is_idempotent(self):
+        row = {"notes": "base"}
+        note = "preparación bloqueada [TEXT_RENDER] TEST: fallo"
+        once = prep._append_note(row, note)
+        twice = prep._append_note({"notes": once}, note)
+        self.assertEqual(once, twice)
+
+
+class PreparationFingerprintTests(unittest.TestCase):
+    def row(self):
+        return PreparationContractTests().base_row()
+
+    def test_reuse_flag_does_not_change_preparation_fingerprint(self):
+        row = self.row()
+        first = visual_fixture(media_acquisition_reused="no")
+        second = visual_fixture(media_acquisition_reused="si")
+        fp1 = prep._preparation_fingerprint(row, "policy", FakeTextResult(), first)
+        fp2 = prep._preparation_fingerprint(row, "policy", FakeTextResult(), second)
+        self.assertEqual(fp1, fp2)
+
+    def test_material_hash_change_changes_preparation_fingerprint(self):
+        row = self.row()
+        first = visual_fixture(media_content_sha256="a" * 64)
+        second = visual_fixture(media_content_sha256="b" * 64)
+        fp1 = prep._preparation_fingerprint(row, "policy", FakeTextResult(), first)
+        fp2 = prep._preparation_fingerprint(row, "policy", FakeTextResult(), second)
+        self.assertNotEqual(fp1, fp2)
+
+    def test_text_change_changes_preparation_fingerprint(self):
+        row = self.row()
+        changed_text = SimpleNamespace(
+            post_text="Otro texto",
+            source_summary=FakeTextResult.source_summary,
+            source_summary_es=FakeTextResult.source_summary_es,
+            editorial_description=FakeTextResult.editorial_description,
+            text_method=FakeTextResult.text_method,
+            text_template=FakeTextResult.text_template,
+            text_template_version=FakeTextResult.text_template_version,
+            text_status=FakeTextResult.text_status,
+            translation=FakeTextResult.translation,
+        )
+        fp1 = prep._preparation_fingerprint(row, "policy", FakeTextResult(), visual_fixture())
+        fp2 = prep._preparation_fingerprint(row, "policy", changed_text, visual_fixture())
+        self.assertNotEqual(fp1, fp2)
+
+
+class AtomicCsvTests(unittest.TestCase):
+    def test_same_serialized_content_is_not_replaced(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "queue.csv"
+            rows = [{"a": "1", "b": "2"}]
+            first = prep._write_csv_atomic(path, ["a", "b"], rows)
+            before = path.stat().st_ino
+            second = prep._write_csv_atomic(path, ["a", "b"], rows)
+            after = path.stat().st_ino
+
+            self.assertTrue(first)
+            self.assertFalse(second)
+            self.assertEqual(before, after)
+
+    def test_serialization_failure_preserves_original_and_cleans_temp(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "queue.csv"
+            path.write_text("original\n", encoding="utf-8")
+
+            with self.assertRaises(ValueError):
+                prep._write_csv_atomic(path, ["a"], [{"a": "1", "extra": "boom"}])
+
+            self.assertEqual(path.read_text(encoding="utf-8"), "original\n")
+            self.assertEqual(list(Path(directory).glob(".queue.csv.*.tmp")), [])
 
 
 class MediaFallbackContractTests(unittest.TestCase):
@@ -193,6 +287,8 @@ class MediaFallbackContractTests(unittest.TestCase):
             media_source="Fuente",
             media_source_url="https://example.org",
             media_rights_status="VERIFICADO",
+            resolver_version=1,
+            fallback_level=1,
             resolution_fingerprint=f"fp-{method}",
             alt_text="Alt",
         )
@@ -201,7 +297,9 @@ class MediaFallbackContractTests(unittest.TestCase):
         return SimpleNamespace(
             media_type_declared="image/png",
             media_path=f"data/editorial/media/{method}.png",
+            acquisition_method=method,
             content_sha256="a" * 64,
+            bytes_written=4096,
             reused_existing=False,
         )
 
@@ -233,6 +331,9 @@ class MediaFallbackContractTests(unittest.TestCase):
             visual = prep.resolve_acquire_validate_media({"candidate_id": "CAND-X"}, "paper")
 
         self.assertEqual(visual["media_method"], "deterministic_card")
+        self.assertEqual(visual["media_resolver_version"], "1")
+        self.assertEqual(visual["media_acquisition_method"], "deterministic_card")
+        self.assertEqual(visual["media_bytes_size"], "4096")
         self.assertEqual(resolver.call_count, 2)
         rejected = resolver.call_args_list[1].kwargs["rejected_methods"]
         self.assertIn("official_image", rejected)
