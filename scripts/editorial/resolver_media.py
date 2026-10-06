@@ -211,27 +211,13 @@ def _resolve_official_image(
     del attempts
     url = clean(candidate.get("official_image_url"))
     if not url:
-        return StrategyResult(
-            resolution=None,
-            outcome="MISSING",
-            reason="official_image_url ausente",
-        )
+        return StrategyResult(None, "MISSING", "official_image_url ausente")
     if not _is_https_url(url):
-        return StrategyResult(
-            resolution=None,
-            outcome="INVALID_URL",
-            reason="official_image_url debe ser HTTPS",
-            source_url=url,
-        )
+        return StrategyResult(None, "INVALID_URL", "official_image_url debe ser HTTPS", url)
 
     rights = clean(candidate.get("official_image_rights"))
     if rights != RIGHTS_VERIFIED:
-        return StrategyResult(
-            resolution=None,
-            outcome="RIGHTS_UNVERIFIED",
-            reason="official_image_rights debe ser VERIFICADO",
-            source_url=url,
-        )
+        return StrategyResult(None, "RIGHTS_UNVERIFIED", "official_image_rights debe ser VERIFICADO", url)
 
     source = clean(
         candidate.get("official_image_source")
@@ -239,30 +225,15 @@ def _resolve_official_image(
         or candidate.get("source_name")
     )
     if not source:
-        return StrategyResult(
-            resolution=None,
-            outcome="SOURCE_MISSING",
-            reason="imagen oficial sin provenance de fuente",
-            source_url=url,
-        )
+        return StrategyResult(None, "SOURCE_MISSING", "imagen oficial sin provenance de fuente", url)
 
     source_url = clean(candidate.get("official_image_source_url") or url)
     if source_url and not _is_https_url(source_url):
-        return StrategyResult(
-            resolution=None,
-            outcome="SOURCE_URL_INVALID",
-            reason="official_image_source_url debe ser HTTPS",
-            source_url=url,
-        )
+        return StrategyResult(None, "SOURCE_URL_INVALID", "official_image_source_url debe ser HTTPS", url)
 
     alt_text = clean(candidate.get("official_image_alt") or candidate.get("title"))
     if not alt_text:
-        return StrategyResult(
-            resolution=None,
-            outcome="ALT_TEXT_MISSING",
-            reason="imagen oficial sin alt_text factual ni título",
-            source_url=url,
-        )
+        return StrategyResult(None, "ALT_TEXT_MISSING", "imagen oficial sin alt_text factual ni título", url)
 
     media_type = clean(candidate.get("official_image_type") or "image")
     payload = {
@@ -288,15 +259,121 @@ def _resolve_official_image(
         resolution_fingerprint=_fingerprint(MEDIA_METHOD_OFFICIAL_IMAGE, payload),
     )
     return StrategyResult(
-        resolution=resolution,
+        resolution,
+        "RESOLVED",
+        "imagen oficial explícita con derechos y provenance verificados",
+        url,
+    )
+
+
+def _resolve_structured_asset(
+    candidate: dict[str, Any],
+    *,
+    method: str,
+    prefix: str,
+    default_label: str,
+) -> StrategyResult:
+    """Resuelve cover/thumbnail sólo desde metadata estructurada explícita."""
+    url = clean(candidate.get(f"{prefix}_url"))
+    if not url:
+        return StrategyResult(None, "MISSING", f"{prefix}_url ausente")
+    if not _is_https_url(url):
+        return StrategyResult(None, "INVALID_URL", f"{prefix}_url debe ser HTTPS", url)
+
+    rights = clean(candidate.get(f"{prefix}_rights"))
+    if rights != RIGHTS_VERIFIED:
+        return StrategyResult(
+            None,
+            "RIGHTS_UNVERIFIED",
+            f"{prefix}_rights debe ser VERIFICADO",
+            url,
+        )
+
+    source = clean(
+        candidate.get(f"{prefix}_source")
+        or candidate.get("official_source")
+        or candidate.get("source_name")
+    )
+    if not source:
+        return StrategyResult(None, "SOURCE_MISSING", f"{prefix} sin provenance de fuente", url)
+
+    source_url = clean(candidate.get(f"{prefix}_source_url") or url)
+    if source_url and not _is_https_url(source_url):
+        return StrategyResult(
+            None,
+            "SOURCE_URL_INVALID",
+            f"{prefix}_source_url debe ser HTTPS",
+            url,
+        )
+
+    title = clean(candidate.get("title") or candidate.get("indicator_or_dataset"))
+    alt_text = clean(candidate.get(f"{prefix}_alt"))
+    if not alt_text and title:
+        alt_text = f"{default_label}: {title}"
+    if not alt_text:
+        return StrategyResult(
+            None,
+            "ALT_TEXT_MISSING",
+            f"{prefix} sin alt_text factual ni título",
+            url,
+        )
+
+    media_type = clean(candidate.get(f"{prefix}_type") or "image")
+    payload = {
+        f"{prefix}_url": url,
+        f"{prefix}_source": source,
+        f"{prefix}_source_url": source_url,
+        f"{prefix}_rights": rights,
+        f"{prefix}_alt": alt_text,
+        f"{prefix}_type": media_type,
+    }
+    return StrategyResult(
+        resolution=MediaResolution(
+            media_status=MEDIA_STATUS_RESOLVED,
+            media_type=media_type,
+            media_path="",
+            media_url=url,
+            media_source=source,
+            media_source_url=source_url,
+            media_method=method,
+            media_rights_status=RIGHTS_VERIFIED,
+            alt_text=alt_text,
+            resolver_version=RESOLVER_VERSION,
+            fallback_level=2,
+            resolution_fingerprint=_fingerprint(method, payload),
+        ),
         outcome="RESOLVED",
-        reason="imagen oficial explícita con derechos y provenance verificados",
+        reason=f"{prefix} explícita con derechos y provenance verificados",
         source_url=url,
     )
 
 
+def _resolve_explicit_cover(
+    candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]
+) -> StrategyResult:
+    del attempts
+    return _resolve_structured_asset(
+        candidate,
+        method=MEDIA_METHOD_EXPLICIT_COVER,
+        prefix="cover",
+        default_label="Portada",
+    )
+
+
+def _resolve_explicit_thumbnail(
+    candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]
+) -> StrategyResult:
+    del attempts
+    return _resolve_structured_asset(
+        candidate,
+        method=MEDIA_METHOD_EXPLICIT_THUMBNAIL,
+        prefix="thumbnail",
+        default_label="Miniatura",
+    )
+
+
 def _not_implemented(method: str) -> Strategy:
-    """Placeholder explícito para estrategias aún pendientes de 4.5–4.8."""
+    """Placeholder explícito para estrategias aún pendientes de 4.6–4.8."""
 
     def strategy(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
         del candidate, attempts
@@ -313,6 +390,8 @@ STRATEGIES: dict[str, Strategy] = {
     method: _not_implemented(method) for _, method in MEDIA_HIERARCHY
 }
 STRATEGIES[MEDIA_METHOD_OFFICIAL_IMAGE] = _resolve_official_image
+STRATEGIES[MEDIA_METHOD_EXPLICIT_COVER] = _resolve_explicit_cover
+STRATEGIES[MEDIA_METHOD_EXPLICIT_THUMBNAIL] = _resolve_explicit_thumbnail
 
 
 def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
