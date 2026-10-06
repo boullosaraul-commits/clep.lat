@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
-"""Contrato único de resolución de media editorial CLEP.
-
-Este módulo será la autoridad para decidir qué media usar. En este paso sólo
-se define el contrato; la jerarquía y los adaptadores de adquisición se
-incorporan en tareas posteriores del Paso 4.
+"""Autoridad única de resolución de media editorial CLEP.
 
 Principios:
 - una candidatura produce como máximo una resolución activa;
 - toda resolución debe ser trazable y determinista;
+- la jerarquía de fuentes es explícita y estable;
 - resolución no equivale a validación física del archivo;
 - la validación material del asset pertenece a validar_media.py (Paso 5).
 """
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
-from typing import Any
+from typing import Any, Callable
 
 RESOLVER_VERSION = 1
 
@@ -47,6 +44,17 @@ ALLOWED_RIGHTS_STATUS = {
     RIGHTS_OWN_DETERMINISTIC,
 }
 
+# Jerarquía congelada del Paso 4. Los niveles son parte del contrato de
+# provenance: cambiar el orden requiere incrementar RESOLVER_VERSION.
+MEDIA_HIERARCHY: tuple[tuple[int, str], ...] = (
+    (1, MEDIA_METHOD_OFFICIAL_IMAGE),
+    (2, MEDIA_METHOD_EXPLICIT_COVER),
+    (2, MEDIA_METHOD_EXPLICIT_THUMBNAIL),
+    (3, MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE),
+    (4, MEDIA_METHOD_DETERMINISTIC_CHART),
+    (4, MEDIA_METHOD_DETERMINISTIC_CARD),
+)
+
 
 class MediaResolutionError(ValueError):
     """Error estructurado y fail-closed de resolución de media."""
@@ -75,7 +83,7 @@ class MediaAttempt:
 
 @dataclass(frozen=True)
 class MediaResolution:
-    """Resultado canónico de resolver_media(candidate)."""
+    """Resultado canónico de resolve_media(candidate)."""
 
     media_status: str
     media_type: str
@@ -95,6 +103,19 @@ class MediaResolution:
         data = asdict(self)
         data["attempts"] = [attempt.to_dict() for attempt in self.attempts]
         return data
+
+
+@dataclass(frozen=True)
+class StrategyResult:
+    """Resultado interno de una estrategia antes de validar la resolución final."""
+
+    resolution: MediaResolution | None
+    outcome: str
+    reason: str = ""
+    source_url: str = ""
+
+
+Strategy = Callable[[dict[str, Any], tuple[MediaAttempt, ...]], StrategyResult]
 
 
 def validate_resolution(result: MediaResolution) -> MediaResolution:
@@ -156,11 +177,30 @@ def validate_resolution(result: MediaResolution) -> MediaResolution:
     return result
 
 
-def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
-    """Interfaz pública congelada del Paso 4.
+def _not_implemented(method: str) -> Strategy:
+    """Placeholder explícito para estrategias aún pendientes de 4.4–4.8."""
 
-    La implementación de la jerarquía se añade en 4.3–4.8. Hasta entonces
-    falla explícitamente en vez de improvisar una elección.
+    def strategy(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
+        del candidate, attempts
+        return StrategyResult(
+            resolution=None,
+            outcome="NOT_IMPLEMENTED",
+            reason=f"estrategia {method} pendiente de implementación",
+        )
+
+    return strategy
+
+
+STRATEGIES: dict[str, Strategy] = {
+    method: _not_implemented(method) for _, method in MEDIA_HIERARCHY
+}
+
+
+def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
+    """Evalúa las fuentes en orden estricto y devuelve la primera resolución válida.
+
+    Una estrategia inferior sólo puede ejecutarse si todas las superiores no
+    produjeron una resolución. Cada evaluación queda registrada en `attempts`.
     """
     if not isinstance(candidate, dict):
         raise MediaResolutionError(
@@ -168,7 +208,54 @@ def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
             "candidate debe ser un diccionario",
             "candidate",
         )
+
+    attempts: list[MediaAttempt] = []
+    for level, method in MEDIA_HIERARCHY:
+        strategy = STRATEGIES[method]
+        result = strategy(candidate, tuple(attempts))
+        if result.resolution is not None:
+            selected_attempt = MediaAttempt(
+                level=level,
+                method=method,
+                selected=True,
+                outcome=result.outcome or "RESOLVED",
+                reason=result.reason,
+                source_url=result.source_url,
+            )
+            final = result.resolution
+            final = MediaResolution(
+                media_status=final.media_status,
+                media_type=final.media_type,
+                media_path=final.media_path,
+                media_url=final.media_url,
+                media_source=final.media_source,
+                media_source_url=final.media_source_url,
+                media_method=method,
+                media_rights_status=final.media_rights_status,
+                alt_text=final.alt_text,
+                resolver_version=RESOLVER_VERSION,
+                fallback_level=level,
+                resolution_fingerprint=final.resolution_fingerprint,
+                attempts=tuple([*attempts, selected_attempt]),
+            )
+            return validate_resolution(final)
+
+        attempts.append(
+            MediaAttempt(
+                level=level,
+                method=method,
+                selected=False,
+                outcome=result.outcome or "SKIPPED",
+                reason=result.reason,
+                source_url=result.source_url,
+            )
+        )
+
+    detail = "; ".join(
+        f"L{attempt.level}:{attempt.method}={attempt.outcome}"
+        for attempt in attempts
+    )
     raise MediaResolutionError(
-        "MEDIA_RESOLVER_NOT_IMPLEMENTED",
-        "contrato definido; jerarquía de resolución pendiente de 4.3–4.8",
+        "MEDIA_RESOLUTION_FAILED",
+        "ninguna estrategia produjo una resolución" + (f" ({detail})" if detail else ""),
     )
