@@ -518,10 +518,10 @@ def resolve_acquire_validate_media(row, kind):
 def _queue_fieldnames(existing_fields):
     fields = list(existing_fields or [])
     for field in (
-        QUEUE_DERIVED_FIELDS
-        + TEXT_PROVENANCE_FIELDS
-        + MEDIA_PROVENANCE_FIELDS
-        + PREPARATION_PROVENANCE_FIELDS
+        *QUEUE_DERIVED_FIELDS,
+        *TEXT_PROVENANCE_FIELDS,
+        *MEDIA_PROVENANCE_FIELDS,
+        *PREPARATION_PROVENANCE_FIELDS,
     ):
         if field not in fields:
             fields.append(field)
