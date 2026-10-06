@@ -44,7 +44,10 @@ jobs:
           python -m unittest -v tests/test_editorial.py
           python -m unittest -v tests/test_editorial_schema.py
           python -m unittest -v tests/test_editorial_rules.py
-      - name: Deterministic end-to-end dry run
+          python -m unittest -v tests/test_text_renderer.py
+      - name: Deterministic text multiformat E2E
+        run: python tests/text_renderer_e2e.py
+      - name: Deterministic editorial end-to-end dry run
         run: python tests/editorial_e2e.py
       - name: Validate current queue
         run: python scripts/editorial/verificar_cola.py
