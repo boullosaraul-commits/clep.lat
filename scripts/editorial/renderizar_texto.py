@@ -20,6 +20,8 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
+from traduccion_textual import TranslationError, TranslationRecord, validate_translation
+
 ROOT = Path(__file__).resolve().parents[2]
 TPL = ROOT / "data/editorial/plantillas.json"
 CFG = ROOT / "data/editorial/programacion.json"
@@ -40,18 +42,6 @@ class TextRenderError(ValueError):
 
 
 @dataclass(frozen=True)
-class TranslationProvenance:
-    present: bool
-    status: str = ""
-    method: str = ""
-    engine: str = ""
-    engine_version: str = ""
-    source_language: str = ""
-    target_language: str = ""
-    disclosure: str = ""
-
-
-@dataclass(frozen=True)
 class TextRenderResult:
     content_type: str
     source_summary: str
@@ -62,12 +52,10 @@ class TextRenderResult:
     text_template: str
     text_template_version: int
     text_status: str
-    translation: TranslationProvenance
+    translation: dict[str, Any]
 
     def to_dict(self) -> dict[str, Any]:
-        out = asdict(self)
-        out["translation"] = asdict(self.translation)
-        return out
+        return asdict(self)
 
 
 def clean(v: Any) -> str:
@@ -101,58 +89,13 @@ def _source_summary_es(data: dict[str, Any]) -> str:
     return ""
 
 
-def _translation_provenance(data: dict[str, Any], translated: str) -> TranslationProvenance:
+def _validated_translation(data: dict[str, Any], translated: str) -> TranslationRecord | None:
     if not translated:
-        return TranslationProvenance(present=False)
-
-    status = clean(data.get("translation_status"))
-    method = clean(data.get("translation_method"))
-    engine = clean(data.get("translation_engine"))
-    source_language = clean(data.get("source_language"))
-    target_language = clean(data.get("target_language") or "es")
-    disclosure = clean(data.get("translation_disclosure") or data.get("translation_label"))
-    engine_version = clean(data.get("translation_engine_version"))
-
-    missing = [
-        name
-        for name, value in (
-            ("translation_status", status),
-            ("translation_method", method),
-            ("translation_engine", engine),
-            ("source_language", source_language),
-            ("target_language", target_language),
-            ("translation_disclosure", disclosure),
-        )
-        if not value
-    ]
-    if missing:
-        raise TextRenderError(
-            "TRANSLATION_PROVENANCE_MISSING",
-            "traducción presente sin provenance completo: " + ", ".join(missing),
-            missing[0],
-        )
-    if status.upper() not in {"VERIFIED", "COMPLETED"}:
-        raise TextRenderError(
-            "TRANSLATION_NOT_VERIFIED",
-            f"translation_status={status!r}",
-            "translation_status",
-        )
-    if "generative" in method.lower() or "llm" in method.lower():
-        raise TextRenderError(
-            "GENERATIVE_TRANSLATION_FORBIDDEN",
-            f"translation_method={method!r}",
-            "translation_method",
-        )
-    return TranslationProvenance(
-        present=True,
-        status=status,
-        method=method,
-        engine=engine,
-        engine_version=engine_version,
-        source_language=source_language,
-        target_language=target_language,
-        disclosure=disclosure,
-    )
+        return None
+    try:
+        return validate_translation(translated, data)
+    except TranslationError as exc:
+        raise TextRenderError(exc.code, exc.detail, exc.field) from None
 
 
 def factual_fallback(kind: str, data: dict[str, Any]) -> str:
@@ -190,16 +133,12 @@ def factual_fallback(kind: str, data: dict[str, Any]) -> str:
 
 
 def _editorial_description(kind: str, data: dict[str, Any], source: str, translated: str) -> str:
-    # Jerarquía congelada: fuente oficial > traducción trazable > metadata factual.
+    # Jerarquía congelada: fuente oficial en español > traducción trazable > metadata factual.
     source_language = clean(data.get("source_language")).lower()
     if source and source_language in {"", "es", "spa", "spanish", "español"}:
         return source
     if translated:
         return translated
-    if source:
-        # Si está en otra lengua y no existe traducción, se preserva la fuente,
-        # pero la descripción editorial que alimenta CLEP es factual y mínima.
-        return factual_fallback(kind, data)
     return factual_fallback(kind, data)
 
 
@@ -257,7 +196,7 @@ def render_result(kind: str, data: dict[str, Any]) -> TextRenderResult:
 
     source = _source_summary(data)
     translated = _source_summary_es(data)
-    translation = _translation_provenance(data, translated)
+    translation = _validated_translation(data, translated)
     description = _editorial_description(kind, data, source, translated)
     post_text, template_id, template_version = _render_template(kind, data)
 
@@ -271,7 +210,7 @@ def render_result(kind: str, data: dict[str, Any]) -> TextRenderResult:
         text_template=template_id,
         text_template_version=template_version,
         text_status=TEXT_STATUS,
-        translation=translation,
+        translation=translation.to_dict() if translation else {"present": False},
     )
 
 
