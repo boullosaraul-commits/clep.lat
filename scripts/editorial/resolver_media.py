@@ -372,8 +372,73 @@ def _resolve_explicit_thumbnail(
     )
 
 
+def _resolve_official_landing_capture(
+    candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]
+) -> StrategyResult:
+    """Planifica una captura determinista de la landing oficial.
+
+    Esta estrategia no ejecuta Chrome ni afirma que el PNG exista. Sólo decide
+    que la landing oficial es la fuente seleccionada y fija de forma estable el
+    destino esperado. La materialización y la validación física ocurren fuera
+    de esta decisión editorial.
+    """
+    del attempts
+    url = clean(candidate.get("official_landing_url") or candidate.get("source_url") or candidate.get("access_url"))
+    if not url:
+        return StrategyResult(None, "MISSING", "landing oficial ausente")
+    if not _is_https_url(url):
+        return StrategyResult(None, "INVALID_URL", "landing oficial debe ser HTTPS", url)
+
+    title = clean(candidate.get("title") or candidate.get("indicator_or_dataset"))
+    if not title:
+        return StrategyResult(None, "ALT_TEXT_MISSING", "captura oficial requiere título factual", url)
+
+    source = clean(
+        candidate.get("official_landing_source")
+        or candidate.get("official_source")
+        or candidate.get("source_name")
+        or urlparse(url).netloc
+    )
+    if not source:
+        return StrategyResult(None, "SOURCE_MISSING", "landing oficial sin provenance de fuente", url)
+
+    candidate_id = clean(candidate.get("candidate_id"))
+    url_digest = hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
+    stem = candidate_id or url_digest
+    media_path = f"data/editorial/media/{stem}-landing-{url_digest}.png"
+    alt_text = f"Captura de la página oficial: {title}"
+    payload = {
+        "official_landing_url": url,
+        "official_landing_source": source,
+        "candidate_id": candidate_id,
+        "viewport": "1200x1500",
+        "virtual_time_budget_ms": 5000,
+        "media_path": media_path,
+        "alt_text": alt_text,
+    }
+    return StrategyResult(
+        resolution=MediaResolution(
+            media_status=MEDIA_STATUS_RESOLVED,
+            media_type="image/png",
+            media_path=media_path,
+            media_url="",
+            media_source=source,
+            media_source_url=url,
+            media_method=MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE,
+            media_rights_status=RIGHTS_OFFICIAL_CAPTURE,
+            alt_text=alt_text,
+            resolver_version=RESOLVER_VERSION,
+            fallback_level=3,
+            resolution_fingerprint=_fingerprint(MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE, payload),
+        ),
+        outcome="RESOLVED",
+        reason="landing oficial HTTPS seleccionada para captura determinista",
+        source_url=url,
+    )
+
+
 def _not_implemented(method: str) -> Strategy:
-    """Placeholder explícito para estrategias aún pendientes de 4.6–4.8."""
+    """Placeholder explícito para estrategias aún pendientes de 4.7–4.8."""
 
     def strategy(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
         del candidate, attempts
@@ -392,6 +457,7 @@ STRATEGIES: dict[str, Strategy] = {
 STRATEGIES[MEDIA_METHOD_OFFICIAL_IMAGE] = _resolve_official_image
 STRATEGIES[MEDIA_METHOD_EXPLICIT_COVER] = _resolve_explicit_cover
 STRATEGIES[MEDIA_METHOD_EXPLICIT_THUMBNAIL] = _resolve_explicit_thumbnail
+STRATEGIES[MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE] = _resolve_official_landing_capture
 
 
 def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
