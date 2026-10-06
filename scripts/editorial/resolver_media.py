@@ -59,6 +59,7 @@ OUTCOME_INVALID_DATA = "INVALID_DATA"
 OUTCOME_INSUFFICIENT_DATA = "INSUFFICIENT_DATA"
 OUTCOME_METADATA_MISSING = "METADATA_MISSING"
 OUTCOME_METADATA_INVALID = "METADATA_INVALID"
+OUTCOME_ACQUISITION_FAILED = "ACQUISITION_FAILED"
 
 FALLBACK_OUTCOMES = {
     OUTCOME_MISSING,
@@ -72,6 +73,7 @@ FALLBACK_OUTCOMES = {
     OUTCOME_INSUFFICIENT_DATA,
     OUTCOME_METADATA_MISSING,
     OUTCOME_METADATA_INVALID,
+    OUTCOME_ACQUISITION_FAILED,
 }
 
 ERROR_CANDIDATE_INVALID = "MEDIA_CANDIDATE_INVALID"
@@ -586,13 +588,42 @@ STRATEGIES: dict[str, Strategy] = {
 }
 
 
-def resolve_media(candidate: dict[str, Any]) -> MediaResolution:
-    """Decide una única estrategia sin ejecutar efectos laterales."""
+def resolve_media(
+    candidate: dict[str, Any],
+    rejected_methods: dict[str, str] | None = None,
+) -> MediaResolution:
+    """Decide una estrategia sin efectos laterales.
+
+    `rejected_methods` permite informar fallos de adquisición ya observados.
+    El caller no decide el siguiente fallback: el resolver vuelve a aplicar la
+    jerarquía y registra esos métodos como ACQUISITION_FAILED.
+    """
     if not isinstance(candidate, dict):
         raise MediaResolutionError(ERROR_CANDIDATE_INVALID, "candidate debe ser un diccionario", "candidate")
+    rejected = dict(rejected_methods or {})
+    unknown = set(rejected) - ALLOWED_MEDIA_METHODS
+    if unknown:
+        raise MediaResolutionError(
+            ERROR_METHOD_INVALID,
+            f"rejected_methods contiene métodos desconocidos: {sorted(unknown)!r}",
+            "rejected_methods",
+        )
 
     attempts: list[MediaAttempt] = []
     for level, method in MEDIA_HIERARCHY:
+        if method in rejected:
+            attempts.append(
+                MediaAttempt(
+                    level,
+                    method,
+                    False,
+                    OUTCOME_ACQUISITION_FAILED,
+                    clean(rejected[method]) or "adquisición fallida previamente",
+                    "",
+                )
+            )
+            continue
+
         strategy = STRATEGIES.get(method)
         if strategy is None:
             raise MediaResolutionError(ERROR_METHOD_INVALID, f"estrategia no registrada: {method}", "media_method", tuple(attempts))
