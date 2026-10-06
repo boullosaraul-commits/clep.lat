@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""E2E offline del pipeline resolución → adquisición de media CLEP.
+"""E2E offline del pipeline resolución → adquisición → validación de media CLEP.
 
 No usa red, Chrome real ni Meta. Sustituye los efectos externos por dobles
 locales y materializa todo dentro de un directorio temporal.
 """
 from __future__ import annotations
 
+import struct
 import sys
 import tempfile
 import unittest
@@ -17,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts/editorial"))
 
 import adquirir_media
+import validar_media
 from adquirir_media import acquire_media
 from resolver_media import (
     MEDIA_METHOD_DETERMINISTIC_CARD,
@@ -27,20 +29,38 @@ from resolver_media import (
     MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE,
     resolve_media,
 )
+from validar_media import validate_media
 
 
-PNG_BYTES = b"\x89PNG\r\n\x1a\nCLEP-offline-fixture"
+def png_fixture(width=1200, height=1500):
+    return (
+        b"\x89PNG\r\n\x1a\n"
+        + b"\x00\x00\x00\x0dIHDR"
+        + struct.pack(">II", width, height)
+        + b"\x08\x02\x00\x00\x00"
+        + b"\x00\x00\x00\x00"
+        + b"\x00\x00\x00\x00IEND\xaeB`\x82"
+    )
+
+
+PNG_BYTES = png_fixture()
+SMALL_PNG_BYTES = png_fixture(300, 300)
 
 
 class FakeHeaders:
+    def __init__(self, content_type="image/png"):
+        self.content_type = content_type
+
     def get(self, name, default=None):
         if name.lower() == "content-type":
-            return "image/png"
+            return self.content_type
         return default
 
 
 class FakeResponse:
-    headers = FakeHeaders()
+    def __init__(self, content=PNG_BYTES, content_type="image/png"):
+        self.content = content
+        self.headers = FakeHeaders(content_type)
 
     def __enter__(self):
         return self
@@ -49,22 +69,28 @@ class FakeResponse:
         return False
 
     def read(self, size=-1):
-        return PNG_BYTES if size != 0 else b""
+        return self.content if size != 0 else b""
 
 
-class OfflineMediaResolutionE2E(unittest.TestCase):
+class OfflineMediaPipelineE2E(unittest.TestCase):
     def setUp(self):
         self.tempdir = tempfile.TemporaryDirectory()
         self.root = Path(self.tempdir.name)
         self.media_root = self.root / "data/editorial/media"
-        self.root_patch = patch.object(adquirir_media, "ROOT", self.root)
-        self.media_patch = patch.object(adquirir_media, "MEDIA_ROOT", self.media_root)
-        self.root_patch.start()
-        self.media_patch.start()
+        self.media_root.mkdir(parents=True)
+
+        self.patches = [
+            patch.object(adquirir_media, "ROOT", self.root),
+            patch.object(adquirir_media, "MEDIA_ROOT", self.media_root),
+            patch.object(validar_media, "ROOT", self.root),
+            patch.object(validar_media, "MEDIA_ROOT", self.media_root.resolve()),
+        ]
+        for item in self.patches:
+            item.start()
 
     def tearDown(self):
-        self.media_patch.stop()
-        self.root_patch.stop()
+        for item in reversed(self.patches):
+            item.stop()
         self.tempdir.cleanup()
 
     @staticmethod
@@ -73,29 +99,46 @@ class OfflineMediaResolutionE2E(unittest.TestCase):
         screenshot_arg = next(arg for arg in command if arg.startswith("--screenshot="))
         target = Path(screenshot_arg.split("=", 1)[1])
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(PNG_BYTES + b"-capture")
+        target.write_bytes(PNG_BYTES)
         return SimpleNamespace(returncode=0, stdout=b"", stderr=b"")
 
-    def acquire_twice(self, candidate, expected_method):
+    def validate_acquired(self, resolution, acquired):
+        result = validate_media(
+            {
+                "media_path": acquired.media_path,
+                "media_type": acquired.media_type_declared,
+                "media_method": resolution.media_method,
+                "media_content_sha256": acquired.content_sha256,
+                "media_resolution_fingerprint": resolution.resolution_fingerprint,
+            }
+        )
+        return result
+
+    def acquire_validate_twice(self, candidate, expected_method):
         resolution = resolve_media(candidate)
         self.assertEqual(resolution.media_method, expected_method)
 
         first = acquire_media(resolution)
+        first_validation = self.validate_acquired(resolution, first)
+        self.assertTrue(first_validation.valid, first_validation.to_dict())
         self.assertFalse(first.reused_existing)
         self.assertTrue((self.root / first.media_path).is_file())
 
         file_count = len([p for p in self.media_root.rglob("*") if p.is_file()])
         second = acquire_media(resolution)
+        second_validation = self.validate_acquired(resolution, second)
+        self.assertTrue(second_validation.valid, second_validation.to_dict())
         self.assertTrue(second.reused_existing)
         self.assertEqual(second.media_path, first.media_path)
         self.assertEqual(second.content_sha256, first.content_sha256)
+        self.assertEqual(first_validation, second_validation)
         self.assertEqual(
             len([p for p in self.media_root.rglob("*") if p.is_file()]),
             file_count,
         )
-        return resolution, first
+        return resolution, first, first_validation
 
-    def test_offline_resolution_and_acquisition_all_routes(self):
+    def test_offline_full_pipeline_all_routes(self):
         scenarios = [
             (
                 {
@@ -174,14 +217,59 @@ class OfflineMediaResolutionE2E(unittest.TestCase):
         ), patch("adquirir_media.subprocess.run", side_effect=self.fake_capture_run):
             for candidate, expected_method in scenarios:
                 with self.subTest(method=expected_method):
-                    _, acquired = self.acquire_twice(candidate, expected_method)
+                    _, acquired, validated = self.acquire_validate_twice(candidate, expected_method)
+                    self.assertEqual(validated.status, "VALID")
                     acquired_paths.append(acquired.media_path)
 
-        # Una candidatura produce un único asset activo y cada escenario queda
-        # materializado exactamente una vez pese al segundo intento idempotente.
+        # Cada candidatura termina con un único asset materializado y validado.
         self.assertEqual(len(acquired_paths), len(set(acquired_paths)))
         materialized = [p for p in self.media_root.rglob("*") if p.is_file()]
         self.assertEqual(len(materialized), len(scenarios))
+
+    def test_invalid_materialized_asset_returns_control_to_resolver(self):
+        candidate = {
+            "candidate_id": "CAND-INVALID-MATERIAL",
+            "content_type": "paper",
+            "title": "Fallback after invalid official image",
+            "source_name": "Example Source",
+            "official_image_url": "https://example.org/small.png",
+            "official_image_rights": "VERIFICADO",
+            "official_image_source": "Example Source",
+        }
+
+        first_resolution = resolve_media(candidate)
+        self.assertEqual(first_resolution.media_method, MEDIA_METHOD_OFFICIAL_IMAGE)
+
+        with patch(
+            "adquirir_media.urllib.request.urlopen",
+            return_value=FakeResponse(SMALL_PNG_BYTES),
+        ):
+            first_acquired = acquire_media(first_resolution)
+        first_validation = self.validate_acquired(first_resolution, first_acquired)
+        self.assertFalse(first_validation.valid)
+        self.assertIn(
+            "MEDIA_DIMENSIONS_TOO_SMALL",
+            {error.code for error in first_validation.errors},
+        )
+
+        rejected_reason = "; ".join(
+            f"{error.code}: {error.detail}" for error in first_validation.errors
+        )
+        second_resolution = resolve_media(
+            candidate,
+            rejected_methods={first_resolution.media_method: rejected_reason},
+        )
+        self.assertEqual(second_resolution.media_method, MEDIA_METHOD_DETERMINISTIC_CARD)
+        self.assertEqual(second_resolution.attempts[0].outcome, "ACQUISITION_FAILED")
+
+        second_acquired = acquire_media(second_resolution)
+        second_validation = self.validate_acquired(second_resolution, second_acquired)
+        self.assertTrue(second_validation.valid, second_validation.to_dict())
+
+        # Sólo el segundo asset es publicable; el primero queda como evidencia
+        # material rechazada y nunca se confunde con el asset activo final.
+        self.assertNotEqual(first_acquired.media_path, second_acquired.media_path)
+        self.assertEqual(second_validation.status, "VALID")
 
     def test_acquisition_failure_returns_control_to_resolver(self):
         candidate = {
@@ -202,8 +290,6 @@ class OfflineMediaResolutionE2E(unittest.TestCase):
                 first.media_method: "MEDIA_DOWNLOAD_FAILED: fixture offline",
             },
         )
-        # Sin landing explícita/URL de acceso ni gráfica aplicable, la autoridad
-        # única vuelve a recorrer la jerarquía y cae en la tarjeta determinista.
         self.assertEqual(second.media_method, MEDIA_METHOD_DETERMINISTIC_CARD)
         self.assertEqual(second.attempts[0].outcome, "ACQUISITION_FAILED")
 
