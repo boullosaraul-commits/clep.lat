@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/"scripts/editorial"))
-from renderizar_texto import render as render_text
+from renderizar_texto import render_result
 from generar_tarjeta_clep import render as render_card
 from generar_grafica_clep import render as render_chart
 from estado_editorial import QUEUE_DERIVED_FIELDS, candidate_fingerprint, policy_fingerprint
@@ -23,6 +23,11 @@ Q=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).resolve
 MEDIA=ROOT/"data/editorial/media"
 UA="CLEP-editorial/2.1 (+https://clep.lat)"
 SCREENSHOT_ATTEMPTS=0
+TEXT_PROVENANCE_FIELDS=(
+    "source_summary","source_summary_es","editorial_description","text_template_version",
+    "translation_status","translation_method","translation_engine","translation_engine_version",
+    "translation_source_language","translation_target_language","translation_disclosure",
+)
 
 def clean(x):return re.sub(r"\s+"," ",str(x or "")).strip()
 def year(r):
@@ -33,6 +38,20 @@ def year(r):
 def source_name(r):return clean(r.get("source_name") or r.get("official_source") or r.get("source_id") or r.get("source_type") or "Fuente verificada")
 def ctype(r):return clean(r.get("content_type") or ("paper" if r.get("source_type") in {"nep_report","rss"} else "recurso"))
 def access(r):return clean(r.get("access_url") or r.get("source_url"))
+
+def text_context(r):
+    """Metadata textual común. No genera ni traduce contenido."""
+    return {
+        "source_summary":clean(r.get("source_summary") or r.get("summary") or r.get("abstract") or r.get("description")),
+        "source_summary_es":clean(r.get("source_summary_es") or r.get("summary_es") or r.get("abstract_es") or r.get("description_es")),
+        "source_language":clean(r.get("source_language") or r.get("language")),
+        "target_language":clean(r.get("target_language") or "es"),
+        "translation_status":clean(r.get("translation_status")),
+        "translation_method":clean(r.get("translation_method")),
+        "translation_engine":clean(r.get("translation_engine")),
+        "translation_engine_version":clean(r.get("translation_engine_version")),
+        "translation_disclosure":clean(r.get("translation_disclosure") or r.get("translation_label")),
+    }
 
 def meta_for(kind,r):
     u=access(r)
@@ -173,6 +192,8 @@ def main():
         qr=csv.DictReader(f);queue=list(qr);qfields=list(qr.fieldnames or [])
     for field in QUEUE_DERIVED_FIELDS:
         if field not in qfields:qfields.append(field)
+    for field in TEXT_PROVENANCE_FIELDS:
+        if field not in qfields:qfields.append(field)
 
     policy_fp=policy_fingerprint()
     cmap={r.get("candidate_id"):r for r in candidates if r.get("candidate_id")}
@@ -209,13 +230,16 @@ def main():
         kind=ctype(r)
         if not eligible(r,kind):continue
         try:
-            meta=meta_for(kind,r);text=render_text(kind,meta)
+            meta=meta_for(kind,r)
+            meta.update(text_context(r))
+            text_result=render_result(kind,meta)
             visual=download_verified_image(r) or capture_official_landing(r) or deterministic_visual(kind,r)
         except Exception as e:
             r["notes"]=((r.get("notes") or "")+f" | preparación bloqueada: {type(e).__name__}: {e}").strip(" |")
             blocked+=1;continue
         q=qexisting if qexisting is not None else {k:"" for k in qfields}
         for field in qfields:q.setdefault(field,"")
+        translation=text_result.translation if text_result.translation.get("present") else {}
         q.update({
           "editorial_id":q.get("editorial_id") or "ED-"+cid.removeprefix("CAND-"),
           "flujo_editorial":r.get("flujo_editorial") or "novedad",
@@ -226,9 +250,22 @@ def main():
           "oa_estado":"OA_VERIFICADO" if kind in {"paper","book","chapter","report","policy_brief","special_issue","thesis","edition_translation"} else "NO_APLICA","doi":r.get("doi",""),
           "oa_url":access(r),"oa_fuente":source_name(r),"area_clep":r.get("area_clep",""),
           "licencia":clean((re.search(r"license_url=([^|;\\s]+)",r.get("notes") or "") or [None,""])[1]),
-          "ficha_es":text,
+          "ficha_es":text_result.post_text,
+          "source_summary":text_result.source_summary,
+          "source_summary_es":text_result.source_summary_es,
+          "editorial_description":text_result.editorial_description,
           "notas":f"Origen {source_name(r)}; relevance_score={r.get('relevance_score') or '0'}; editorial_score={r.get('editorial_score') or '0'}; editorial_decision={r.get('editorial_decision') or ''}; venue={clean(r.get('venue'))}; preparación atómica determinista sin IA generativa.",
-          "text_method":"deterministic_template","text_template":kind,"text_status":"VERIFICADO",
+          "text_method":text_result.text_method,
+          "text_template":text_result.text_template,
+          "text_template_version":str(text_result.text_template_version),
+          "text_status":"VERIFICADO" if text_result.text_status=="VERIFIED" else text_result.text_status,
+          "translation_status":translation.get("status",""),
+          "translation_method":translation.get("method",""),
+          "translation_engine":translation.get("engine",""),
+          "translation_engine_version":translation.get("engine_version",""),
+          "translation_source_language":translation.get("source_language",""),
+          "translation_target_language":translation.get("target_language",""),
+          "translation_disclosure":translation.get("disclosure",""),
           "editorial_score":r.get("editorial_score") or "",
           "editorial_decision":r.get("editorial_decision") or "",
           "editorial_policy_fingerprint":policy_fp,
