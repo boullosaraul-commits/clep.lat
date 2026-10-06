@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts/editorial"))
 
 from adquirir_media import MediaAcquisitionError, acquire_media
-from editorial_rules import check_publishable
+from editorial_rules import check_media_validated, check_publishable
 from estado_editorial import QUEUE_DERIVED_FIELDS, candidate_fingerprint, policy_fingerprint
 from media_fallback_policy import acquisition_can_fallback, validation_can_fallback
 from renderizar_texto import TextRenderError, render_result
@@ -39,6 +39,7 @@ C = Path(
 Q = Path(os.getenv("CLEP_QUEUE_PATH", str(ROOT / "data/editorial/cola.csv"))).resolve()
 
 PREPARATION_VERSION = 1
+SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
 
 TEXT_PROVENANCE_FIELDS = (
     "source_summary",
@@ -93,6 +94,46 @@ MAX_MEDIA_ATTEMPTS = len(ALLOWED_MEDIA_METHODS)
 ERROR_MEDIA_FALLBACK_EXHAUSTED = "MEDIA_FALLBACK_EXHAUSTED"
 ERROR_MEDIA_METHOD_REPEATED = "MEDIA_METHOD_REPEATED"
 
+QUARANTINE_TEXT_ERROR = "TEXT_ERROR"
+QUARANTINE_MEDIA_ERROR = "MEDIA_ERROR"
+QUARANTINE_STATE_INCONSISTENCY = "STATE_INCONSISTENCY"
+ERROR_CLASS_TEMPORARY = "TEMPORARY"
+ERROR_CLASS_PERMANENT = "PERMANENT"
+ERROR_CLASS_AMBIGUOUS = "AMBIGUOUS"
+
+TEMPORARY_ERROR_CODES = {
+    "MEDIA_DOWNLOAD_FAILED",
+    "MEDIA_CAPTURE_BROWSER_MISSING",
+    "MEDIA_CAPTURE_FAILED",
+}
+AMBIGUOUS_ERROR_CODES = {ERROR_MEDIA_FALLBACK_EXHAUSTED}
+
+READY_REQUIRED_PROVENANCE = (
+    "text_method",
+    "text_template",
+    "text_template_version",
+    "media_path",
+    "media_source",
+    "media_rights_status",
+    "media_method",
+    "media_resolver_version",
+    "media_fallback_level",
+    "media_resolution_fingerprint",
+    "media_acquisition_method",
+    "media_content_sha256",
+    "media_bytes_size",
+    "alt_text",
+    "media_validation_status",
+    "media_validation_version",
+    "detected_media_type",
+    "media_width",
+    "media_height",
+    "candidate_fingerprint",
+    "editorial_policy_fingerprint",
+    "preparation_version",
+    "preparation_fingerprint",
+)
+
 
 class MediaValidationBlocked(RuntimeError):
     code = "MEDIA_VALIDATION_BLOCKED"
@@ -112,6 +153,16 @@ class MediaFallbackError(RuntimeError):
         super().__init__(f"{code}: {detail}")
 
 
+class PreparationContractError(RuntimeError):
+    """Violación del contrato final READY; siempre fail-closed."""
+
+    def __init__(self, code: str, detail: str, field: str = ""):
+        self.code = code
+        self.detail = detail
+        self.field = field
+        super().__init__(f"{code}: {detail}")
+
+
 @dataclass(frozen=True)
 class PreparationOutcome:
     """Contrato de una preparación individual sin persistencia parcial."""
@@ -123,6 +174,8 @@ class PreparationOutcome:
     candidate_updates: dict[str, str] | None = None
     error_code: str = ""
     error_detail: str = ""
+    quarantine_reason: str = ""
+    error_class: str = ""
 
     @property
     def ready(self) -> bool:
@@ -132,6 +185,22 @@ class PreparationOutcome:
     def blocked(self) -> bool:
         return self.status == PREPARATION_BLOCKED
 
+    def quarantine_fields(self, quarantined_at: str) -> dict[str, str]:
+        """Payload canónico v1 para que el Paso 13 persista una cuarentena."""
+        if not self.blocked:
+            raise ValueError("sólo un resultado BLOCKED puede convertirse en cuarentena")
+        timestamp = clean(quarantined_at)
+        if not timestamp:
+            raise ValueError("quarantined_at es obligatorio")
+        return {
+            "preparation_status": "QUARANTINED",
+            "quarantine_reason": self.quarantine_reason or QUARANTINE_STATE_INCONSISTENCY,
+            "quarantine_error_code": self.error_code or "UNKNOWN",
+            "quarantine_step": self.stage,
+            "quarantined_at": timestamp,
+            "error_class": self.error_class or ERROR_CLASS_AMBIGUOUS,
+        }
+
 
 EXPECTED_PREPARATION_ERRORS = (
     TextRenderError,
@@ -139,6 +208,7 @@ EXPECTED_PREPARATION_ERRORS = (
     MediaAcquisitionError,
     MediaValidationBlocked,
     MediaFallbackError,
+    PreparationContractError,
 )
 
 
@@ -605,12 +675,86 @@ def _assemble_queue_row(
     return queued
 
 
+def _positive_int(value: object) -> bool:
+    try:
+        return int(clean(value)) > 0
+    except (TypeError, ValueError):
+        return False
+
+
+def _validate_ready_contract(row: Mapping[str, object]) -> None:
+    """Último gate fail-closed: ninguna fila incompleta puede salir como READY."""
+    if clean(row.get("estado_editorial")) != "FICHA_LISTA":
+        raise PreparationContractError(
+            "PREPARATION_STATE_INVALID",
+            "estado_editorial debe ser FICHA_LISTA al cerrar preparación",
+            "estado_editorial",
+        )
+    if clean(row.get("text_status")) not in {"VERIFIED", "VERIFICADO"}:
+        raise PreparationContractError(
+            "TEXT_NOT_VERIFIED",
+            "texto final no está verificado",
+            "text_status",
+        )
+    if not clean(row.get("ficha_es")):
+        raise PreparationContractError("POST_TEXT_MISSING", "ficha_es vacía", "ficha_es")
+
+    material = check_media_validated(row)
+    if not material:
+        raise PreparationContractError(material.code, material.detail, material.field)
+
+    missing = [field for field in READY_REQUIRED_PROVENANCE if not clean(row.get(field))]
+    if missing:
+        raise PreparationContractError(
+            "PREPARATION_PROVENANCE_INCOMPLETE",
+            "faltan campos: " + ", ".join(missing),
+            missing[0],
+        )
+    if not SHA256_RE.fullmatch(clean(row.get("preparation_fingerprint"))):
+        raise PreparationContractError(
+            "PREPARATION_FINGERPRINT_INVALID",
+            "preparation_fingerprint debe ser SHA-256",
+            "preparation_fingerprint",
+        )
+    if not _positive_int(row.get("media_resolver_version")):
+        raise PreparationContractError(
+            "MEDIA_RESOLVER_VERSION_INVALID", "media_resolver_version inválida", "media_resolver_version"
+        )
+    if not _positive_int(row.get("media_fallback_level")):
+        raise PreparationContractError(
+            "MEDIA_FALLBACK_LEVEL_INVALID", "media_fallback_level inválido", "media_fallback_level"
+        )
+    if not _positive_int(row.get("media_bytes_size")):
+        raise PreparationContractError(
+            "MEDIA_BYTES_SIZE_INVALID", "media_bytes_size inválido", "media_bytes_size"
+        )
+
+
 def _error_code(exc: BaseException) -> str:
     return clean(getattr(exc, "code", "")) or type(exc).__name__
 
 
 def _error_detail(exc: BaseException) -> str:
     return clean(getattr(exc, "detail", "")) or str(exc)
+
+
+def _quarantine_reason(stage: str, exc: BaseException) -> str:
+    if isinstance(exc, TextRenderError) or stage == STAGE_TEXT:
+        return QUARANTINE_TEXT_ERROR
+    if isinstance(
+        exc,
+        (MediaResolutionError, MediaAcquisitionError, MediaValidationBlocked, MediaFallbackError),
+    ) or stage == STAGE_MEDIA:
+        return QUARANTINE_MEDIA_ERROR
+    return QUARANTINE_STATE_INCONSISTENCY
+
+
+def _error_class(code: str) -> str:
+    if code in TEMPORARY_ERROR_CODES:
+        return ERROR_CLASS_TEMPORARY
+    if code in AMBIGUOUS_ERROR_CODES:
+        return ERROR_CLASS_AMBIGUOUS
+    return ERROR_CLASS_PERMANENT
 
 
 def prepare_one(
@@ -623,8 +767,8 @@ def prepare_one(
 
     Contrato:
     - SKIPPED: la fila no cumple precondiciones y no se modifica.
-    - BLOCKED: fallo editorial estructurado; devuelve sólo diagnóstico.
-    - READY: devuelve fila de cola completa + actualización final del candidato.
+    - BLOCKED: fallo editorial estructurado; devuelve diagnóstico cuarentenable.
+    - READY: sólo tras validar texto, media, provenance y fingerprint completos.
     Los errores inesperados no se degradan silenciosamente a BLOCKED: se propagan.
     """
     cid = row.get("candidate_id") or ""
@@ -655,6 +799,7 @@ def prepare_one(
             text_result=text_result,
             visual=visual,
         )
+        _validate_ready_contract(queued)
     except EXPECTED_PREPARATION_ERRORS as exc:
         code = _error_code(exc)
         detail = _error_detail(exc)
@@ -670,6 +815,8 @@ def prepare_one(
             },
             error_code=code,
             error_detail=detail,
+            quarantine_reason=_quarantine_reason(stage, exc),
+            error_class=_error_class(code),
         )
 
     return PreparationOutcome(
