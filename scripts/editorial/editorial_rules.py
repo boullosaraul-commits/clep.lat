@@ -14,6 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 from pathlib import Path
+import re
 from typing import Mapping
 
 from schema import SchemaError, validate_transition as schema_validate_transition
@@ -31,6 +32,8 @@ LEGACY_READY_STATES = {"FICHA_LISTA", "APROBADO"}
 LEGACY_SCHEDULED_STATES = {"PROGRAMADO", "PUBLICADO", "ORIGINAL_RETIRADO"}
 LEGACY_META_AMBIGUOUS = {"IN_FLIGHT", "REVIEW"}
 LEGACY_MEDIA_RIGHTS_OK = {"VERIFICADO", "CAPTURA_LANDING_OFICIAL", "PROPIO_DETERMINISTA"}
+LEGACY_MEDIA_EXCEPTION = "legacy_media_validation_exception=si"
+SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
 
 
 @dataclass(frozen=True)
@@ -68,6 +71,13 @@ def _score(row: Mapping[str, object]) -> float:
         return 0.0
 
 
+def _positive_int(value: object) -> bool:
+    try:
+        return int(_clean(value)) > 0
+    except (TypeError, ValueError):
+        return False
+
+
 def _content_type(row: Mapping[str, object]) -> str:
     return _clean(row.get("content_type") or row.get("tipo_recurso"))
 
@@ -101,6 +111,41 @@ def _media_present(row: Mapping[str, object]) -> bool:
     return bool(_clean(row.get("media_path") or row.get("media_url")))
 
 
+def _legacy_media_validation_exception(row: Mapping[str, object]) -> bool:
+    return (
+        _clean(row.get("flujo_editorial")) == "archivo_historico"
+        and LEGACY_MEDIA_EXCEPTION in _clean(row.get("notas")).lower()
+    )
+
+
+def check_media_validated(row: Mapping[str, object]) -> RuleResult:
+    """Gate material único para planificación y escritura Meta.
+
+    La excepción legacy sólo existe para archivo histórico y debe estar
+    documentada literalmente en `notas`. Toda media nueva debe haber pasado
+    `validar_media.py` y conservar su certificación material en la cola.
+    """
+    if not _clean(row.get("media_path")):
+        return RuleResult(False, "MEDIA_PATH_NOT_MATERIALIZED", "media_path materializado ausente", "media_path")
+
+    if _legacy_media_validation_exception(row):
+        return RuleResult(True)
+
+    status = _clean(row.get("media_validation_status"))
+    if status != "VALID":
+        return RuleResult(False, "MEDIA_MATERIAL_NOT_VALIDATED", f"media_validation_status={status or '<vacío>'}", "media_validation_status")
+    if not _clean(row.get("media_validation_version")):
+        return RuleResult(False, "MEDIA_VALIDATION_VERSION_MISSING", "certificación sin versión", "media_validation_version")
+    if not _clean(row.get("detected_media_type")):
+        return RuleResult(False, "MEDIA_DETECTED_TYPE_MISSING", "certificación sin tipo detectado", "detected_media_type")
+    expected_hash = _clean(row.get("media_content_sha256"))
+    if not SHA256_RE.fullmatch(expected_hash):
+        return RuleResult(False, "MEDIA_HASH_INVALID", "certificación sin SHA-256 material válido", "media_content_sha256")
+    if not _positive_int(row.get("media_width")) or not _positive_int(row.get("media_height")):
+        return RuleResult(False, "MEDIA_DIMENSIONS_INVALID", "certificación sin dimensiones positivas", "media_width")
+    return RuleResult(True)
+
+
 def publishable_score_threshold() -> float:
     """Devuelve el umbral canónico configurado para PUBLISHABLE.
 
@@ -125,8 +170,6 @@ def check_publishable(row: Mapping[str, object]) -> RuleResult:
         return RuleResult(False, "EDITORIAL_SCORE_BELOW_THRESHOLD", f"score={score:g}; threshold={threshold:g}", "editorial_score")
 
     candidate_state = _clean(row.get("candidate_status"))
-    # En filas v1, ELIGIBLE es obligatorio. En legacy todavía no existe esta
-    # dimensión separada; su elegibilidad se valida en la etapa de preparación.
     if _clean(row.get("schema_version")) == "1" and candidate_state != "ELIGIBLE":
         return RuleResult(False, "CANDIDATE_NOT_ELIGIBLE", f"candidate_status={candidate_state or '<vacío>'}", "candidate_status")
     return RuleResult(True)
@@ -166,6 +209,9 @@ def check_schedulable(row: Mapping[str, object]) -> RuleResult:
             return RuleResult(False, "MEDIA_NOT_VERIFIED", f"media_rights_status={rights or '<vacío>'}", "media_rights_status")
     if not _media_present(row):
         return RuleResult(False, "MEDIA_MISSING", "no existe media_path/media_url", "media_path")
+    material = check_media_validated(row)
+    if not material:
+        return material
 
     if _is_academic(row):
         pubcheck = check_publishable(row)
@@ -228,6 +274,9 @@ def check_meta_ready(row: Mapping[str, object]) -> RuleResult:
         return RuleResult(False, "POST_TEXT_MISSING", "texto editorial vacío", "post_text")
     if not _media_present(row):
         return RuleResult(False, "MEDIA_MISSING", "no existe media para publicar", "media_path")
+    material = check_media_validated(row)
+    if not material:
+        return material
     if not _clean(row.get("fecha_programada") or row.get("scheduled_at")):
         return RuleResult(False, "SCHEDULE_MISSING", "fecha programada ausente", "scheduled_at")
     return RuleResult(True)

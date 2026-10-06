@@ -13,10 +13,16 @@ COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).reso
 FLUJOS={"archivo_historico","novedad","recurso","actividad_clep","publicacion_clep","otro"}
 ESTADOS={"IDENTIFICANDO","OBRA_VERIFICADA","EDICION_VERIFICADA","OA_VERIFICADO","FICHA_LISTA","APROBADO","REVALIDAR","PROGRAMADO","PUBLICADO","ORIGINAL_RETIRADO","DESCARTADO"}
 NON_TEXT={"actividad_clep","convocatoria","convocatoria_evento","recurso","video","grafica","dataset_grafica","material_didactico","efemeride","anuncio_institucional"}
+SHA256_RE=re.compile(r"^[0-9a-fA-F]{64}$")
+LEGACY_MEDIA_EXCEPTION="legacy_media_validation_exception=si"
 
 def truthy(x):return (x or "").strip().lower() in {"1","true","yes"}
 def valid_time(x):
     try:datetime.strptime(x,"%H:%M");return True
+    except Exception:return False
+
+def positive_int(x):
+    try:return int(str(x).strip())>0
     except Exception:return False
 
 def main():
@@ -68,12 +74,31 @@ def main():
                 errors.append(f"línea {n}: PROGRAMADO con texto no verificado")
             if not (r.get("media_type") or "").strip():
                 errors.append(f"línea {n}: PROGRAMADO sin media_type")
-            if not ((r.get("media_path") or "").strip() or (r.get("media_url") or "").strip()):
-                errors.append(f"línea {n}: PROGRAMADO sin imagen")
+            if not (r.get("media_path") or "").strip():
+                errors.append(f"línea {n}: PROGRAMADO sin media_path materializado")
             if not (r.get("media_source") or "").strip():
                 errors.append(f"línea {n}: PROGRAMADO sin media_source")
             if r.get("media_rights_status") not in {"VERIFICADO","CAPTURA_LANDING_OFICIAL","PROPIO_DETERMINISTA"}:
                 errors.append(f"línea {n}: derechos de imagen no verificados")
+
+            notes=(r.get("notas") or "").lower()
+            legacy_exception=(flow=="archivo_historico" and LEGACY_MEDIA_EXCEPTION in notes)
+            if not legacy_exception:
+                if (r.get("media_validation_status") or "").strip()!="VALID":
+                    errors.append(f"línea {n}: PROGRAMADO sin media_validation_status=VALID")
+                if not (r.get("media_validation_version") or "").strip():
+                    errors.append(f"línea {n}: PROGRAMADO sin media_validation_version")
+                detected=(r.get("detected_media_type") or "").strip()
+                if not detected:
+                    errors.append(f"línea {n}: PROGRAMADO sin detected_media_type")
+                expected_hash=(r.get("media_content_sha256") or "").strip()
+                if not SHA256_RE.fullmatch(expected_hash):
+                    errors.append(f"línea {n}: PROGRAMADO sin SHA-256 material válido")
+                if not positive_int(r.get("media_width")) or not positive_int(r.get("media_height")):
+                    errors.append(f"línea {n}: PROGRAMADO sin dimensiones de media válidas")
+            elif not (r.get("notas") or "").strip():
+                errors.append(f"línea {n}: excepción legacy de media sin documentación")
+
             if day and tm:day_times[day].append(tm)
 
         if state in {"PROGRAMADO","PUBLICADO","ORIGINAL_RETIRADO"} and day:
@@ -136,7 +161,7 @@ def main():
         print("\nERRORES")
         for e in errors:print(" -",e)
         return 1
-    print("\nOK — cola válida: texto+imagen obligatorios; 17 slots totales; novedades 6 (hasta 8 con >=5 editorial_score 9), DOAB <=2, mismo tipo <=3, histórico <=6, no-texto <=4.")
+    print("\nOK — cola válida: texto+media validada obligatorios; 17 slots totales; novedades 6 (hasta 8 con >=5 editorial_score 9), DOAB <=2, mismo tipo <=3, histórico <=6, no-texto <=4.")
     return 0
 
 if __name__=="__main__":sys.exit(main())
