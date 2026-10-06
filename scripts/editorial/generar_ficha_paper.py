@@ -1,17 +1,29 @@
 #!/usr/bin/env python3
-"""Ficha automática mínima CLEP, sin IA generativa."""
-import json
-from pathlib import Path
-ROOT=Path(__file__).resolve().parents[2]
-TPL=json.loads((ROOT/"data/editorial/plantillas.json").read_text(encoding="utf-8"))["paper_abierto"]
+"""Compatibilidad legacy para fichas de paper.
+
+DEPRECATED: la autoridad textual es `renderizar_texto.render_result`.
+Este módulo no contiene plantillas ni política editorial propias.
+"""
+from renderizar_texto import render_result
+
 
 def ficha_paper(meta):
-    missing=[k for k in TPL["campos_obligatorios"] if not str(meta.get(k,"")).strip()]
-    if TPL["oa_obligatorio"] and meta.get("oa_status")!="VERIFICADO":
-        missing.append("oa_status=VERIFICADO")
-    if missing: raise ValueError("Ficha incompleta: "+", ".join(missing))
-    tail=" · ".join(x for x in (str(meta.get("venue","")).strip(),str(meta.get("year","")).strip()) if x)
-    authors_line=str(meta["authors"]).strip()+((" · "+tail) if tail else "")
-    return TPL["plantilla"].format(title=str(meta["title"]).strip(),authors_line=authors_line,
-        summary=str(meta["summary"]).strip(),translation_block=((str(meta.get("translation_label","")).strip()+"\n"+str(meta.get("summary_es","")).strip()+"\n\n") if str(meta.get("summary_es","")).strip() else ""),access_url=str(meta["access_url"]).strip(),
-        doi_display=str(meta.get("doi","")).strip() or "Sin DOI identificado")
+    if meta.get("oa_status") != "VERIFICADO":
+        raise ValueError("Ficha incompleta: oa_status=VERIFICADO")
+    data = {
+        "title": meta.get("title", ""),
+        "authors": meta.get("authors", ""),
+        "source_or_series": meta.get("venue") or meta.get("source_or_series") or "Fuente verificada",
+        "year": meta.get("year", ""),
+        "access_url": meta.get("access_url", ""),
+        "source_summary": meta.get("source_summary") or meta.get("summary") or "",
+        "source_summary_es": meta.get("source_summary_es") or meta.get("summary_es") or "",
+        "source_language": meta.get("source_language") or meta.get("language") or "",
+        "target_language": meta.get("target_language") or "es",
+        "translation_status": meta.get("translation_status", ""),
+        "translation_method": meta.get("translation_method", ""),
+        "translation_engine": meta.get("translation_engine", ""),
+        "translation_engine_version": meta.get("translation_engine_version", ""),
+        "translation_disclosure": meta.get("translation_disclosure") or meta.get("translation_label") or "",
+    }
+    return render_result("paper", data).post_text
