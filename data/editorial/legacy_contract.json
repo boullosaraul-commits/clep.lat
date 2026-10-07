@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "principle": "El pipeline productivo moderno no depende de migraciones legacy. Las excepciones restantes son históricas o shims sin autoridad propia y están congeladas por CI.",
+  "manual_only_tools": {
+    "scripts/editorial/migrar_nep_legacy.py": {
+      "purpose": "Auditar o reparar manualmente filas NEP heredadas",
+      "automatic_invocation_allowed": false,
+      "read_only_mode": "--check",
+      "mutation_mode": "--apply"
+    }
+  },
+  "compatibility_shims": {
+    "scripts/editorial/generar_ficha_paper.py": {
+      "authority": "renderizar_texto.render_result",
+      "production_imports_allowed": false,
+      "may_write_queue": false
+    },
+    "scripts/editorial/promover_candidatos.py": {
+      "authority": "preparar_publicacion.main",
+      "production_imports_allowed": true,
+      "may_write_queue": false
+    }
+  },
+  "historical_exceptions": {
+    "recovery/historical_worker.py": {
+      "required_flow": "archivo_historico",
+      "allowed_direct_editorial_states": [
+        "FICHA_LISTA"
+      ],
+      "may_schedule": false,
+      "may_publish_meta": false,
+      "reason": "Recuperación de posts históricos conserva post_original_id y evidencia de edición/OA que no existen en el flujo de novedades. La excepción no autoriza nuevas rutas productivas."
+    }
+  },
+  "legacy_columns": {
+    "historical_identity_retained": [
+      "post_original_id",
+      "post_original_url",
+      "fecha_original",
+      "original_retirado",
+      "fecha_retiro"
+    ],
+    "operational_aliases_temporarily_retained": [
+      "flujo_editorial",
+      "estado_editorial",
+      "fecha_programada",
+      "orden_dia",
+      "post_nuevo_id",
+      "post_nuevo_url",
+      "meta_attempt_status",
+      "meta_attempted_at"
+    ],
+    "canonical_provenance_already_added": [
+      "candidate_fingerprint",
+      "editorial_policy_fingerprint",
+      "preparation_version",
+      "preparation_fingerprint",
+      "media_validation_status",
+      "media_validation_version",
+      "media_content_sha256"
+    ],
+    "removal_rule": "Los aliases operativos sólo pueden eliminarse cuando todos sus lectores/escritores hayan migrado al schema versionado; hasta entonces son compatibilidad de almacenamiento, no autoridad normativa."
+  }
+}

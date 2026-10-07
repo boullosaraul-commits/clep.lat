@@ -22,9 +22,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Migrate legacy NEP rows
-        run: python scripts/editorial/migrar_nep_legacy.py
-
       - name: Ingest configured feeds
         run: python scripts/editorial/ingerir_feeds.py
 
