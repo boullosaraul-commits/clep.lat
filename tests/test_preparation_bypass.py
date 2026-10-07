@@ -82,7 +82,7 @@ class PreparationBypassAuditTests(unittest.TestCase):
             "bypass de FICHA_LISTA detectado fuera de las autoridades: " + "; ".join(violations),
         )
         self.assertEqual(
-            writers,
+            sorted(writers),
             [
                 "recovery/historical_worker.py",
                 "scripts/editorial/preparar_publicacion.py",
