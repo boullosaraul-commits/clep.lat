@@ -49,6 +49,7 @@ jobs:
           python -m unittest -v tests/test_media_validator.py
           python -m unittest -v tests/test_preparar_publicacion.py
           python -m unittest -v tests/test_preparation_bypass.py
+          python -m unittest -v tests/test_queue_verifier.py
       - name: Deterministic text multiformat E2E
         run: python tests/text_renderer_e2e.py
       - name: Deterministic media resolution and validation E2E
