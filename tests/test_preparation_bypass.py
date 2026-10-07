@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Auditoría estática: sólo preparar_publicacion.py puede producir FICHA_LISTA."""
+"""Auditoría estática de escritores de FICHA_LISTA.
+
+La autoridad productiva es preparar_publicacion.py. La única excepción permitida
+es recovery/historical_worker.py, restringida al flujo archivo_historico y
+cubierta por la excepción legacy histórica ya documentada.
+"""
 from __future__ import annotations
 
 import ast
@@ -8,9 +13,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCAN_ROOTS = (ROOT / "scripts/editorial", ROOT / "recovery")
-AUTHORIZED_WRITERS = {
-    (ROOT / "scripts/editorial/preparar_publicacion.py").resolve(),
-}
+PRODUCTIVE_WRITER = (ROOT / "scripts/editorial/preparar_publicacion.py").resolve()
+HISTORICAL_EXCEPTION = (ROOT / "recovery/historical_worker.py").resolve()
+AUTHORIZED_WRITERS = {PRODUCTIVE_WRITER, HISTORICAL_EXCEPTION}
 
 
 def _literal(node):
@@ -47,8 +52,13 @@ def ficha_lista_writes(path: Path) -> list[int]:
     return sorted(set(lines))
 
 
+def historical_exception_is_scoped(path: Path) -> bool:
+    text = path.read_text(encoding="utf-8")
+    return '"flujo_editorial":"archivo_historico"' in text or '"flujo_editorial": "archivo_historico"' in text
+
+
 class PreparationBypassAuditTests(unittest.TestCase):
-    def test_only_preparation_orchestrator_can_write_ficha_lista(self):
+    def test_only_authorized_writers_can_write_ficha_lista(self):
         violations: list[str] = []
         writers: list[str] = []
 
@@ -69,12 +79,21 @@ class PreparationBypassAuditTests(unittest.TestCase):
         self.assertEqual(
             violations,
             [],
-            "bypass de FICHA_LISTA detectado fuera del orquestador: " + "; ".join(violations),
+            "bypass de FICHA_LISTA detectado fuera de las autoridades: " + "; ".join(violations),
         )
         self.assertEqual(
             writers,
-            ["scripts/editorial/preparar_publicacion.py"],
-            f"autoridad FICHA_LISTA inesperada: {writers}",
+            [
+                "recovery/historical_worker.py",
+                "scripts/editorial/preparar_publicacion.py",
+            ],
+            f"autoridades FICHA_LISTA inesperadas: {writers}",
+        )
+
+    def test_historical_exception_is_explicitly_archive_scoped(self):
+        self.assertTrue(
+            historical_exception_is_scoped(HISTORICAL_EXCEPTION),
+            "historical_worker.py sólo puede conservar la excepción si escribe flujo_editorial=archivo_historico",
         )
 
 
