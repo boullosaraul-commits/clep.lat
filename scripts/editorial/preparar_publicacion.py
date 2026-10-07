@@ -4,43 +4,42 @@
 La preparación no decide qué media usar. La autoridad de prioridad es
 `resolver_media.py`; `adquirir_media.py` materializa la resolución elegida y
 `validar_media.py` certifica físicamente el asset antes de FICHA_LISTA.
+
+Paso 6: este módulo actúa como orquestador. La unidad de trabajo es
+`prepare_one()`: valida precondiciones, renderiza texto, resuelve/adquiere/
+valida media y sólo entonces construye una fila completa lista para persistir.
 """
 from __future__ import annotations
 
 import csv
+import hashlib
+import json
 import os
 import re
 import sys
+import tempfile
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Mapping
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts/editorial"))
 
-from adquirir_media import (
-    MediaAcquisitionError,
-    acquire_media,
-    is_fallback_acquisition_error,
-)
-from editorial_rules import check_publishable
+from adquirir_media import MediaAcquisitionError, acquire_media
+from editorial_rules import check_media_validated, check_publishable
 from estado_editorial import QUEUE_DERIVED_FIELDS, candidate_fingerprint, policy_fingerprint
-from renderizar_texto import render_result
-from resolver_media import MediaResolutionError, resolve_media
-from validar_media import (
-    ERROR_DIMENSIONS_TOO_LARGE,
-    ERROR_DIMENSIONS_TOO_SMALL,
-    ERROR_EXTENSION_MISMATCH,
-    ERROR_FILE_EMPTY,
-    ERROR_FILE_TOO_LARGE,
-    ERROR_FORMAT_UNSUPPORTED,
-    ERROR_RASTER_CORRUPT,
-    ERROR_TYPE_MISMATCH,
-    validate_media,
-)
+from media_fallback_policy import acquisition_can_fallback, validation_can_fallback
+from renderizar_texto import TextRenderError, render_result
+from resolver_media import ALLOWED_MEDIA_METHODS, MediaResolutionError, resolve_media
+from validar_media import validate_media
 
 C = Path(
     os.getenv("CLEP_CANDIDATES_PATH", str(ROOT / "data/editorial/candidatos.csv"))
 ).resolve()
 Q = Path(os.getenv("CLEP_QUEUE_PATH", str(ROOT / "data/editorial/cola.csv"))).resolve()
+
+PREPARATION_VERSION = 1
+SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
 
 TEXT_PROVENANCE_FIELDS = (
     "source_summary",
@@ -62,8 +61,12 @@ MEDIA_PROVENANCE_FIELDS = (
     "media_source_url",
     "media_rights_status",
     "media_method",
+    "media_resolver_version",
+    "media_fallback_level",
     "media_resolution_fingerprint",
+    "media_acquisition_method",
     "media_content_sha256",
+    "media_bytes_size",
     "media_acquisition_reused",
     "alt_text",
     "media_validation_status",
@@ -72,27 +75,141 @@ MEDIA_PROVENANCE_FIELDS = (
     "media_width",
     "media_height",
 )
+PREPARATION_PROVENANCE_FIELDS = (
+    "preparation_version",
+    "preparation_fingerprint",
+)
 
-# Estos fallos describen un asset concreto no publicable y permiten pedir al
-# resolver el siguiente método. Rutas, hashes, SVG inseguro, incoherencias del
-# contrato y errores internos siguen siendo fail-closed.
-FALLBACK_VALIDATION_ERRORS = {
-    ERROR_FILE_EMPTY,
-    ERROR_FILE_TOO_LARGE,
-    ERROR_FORMAT_UNSUPPORTED,
-    ERROR_TYPE_MISMATCH,
-    ERROR_EXTENSION_MISMATCH,
-    ERROR_RASTER_CORRUPT,
-    ERROR_DIMENSIONS_TOO_SMALL,
-    ERROR_DIMENSIONS_TOO_LARGE,
+PREPARATION_READY = "READY"
+PREPARATION_BLOCKED = "BLOCKED"
+PREPARATION_SKIPPED = "SKIPPED"
+
+STAGE_PRECONDITION = "PRECONDITION"
+STAGE_TEXT = "TEXT_RENDER"
+STAGE_MEDIA = "MEDIA_RESOLVE_ACQUIRE_VALIDATE"
+STAGE_ASSEMBLE = "ASSEMBLE"
+STAGE_COMPLETE = "COMPLETE"
+
+MAX_MEDIA_ATTEMPTS = len(ALLOWED_MEDIA_METHODS)
+ERROR_MEDIA_FALLBACK_EXHAUSTED = "MEDIA_FALLBACK_EXHAUSTED"
+ERROR_MEDIA_METHOD_REPEATED = "MEDIA_METHOD_REPEATED"
+
+QUARANTINE_TEXT_ERROR = "TEXT_ERROR"
+QUARANTINE_MEDIA_ERROR = "MEDIA_ERROR"
+QUARANTINE_STATE_INCONSISTENCY = "STATE_INCONSISTENCY"
+ERROR_CLASS_TEMPORARY = "TEMPORARY"
+ERROR_CLASS_PERMANENT = "PERMANENT"
+ERROR_CLASS_AMBIGUOUS = "AMBIGUOUS"
+
+TEMPORARY_ERROR_CODES = {
+    "MEDIA_DOWNLOAD_FAILED",
+    "MEDIA_CAPTURE_BROWSER_MISSING",
+    "MEDIA_CAPTURE_FAILED",
 }
+AMBIGUOUS_ERROR_CODES = {ERROR_MEDIA_FALLBACK_EXHAUSTED}
+
+READY_REQUIRED_PROVENANCE = (
+    "text_method",
+    "text_template",
+    "text_template_version",
+    "media_path",
+    "media_source",
+    "media_rights_status",
+    "media_method",
+    "media_resolver_version",
+    "media_fallback_level",
+    "media_resolution_fingerprint",
+    "media_acquisition_method",
+    "media_content_sha256",
+    "media_bytes_size",
+    "alt_text",
+    "media_validation_status",
+    "media_validation_version",
+    "detected_media_type",
+    "media_width",
+    "media_height",
+    "candidate_fingerprint",
+    "editorial_policy_fingerprint",
+    "preparation_version",
+    "preparation_fingerprint",
+)
 
 
 class MediaValidationBlocked(RuntimeError):
+    code = "MEDIA_VALIDATION_BLOCKED"
+
     def __init__(self, result):
         self.result = result
-        detail = "; ".join(f"{issue.code}: {issue.detail}" for issue in result.errors)
-        super().__init__(detail or "media inválida")
+        self.detail = "; ".join(
+            f"{issue.code}: {issue.detail}" for issue in result.errors
+        ) or "media inválida"
+        super().__init__(self.detail)
+
+
+class MediaFallbackError(RuntimeError):
+    def __init__(self, code: str, detail: str):
+        self.code = code
+        self.detail = detail
+        super().__init__(f"{code}: {detail}")
+
+
+class PreparationContractError(RuntimeError):
+    """Violación del contrato final READY; siempre fail-closed."""
+
+    def __init__(self, code: str, detail: str, field: str = ""):
+        self.code = code
+        self.detail = detail
+        self.field = field
+        super().__init__(f"{code}: {detail}")
+
+
+@dataclass(frozen=True)
+class PreparationOutcome:
+    """Contrato de una preparación individual sin persistencia parcial."""
+
+    status: str
+    candidate_id: str
+    stage: str
+    queue_row: dict[str, str] | None = None
+    candidate_updates: dict[str, str] | None = None
+    error_code: str = ""
+    error_detail: str = ""
+    quarantine_reason: str = ""
+    error_class: str = ""
+
+    @property
+    def ready(self) -> bool:
+        return self.status == PREPARATION_READY
+
+    @property
+    def blocked(self) -> bool:
+        return self.status == PREPARATION_BLOCKED
+
+    def quarantine_fields(self, quarantined_at: str) -> dict[str, str]:
+        """Payload canónico v1 para que el Paso 13 persista una cuarentena."""
+        if not self.blocked:
+            raise ValueError("sólo un resultado BLOCKED puede convertirse en cuarentena")
+        timestamp = clean(quarantined_at)
+        if not timestamp:
+            raise ValueError("quarantined_at es obligatorio")
+        return {
+            "preparation_status": "QUARANTINED",
+            "quarantine_reason": self.quarantine_reason or QUARANTINE_STATE_INCONSISTENCY,
+            "quarantine_error_code": self.error_code or "UNKNOWN",
+            "quarantine_step": self.stage,
+            "quarantined_at": timestamp,
+            "error_class": self.error_class or ERROR_CLASS_AMBIGUOUS,
+        }
+
+
+EXPECTED_PREPARATION_ERRORS = (
+    TextRenderError,
+    MediaResolutionError,
+    MediaAcquisitionError,
+    MediaValidationBlocked,
+    MediaFallbackError,
+    PreparationContractError,
+)
 
 
 def clean(value):
@@ -129,7 +246,7 @@ def access(row):
 
 
 def text_context(row):
-    """Metadata textual común. No genera ni traduce contenido."""
+    """Adapta provenance textual; no decide plantilla, resumen ni fallback."""
     return {
         "source_summary": clean(
             row.get("source_summary")
@@ -156,6 +273,7 @@ def text_context(row):
 
 
 def meta_for(kind, row):
+    """Adapta campos de candidato al contrato del renderer; no renderiza texto."""
     url = access(row)
     if kind == "paper":
         return {
@@ -254,11 +372,15 @@ def meta_for(kind, row):
             "source": source_name(row),
             "access_url": url,
         }
-    raise ValueError(f"tipo no soportado: {kind}")
+    raise TextRenderError(
+        "CONTENT_TYPE_UNSUPPORTED",
+        f"tipo no soportado por adaptador: {kind}",
+        "content_type",
+    )
 
 
 def eligible(row, kind):
-    # La preparación nunca sustituye a la decisión de pertinencia.
+    # Temporal durante Paso 6: la política se extraerá en la tanda correspondiente.
     academic = {
         "paper",
         "book",
@@ -325,26 +447,29 @@ def eligible(row, kind):
     } or clean(row.get("source_url")).startswith("https://")
 
 
-def _validation_can_fallback(result):
-    return bool(result.errors) and all(
-        issue.code in FALLBACK_VALIDATION_ERRORS for issue in result.errors
-    )
-
-
 def resolve_acquire_validate_media(row, kind):
-    """Resuelve, materializa y certifica media antes de devolverla."""
+    """Orquesta media sin decidir prioridad ni clasificar fallos localmente."""
     candidate = dict(row)
     candidate["content_type"] = kind
     rejected_methods: dict[str, str] = {}
+    attempted_methods: set[str] = set()
 
-    while True:
+    for _ in range(MAX_MEDIA_ATTEMPTS):
         resolution = resolve_media(candidate, rejected_methods=rejected_methods)
+        method = resolution.media_method
+        if method in attempted_methods:
+            raise MediaFallbackError(
+                ERROR_MEDIA_METHOD_REPEATED,
+                f"resolver devolvió de nuevo método ya rechazado: {method}",
+            )
+        attempted_methods.add(method)
+
         try:
             acquired = acquire_media(resolution)
         except MediaAcquisitionError as exc:
-            if not is_fallback_acquisition_error(exc):
+            if not acquisition_can_fallback(exc):
                 raise
-            rejected_methods[resolution.media_method] = f"{exc.code}: {exc.detail}"
+            rejected_methods[method] = f"{exc.code}: {exc.detail}"
             continue
 
         visual = {
@@ -353,19 +478,23 @@ def resolve_acquire_validate_media(row, kind):
             "media_source": resolution.media_source,
             "media_source_url": resolution.media_source_url,
             "media_rights_status": resolution.media_rights_status,
-            "media_method": resolution.media_method,
+            "media_method": method,
+            "media_resolver_version": str(resolution.resolver_version),
+            "media_fallback_level": str(resolution.fallback_level),
             "media_resolution_fingerprint": resolution.resolution_fingerprint,
+            "media_acquisition_method": acquired.acquisition_method,
             "media_content_sha256": acquired.content_sha256,
+            "media_bytes_size": str(acquired.bytes_written),
             "media_acquisition_reused": "si" if acquired.reused_existing else "no",
             "alt_text": resolution.alt_text,
         }
         validation = validate_media(visual)
         if not validation.valid:
-            if _validation_can_fallback(validation):
+            if validation_can_fallback(validation):
                 reason = "; ".join(
                     f"{issue.code}: {issue.detail}" for issue in validation.errors
                 )
-                rejected_methods[resolution.media_method] = f"validation: {reason}"
+                rejected_methods[method] = f"validation: {reason}"
                 continue
             raise MediaValidationBlocked(validation)
 
@@ -380,32 +509,328 @@ def resolve_acquire_validate_media(row, kind):
         )
         return visual
 
+    raise MediaFallbackError(
+        ERROR_MEDIA_FALLBACK_EXHAUSTED,
+        f"se agotaron {MAX_MEDIA_ATTEMPTS} intentos de media; rechazados={rejected_methods}",
+    )
 
-def main():
-    with C.open(encoding="utf-8", newline="") as file:
-        reader = csv.DictReader(file)
-        candidates = list(reader)
-        cfields = reader.fieldnames
-    with Q.open(encoding="utf-8", newline="") as file:
-        reader = csv.DictReader(file)
-        queue = list(reader)
-        qfields = list(reader.fieldnames or [])
 
-    for field in QUEUE_DERIVED_FIELDS:
-        if field not in qfields:
-            qfields.append(field)
-    for field in TEXT_PROVENANCE_FIELDS:
-        if field not in qfields:
-            qfields.append(field)
-    for field in MEDIA_PROVENANCE_FIELDS:
-        if field not in qfields:
-            qfields.append(field)
+def _queue_fieldnames(existing_fields):
+    fields = list(existing_fields or [])
+    for field in (
+        *QUEUE_DERIVED_FIELDS,
+        *TEXT_PROVENANCE_FIELDS,
+        *MEDIA_PROVENANCE_FIELDS,
+        *PREPARATION_PROVENANCE_FIELDS,
+    ):
+        if field not in fields:
+            fields.append(field)
+    return fields
 
-    policy_fp = policy_fingerprint()
-    cmap = {row.get("candidate_id"): row for row in candidates if row.get("candidate_id")}
-    existing = {row.get("url_id", ""): row for row in queue if row.get("url_id")}
+
+def _append_note(row: Mapping[str, Any], note: str) -> str:
+    current = str(row.get("notes") or "").strip()
+    if note in current:
+        return current
+    return (current + f" | {note}").strip(" |")
+
+
+def _preparation_fingerprint(
+    row: Mapping[str, str],
+    policy_fp: str,
+    text_result,
+    visual: Mapping[str, str],
+) -> str:
+    """Fingerprint del producto preparado, excluyendo metadata operacional mutable."""
+    payload = {
+        "preparation_version": PREPARATION_VERSION,
+        "candidate_fingerprint": candidate_fingerprint(row),
+        "editorial_policy_fingerprint": policy_fp,
+        "text": {
+            "post_text": text_result.post_text,
+            "source_summary": text_result.source_summary,
+            "source_summary_es": text_result.source_summary_es,
+            "editorial_description": text_result.editorial_description,
+            "text_method": text_result.text_method,
+            "text_template": text_result.text_template,
+            "text_template_version": str(text_result.text_template_version),
+            "text_status": text_result.text_status,
+            "translation": text_result.translation,
+        },
+        "media": {
+            key: str(visual.get(key) or "")
+            for key in (
+                "media_type",
+                "media_path",
+                "media_source",
+                "media_source_url",
+                "media_rights_status",
+                "media_method",
+                "media_resolver_version",
+                "media_fallback_level",
+                "media_resolution_fingerprint",
+                "media_acquisition_method",
+                "media_content_sha256",
+                "media_bytes_size",
+                "alt_text",
+                "media_validation_status",
+                "media_validation_version",
+                "detected_media_type",
+                "media_width",
+                "media_height",
+            )
+        },
+    }
+    canonical = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def _assemble_queue_row(
+    row: Mapping[str, str],
+    kind: str,
+    qexisting: Mapping[str, str] | None,
+    qfields: list[str],
+    policy_fp: str,
+    text_result,
+    visual: Mapping[str, str],
+) -> dict[str, str]:
+    """Construye una fila completa en memoria; no muta cola ni candidato."""
+    queued = dict(qexisting) if qexisting is not None else {key: "" for key in qfields}
+    for field in qfields:
+        queued.setdefault(field, "")
+
+    cid = row.get("candidate_id") or ""
+    translation = text_result.translation if text_result.translation.get("present") else {}
+    preparation_fp = _preparation_fingerprint(row, policy_fp, text_result, visual)
+    queued.update(
+        {
+            "editorial_id": queued.get("editorial_id") or "ED-" + cid.removeprefix("CAND-"),
+            "flujo_editorial": row.get("flujo_editorial") or "novedad",
+            "prioridad": row.get("priority") or queued.get("prioridad") or "100",
+            "estado_editorial": "FICHA_LISTA",
+            "url_id": cid,
+            "url_original": row.get("source_url", ""),
+            "titulo_original": clean(row.get("title")),
+            "responsables": clean(row.get("authors")),
+            "tipo_recurso": kind,
+            "anio": year(row),
+            "idioma_obra": row.get("language", ""),
+            "obra_estado": "OBRA_VERIFICADA",
+            "edicion_estado": "EDICION_VERIFICADA"
+            if kind in {
+                "paper", "book", "chapter", "report", "policy_brief",
+                "special_issue", "thesis", "edition_translation",
+            }
+            else "NO_APLICA",
+            "oa_estado": "OA_VERIFICADO"
+            if kind in {
+                "paper", "book", "chapter", "report", "policy_brief",
+                "special_issue", "thesis", "edition_translation",
+            }
+            else "NO_APLICA",
+            "doi": row.get("doi", ""),
+            "oa_url": access(row),
+            "oa_fuente": source_name(row),
+            "area_clep": row.get("area_clep", ""),
+            "licencia": clean(
+                (re.search(r"license_url=([^|;\\s]+)", row.get("notes") or "") or [None, ""])[1]
+            ),
+            "ficha_es": text_result.post_text,
+            "source_summary": text_result.source_summary,
+            "source_summary_es": text_result.source_summary_es,
+            "editorial_description": text_result.editorial_description,
+            "notas": (
+                f"Origen {source_name(row)}; relevance_score={row.get('relevance_score') or '0'}; "
+                f"editorial_score={row.get('editorial_score') or '0'}; "
+                f"editorial_decision={row.get('editorial_decision') or ''}; "
+                f"venue={clean(row.get('venue'))}; preparación atómica determinista sin IA generativa."
+            ),
+            "text_method": text_result.text_method,
+            "text_template": text_result.text_template,
+            "text_template_version": str(text_result.text_template_version),
+            "text_status": "VERIFICADO"
+            if text_result.text_status == "VERIFIED"
+            else text_result.text_status,
+            "translation_status": translation.get("status", ""),
+            "translation_method": translation.get("method", ""),
+            "translation_engine": translation.get("engine", ""),
+            "translation_engine_version": translation.get("engine_version", ""),
+            "translation_source_language": translation.get("source_language", ""),
+            "translation_target_language": translation.get("target_language", ""),
+            "translation_disclosure": translation.get("disclosure", ""),
+            "editorial_score": row.get("editorial_score") or "",
+            "editorial_decision": row.get("editorial_decision") or "",
+            "editorial_policy_fingerprint": policy_fp,
+            "candidate_fingerprint": candidate_fingerprint(row),
+            "preparation_version": str(PREPARATION_VERSION),
+            "preparation_fingerprint": preparation_fp,
+            **visual,
+        }
+    )
+    return queued
+
+
+def _positive_int(value: object) -> bool:
+    try:
+        return int(clean(value)) > 0
+    except (TypeError, ValueError):
+        return False
+
+
+def _validate_ready_contract(row: Mapping[str, object]) -> None:
+    """Último gate fail-closed: ninguna fila incompleta puede salir como READY."""
+    if clean(row.get("estado_editorial")) != "FICHA_LISTA":
+        raise PreparationContractError(
+            "PREPARATION_STATE_INVALID",
+            "estado_editorial debe ser FICHA_LISTA al cerrar preparación",
+            "estado_editorial",
+        )
+    if clean(row.get("text_status")) not in {"VERIFIED", "VERIFICADO"}:
+        raise PreparationContractError(
+            "TEXT_NOT_VERIFIED",
+            "texto final no está verificado",
+            "text_status",
+        )
+    if not clean(row.get("ficha_es")):
+        raise PreparationContractError("POST_TEXT_MISSING", "ficha_es vacía", "ficha_es")
+
+    material = check_media_validated(row)
+    if not material:
+        raise PreparationContractError(material.code, material.detail, material.field)
+
+    missing = [field for field in READY_REQUIRED_PROVENANCE if not clean(row.get(field))]
+    if missing:
+        raise PreparationContractError(
+            "PREPARATION_PROVENANCE_INCOMPLETE",
+            "faltan campos: " + ", ".join(missing),
+            missing[0],
+        )
+    if not SHA256_RE.fullmatch(clean(row.get("preparation_fingerprint"))):
+        raise PreparationContractError(
+            "PREPARATION_FINGERPRINT_INVALID",
+            "preparation_fingerprint debe ser SHA-256",
+            "preparation_fingerprint",
+        )
+    if not _positive_int(row.get("media_resolver_version")):
+        raise PreparationContractError(
+            "MEDIA_RESOLVER_VERSION_INVALID", "media_resolver_version inválida", "media_resolver_version"
+        )
+    if not _positive_int(row.get("media_fallback_level")):
+        raise PreparationContractError(
+            "MEDIA_FALLBACK_LEVEL_INVALID", "media_fallback_level inválido", "media_fallback_level"
+        )
+    if not _positive_int(row.get("media_bytes_size")):
+        raise PreparationContractError(
+            "MEDIA_BYTES_SIZE_INVALID", "media_bytes_size inválido", "media_bytes_size"
+        )
+
+
+def _error_code(exc: BaseException) -> str:
+    return clean(getattr(exc, "code", "")) or type(exc).__name__
+
+
+def _error_detail(exc: BaseException) -> str:
+    return clean(getattr(exc, "detail", "")) or str(exc)
+
+
+def _quarantine_reason(stage: str, exc: BaseException) -> str:
+    if isinstance(exc, TextRenderError) or stage == STAGE_TEXT:
+        return QUARANTINE_TEXT_ERROR
+    if isinstance(
+        exc,
+        (MediaResolutionError, MediaAcquisitionError, MediaValidationBlocked, MediaFallbackError),
+    ) or stage == STAGE_MEDIA:
+        return QUARANTINE_MEDIA_ERROR
+    return QUARANTINE_STATE_INCONSISTENCY
+
+
+def _error_class(code: str) -> str:
+    if code in TEMPORARY_ERROR_CODES:
+        return ERROR_CLASS_TEMPORARY
+    if code in AMBIGUOUS_ERROR_CODES:
+        return ERROR_CLASS_AMBIGUOUS
+    return ERROR_CLASS_PERMANENT
+
+
+def prepare_one(
+    row: Mapping[str, str],
+    qexisting: Mapping[str, str] | None,
+    qfields: list[str],
+    policy_fp: str,
+) -> PreparationOutcome:
+    """Ejecuta una preparación lineal sin persistir estados intermedios.
+
+    Contrato:
+    - SKIPPED: la fila no cumple precondiciones y no se modifica.
+    - BLOCKED: fallo editorial estructurado; devuelve diagnóstico cuarentenable.
+    - READY: sólo tras validar texto, media, provenance y fingerprint completos.
+    Los errores inesperados no se degradan silenciosamente a BLOCKED: se propagan.
+    """
+    cid = row.get("candidate_id") or ""
+    kind = ctype(row)
+    if not eligible(row, kind):
+        return PreparationOutcome(
+            status=PREPARATION_SKIPPED,
+            candidate_id=cid,
+            stage=STAGE_PRECONDITION,
+        )
+
+    stage = STAGE_TEXT
+    try:
+        meta = meta_for(kind, row)
+        meta.update(text_context(row))
+        text_result = render_result(kind, meta)
+
+        stage = STAGE_MEDIA
+        visual = resolve_acquire_validate_media(row, kind)
+
+        stage = STAGE_ASSEMBLE
+        queued = _assemble_queue_row(
+            row=row,
+            kind=kind,
+            qexisting=qexisting,
+            qfields=qfields,
+            policy_fp=policy_fp,
+            text_result=text_result,
+            visual=visual,
+        )
+        _validate_ready_contract(queued)
+    except EXPECTED_PREPARATION_ERRORS as exc:
+        code = _error_code(exc)
+        detail = _error_detail(exc)
+        return PreparationOutcome(
+            status=PREPARATION_BLOCKED,
+            candidate_id=cid,
+            stage=stage,
+            candidate_updates={
+                "notes": _append_note(
+                    row,
+                    f"preparación bloqueada [{stage}] {code}: {detail}",
+                )
+            },
+            error_code=code,
+            error_detail=detail,
+            quarantine_reason=_quarantine_reason(stage, exc),
+            error_class=_error_class(code),
+        )
+
+    return PreparationOutcome(
+        status=PREPARATION_READY,
+        candidate_id=cid,
+        stage=STAGE_COMPLETE,
+        queue_row=queued,
+        candidate_updates={"status": "FICHA_LISTA"},
+    )
+
+
+def invalidate_stale_queue_rows(queue, cmap, policy_fp):
+    """Invalida sólo filas locales no publicadas ni reservadas en Meta."""
     invalidated = 0
-
     for queued in queue:
         if queued.get("flujo_editorial") == "archivo_historico":
             continue
@@ -429,10 +854,7 @@ def main():
         queued["candidate_fingerprint"] = candidate_fp
         queued["editorial_policy_fingerprint"] = policy_fp
         if changed and queued.get("estado_editorial") in {
-            "FICHA_LISTA",
-            "APROBADO",
-            "PROGRAMADO",
-            "REVALIDAR",
+            "FICHA_LISTA", "APROBADO", "PROGRAMADO", "REVALIDAR",
         }:
             queued["estado_editorial"] = "REVALIDAR"
             queued["fecha_programada"] = ""
@@ -444,6 +866,56 @@ def main():
                 + " | invalidada para revalidación por cambio de candidato/política"
             ).strip(" |")
             invalidated += 1
+    return invalidated
+
+
+def _write_csv_atomic(path: Path, fieldnames, rows) -> bool:
+    """Serializa completo, fsync y reemplaza sólo si los bytes cambian."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            newline="",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as handle:
+            temp_path = Path(handle.name)
+            writer = csv.DictWriter(handle, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(rows)
+            handle.flush()
+            os.fsync(handle.fileno())
+
+        new_bytes = temp_path.read_bytes()
+        if path.exists() and path.read_bytes() == new_bytes:
+            temp_path.unlink()
+            return False
+        os.replace(temp_path, path)
+        temp_path = None
+        return True
+    finally:
+        if temp_path is not None and temp_path.exists():
+            temp_path.unlink()
+
+
+def main():
+    with C.open(encoding="utf-8", newline="") as file:
+        reader = csv.DictReader(file)
+        candidates = list(reader)
+        cfields = reader.fieldnames
+    with Q.open(encoding="utf-8", newline="") as file:
+        reader = csv.DictReader(file)
+        queue = list(reader)
+        qfields = _queue_fieldnames(reader.fieldnames)
+
+    policy_fp = policy_fingerprint()
+    cmap = {row.get("candidate_id"): row for row in candidates if row.get("candidate_id")}
+    existing = {row.get("url_id", ""): row for row in queue if row.get("url_id")}
+    invalidated = invalidate_stale_queue_rows(queue, cmap, policy_fp)
 
     prepared = blocked = 0
     visual_counts = {
@@ -457,126 +929,40 @@ def main():
         qexisting = existing.get(cid)
         if qexisting and qexisting.get("estado_editorial") != "REVALIDAR":
             continue
-        kind = ctype(row)
-        if not eligible(row, kind):
-            continue
 
-        try:
-            meta = meta_for(kind, row)
-            meta.update(text_context(row))
-            text_result = render_result(kind, meta)
-            visual = resolve_acquire_validate_media(row, kind)
-        except Exception as exc:
-            row["notes"] = (
-                (row.get("notes") or "")
-                + f" | preparación bloqueada: {type(exc).__name__}: {exc}"
-            ).strip(" |")
+        outcome = prepare_one(row, qexisting, qfields, policy_fp)
+        if outcome.status == PREPARATION_SKIPPED:
+            continue
+        if outcome.blocked:
+            if outcome.candidate_updates:
+                row.update(outcome.candidate_updates)
             blocked += 1
             continue
 
-        queued = qexisting if qexisting is not None else {key: "" for key in qfields}
-        for field in qfields:
-            queued.setdefault(field, "")
-        translation = text_result.translation if text_result.translation.get("present") else {}
-        queued.update(
-            {
-                "editorial_id": queued.get("editorial_id")
-                or "ED-" + cid.removeprefix("CAND-"),
-                "flujo_editorial": row.get("flujo_editorial") or "novedad",
-                "prioridad": row.get("priority") or queued.get("prioridad") or "100",
-                "estado_editorial": "FICHA_LISTA",
-                "url_id": cid,
-                "url_original": row.get("source_url", ""),
-                "titulo_original": clean(row.get("title")),
-                "responsables": clean(row.get("authors")),
-                "tipo_recurso": kind,
-                "anio": year(row),
-                "idioma_obra": row.get("language", ""),
-                "obra_estado": "OBRA_VERIFICADA",
-                "edicion_estado": "EDICION_VERIFICADA"
-                if kind
-                in {
-                    "paper",
-                    "book",
-                    "chapter",
-                    "report",
-                    "policy_brief",
-                    "special_issue",
-                    "thesis",
-                    "edition_translation",
-                }
-                else "NO_APLICA",
-                "oa_estado": "OA_VERIFICADO"
-                if kind
-                in {
-                    "paper",
-                    "book",
-                    "chapter",
-                    "report",
-                    "policy_brief",
-                    "special_issue",
-                    "thesis",
-                    "edition_translation",
-                }
-                else "NO_APLICA",
-                "doi": row.get("doi", ""),
-                "oa_url": access(row),
-                "oa_fuente": source_name(row),
-                "area_clep": row.get("area_clep", ""),
-                "licencia": clean(
-                    (re.search(r"license_url=([^|;\\s]+)", row.get("notes") or "") or [None, ""])[1]
-                ),
-                "ficha_es": text_result.post_text,
-                "source_summary": text_result.source_summary,
-                "source_summary_es": text_result.source_summary_es,
-                "editorial_description": text_result.editorial_description,
-                "notas": (
-                    f"Origen {source_name(row)}; relevance_score={row.get('relevance_score') or '0'}; "
-                    f"editorial_score={row.get('editorial_score') or '0'}; "
-                    f"editorial_decision={row.get('editorial_decision') or ''}; "
-                    f"venue={clean(row.get('venue'))}; preparación atómica determinista sin IA generativa."
-                ),
-                "text_method": text_result.text_method,
-                "text_template": text_result.text_template,
-                "text_template_version": str(text_result.text_template_version),
-                "text_status": "VERIFICADO"
-                if text_result.text_status == "VERIFIED"
-                else text_result.text_status,
-                "translation_status": translation.get("status", ""),
-                "translation_method": translation.get("method", ""),
-                "translation_engine": translation.get("engine", ""),
-                "translation_engine_version": translation.get("engine_version", ""),
-                "translation_source_language": translation.get("source_language", ""),
-                "translation_target_language": translation.get("target_language", ""),
-                "translation_disclosure": translation.get("disclosure", ""),
-                "editorial_score": row.get("editorial_score") or "",
-                "editorial_decision": row.get("editorial_decision") or "",
-                "editorial_policy_fingerprint": policy_fp,
-                "candidate_fingerprint": candidate_fingerprint(row),
-                **visual,
-            }
-        )
-        if qexisting is None:
-            queue.append(queued)
-            existing[cid] = queued
-        row["status"] = "FICHA_LISTA"
-        prepared += 1
-        visual_counts[visual["media_rights_status"]] = (
-            visual_counts.get(visual["media_rights_status"], 0) + 1
-        )
+        if not outcome.ready or outcome.queue_row is None:
+            raise RuntimeError(f"resultado de preparación inconsistente para {cid}")
 
-    with Q.open("w", encoding="utf-8", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=qfields)
-        writer.writeheader()
-        writer.writerows(queue)
-    with C.open("w", encoding="utf-8", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=cfields)
-        writer.writeheader()
-        writer.writerows(candidates)
+        # Único punto de aplicación: no hay mutación parcial durante prepare_one().
+        if qexisting is None:
+            queue.append(outcome.queue_row)
+            existing[cid] = outcome.queue_row
+        else:
+            qexisting.clear()
+            qexisting.update(outcome.queue_row)
+        if outcome.candidate_updates:
+            row.update(outcome.candidate_updates)
+
+        prepared += 1
+        rights = outcome.queue_row.get("media_rights_status", "")
+        visual_counts[rights] = visual_counts.get(rights, 0) + 1
+
+    queue_written = _write_csv_atomic(Q, qfields, queue)
+    candidates_written = _write_csv_atomic(C, cfields, candidates)
 
     print(
         f"Preparados atómicamente: {prepared}; invalidados={invalidated}; "
-        f"bloqueados: {blocked}; visuales={visual_counts}"
+        f"bloqueados: {blocked}; visuales={visual_counts}; "
+        f"writes=cola:{int(queue_written)},candidatos:{int(candidates_written)}"
     )
 
 
