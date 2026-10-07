@@ -134,8 +134,7 @@ def main() -> None:
             second = read_one(queue)
             for key, value in stable.items():
                 assert second[key] == value, (key, value, second[key])
-            assert "writes=cola:0" in second_stdout, second_stdout
-            assert "writes=candidatos:0" in second_stdout, second_stdout
+            assert "writes=cola:0,candidatos:0" in second_stdout, second_stdout
 
             print("PREPARATION E2E OK: offline, validada e idempotente.")
     finally:
