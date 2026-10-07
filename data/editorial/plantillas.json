@@ -5,18 +5,11 @@
     "oa_obligatorio": true,
     "plantilla": "PAPER ABIERTO · CLEP\n\n{title}\n\n{authors_line}\n\nResumen de los autores (original):\n{summary}\n\n{translation_block}\nAcceso abierto:\n{access_url}\n\nDOI:\n{doi_display}",
     "nota": "Plantilla legacy. No es autoridad para nuevos consumidores.",
-    "traduccion": {
-      "enabled": true,
-      "target_language": "es",
-      "engine": "argos-translate",
-      "generative_ai": false,
-      "label": "ES · Traducción automática",
-      "preserve_original": true
-    }
+    "traduccion": {"enabled":true,"target_language":"es","engine":"argos-translate","generative_ai":false,"label":"ES · Traducción automática","preserve_original":true}
   },
-  "version": 5,
+  "version": 6,
   "textos_cortos": {
-    "paper": {"id":"textos_cortos.paper","version":1,"label":"PAPER ABIERTO · CLEP","template":"{title}\n\n{authors} · {source_or_series} · {year}\n\nAcceso abierto: {access_url}","required":["title","authors","source_or_series","year","access_url"]},
+    "paper": {"id":"textos_cortos.paper","version":2,"label":"PAPER ABIERTO · CLEP","template":"{title}\n{title_es_block}\n\nAutoría: {authors}\n{authors_es_block}\n{source_or_series} · {year}\n\nAbstract (original):\n{source_summary}\n\nResumen en español · traducción automática:\n{source_summary_es}\n\nAcceso abierto: {access_url}","required":["title","authors","source_or_series","year","source_summary","source_summary_es","access_url"]},
     "book": {"id":"textos_cortos.book","version":1,"label":"LIBRO ABIERTO · CLEP","template":"{title}\n\n{authors_or_editors} · {year}\n\nAcceso abierto: {access_url}","required":["title","authors_or_editors","year","access_url"]},
     "dataset_grafica": {"id":"textos_cortos.dataset_grafica","version":1,"label":"DATOS · CLEP","template":"{indicator_or_dataset}\n\n{geography} · {reference_period}: {value_or_change}\n\nFuente: {official_source}\nDatos: {access_url}","required":["indicator_or_dataset","geography","reference_period","value_or_change","official_source","access_url"]},
     "convocatoria_evento": {"id":"textos_cortos.convocatoria_evento","version":1,"label":"AGENDA · CLEP","template":"{title}\n\nOrganiza: {organizer}\n{date_label}: {date_or_deadline}\n\nInformación: {access_url}","required":["title","organizer","date_or_deadline","access_url"]},
@@ -30,16 +23,5 @@
     "edition_translation": {"id":"textos_cortos.edition_translation","version":1,"label":"NUEVA EDICIÓN / TRADUCCIÓN · CLEP","template":"{title}\n\n{authors_or_editors} · {edition_note} · {year}\n\nAcceso abierto: {access_url}","required":["title","authors_or_editors","edition_note","year","access_url"]},
     "anuncio_institucional": {"id":"textos_cortos.anuncio_institucional","version":1,"label":"CLEP","template":"{editorial_text}\n\nInformación: {access_url}","required":["title","editorial_text","access_url"]}
   },
-  "reglas_texto": {
-    "generative_ai": false,
-    "prepend_label": true,
-    "normalize_whitespace": true,
-    "max_chars": 900,
-    "max_paragraphs": 5,
-    "on_missing_required": "block",
-    "on_overflow": "block",
-    "evidence_hierarchy": ["official_abstract_or_description","verified_nongenerative_translation","structured_metadata","factual_minimal_fallback"],
-    "fallback": {"kind":"factual_minimal","version":1,"required":["title_or_indicator","access_url"],"forbid_summary_inference":true},
-    "prohibit": ["generated_summary","generated_interpretation","invented_transition","invented_fact"]
-  }
+  "reglas_texto": {"generative_ai":false,"prepend_label":true,"normalize_whitespace":true,"max_chars":4000,"max_paragraphs":12,"on_missing_required":"block","on_overflow":"block","evidence_hierarchy":["official_abstract_or_description","verified_nongenerative_translation","structured_metadata","factual_minimal_fallback"],"fallback":{"kind":"factual_minimal","version":1,"required":["title_or_indicator","access_url"],"forbid_summary_inference":true},"prohibit":["generated_summary","generated_interpretation","invented_transition","invented_fact"]}
 }
