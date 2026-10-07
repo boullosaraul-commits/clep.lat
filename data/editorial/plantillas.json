@@ -9,7 +9,7 @@
   },
   "version": 6,
   "textos_cortos": {
-    "paper": {"id":"textos_cortos.paper","version":2,"label":"PAPER ABIERTO · CLEP","template":"{title}\n\nAutoría: {authors}\n{source_or_series} · {year}\n\nAbstract (original):\n{source_summary}\n\nResumen en español · traducción automática:\n{source_summary_es}\n\nAcceso abierto: {access_url}","required":["title","authors","source_or_series","year","source_summary","source_summary_es","access_url"]},
+    "paper": {"id":"textos_cortos.paper","version":2,"label":"PAPER ABIERTO · CLEP","template":"{title}\n\nAutoría: {authors}\n{source_or_series} · {year}\n\n{paper_abstract_block}Acceso abierto: {access_url}","required":["title","authors","source_or_series","year","access_url"]},
     "book": {"id":"textos_cortos.book","version":1,"label":"LIBRO ABIERTO · CLEP","template":"{title}\n\n{authors_or_editors} · {year}\n\nAcceso abierto: {access_url}","required":["title","authors_or_editors","year","access_url"]},
     "dataset_grafica": {"id":"textos_cortos.dataset_grafica","version":1,"label":"DATOS · CLEP","template":"{indicator_or_dataset}\n\n{geography} · {reference_period}: {value_or_change}\n\nFuente: {official_source}\nDatos: {access_url}","required":["indicator_or_dataset","geography","reference_period","value_or_change","official_source","access_url"]},
     "convocatoria_evento": {"id":"textos_cortos.convocatoria_evento","version":1,"label":"AGENDA · CLEP","template":"{title}\n\nOrganiza: {organizer}\n{date_label}: {date_or_deadline}\n\nInformación: {access_url}","required":["title","organizer","date_or_deadline","access_url"]},
