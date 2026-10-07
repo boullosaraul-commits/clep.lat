@@ -52,6 +52,7 @@ jobs:
           python -m unittest -v tests/test_queue_verifier.py
           python -m unittest -v tests/test_workflow_layers.py
           python -m unittest -v tests/test_quarantine_adhoc.py
+          python -m unittest -v tests/test_urgent_adhoc.py
           python -m unittest -v tests/test_roadmap_completion.py
       - name: Deterministic text multiformat E2E
         run: python tests/text_renderer_e2e.py
