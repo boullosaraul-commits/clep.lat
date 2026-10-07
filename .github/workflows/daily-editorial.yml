@@ -37,11 +37,13 @@ jobs:
           python scripts/editorial/ingerir_novedades_academicas.py
           python scripts/editorial/ingerir_catalogos.py
           python scripts/editorial/detectar_actualizaciones.py
+          python scripts/editorial/ingestar_ad_hoc.py
           python scripts/editorial/evaluar_candidatos.py
           python scripts/editorial/verificar_oa.py
           python scripts/editorial/calcular_prioridad_editorial.py
           python scripts/editorial/auditar_prioridad.py
           python scripts/editorial/preparar_publicacion.py
+          python scripts/editorial/actualizar_cuarentena.py
           python scripts/editorial/verificar_cola.py
 
       - name: Persist current-source state
