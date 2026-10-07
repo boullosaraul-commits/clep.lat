@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-10-06T17:13:44+00:00",
-  "records": 1555,
-  "academic_records": 1274,
+  "generated_at": "2026-10-07T14:39:19+00:00",
+  "records": 1837,
+  "academic_records": 1500,
   "missing_editorial_score": 0,
   "buckets": {
-    "7_8_9": 11,
-    "0_4_9": 1232,
-    "5_6_9": 31
+    "7_8_9": 13,
+    "0_4_9": 1448,
+    "5_6_9": 39
   },
   "decisions": {
-    "PUBLISHABLE": 11,
-    "INELIGIBLE": 114,
-    "THEMATIC_REJECTED": 797,
-    "THEMATIC_REVIEW": 321,
-    "REVIEW": 31
+    "PUBLISHABLE": 13,
+    "INELIGIBLE": 119,
+    "THEMATIC_REJECTED": 976,
+    "THEMATIC_REVIEW": 353,
+    "REVIEW": 39
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 894,
-      "5_6_9": 19,
-      "7_8_9": 7
+      "0_4_9": 1101,
+      "5_6_9": 25,
+      "7_8_9": 8
     },
     "crossref_academic": {
-      "0_4_9": 146
+      "0_4_9": 150
     },
     "doab_oai": {
       "0_4_9": 107,
       "5_6_9": 1
     },
     "nep_report": {
-      "7_8_9": 4,
-      "0_4_9": 85,
-      "5_6_9": 11
+      "7_8_9": 5,
+      "0_4_9": 90,
+      "5_6_9": 13
     }
   },
   "by_type": {
@@ -40,21 +40,24 @@
       "5_6_9": 1
     },
     "chapter": {
-      "0_4_9": 130,
+      "0_4_9": 132,
       "5_6_9": 3
     },
     "edition_translation": {
-      "0_4_9": 17
+      "0_4_9": 18
     },
     "paper": {
-      "7_8_9": 4,
-      "0_4_9": 398,
-      "5_6_9": 15
+      "7_8_9": 7,
+      "0_4_9": 595,
+      "5_6_9": 21
     },
     "report": {
-      "0_4_9": 569,
-      "5_6_9": 12,
-      "7_8_9": 7
+      "0_4_9": 584,
+      "5_6_9": 14,
+      "7_8_9": 6
+    },
+    "special_issue": {
+      "0_4_9": 1
     },
     "thesis": {
       "0_4_9": 11
@@ -62,36 +65,37 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 344,
-      "thematic_rejected": 136,
-      "thematic_review": 149,
-      "access_verified": 135,
-      "thematic_auto": 59,
-      "publishable": 4
+      "discovered": 356,
+      "thematic_rejected": 138,
+      "thematic_review": 157,
+      "access_verified": 137,
+      "thematic_auto": 61,
+      "publishable": 2
     },
     "clacso-repository-oai": {
-      "discovered": 253,
-      "thematic_rejected": 145,
-      "oa_evidence": 253,
-      "access_verified": 79,
+      "discovered": 255,
+      "thematic_rejected": 146,
+      "oa_evidence": 255,
+      "access_verified": 80,
       "thematic_review": 78,
-      "thematic_auto": 29,
-      "publishable": 3,
+      "thematic_auto": 30,
+      "publishable": 4,
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 146,
-      "thematic_rejected": 83,
+      "discovered": 150,
+      "thematic_rejected": 87,
       "thematic_review": 35,
       "thematic_auto": 28,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
-      "discovered": 323,
-      "thematic_rejected": 299,
-      "thematic_review": 20,
-      "access_verified": 36,
-      "thematic_auto": 4
+      "discovered": 523,
+      "thematic_rejected": 467,
+      "thematic_review": 44,
+      "access_verified": 57,
+      "thematic_auto": 12,
+      "publishable": 2
     },
     "doab-economics": {
       "discovered": 108,
@@ -106,10 +110,10 @@
       "thematic_rejected": 1
     },
     "nep-ecm": {
-      "discovered": 17,
-      "thematic_rejected": 11,
-      "access_verified": 9,
-      "oa_evidence": 9,
+      "discovered": 19,
+      "thematic_rejected": 13,
+      "access_verified": 10,
+      "oa_evidence": 10,
       "thematic_auto": 2,
       "thematic_review": 4,
       "publishable": 1
@@ -133,12 +137,13 @@
       "thematic_auto": 1
     },
     "nep-inv": {
-      "discovered": 14,
+      "discovered": 15,
       "thematic_rejected": 8,
-      "access_verified": 6,
-      "oa_evidence": 6,
+      "access_verified": 7,
+      "oa_evidence": 7,
       "thematic_review": 5,
-      "thematic_auto": 1
+      "thematic_auto": 2,
+      "publishable": 1
     },
     "nep-lam": {
       "discovered": 2,
@@ -148,8 +153,8 @@
       "thematic_review": 1
     },
     "nep-lma": {
-      "discovered": 12,
-      "thematic_rejected": 8,
+      "discovered": 13,
+      "thematic_rejected": 9,
       "thematic_auto": 3,
       "thematic_review": 1,
       "access_verified": 1,
@@ -160,19 +165,19 @@
       "thematic_review": 1
     },
     "nep-mac": {
-      "discovered": 13,
+      "discovered": 14,
       "thematic_review": 6,
       "access_verified": 8,
       "oa_evidence": 8,
       "thematic_auto": 3,
       "publishable": 1,
-      "thematic_rejected": 4
+      "thematic_rejected": 5
     },
     "nep-mon": {
-      "discovered": 14,
-      "thematic_auto": 10,
-      "access_verified": 12,
-      "oa_evidence": 12,
+      "discovered": 16,
+      "thematic_auto": 12,
+      "access_verified": 14,
+      "oa_evidence": 14,
       "thematic_rejected": 2,
       "thematic_review": 2
     },
@@ -193,16 +198,16 @@
       "thematic_rejected": 1
     },
     "nep-tid": {
-      "discovered": 3,
-      "thematic_auto": 1,
+      "discovered": 4,
+      "thematic_auto": 2,
       "thematic_review": 1,
       "thematic_rejected": 1
     }
   },
   "health": {
-    "oa_pending": 953,
-    "repec_metadata_pending": 281,
-    "publishable": 11,
+    "oa_pending": 1151,
+    "repec_metadata_pending": 336,
+    "publishable": 13,
     "pluralist_rescues_total": 3
   },
   "calibration_sample": {
@@ -271,6 +276,32 @@
         "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "30",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=capitalismo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=capitalismo,poder;internacional-latinoamerica=américa latina,caribe,sur global",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-3F464B55DE05416B",
+        "title": "Perfil dos Pós-Graduandos em Ciências Contábeis no Brasil: qual a motivação dos estudantes?",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "7.0",
+        "decision": "PUBLISHABLE",
+        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,brasil;economia-politica-instituciones=institutions",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-6D22DC5D60F21071",
+        "title": "La voz de los trabajadores : prensa obrera y prensa militante en América Latina",
+        "source": "clacso-repository-oai",
+        "type": "report",
+        "score": "7.0",
+        "decision": "PUBLISHABLE",
+        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina;trabajo-distribucion-bienestar=trabajo",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
       },
@@ -388,6 +419,45 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;trabajo-distribucion-bienestar=distribución",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-6DB347106E68FEB4",
+        "title": "Las mujeres en el mercado laboral de los oficios de la construcción en la Zona Metropolitana del Valle de México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=labor",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-AEE3B12FF888FAE2",
+        "title": "Adesão voluntária aos padrões SASB e reporte de sustentabilidade no setor elétrico brasileiro",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "42",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica,finanzas-sector-publico;anclas=financial;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=brasil;finanzas-sector-publico=financial",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-DA59208A586A94A3",
+        "title": "Princípios contábeis e características qualitativas da informação no Brasil: conflitos e evolução teórica",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "31",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=financial",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -511,6 +581,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-00DCD38ED921FED7",
+        "title": "Estudio-grisúmetro (nuevo aparato industrial para el ensayo de los gases combustibles): Memorias y notas presentadas a la sociedad",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-00EAA55A29ECAC79",
         "title": "Incentivos fiscales a la exportación = Fiscal incentives for export",
         "source": "cepal-oai-publications",
@@ -613,6 +696,19 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_OA_UNCHECKED",
         "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-02F8D24E8F4BF041",
+        "title": "La transformación del lenguaje y la comunicación en la sociedad contemporánea a través del uso de herramientas digitales",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "3",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
       },
       {
         "candidate_id": "CAND-034B66C2BB28FA4D",
@@ -771,8 +867,8 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-070D6C10A9B66C08",
-        "title": "Situaciones comunicativas desarrolladoras: el debate y el taller pedagógico",
+        "candidate_id": "CAND-06FEDEDCDF32CD92",
+        "title": "Cuentacuentos y recursos de expresión plástica para animación a la lectura: acercamiento a la obra de H. CH. Andersen",
         "source": "dialnet-articles-oai",
         "type": "paper",
         "score": "0.0",
@@ -782,32 +878,6 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_UNCHECKED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-077D88177714E4F4",
-        "title": "Ciencia, tecnología, innovación, extensionismo tecnológico y emprendimiento",
-        "source": "cepal-oai-publications",
-        "type": "chapter",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_UNCHECKED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-0819E20EE6E98F46",
-        "title": "Cash or Card? Evidence from a Large‐Scale Field Experiment to Increase Consumers' Debit Card Use",
-        "source": "nep-mon",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
       }
     ],
     "borderline": [
@@ -836,6 +906,19 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,peru,perú;economia-politica-instituciones=institutions",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-375B6CA4CC0F473F",
+        "title": "Gestión de las transformaciones en una era de rupturas",
+        "source": "cepal-oai-publications",
+        "type": "report",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=1.0;freshness=publication_date;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=economía política",
+        "relevance_score": "65",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economía,económica,economía política,macroeconomía,desigualdad;pluralismo_rescate=no;senales_pluralistas=economía política;economia-politica-instituciones=economía política,instituciones;macroeconomia-dinero=macroeconomía;historia-pensamiento-metodologia=economía política;internacional-latinoamerica=américa latina,caribe",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
       },
       {
         "candidate_id": "CAND-5752DB8D0E7EF343",
@@ -890,6 +973,19 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-8CA2BDB916FA75D1",
+        "title": "Managing Transformations in an Era of Ruptures",
+        "source": "cepal-oai-publications",
+        "type": "report",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=1.0;freshness=publication_date;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=political economy",
+        "relevance_score": "74",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar,finanzas-sector-publico;anclas=economic,economy,political economy,macroeconomics,inequality;pluralismo_rescate=no;senales_pluralistas=political economy;economia-politica-instituciones=political economy,institutions;macroeconomia-dinero=macroeconomics;historia-pensamiento-metodologia=political economy;internacional-latinoamerica=latin america,caribbean",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-F91D35DA4DA27D7F",
         "title": "Viajes anómicos",
         "source": "clacso-repository-oai",
@@ -901,6 +997,19 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=poder;trabajo-distribucion-bienestar=desigualdad",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-00E6E1A8EDF06179",
+        "title": "Regulação, interesses e dupla divulgação: distorções informacionais nas empresas elétricas brasileiras",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=0.0;H=1.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,historia-pensamiento-metodologia;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=economic theory",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economic,economic theory;pluralismo_rescate=no;senales_pluralistas=economic theory;economia-politica-instituciones=power;historia-pensamiento-metodologia=economic theory",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
       },
       {
         "candidate_id": "CAND-0286444C0D1D3E6C",
@@ -1059,6 +1168,19 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-6DB347106E68FEB4",
+        "title": "Las mujeres en el mercado laboral de los oficios de la construcción en la Zona Metropolitana del Valle de México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=labor",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-72B4E594060CDBE7",
         "title": "Revisiting the Rules-versus-Discretion Debate: Forecasting Evidence from the Bank of England, 1870-1913",
         "source": "nep-mon",
@@ -1072,73 +1194,34 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
-        "candidate_id": "CAND-94C70E357DED3388",
-        "title": "Condiciones laborales : un análisis político-epistémico desde el trabajo social emancipador",
-        "source": "clacso-repository-oai",
-        "type": "report",
+        "candidate_id": "CAND-76FB52C0069E7163",
+        "title": "The implications of AI for monetary policy: a first assessment",
+        "source": "nep-mon",
+        "type": "paper",
         "score": "6.0",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=publication_date;areas=trabajo-distribucion-bienestar,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,economia-politica-instituciones;anclas=economía,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=trabajo;economia-politica-instituciones=poder",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "33",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,finanzas-sector-publico;anclas=macroeconomic,monetary,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;macroeconomia-dinero=macroeconomic,monetary;finanzas-sector-publico=financial",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-F22CA34C1C002BD1",
-        "title": "United States-Latin America and the Caribbean Trade Developments 2026",
-        "source": "cepal-oai-publications",
-        "type": "report",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,macroeconomia-dinero;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,macroeconomia-dinero;anclas=economic,monetary,trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin america,mexico,caribbean,trade;macroeconomia-dinero=monetary",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-59000C8A1A78ECCE",
-        "title": "El desafío de la desigualdad en América Latina y el papel del Estado",
-        "source": "cepal-oai-publications",
-        "type": "chapter",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "36",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina;trabajo-distribucion-bienestar=desigualdad",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-60476F61D29AA517",
-        "title": "Usos problemáticos de dispositivos digitales en la infancia y adolescencia en América Latina: desigualdad, bienestar y apoyo familia",
-        "source": "cepal-oai-publications",
-        "type": "report",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "36",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina;trabajo-distribucion-bienestar=desigualdad,bienestar",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-B5E1157ECD5F4BF8",
-        "title": "El triángulo de la desigualdad en los mercados laborales de América Latina",
-        "source": "cepal-oai-publications",
-        "type": "chapter",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "36",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina;trabajo-distribucion-bienestar=desigualdad",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
       }
     ]
   },
   "top_candidates": [
+    {
+      "candidate_id": "CAND-7A03363DFE25F515",
+      "title": "Regenerative Capital Theory: Beyond Debt, Equity, and Grants",
+      "source": "nep-inv",
+      "type": "paper",
+      "score": "8.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=2.0;freshness=bounded_stream_detection;areas=finanzas-sector-publico,economia-politica-instituciones,historia-pensamiento-metodologia;plural_explicit=institutional economics;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "46",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=finanzas-sector-publico,economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economics,economic,economy,finance,financial;pluralismo_rescate=no;senales_pluralistas=institutional economics;finanzas-sector-publico=finance,financial,debt,fiscal;economia-politica-instituciones=institutions,institutional economics,class;historia-pensamiento-metodologia=institutional economics",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "VERIFICADO_FUENTE"
+    },
     {
       "candidate_id": "CAND-00667A602648E2A3",
       "title": "From the Point to Chaos: The Evolution of the Concept of Equilibrium in Economic Theory",
@@ -1205,34 +1288,8 @@
       "oa_status": "VERIFICADO_FUENTE"
     },
     {
-      "candidate_id": "CAND-375B6CA4CC0F473F",
-      "title": "Gestión de las transformaciones en una era de rupturas",
-      "source": "cepal-oai-publications",
-      "type": "report",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=1.0;freshness=publication_date;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=economía política",
-      "relevance_score": "65",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economía,económica,economía política,macroeconomía,desigualdad;pluralismo_rescate=no;senales_pluralistas=economía política;economia-politica-instituciones=economía política,instituciones;macroeconomia-dinero=macroeconomía;historia-pensamiento-metodologia=economía política;internacional-latinoamerica=américa latina,caribe",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
       "candidate_id": "CAND-40814FAA48E85787",
       "title": "Managing Transformations in an Era of Ruptures. Summary",
-      "source": "cepal-oai-publications",
-      "type": "report",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=1.0;freshness=publication_date;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=political economy",
-      "relevance_score": "74",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar,finanzas-sector-publico;anclas=economic,economy,political economy,macroeconomics,inequality;pluralismo_rescate=no;senales_pluralistas=political economy;economia-politica-instituciones=political economy,institutions;macroeconomia-dinero=macroeconomics;historia-pensamiento-metodologia=political economy;internacional-latinoamerica=latin america,caribbean",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-8CA2BDB916FA75D1",
-      "title": "Managing Transformations in an Era of Ruptures",
       "source": "cepal-oai-publications",
       "type": "report",
       "score": "7.0",
@@ -1283,17 +1340,30 @@
       "oa_status": "VERIFICADO_FUENTE"
     },
     {
-      "candidate_id": "CAND-21AE46114119E6BE",
-      "title": "Desafíos y limitaciones en la implementación del etiquetado de alimentos transgénicos en el Perú",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "6.5",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "34",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,peru,perú;economia-politica-instituciones=institutions",
+      "candidate_id": "CAND-151A8608BE35449E",
+      "title": "El género hace al trabajo: aportes de la economía feminista a la sociología de las relaciones laborales",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=0.0;R=0.0;H=2.0;freshness=bounded_stream_detection;areas=historia-pensamiento-metodologia,trabajo-distribucion-bienestar,economia-politica-instituciones;plural_explicit=feminist economics,economía feminista;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "48",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=historia-pensamiento-metodologia,trabajo-distribucion-bienestar,economia-politica-instituciones;anclas=economics,capitalism,economía,trabajo;pluralismo_rescate=no;senales_pluralistas=feminist economics,economía feminista;historia-pensamiento-metodologia=feminist economics,economía feminista;trabajo-distribucion-bienestar=labor,trabajo;economia-politica-instituciones=capitalism",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "VERIFICADO_FUENTE"
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-3F464B55DE05416B",
+      "title": "Perfil dos Pós-Graduandos em Ciências Contábeis no Brasil: qual a motivação dos estudantes?",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "34",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,brasil;economia-politica-instituciones=institutions",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
     }
   ]
 }
