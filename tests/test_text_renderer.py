@@ -30,6 +30,7 @@ class UnifiedTextRendererTests(unittest.TestCase):
             "convocatoria_evento": {"title":"Seminario","organizer":"CLEP","date_or_deadline":"2026-10-20","access_url":"https://example.org/a"},
             "video": {"title":"Lecture","speaker_or_organization":"A. Economist","access_url":"https://example.org/v"},
             "recurso": {"title":"Open Resource","source":"Example Institution","access_url":"https://example.org/x"},
+            "anuncio_institucional": {"title":"Memoria institucional","editorial_text":"Texto editorial humano y factual.","access_url":"https://example.org/memoria"},
         }
 
     def test_all_declared_types_render(self):

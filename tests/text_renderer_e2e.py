@@ -31,6 +31,8 @@ def candidate(kind):
         base.update({"organizer":"CLEP","date_or_deadline":"2026-10-20"})
     elif kind == "video":
         base.update({"speaker_or_organization":"A. Economista"})
+    elif kind == "anuncio_institucional":
+        base["editorial_text"] = "Texto editorial humano aprobado para el anuncio institucional."
     elif kind == "recurso":
         pass
     elif kind == "edition_translation":
@@ -43,6 +45,7 @@ def main():
     expected = {
         "paper","book","chapter","report","policy_brief","special_issue","thesis",
         "edition_translation","dataset_grafica","convocatoria_evento","video","recurso",
+        "anuncio_institucional",
     }
     assert kinds == expected, (kinds, expected)
 
@@ -53,12 +56,17 @@ def main():
         meta.update(text_context(row))
         result = render_result(kind, meta)
         assert result.content_type == kind, result
-        assert result.text_method == "deterministic_template", result
+        expected_method = "human_editorial" if kind == "anuncio_institucional" else "deterministic_template"
+        assert result.text_method == expected_method, result
         assert result.text_status == "VERIFIED", result
         assert result.text_template, result
         assert result.text_template_version >= 1, result
         assert result.post_text, result
-        assert result.editorial_description == row["summary"], result
+        if kind == "anuncio_institucional":
+            assert result.post_text == row["editorial_text"], result
+            assert result.editorial_description == row["editorial_text"], result
+        else:
+            assert result.editorial_description == row["summary"], result
         assert result.translation["present"] is False, result
         outputs[kind] = result.post_text
 

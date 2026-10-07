@@ -42,6 +42,7 @@ CONTENT_TYPE_TO_OPERATIONAL = {
     "CALL": "convocatoria_evento",
     "VIDEO": "video",
     "RESOURCE": "recurso",
+    "INSTITUTIONAL": "anuncio_institucional",
 }
 
 DEFAULT_FIELDS = [
@@ -52,6 +53,7 @@ DEFAULT_FIELDS = [
     "oa_status", "access_status", "flow_type", "origin", "request_schema_version",
     "request_file", "indicator_or_dataset", "geography", "reference_period",
     "value_or_change", "organizer", "date_or_deadline", "speaker_or_organization",
+    "editorial_text", "priority_mode", "publish_at",
 ]
 
 
@@ -85,6 +87,13 @@ def canonical_request(raw: Mapping[str, Any], request_file: str = "") -> dict[st
     if not _https(url):
         raise SchemaError("solicitud ad hoc requiere access_url/source_url HTTPS")
 
+    priority_mode = clean(raw.get("priority_mode")).upper()
+    publish_at = clean(raw.get("publish_at"))
+    if priority_mode and priority_mode != "URGENT":
+        raise SchemaError(f"priority_mode ad hoc no soportado: {priority_mode!r}")
+    if priority_mode == "URGENT" and not publish_at:
+        raise SchemaError("solicitud URGENT requiere publish_at")
+
     candidate_id = clean(raw.get("candidate_id")) or deterministic_candidate_id(title, url)
     row: dict[str, Any] = dict(raw)
     row.update(
@@ -103,6 +112,9 @@ def canonical_request(raw: Mapping[str, Any], request_file: str = "") -> dict[st
             "rights_status": clean(raw.get("rights_status")) or "UNKNOWN",
             "source_url": clean(raw.get("source_url")) or url,
             "access_url": url,
+            "editorial_text": clean(raw.get("editorial_text")),
+            "priority_mode": priority_mode,
+            "publish_at": publish_at,
         }
     )
     if request_file:
@@ -158,6 +170,9 @@ def operational_row(request: Mapping[str, Any]) -> dict[str, str]:
         "organizer": clean(request.get("organizer")),
         "date_or_deadline": clean(request.get("date_or_deadline")),
         "speaker_or_organization": clean(request.get("speaker_or_organization")),
+        "editorial_text": clean(request.get("editorial_text")),
+        "priority_mode": clean(request.get("priority_mode")).upper(),
+        "publish_at": clean(request.get("publish_at")),
     }
 
 
