@@ -30,7 +30,6 @@ jobs:
 
       - name: Ingest and prepare current content
         run: |
-          python scripts/editorial/migrar_nep_legacy.py
           python scripts/editorial/ingerir_feeds.py
           python scripts/editorial/ingerir_nep.py
           python scripts/editorial/enriquecer_repec.py
