@@ -4,12 +4,12 @@
     "110527044555541_1389764566655103": {
       "status": "SIN_IDENTIFICAR",
       "title": "PAPER ABIERTO · CLEP",
-      "last_checked": "2026-10-07T19:04:20.641606+00:00"
+      "last_checked": "2026-10-08T19:00:17.448544+00:00"
     },
     "110527044555541_1381295400835353": {
       "status": "SIN_IDENTIFICAR",
       "title": "Título: Tâtonnement and Price Setting in General Equilibrium",
-      "last_checked": "2026-10-07T19:04:31.322251+00:00"
+      "last_checked": "2026-10-08T19:00:28.398319+00:00"
     },
     "110527044555541_1381126874185539": {
       "status": "SIN_IDENTIFICAR",
@@ -54,35 +54,45 @@
     "110527044555541_1390540703244156": {
       "status": "SIN_IDENTIFICAR",
       "title": "INFORME ABIERTO · CLEP",
-      "last_checked": "2026-10-07T19:03:47.760115+00:00"
+      "last_checked": "2026-10-08T18:59:44.328225+00:00"
     },
     "110527044555541_1389764843321742": {
       "status": "SIN_IDENTIFICAR",
       "title": "LIBRO ABIERTO · CLEP",
-      "last_checked": "2026-10-07T19:03:58.551801+00:00"
+      "last_checked": "2026-10-08T18:59:55.121426+00:00"
     },
     "110527044555541_1389764649988428": {
       "status": "SIN_IDENTIFICAR",
       "title": "PAPER ABIERTO · CLEP",
-      "last_checked": "2026-10-07T19:04:09.145882+00:00"
+      "last_checked": "2026-10-08T19:00:06.655832+00:00"
     },
     "110527044555541_1390540883244138": {
       "status": "SIN_IDENTIFICAR",
       "title": "PAPER ABIERTO · CLEP",
-      "last_checked": "2026-10-07T19:03:26.468304+00:00"
+      "last_checked": "2026-10-08T18:59:22.570375+00:00"
     },
     "110527044555541_1390540789910814": {
       "status": "SIN_IDENTIFICAR",
       "title": "INFORME ABIERTO · CLEP",
-      "last_checked": "2026-10-07T19:03:37.140493+00:00"
+      "last_checked": "2026-10-08T18:59:33.741233+00:00"
     },
     "110527044555541_1392350626396497": {
       "status": "SIN_IDENTIFICAR",
       "title": "PAPER ABIERTO · CLEP",
-      "last_checked": "2026-10-07T19:03:15.879273+00:00"
+      "last_checked": "2026-10-08T18:59:11.776037+00:00"
+    },
+    "110527044555541_1393105989654294": {
+      "status": "SIN_IDENTIFICAR",
+      "title": "INFORME ABIERTO · CLEP",
+      "last_checked": "2026-10-08T18:58:50.153276+00:00"
+    },
+    "110527044555541_1392351149729778": {
+      "status": "SIN_IDENTIFICAR",
+      "title": "INFORME ABIERTO · CLEP",
+      "last_checked": "2026-10-08T18:59:00.949114+00:00"
     }
   },
-  "last_run": "2026-10-07T19:04:52.592383+00:00",
+  "last_run": "2026-10-08T19:00:28.398461+00:00",
   "last_run_status": "OK",
   "last_run_error": "",
   "last_run_searched": 10,
