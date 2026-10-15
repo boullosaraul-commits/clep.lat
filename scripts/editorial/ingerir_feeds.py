@@ -5,6 +5,7 @@ No publica en redes, no usa LLM y no modifica cola.csv.
 """
 import csv, hashlib, html, json, re, sys
 import urllib.request
+import tempfile
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
@@ -65,8 +66,13 @@ def entries(root):
 def main():
     cfg=json.loads(CFG.read_text(encoding="utf-8"))
     existing=[]
+    fields=list(FIELDS)
     if OUT.exists():
-        with OUT.open(encoding="utf-8",newline="") as f: existing=list(csv.DictReader(f))
+        with OUT.open(encoding="utf-8",newline="") as f:
+            reader=csv.DictReader(f)
+            existing=list(reader)
+            fields=list(reader.fieldnames or [])
+        fields.extend(field for field in FIELDS if field not in fields)
     seen={(r["source_id"],r["source_item_id"]) for r in existing}
     dedupes={r["dedupe_key"] for r in existing if r.get("dedupe_key")}
     added=0
@@ -100,8 +106,17 @@ def main():
             })
             existing.append(row); seen.add(pair); dedupes.add(d); added+=1
 
-    with OUT.open("w",encoding="utf-8",newline="") as f:
-        w=csv.DictWriter(f,fieldnames=FIELDS); w.writeheader(); w.writerows(existing)
+    # Preserve extended schemas and leave the original intact on serialization failure.
+    temporary=None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", newline="",
+                                         dir=OUT.parent, delete=False) as f:
+            temporary=Path(f.name)
+            w=csv.DictWriter(f,fieldnames=fields); w.writeheader(); w.writerows(existing)
+        temporary.replace(OUT)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
     print(f"Candidatos nuevos: {added}")
     print(f"Candidatos totales: {len(existing)}")
 

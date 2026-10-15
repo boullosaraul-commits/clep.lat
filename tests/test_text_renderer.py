@@ -91,18 +91,20 @@ class UnifiedTextRendererTests(unittest.TestCase):
         self.assertEqual(result.editorial_description, "Resumen oficial en español.")
         self.assertFalse(result.translation["present"])
 
-    def test_non_spanish_summary_without_translation_uses_factual_fallback(self):
+    def test_english_paper_without_translation_fails_closed(self):
         data = self.samples()["paper"].copy()
         data.update({"source_summary":"Official English abstract.","source_language":"en"})
-        result = render_result("paper", data)
-        self.assertIn("paper: A Monetary Paper", result.editorial_description)
-        self.assertNotEqual(result.editorial_description, data["source_summary"])
+        with self.assertRaises(TextRenderError) as ctx:
+            render_result("paper", data)
+        self.assertEqual(ctx.exception.code, "INSUFFICIENT_METADATA")
+        self.assertEqual(ctx.exception.field, "source_summary_es")
 
     def test_verified_non_generative_translation_is_accepted(self):
         data = self.samples()["paper"].copy()
         data.update({
             "source_summary":"Official English abstract.",
             "source_summary_es":"Resumen traducido automáticamente.",
+            "title_es":"Un artículo monetario",
             "source_language":"en",
             "target_language":"es",
             "translation_status":"VERIFIED",
@@ -118,7 +120,8 @@ class UnifiedTextRendererTests(unittest.TestCase):
 
     def test_translation_without_provenance_fails_closed(self):
         data = self.samples()["paper"].copy()
-        data.update({"source_summary_es":"Resumen traducido.","source_language":"en"})
+        data.update({"source_summary_es":"Resumen traducido.","source_language":"en",
+                     "title_es":"Un artículo monetario", "source_summary":"Official abstract."})
         with self.assertRaises(TextRenderError) as ctx:
             render_result("paper", data)
         self.assertEqual(ctx.exception.code, "TRANSLATION_PROVENANCE_MISSING")
@@ -127,6 +130,8 @@ class UnifiedTextRendererTests(unittest.TestCase):
         data = self.samples()["paper"].copy()
         data.update({
             "source_summary_es":"Resumen traducido.",
+            "source_summary":"Official abstract.",
+            "title_es":"Un artículo monetario",
             "source_language":"en",
             "target_language":"es",
             "translation_status":"VERIFIED",

@@ -260,6 +260,7 @@ def text_context(row):
             or row.get("abstract_es")
             or row.get("description_es")
         ),
+        "title_es": clean(row.get("title_es")),
         "source_language": clean(row.get("source_language") or row.get("language")),
         "target_language": clean(row.get("target_language") or "es"),
         "translation_status": clean(row.get("translation_status")),
