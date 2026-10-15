@@ -16,6 +16,7 @@ LAYERS = {
     },
     "network": {
         "editorial-network-smoke.yml",
+        "paper-translation.yml",
         "editorial-ingest.yml",
         "historical-recovery.yml",
     },

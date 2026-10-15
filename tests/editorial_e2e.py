@@ -10,6 +10,8 @@ PY=sys.executable
 CAND_FIELDS=[
  "candidate_id","source_id","source_type","source_name","title","authors","summary","content_type",
  "publication_year","published_at","detected_at","access_url","source_url","access_status","oa_status",
+ "title_es","source_summary_es","translation_status","translation_method","translation_engine",
+ "translation_engine_version","translation_disclosure","source_language","target_language",
  "status","language","venue","notes","relevance_score","relevance_reasons","area_clep","priority","doi"
 ]
 
@@ -41,6 +43,12 @@ def main():
             "source_name":"NEP History and Methodology",
             "title":"From the Point to Chaos: The Evolution of the Concept of Equilibrium in Economic Theory",
             "authors":"C. Author",
+            "title_es":"Del punto al caos: evolución del equilibrio",
+            "source_summary_es":"Una historia de la teoría económica que examina el concepto de equilibrio y los cambios metodológicos.",
+            "translation_status":"VERIFIED","translation_method":"machine_translation",
+            "translation_engine":"argos-translate","translation_engine_version":"1.9",
+            "translation_disclosure":"ES · Traducción automática",
+            "source_language":"en","target_language":"es",
             "summary":"A history of economic theory examining the concept of equilibrium and changes in economic methodology.",
             "content_type":"paper","publication_year":"2026","published_at":"2026-10-02",
             "detected_at":"2026-10-03T10:00:00+00:00","access_url":"https://example.org/chaos.pdf",

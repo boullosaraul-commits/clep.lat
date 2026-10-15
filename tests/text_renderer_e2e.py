@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts/editorial"))
 
 from preparar_publicacion import meta_for, text_context
-from renderizar_texto import render_result, supported_content_types
+from renderizar_texto import TextRenderError, render_result, supported_content_types
 
 
 def candidate(kind):
@@ -50,7 +50,7 @@ def main():
     assert kinds == expected, (kinds, expected)
 
     outputs = {}
-    for kind in sorted(kinds):
+    for kind in sorted(kinds - {"anuncio_institucional"}):
         row = candidate(kind)
         meta = meta_for(kind, row)
         meta.update(text_context(row))
@@ -71,11 +71,18 @@ def main():
         outputs[kind] = result.post_text
 
     # Determinismo cruzando otra vez exactamente las mismas entradas.
-    for kind in sorted(kinds):
+    for kind in sorted(kinds - {"anuncio_institucional"}):
         row = candidate(kind)
         meta = meta_for(kind, row)
         meta.update(text_context(row))
         assert render_result(kind, meta).post_text == outputs[kind]
+
+    try:
+        meta_for("anuncio_institucional", candidate("anuncio_institucional"))
+    except TextRenderError as exc:
+        assert exc.code == "CONTENT_TYPE_UNSUPPORTED", exc
+    else:
+        raise AssertionError("Institutional announcements require the dedicated ad hoc flow")
 
     # Flujo traducido: la descripción editorial usa sólo traducción con provenance.
     row = candidate("paper")
@@ -84,6 +91,7 @@ def main():
         "source_language":"en",
         "summary":"Official English abstract.",
         "summary_es":"Resumen traducido automáticamente.",
+        "title_es":"Título traducido",
         "translation_status":"VERIFIED",
         "translation_method":"machine_translation",
         "translation_engine":"argos-translate",

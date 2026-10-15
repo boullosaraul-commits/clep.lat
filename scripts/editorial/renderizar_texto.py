@@ -82,7 +82,7 @@ def _paper_contract(data,source,translated):
     if not translated: missing.append("source_summary_es")
     if not clean(data.get("title_es")) and " — ES: " not in clean(data.get("title")): missing.append("title_es")
     if missing: raise TextRenderError("INSUFFICIENT_METADATA","paper en inglés requiere "+", ".join(missing),missing[0])
-    return f"Abstract (original):\n{source}\n\nResumen en español · traducción automática:\n{translated}\n\n"
+    return f"Abstract (original):\n{source}\nResumen en español · traducción automática:\n{translated}\n\n"
 
 def _render_template(kind,data,paper_abstract_block=""):
     templates,policy=_configs(); spec=templates.get("textos_cortos",{}).get(kind)
