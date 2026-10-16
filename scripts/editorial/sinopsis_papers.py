@@ -5,6 +5,8 @@ import hashlib
 import json
 import os
 import re
+import shutil
+import subprocess
 import tempfile
 import urllib.error
 import urllib.request
@@ -146,6 +148,29 @@ def apply_reviewed(rows, records):
     return count
 
 
+def write_previews(rows):
+    """Create inspectable replacements; never mutate existing Meta posts or queue rows."""
+    from generar_tarjeta_clep import render
+    media = ROOT / 'data/editorial/media'
+    media.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for row in rows:
+        if not valid_synopsis(row):
+            continue
+        digest = hashlib.sha256(json.dumps([row['sinopsis_es'], row.get('title_es'),
+            row.get('authors'), row.get('source_name')], ensure_ascii=False).encode()).hexdigest()[:16]
+        stem = media / ('paper-synopsis-' + digest)
+        svg = render({'title': row.get('title_es') or row.get('title'),
+            'meta': row.get('authors'), 'source': row.get('source_name') or row.get('source_id'),
+            'synopsis': row['sinopsis_es'], 'synopsis_method': row['synopsis_method']})
+        stem.with_suffix('.svg').write_text(svg, encoding='utf-8')
+        if shutil.which('rsvg-convert') and not stem.with_suffix('.png').exists():
+            subprocess.run(['rsvg-convert', '-o', str(stem.with_suffix('.png')),
+                            str(stem.with_suffix('.svg'))], check=True, timeout=30)
+        count += 1
+    return count
+
+
 def main():
     path = Path(os.getenv('CLEP_CANDIDATES_PATH', str(ROOT / 'data/editorial/candidatos.csv')))
     with path.open(encoding='utf-8', newline='') as stream:
@@ -161,6 +186,7 @@ def main():
     for field in FIELDS + ['title_es']:
         if field not in fields:
             fields.append(field)
+    print('Inspectable synopsis cards:', write_previews(rows))
     temporary = None
     try:
         with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', newline='', dir=path.parent, delete=False) as stream:

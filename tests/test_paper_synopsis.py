@@ -5,7 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts/editorial'))
-from sinopsis_papers import enrich, generate, valid_synopsis
+from sinopsis_papers import enrich, generate, valid_synopsis, write_previews
 from preparar_publicacion import meta_for, text_context
 from renderizar_texto import render_result
 from resolver_media import resolve_media
@@ -68,6 +68,21 @@ class SynopsisTests(unittest.TestCase):
         result=enrich([row],'key',generator=fail)
         self.assertEqual(result,{'generated':0,'extractive':1,'failed':1})
         self.assertEqual(row['synopsis_method'],'extractive_es')
+
+    def test_previews_materialize_without_queue_or_meta_writes(self):
+        import tempfile
+        row=self.row()
+        enrich([row],'key',generator=lambda *a: (
+            'El artículo estudia la política monetaria y el empleo utilizando un modelo teórico explícito.',
+            'Dinero y empleo',[row['summary']]))
+        with tempfile.TemporaryDirectory() as td:
+            with patch('sinopsis_papers.ROOT',Path(td)), patch('shutil.which',return_value=None):
+                self.assertEqual(write_previews([row]),1)
+                self.assertEqual(write_previews([row]),1)
+            assets=list(Path(td).rglob('*.svg'))
+            self.assertEqual(len(assets),1)
+            self.assertIn('Dinero y empleo',assets[0].read_text())
+            self.assertFalse(list(Path(td).rglob('cola.csv')))
 
     def test_card_receives_synopsis_instead_of_landing_capture(self):
         row=self.row();row['sinopsis_es']='Una sinopsis editorial basada en el resumen original y sin resultados inventados.'
