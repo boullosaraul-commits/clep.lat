@@ -41,7 +41,8 @@ jobs:
           python scripts/editorial/verificar_cola.py
       - name: Persist prepared content
         run: |
-          if git diff --quiet -- data/editorial; then exit 0; fi
+          git add data/editorial
+          if git diff --cached --quiet -- data/editorial; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/editorial
