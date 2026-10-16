@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-10-15T15:39:10+00:00",
-  "records": 2410,
-  "academic_records": 1922,
+  "generated_at": "2026-10-16T15:25:42+00:00",
+  "records": 2663,
+  "academic_records": 2186,
   "missing_editorial_score": 0,
   "buckets": {
-    "5_6_9": 55,
-    "0_4_9": 1859,
+    "5_6_9": 61,
+    "0_4_9": 2117,
     "7_8_9": 8
   },
   "decisions": {
-    "REVIEW": 55,
-    "INELIGIBLE": 142,
-    "THEMATIC_REJECTED": 1258,
-    "THEMATIC_REVIEW": 456,
+    "REVIEW": 61,
+    "INELIGIBLE": 149,
+    "THEMATIC_REJECTED": 1454,
+    "THEMATIC_REVIEW": 511,
     "PUBLISHABLE": 8,
     "ARCHIVE": 3
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 1387,
-      "5_6_9": 35,
+      "0_4_9": 1622,
+      "5_6_9": 41,
       "7_8_9": 7
     },
     "crossref_academic": {
-      "0_4_9": 242
+      "0_4_9": 254
     },
     "doab_oai": {
       "0_4_9": 123,
@@ -31,7 +31,7 @@
     },
     "nep_report": {
       "5_6_9": 19,
-      "0_4_9": 107,
+      "0_4_9": 118,
       "7_8_9": 1
     }
   },
@@ -41,18 +41,18 @@
       "5_6_9": 1
     },
     "chapter": {
-      "0_4_9": 192
+      "0_4_9": 200
     },
     "edition_translation": {
-      "0_4_9": 22
+      "0_4_9": 26
     },
     "paper": {
-      "5_6_9": 37,
-      "0_4_9": 803,
+      "5_6_9": 43,
+      "0_4_9": 1003,
       "7_8_9": 2
     },
     "report": {
-      "0_4_9": 701,
+      "0_4_9": 747,
       "5_6_9": 17,
       "7_8_9": 6
     },
@@ -65,35 +65,35 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 406,
-      "thematic_rejected": 168,
-      "thematic_review": 173,
-      "access_verified": 160,
-      "thematic_auto": 65
+      "discovered": 446,
+      "thematic_rejected": 181,
+      "thematic_review": 196,
+      "access_verified": 178,
+      "thematic_auto": 69
     },
     "clacso-repository-oai": {
-      "discovered": 294,
+      "discovered": 295,
       "thematic_rejected": 169,
-      "oa_evidence": 294,
-      "access_verified": 100,
-      "thematic_review": 87,
+      "oa_evidence": 295,
+      "access_verified": 103,
+      "thematic_review": 88,
       "thematic_auto": 37,
       "thematic_rescue": 1,
       "publishable": 6
     },
     "crossref-academic-novelties": {
-      "discovered": 242,
-      "thematic_rejected": 130,
-      "thematic_review": 76,
-      "thematic_auto": 36,
+      "discovered": 254,
+      "thematic_rejected": 136,
+      "thematic_review": 80,
+      "thematic_auto": 38,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
-      "discovered": 723,
-      "thematic_rejected": 628,
-      "thematic_review": 73,
-      "access_verified": 146,
-      "thematic_auto": 22,
+      "discovered": 923,
+      "thematic_rejected": 797,
+      "thematic_review": 98,
+      "access_verified": 180,
+      "thematic_auto": 28,
       "publishable": 1
     },
     "dialnet-theses-oai": {
@@ -115,17 +115,17 @@
       "thematic_rejected": 2
     },
     "nep-ecm": {
-      "discovered": 20,
-      "thematic_rejected": 14,
+      "discovered": 21,
+      "thematic_rejected": 15,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 2,
       "thematic_review": 4
     },
     "nep-his": {
-      "discovered": 16,
-      "thematic_auto": 7,
-      "thematic_rejected": 6,
+      "discovered": 18,
+      "thematic_auto": 8,
+      "thematic_rejected": 7,
       "access_verified": 3,
       "oa_evidence": 3,
       "thematic_review": 3
@@ -140,10 +140,10 @@
       "thematic_auto": 2
     },
     "nep-inv": {
-      "discovered": 17,
-      "thematic_rejected": 8,
-      "access_verified": 8,
-      "oa_evidence": 8,
+      "discovered": 20,
+      "thematic_rejected": 11,
+      "access_verified": 9,
+      "oa_evidence": 9,
       "thematic_review": 6,
       "thematic_auto": 3,
       "publishable": 1
@@ -164,24 +164,25 @@
       "oa_evidence": 1
     },
     "nep-ltv": {
-      "discovered": 1,
-      "thematic_review": 1
+      "discovered": 2,
+      "thematic_review": 1,
+      "thematic_rejected": 1
     },
     "nep-mac": {
-      "discovered": 15,
-      "thematic_review": 6,
-      "access_verified": 8,
-      "oa_evidence": 8,
+      "discovered": 17,
+      "thematic_review": 7,
+      "access_verified": 9,
+      "oa_evidence": 9,
       "thematic_auto": 3,
-      "thematic_rejected": 6
+      "thematic_rejected": 7
     },
     "nep-mon": {
-      "discovered": 21,
+      "discovered": 22,
       "thematic_auto": 16,
       "access_verified": 16,
       "oa_evidence": 16,
       "thematic_rejected": 2,
-      "thematic_review": 3
+      "thematic_review": 4
     },
     "nep-pke": {
       "discovered": 3,
@@ -199,15 +200,15 @@
       "thematic_rejected": 1
     },
     "nep-tid": {
-      "discovered": 4,
+      "discovered": 5,
       "thematic_auto": 2,
       "thematic_review": 1,
-      "thematic_rejected": 1
+      "thematic_rejected": 2
     }
   },
   "health": {
-    "oa_pending": 1435,
-    "repec_metadata_pending": 485,
+    "oa_pending": 1642,
+    "repec_metadata_pending": 474,
     "publishable": 8,
     "pluralist_rescues_total": 3
   },
@@ -515,6 +516,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-614CD288B1F014A3",
+        "title": "Nicole Garay entre Panamá, Colombia y Francia: redes literarias femeninas entre los siglos XIX y XX",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;economia-politica-instituciones=class",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-8D0516C2261F2417",
         "title": "The Spatial Dimension of Poverty Based on Unsatisfied Basic Needs in Ecuador: A Spatial Panel Approach from 2001 to 2022",
         "source": "dialnet-articles-oai",
@@ -524,19 +538,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=económica;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=poverty,desempleo,pobreza;internacional-latinoamerica=dependencia",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-9E5844A982AD971A",
-        "title": "La desigualdad económica a lo largo del ciclo de vida: aplicación del marco de las cuentas nacionales de inclusión en Costa Rica",
-        "source": "cepal-oai-publications",
-        "type": "report",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=publication_date;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=económica,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=empleo,desigualdad;internacional-latinoamerica=dependencia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -554,28 +555,28 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-D743696EB0344D61",
-        "title": "¿Quiénes asesoran a los ministros y subsecretarios en Chile?: Un análisis a los equipos de apoyo durante el gobierno del presidente Gabriel Boric Font 2022 – 2025",
+        "candidate_id": "CAND-CD45EA16226FA0EC",
+        "title": "Panorama de la diabetes tipo 2 en la ciudad de Mérida, Yucatán, México",
         "source": "dialnet-articles-oai",
         "type": "paper",
         "score": "6.0",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=chile;economia-politica-instituciones=power",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=trabajo",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-E239AFEFDAEFEAD7",
-        "title": "Posturas de la iglesia católica en el contexto de la emergencia indígena en chile y su contribución a los diálogos interculturales",
+        "candidate_id": "CAND-D11A4F9207D5EFF7",
+        "title": "Una historia de las relaciones contractuales del libro educativo: el pleito tipográfico entre Jacinto Núñez y el Estado chileno (1870-1882)",
         "source": "dialnet-articles-oai",
         "type": "paper",
         "score": "6.0",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "47",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=chile;economia-politica-instituciones=power;trabajo-distribucion-bienestar=inequality",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=desarrollo-estructura,internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "41",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=desarrollo-estructura,internacional-latinoamerica,finanzas-sector-publico;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;desarrollo-estructura=productive structure;internacional-latinoamerica=chile;finanzas-sector-publico=debt",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -597,6 +598,32 @@
       {
         "candidate_id": "CAND-0073D69FEBCC50C8",
         "title": "Los incunables de Antonio de Rocabertí, Conde de Zavellà, y Tomás de Rocabertí, Conde de Peralada, en la Biblioteca del Palacio de Peralada",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "3",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-009985607165D032",
+        "title": "La patria en verso: imaginarios nacionales en la prensa decimonónica. Sentido e intrahistoria de una oda a Isabel II (1845) de Juan María Capitán",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "3",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-009B7FAFD49C2D37",
+        "title": "De la práctica a la teoría: Salud mental y determinantes sociales",
         "source": "dialnet-articles-oai",
         "type": "paper",
         "score": "0.0",
@@ -777,6 +804,32 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-02FEFB088F80544B",
+        "title": "Un formulario procesal inédito de mediados del siglo XVIII: contribución a la historia del proceso en España en las postrimerías del Antiguo Régimen",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-033BB191FD1A1D6F",
+        "title": "Enseñar matemáticas con manipulativos: innovación metodológica para las aulas de educación primaria",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "3",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-034B66C2BB28FA4D",
         "title": "Procesos y metodologías participativas : reflexiones y experiencias para la transformación social",
         "source": "clacso-repository-oai",
@@ -852,58 +905,6 @@
         "relevance_score": "12",
         "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=finanzas-sector-publico;anclas=finance,public finance;pluralismo_rescate=no;senales_pluralistas=ninguna;finanzas-sector-publico=finance,public finance",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-04DA249E8A9D7160",
-        "title": "Türkiye’de Dijitalleşme ve Finansal Gelişmenin Gelir Dağılımına Etkisi: Ekonometrik Bir Analiz",
-        "source": "crossref-academic-novelties",
-        "type": "chapter",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-04EC4A56DCB8FF96",
-        "title": "Does Training on Future Data Pay? Look-Ahead Bias in Forecasting with Pretrained Models",
-        "source": "nep-inv",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "12",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=finanzas-sector-publico;anclas=economic,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;finanzas-sector-publico=financial",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-053EDDF4A4F882F6",
-        "title": "A protocol to perform systemic lipopolysacharide (lps) challenge in rats — ES: Un protocolo para realizar un desafío sistémico de lipopolysacharide (lpes) en ratas",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "0",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_UNCHECKED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-055FDD368D7C56A1",
-        "title": "Front Matter",
-        "source": "crossref-academic-novelties",
-        "type": "chapter",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "",
         "oa_status": "POR_VERIFICAR"
       }
     ],
@@ -1208,6 +1209,19 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-614CD288B1F014A3",
+        "title": "Nicole Garay entre Panamá, Colombia y Francia: redes literarias femeninas entre los siglos XIX y XX",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;economia-politica-instituciones=class",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-8D0516C2261F2417",
         "title": "The Spatial Dimension of Poverty Based on Unsatisfied Basic Needs in Ecuador: A Spatial Panel Approach from 2001 to 2022",
         "source": "dialnet-articles-oai",
@@ -1217,19 +1231,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=económica;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=poverty,desempleo,pobreza;internacional-latinoamerica=dependencia",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-9E5844A982AD971A",
-        "title": "La desigualdad económica a lo largo del ciclo de vida: aplicación del marco de las cuentas nacionales de inclusión en Costa Rica",
-        "source": "cepal-oai-publications",
-        "type": "report",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=publication_date;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=económica,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=empleo,desigualdad;internacional-latinoamerica=dependencia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
