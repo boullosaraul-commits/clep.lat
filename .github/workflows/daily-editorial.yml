@@ -29,6 +29,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
 
       - name: Ingest and prepare current content
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          CLEP_SYNOPSIS_MODEL: ${{ vars.CLEP_SYNOPSIS_MODEL || 'gpt-4.1-mini' }}
         run: |
           python scripts/editorial/ingerir_feeds.py
           python scripts/editorial/ingerir_nep.py
@@ -42,6 +45,7 @@ jobs:
           python scripts/editorial/verificar_oa.py
           python scripts/editorial/calcular_prioridad_editorial.py
           python scripts/editorial/auditar_prioridad.py
+          python scripts/editorial/sinopsis_papers.py
           python scripts/editorial/preparar_publicacion.py
           python scripts/editorial/actualizar_cuarentena.py
           python scripts/editorial/verificar_cola.py

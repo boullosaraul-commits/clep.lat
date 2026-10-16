@@ -35,6 +35,8 @@ def policy_fingerprint():
 
 def candidate_fingerprint(row):
     payload={k:str(row.get(k) or "") for k in CANDIDATE_FIELDS}
+    if row.get("sinopsis_es"):
+        payload.update({k:str(row.get(k) or "") for k in ["sinopsis_es","synopsis_source_hash","synopsis_method","title_es"]})
     return _digest([json.dumps(payload,sort_keys=True,ensure_ascii=False,separators=(",",":"))])
 
 def score(row):

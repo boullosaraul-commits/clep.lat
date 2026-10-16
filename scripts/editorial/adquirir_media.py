@@ -290,6 +290,8 @@ def _render_card(resolution: MediaResolution) -> AcquiredMedia:
     payload = resolution.acquisition_payload
     relative_path = str(payload.get("media_path") or resolution.media_path or "").strip()
     card_input = {
+        "synopsis": payload.get("synopsis"),
+        "synopsis_method": payload.get("synopsis_method"),
         "label": payload.get("label"),
         "title": payload.get("title"),
         "meta": payload.get("meta"),

@@ -17,7 +17,7 @@ from urllib.parse import urlparse
 
 RESOLVER_VERSION = 1
 CHART_RENDERER_VERSION = 1
-CARD_RENDERER_VERSION = 1
+CARD_RENDERER_VERSION = 2
 CAPTURE_POLICY_VERSION = 1
 
 MEDIA_STATUS_RESOLVED = "RESOLVED"
@@ -238,7 +238,7 @@ def _asset_path(candidate: dict[str, Any], mode: str, digest: str, suffix: str) 
 
 
 def factual_alt_text(method: str, candidate: dict[str, Any], explicit_alt: str = "") -> str:
-    title = clean(candidate.get("title") or candidate.get("indicator_or_dataset"))
+    title = clean(candidate.get("title_es") or candidate.get("title") or candidate.get("indicator_or_dataset"))
     if method == MEDIA_METHOD_OFFICIAL_IMAGE:
         return clean(explicit_alt) or title
     if method == MEDIA_METHOD_EXPLICIT_COVER:
@@ -413,6 +413,8 @@ def _resolve_explicit_thumbnail(candidate: dict[str, Any], attempts: tuple[Media
 
 def _resolve_official_landing_capture(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
     del attempts
+    if candidate.get("content_type") == "paper" and candidate.get("sinopsis_es"):
+        return StrategyResult(None, OUTCOME_NOT_APPLICABLE, "paper con sinopsis: tarjeta editorial legible")
     url = clean(candidate.get("official_landing_url") or candidate.get("source_url") or candidate.get("access_url"))
     if not url:
         return StrategyResult(None, OUTCOME_MISSING, "landing oficial ausente")
@@ -527,7 +529,7 @@ def _resolve_deterministic_chart(candidate: dict[str, Any], attempts: tuple[Medi
 def _resolve_deterministic_card(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
     del attempts
     content_type = clean(candidate.get("content_type") or "recurso")
-    title = clean(candidate.get("title") or candidate.get("indicator_or_dataset"))
+    title = clean(candidate.get("title_es") or candidate.get("title") or candidate.get("indicator_or_dataset"))
     if not title:
         return StrategyResult(None, OUTCOME_METADATA_MISSING, "tarjeta CLEP requiere título factual")
     source = _source_name(candidate)
@@ -550,6 +552,8 @@ def _resolve_deterministic_card(candidate: dict[str, Any], attempts: tuple[Media
     payload = {
         "kind": "deterministic_card",
         "renderer_version": CARD_RENDERER_VERSION,
+        "synopsis": clean(candidate.get("sinopsis_es")),
+        "synopsis_method": clean(candidate.get("synopsis_method")),
         "label": label,
         "title": title,
         "meta": metadata,

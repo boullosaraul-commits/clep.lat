@@ -29,6 +29,7 @@ from adquirir_media import MediaAcquisitionError, acquire_media
 from editorial_rules import check_media_validated, check_publishable
 from estado_editorial import QUEUE_DERIVED_FIELDS, candidate_fingerprint, policy_fingerprint
 from media_fallback_policy import acquisition_can_fallback, validation_can_fallback
+from sinopsis_papers import FIELDS as SYNOPSIS_FIELDS
 from renderizar_texto import TextRenderError, render_result
 from resolver_media import ALLOWED_MEDIA_METHODS, MediaResolutionError, resolve_media
 from validar_media import validate_media
@@ -41,7 +42,7 @@ Q = Path(os.getenv("CLEP_QUEUE_PATH", str(ROOT / "data/editorial/cola.csv"))).re
 PREPARATION_VERSION = 1
 SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
 
-TEXT_PROVENANCE_FIELDS = (
+TEXT_PROVENANCE_FIELDS = (*SYNOPSIS_FIELDS,
     "source_summary",
     "source_summary_es",
     "editorial_description",
@@ -248,6 +249,8 @@ def access(row):
 def text_context(row):
     """Adapta provenance textual; no decide plantilla, resumen ni fallback."""
     return {
+        **{field: row.get(field, "") for field in SYNOPSIS_FIELDS},
+        "title_original": row.get("title_original") or row.get("title", ""),
         "source_summary": clean(
             row.get("source_summary")
             or row.get("summary")
@@ -641,6 +644,8 @@ def _assemble_queue_row(
             "licencia": clean(
                 (re.search(r"license_url=([^|;\\s]+)", row.get("notes") or "") or [None, ""])[1]
             ),
+            **{field: row.get(field, "") for field in SYNOPSIS_FIELDS},
+            "sinopsis_es": text_result.editorial_description if kind=="paper" else row.get("sinopsis_es", ""),
             "ficha_es": text_result.post_text,
             "source_summary": text_result.source_summary,
             "source_summary_es": text_result.source_summary_es,
@@ -649,7 +654,7 @@ def _assemble_queue_row(
                 f"Origen {source_name(row)}; relevance_score={row.get('relevance_score') or '0'}; "
                 f"editorial_score={row.get('editorial_score') or '0'}; "
                 f"editorial_decision={row.get('editorial_decision') or ''}; "
-                f"venue={clean(row.get('venue'))}; preparación atómica determinista sin IA generativa."
+                f"venue={clean(row.get('venue'))}; preparación atómica con provenance textual y visual."
             ),
             "text_method": text_result.text_method,
             "text_template": text_result.text_template,

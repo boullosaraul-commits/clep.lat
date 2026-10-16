@@ -1,0 +1,50 @@
+name: CLEP paper synopses and visual preparation
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/paper-synopsis.yml'
+      - 'scripts/editorial/sinopsis_papers.py'
+  schedule:
+    - cron: '35 11 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: clep-editorial
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image rasterizer
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
+      - name: Generate source-grounded synopses
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          CLEP_SYNOPSIS_MODEL: ${{ vars.CLEP_SYNOPSIS_MODEL || 'gpt-4.1-mini' }}
+          CLEP_SYNOPSIS_LIMIT: '12'
+        run: python scripts/editorial/sinopsis_papers.py
+      - name: Prepare unpublished items and validate queue
+        env:
+          CLEP_SCREENSHOT_LIMIT: '0'
+        run: |
+          python scripts/editorial/preparar_publicacion.py
+          python scripts/editorial/verificar_cola.py
+      - name: Persist prepared content
+        run: |
+          if git diff --quiet -- data/editorial; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/editorial
+          git commit -m 'editorial: prepare paper synopses and visual assets'
+          git pull --rebase origin main
+          git push

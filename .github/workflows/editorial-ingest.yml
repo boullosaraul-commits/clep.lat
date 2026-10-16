@@ -51,6 +51,11 @@ jobs:
           python scripts/editorial/calcular_prioridad_editorial.py
           python scripts/editorial/auditar_prioridad.py
 
+      - name: Prepare source-grounded paper synopses
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python scripts/editorial/sinopsis_papers.py
+
       - name: Prepare candidates atomically
         run: python scripts/editorial/preparar_publicacion.py
 

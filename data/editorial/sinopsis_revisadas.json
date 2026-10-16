@@ -1,0 +1,24 @@
+[
+  {
+    "candidate_id": "CAND-7A03363DFE25F515",
+    "source_hash": "f37b48a9b2449e5694d81890f01196d57f7942a50119df85f812d2e04d898324",
+    "title_es": "Capital regenerativo: más allá de la deuda, el capital accionario y las subvenciones",
+    "sinopsis_es": "El trabajo propone una estructura de capital reciclable que distingue de la deuda, el capital accionario y las subvenciones. Su argumento es formal: evitar ciertas extracciones permite reutilizar una misma base en varios ciclos. El propio autor aclara que, si la tasa de reciclaje es inferior a uno, el fondo disminuye; la arquitectura no garantiza crecimiento ni perpetuidad. La tasa efectiva de reciclaje queda como cuestión empírica, dependiente del comportamiento y la gobernanza.",
+    "evidence": [
+      "The argument rests on a taxonomy of what each incumbent class takes.",
+      "At R<1 it loses (1-R) of itself each cycle"
+    ],
+    "model": "ChatGPT · elaboración editorial 2026-10-16"
+  },
+  {
+    "candidate_id": "CAND-42D3B7DC7DD3C5BF",
+    "source_hash": "5514c1d040f0ebb28dfa954e8f2133ddfb6ce2092bc94822a2424e36b84260d4",
+    "title_es": "Una economía del rebusque: género, tiempo y recursos de temporeras en Ñuble",
+    "sinopsis_es": "El artículo analiza cómo las trabajadoras temporales de la fruticultura de exportación en Chillán y San Nicolás combinan empleo asalariado, trabajo doméstico y otras actividades productivas. A partir de una investigación cualitativa, examina la gestión del tiempo y los recursos en hogares vinculados a la agricultura, la alfarería y el trabajo temporal. Las autoras distinguen distintas estrategias de obtención de ingresos y muestran la diversidad de situaciones que reúne la categoría de temporera.",
+    "evidence": [
+      "This is part of a broader qualitative research project",
+      "The analysis allows us to relativize and particularize the category of temporera"
+    ],
+    "model": "ChatGPT · elaboración editorial 2026-10-16"
+  }
+]
