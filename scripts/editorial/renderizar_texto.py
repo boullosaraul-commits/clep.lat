@@ -8,6 +8,7 @@ import json, re, sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
+from sinopsis_papers import valid_synopsis
 from traduccion_textual import TranslationError, TranslationRecord, validate_translation
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -74,8 +75,12 @@ def _editorial_description(kind,data,source,translated):
     return factual_fallback(kind,data)
 
 def _paper_contract(data,source,translated):
+    if valid_synopsis(data):
+        label = "Síntesis asistida por IA · basada en el abstract" if data.get("synopsis_method") == "llm_source_grounded" else "Extracto del resumen en español"
+        return f"{label}:\n{clean(data.get('sinopsis_es'))}\n\n"
     lang=clean(data.get("source_language") or data.get("language")).lower()
-    if lang not in {"en","eng","english","inglés","ingles"}: return ""
+    if lang not in {"en","eng","english","inglés","ingles"}:
+        return f"Resumen de los autores:\n{source}\n\n" if source else ""
     missing=[]
     if not clean(data.get("authors")): missing.append("authors")
     if not source: missing.append("source_summary")
@@ -96,7 +101,7 @@ def _render_template(kind,data,paper_abstract_block=""):
     body=body.replace("\\\\n","\n"); text=(spec["label"]+"\n\n"+body).strip()
     text=re.sub(r"[ \t]+\n","\n",text); text=re.sub(r"\n{3,}","\n\n",text)
     if "\\\\n" in text: raise TextRenderError("TEMPLATE_ESCAPE_ERROR","plantilla contiene saltos escapados literalmente")
-    if len(text)>int(policy["max_chars"]): raise TextRenderError("TEXT_OVERFLOW",f"texto excede máximo: {len(text)} > {policy['max_chars']}")
+    if len(text)>int(policy.get("paper_max_chars", policy["max_chars"]) if kind=="paper" else policy["max_chars"]): raise TextRenderError("TEXT_OVERFLOW",f"texto excede máximo: {len(text)} > {policy['max_chars']}")
     paragraphs=[p for p in text.split("\n\n") if p.strip()]
     if len(paragraphs)>int(policy["max_paragraphs"]): raise TextRenderError("TEXT_TOO_MANY_PARAGRAPHS",f"demasiados párrafos: {len(paragraphs)} > {policy['max_paragraphs']}")
     return text,clean(spec.get("id") or f"textos_cortos.{kind}"),int(spec.get("version") or templates.get("version") or 1)
@@ -107,7 +112,7 @@ def render_result(kind,data):
     source=_source_summary(data); translated=_source_summary_es(data)
     paper_block=_paper_contract(data,source,translated) if kind=="paper" else ""
     translation=_validated_translation(data,translated)
-    description=_editorial_description(kind,data,source,translated)
+    description=clean(data.get("sinopsis_es")) if kind=="paper" and valid_synopsis(data) else _editorial_description(kind,data,source,translated)
     post_text,template_id,template_version=_render_template(kind,data,paper_block)
     translation_data={"present":False}
     if translation: translation_data={"present":True,**translation.to_dict()}

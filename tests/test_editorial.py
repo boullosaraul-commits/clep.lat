@@ -261,9 +261,10 @@ class TemplateRenderingTests(unittest.TestCase):
         self.assertNotIn("\\\\n",book)
 
 class ConfigTests(unittest.TestCase):
-    def test_no_generative_ai_and_no_noimage_fallback(self):
+    def test_source_grounded_ai_and_no_noimage_fallback(self):
         cfg=json.loads((ROOT/"data/editorial/programacion.json").read_text(encoding="utf-8"))
-        self.assertFalse(cfg["generative_ai"]["enabled"])
+        self.assertTrue(cfg["generative_ai"]["enabled"])
+        self.assertIn("llm_candidate_selection", cfg["generative_ai"]["prohibited"])
         self.assertNotIn("no_image",cfg["paper_visual"]["preference"])
         self.assertFalse(cfg["archivo_historico"]["stop_when_target_date_reached"])
 

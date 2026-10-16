@@ -145,7 +145,7 @@ class UnifiedTextRendererTests(unittest.TestCase):
 
     def test_long_required_text_fails_instead_of_silently_truncating(self):
         data = self.samples()["paper"].copy()
-        data["title"] = "X" * 1000
+        data["title"] = "X" * 2000
         with self.assertRaises(TextRenderError) as ctx:
             render_result("paper", data)
         self.assertEqual(ctx.exception.code, "TEXT_OVERFLOW")

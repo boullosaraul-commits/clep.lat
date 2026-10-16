@@ -42,6 +42,7 @@ jobs:
       - name: Unit tests
         run: |
           python -m unittest -v tests/test_feed_ingestion.py
+          python -m unittest -v tests/test_paper_synopsis.py
           python -m unittest -v tests/test_editorial.py
           python -m unittest -v tests/test_editorial_schema.py
           python -m unittest -v tests/test_editorial_rules.py
