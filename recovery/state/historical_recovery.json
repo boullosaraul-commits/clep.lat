@@ -94,40 +94,55 @@
     "110527044555541_1393106096320950": {
       "status": "SIN_IDENTIFICAR",
       "title": "PAPER ABIERTO · CLEP",
-      "last_checked": "2026-10-17T15:52:21.583827+00:00"
+      "last_checked": "2026-10-18T14:39:15.069366+00:00"
     },
     "110527044555541_1400335528931340": {
       "status": "SIN_IDENTIFICAR",
       "title": "INFORME ABIERTO · CLEP",
-      "last_checked": "2026-10-17T15:52:10.793326+00:00"
+      "last_checked": "2026-10-18T14:39:02.382038+00:00"
     },
     "110527044555541_1401456068819286": {
       "status": "SIN_IDENTIFICAR",
       "title": "INFORME ABIERTO · CLEP",
-      "last_checked": "2026-10-17T15:51:17.638509+00:00"
+      "last_checked": "2026-10-18T14:38:08.638414+00:00"
     },
     "110527044555541_1400336048931288": {
       "status": "SIN_IDENTIFICAR",
       "title": "DATOS · CLEP",
-      "last_checked": "2026-10-17T15:51:28.415671+00:00"
+      "last_checked": "2026-10-18T14:38:19.437856+00:00"
     },
     "110527044555541_1400335928931300": {
       "status": "SIN_IDENTIFICAR",
       "title": "DATOS · CLEP",
-      "last_checked": "2026-10-17T15:51:38.969220+00:00"
+      "last_checked": "2026-10-18T14:38:30.407268+00:00"
     },
     "110527044555541_1400335778931315": {
       "status": "SIN_IDENTIFICAR",
       "title": "INFORME ABIERTO · CLEP",
-      "last_checked": "2026-10-17T15:51:49.808931+00:00"
+      "last_checked": "2026-10-18T14:38:40.943860+00:00"
     },
     "110527044555541_1400335642264662": {
       "status": "SIN_IDENTIFICAR",
       "title": "INFORME ABIERTO · CLEP",
-      "last_checked": "2026-10-17T15:52:00.243514+00:00"
+      "last_checked": "2026-10-18T14:38:51.601769+00:00"
+    },
+    "110527044555541_1402317992066427": {
+      "status": "SIN_IDENTIFICAR",
+      "title": "INFORME ABIERTO · CLEP",
+      "last_checked": "2026-10-18T14:37:36.648427+00:00"
+    },
+    "110527044555541_1401456372152589": {
+      "status": "SIN_IDENTIFICAR",
+      "title": "INFORME ABIERTO · CLEP",
+      "last_checked": "2026-10-18T14:37:47.263861+00:00"
+    },
+    "110527044555541_1401456235485936": {
+      "status": "SIN_IDENTIFICAR",
+      "title": "INFORME ABIERTO · CLEP",
+      "last_checked": "2026-10-18T14:37:57.926998+00:00"
     }
   },
-  "last_run": "2026-10-17T15:52:53.483955+00:00",
+  "last_run": "2026-10-18T14:39:15.069444+00:00",
   "last_run_status": "OK",
   "last_run_error": "",
   "last_run_searched": 10,
