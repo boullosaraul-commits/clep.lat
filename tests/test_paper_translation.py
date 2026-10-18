@@ -34,13 +34,32 @@ class PaperTranslationTests(unittest.TestCase):
         self.assertEqual(row["translation_engine"], "argos-translate")
         self.assertEqual(row["translation_status"], "VERIFIED")
 
-    def test_missing_abstract_fails_closed(self):
-        with self.assertRaisesRegex(RuntimeError, "PAPER_ABSTRACT_MISSING"):
-            translate_rows([self.row(summary="")], lambda x: x, "test")
+    def test_incomplete_papers_blocked_without_aborting_valid_rows(self):
+        for field, code in (("title", "TITLE"), ("authors", "AUTHORS"), ("summary", "ABSTRACT")):
+            with self.subTest(field=field):
+                bad = self.row(**{field: ""})
+                good = self.row(candidate_id="VALID")
+                calls = []
+                def tr(text):
+                    calls.append(text)
+                    return "ES " + text
+                with self.assertWarnsRegex(RuntimeWarning, f"PAPER_{code}_MISSING"):
+                    self.assertEqual(translate_rows([bad, good], tr), 2)
+                self.assertEqual(bad["translation_status"], "BLOCKED")
+                self.assertEqual(good["translation_status"], "VERIFIED")
+                self.assertEqual(len(calls), 2)
+                with self.assertWarns(RuntimeWarning):
+                    self.assertEqual(translate_rows([bad], tr), 0)
 
-    def test_missing_authors_fails_closed(self):
-        with self.assertRaisesRegex(RuntimeError, "PAPER_AUTHORS_MISSING"):
-            translate_rows([self.row(authors="")], lambda x: x, "test")
+    def test_archived_incomplete_paper_is_untouched(self):
+        row = self.row(status="ARCHIVADO", authors="")
+        original = dict(row)
+        self.assertEqual(translate_rows([row], lambda _: self.fail("archived paper translated")), 0)
+        self.assertEqual(row, original)
+
+    def test_empty_translation_still_aborts(self):
+        with self.assertRaisesRegex(RuntimeError, "PAPER_TRANSLATION_EMPTY"):
+            translate_rows([self.row()], lambda _: "")
 
     def test_non_english_paper_is_untouched(self):
         row = self.row(language="es")

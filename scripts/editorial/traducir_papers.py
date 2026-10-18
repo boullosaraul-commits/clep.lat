@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Traduce título y abstract EN→ES con Argos Translate antes de preparar papers.
 
-No resume ni interpreta. Conserva autores literalmente. Falla cerrado si un paper
-en inglés carece de abstract, autores o traducción disponible.
+No resume ni interpreta. Conserva autores literalmente. Omite registros archivados
+y bloquea individualmente los metadatos incompletos sin abortar el lote.
 """
 from __future__ import annotations
 
 import csv
 import os
 import re
+import warnings
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -18,7 +19,7 @@ TRANSLATION_FIELDS = (
     "title_original", "title_es", "summary_es", "source_summary_es",
     "translation_status", "translation_method", "translation_engine",
     "translation_engine_version", "source_language", "target_language",
-    "translation_disclosure",
+    "translation_disclosure", "translation_error",
 )
 
 
@@ -47,18 +48,27 @@ def translate_rows(rows, translate_fn, engine_version="installed"):
     for row in rows:
         if clean(row.get("content_type")).lower() != "paper":
             continue
+        if clean(row.get("status")).upper() == "ARCHIVADO":
+            continue
         language = clean(row.get("source_language") or row.get("language")).lower()
         if language not in {"en", "eng", "english", "inglés", "ingles"}:
             continue
         title = clean(row.get("title_original") or row.get("title"))
         authors = clean(row.get("authors"))
         abstract = clean(row.get("source_summary") or row.get("summary") or row.get("abstract") or row.get("description"))
-        if not title:
-            raise RuntimeError(f"PAPER_TITLE_MISSING:{row.get('candidate_id','')}")
-        if not authors:
-            raise RuntimeError(f"PAPER_AUTHORS_MISSING:{row.get('candidate_id','')}")
-        if not abstract:
-            raise RuntimeError(f"PAPER_ABSTRACT_MISSING:{row.get('candidate_id','')}")
+        missing = next((code for value, code in (
+            (title, "PAPER_TITLE_MISSING"),
+            (authors, "PAPER_AUTHORS_MISSING"),
+            (abstract, "PAPER_ABSTRACT_MISSING"),
+        ) if not value), None)
+        if missing:
+            error = f"{missing}:{row.get('candidate_id', '')}"
+            before = dict(row)
+            row["translation_status"] = "BLOCKED"
+            row["translation_error"] = error
+            changed += row != before
+            warnings.warn(error, RuntimeWarning)
+            continue
         title_es = clean(row.get("title_es")) or clean(translate_fn(title))
         summary_es = clean(row.get("source_summary_es") or row.get("summary_es")) or clean(translate_fn(abstract))
         if not title_es or not summary_es:
@@ -72,6 +82,7 @@ def translate_rows(rows, translate_fn, engine_version="installed"):
         row["source_language"] = "en"
         row["target_language"] = "es"
         row["translation_status"] = "VERIFIED"
+        row["translation_error"] = ""
         row["translation_method"] = "machine_translation"
         row["translation_engine"] = "argos-translate"
         row["translation_engine_version"] = engine_version
