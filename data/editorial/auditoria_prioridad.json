@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-10-17T14:15:29+00:00",
-  "records": 2870,
-  "academic_records": 2400,
+  "generated_at": "2026-10-18T14:37:18+00:00",
+  "records": 3071,
+  "academic_records": 2606,
   "missing_editorial_score": 0,
   "buckets": {
-    "5_6_9": 64,
-    "0_4_9": 2321,
-    "7_8_9": 15
+    "5_6_9": 70,
+    "0_4_9": 2520,
+    "7_8_9": 16
   },
   "decisions": {
-    "REVIEW": 64,
-    "INELIGIBLE": 153,
-    "THEMATIC_REJECTED": 1624,
-    "THEMATIC_REVIEW": 541,
-    "PUBLISHABLE": 15,
+    "REVIEW": 70,
+    "INELIGIBLE": 154,
+    "THEMATIC_REJECTED": 1806,
+    "THEMATIC_REVIEW": 557,
+    "PUBLISHABLE": 16,
     "ARCHIVE": 3
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 1818,
-      "5_6_9": 43,
-      "7_8_9": 14
+      "0_4_9": 2012,
+      "5_6_9": 48,
+      "7_8_9": 15
     },
     "crossref_academic": {
-      "0_4_9": 256
+      "0_4_9": 257
     },
     "doab_oai": {
       "0_4_9": 123,
       "5_6_9": 1
     },
     "nep_report": {
-      "5_6_9": 20,
-      "0_4_9": 124,
+      "5_6_9": 21,
+      "0_4_9": 128,
       "7_8_9": 1
     }
   },
@@ -44,15 +44,15 @@
       "0_4_9": 201
     },
     "edition_translation": {
-      "0_4_9": 29
+      "0_4_9": 31
     },
     "paper": {
-      "5_6_9": 50,
-      "0_4_9": 1196,
-      "7_8_9": 7
+      "5_6_9": 56,
+      "0_4_9": 1392,
+      "7_8_9": 8
     },
     "report": {
-      "0_4_9": 754,
+      "0_4_9": 755,
       "5_6_9": 13,
       "7_8_9": 8
     },
@@ -68,33 +68,33 @@
       "discovered": 446,
       "thematic_rejected": 181,
       "thematic_review": 196,
-      "access_verified": 179,
+      "access_verified": 185,
       "thematic_auto": 69
     },
     "clacso-repository-oai": {
       "discovered": 300,
       "thematic_rejected": 171,
       "oa_evidence": 300,
-      "access_verified": 106,
+      "access_verified": 112,
       "thematic_review": 89,
       "thematic_auto": 39,
       "thematic_rescue": 1,
       "publishable": 8
     },
     "crossref-academic-novelties": {
-      "discovered": 256,
-      "thematic_rejected": 138,
+      "discovered": 257,
+      "thematic_rejected": 139,
       "thematic_review": 80,
       "thematic_auto": 38,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
-      "discovered": 1123,
-      "thematic_rejected": 958,
-      "thematic_review": 126,
-      "access_verified": 232,
-      "thematic_auto": 39,
-      "publishable": 6
+      "discovered": 1323,
+      "thematic_rejected": 1136,
+      "thematic_review": 142,
+      "access_verified": 269,
+      "thematic_auto": 45,
+      "publishable": 7
     },
     "dialnet-theses-oai": {
       "discovered": 6,
@@ -123,11 +123,11 @@
       "thematic_review": 5
     },
     "nep-his": {
-      "discovered": 20,
+      "discovered": 22,
       "thematic_auto": 8,
-      "thematic_rejected": 9,
-      "access_verified": 3,
-      "oa_evidence": 3,
+      "thematic_rejected": 11,
+      "access_verified": 5,
+      "oa_evidence": 5,
       "thematic_review": 3
     },
     "nep-hme": {
@@ -142,8 +142,8 @@
     "nep-inv": {
       "discovered": 20,
       "thematic_rejected": 11,
-      "access_verified": 9,
-      "oa_evidence": 9,
+      "access_verified": 10,
+      "oa_evidence": 10,
       "thematic_review": 6,
       "thematic_auto": 3,
       "publishable": 1
@@ -177,20 +177,20 @@
       "thematic_rejected": 7
     },
     "nep-mon": {
-      "discovered": 23,
-      "thematic_auto": 17,
-      "access_verified": 17,
-      "oa_evidence": 17,
-      "thematic_rejected": 2,
+      "discovered": 25,
+      "thematic_auto": 18,
+      "access_verified": 18,
+      "oa_evidence": 18,
+      "thematic_rejected": 3,
       "thematic_review": 4
     },
     "nep-pke": {
-      "discovered": 3,
+      "discovered": 4,
       "thematic_review": 1,
-      "access_verified": 3,
-      "oa_evidence": 3,
+      "access_verified": 4,
+      "oa_evidence": 4,
       "thematic_rescue": 1,
-      "thematic_auto": 1
+      "thematic_auto": 2
     },
     "nep-pub": {
       "discovered": 3,
@@ -207,9 +207,9 @@
     }
   },
   "health": {
-    "oa_pending": 1798,
-    "repec_metadata_pending": 467,
-    "publishable": 15,
+    "oa_pending": 1950,
+    "repec_metadata_pending": 462,
+    "publishable": 16,
     "pluralist_rescues_total": 3
   },
   "calibration_sample": {
@@ -399,6 +399,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-DAB26B51CC42FD48",
+        "title": "Ambición Política: brechas de género y el rol de la educación ciudadana",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "7.0",
+        "decision": "PUBLISHABLE",
+        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=class;internacional-latinoamerica=chile",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-E6C5B5E42D328243",
         "title": "Libertad académica y gestión editorial inclusiva : hacia un modelo descolonizador de publicación en América Latina",
         "source": "clacso-repository-oai",
@@ -566,19 +579,6 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=trabajo;internacional-latinoamerica=colombia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-3119C1CDC8E252D2",
-        "title": "¿Confían los legisladores en sus Congresos? Un estudio comparado sobre sus determinantes individuales y contextuales en América Latina",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin america,mexico,américa latina;economia-politica-instituciones=institutions,power",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
       }
     ],
     "thematic_rejected": [
@@ -631,6 +631,19 @@
         "components": "pertinencia_temática=no_aprobada",
         "relevance_score": "3",
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-00D7999416847805",
+        "title": "Un procedimiento para la predicción, descripción y corrección de errores en lingüística aplicada",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=lingüística",
         "access_status": "SOURCE_UNCHECKED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -778,6 +791,32 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-0295F03EF82B1007",
+        "title": "El modelo del género narrativo: diversas interpretaciones",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-02A23E9D8D136747",
+        "title": "Práctica y cientificidad en la producción contemporánea aplicada al arte, la arquitectura y el diseño",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "3",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-02C18D15D17CF52E",
         "title": "Determinación volumétrica de sulfatos en el agua",
         "source": "dialnet-articles-oai",
@@ -867,45 +906,6 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-0382755EE86D856A",
-        "title": "Indígenas en las ciudades de las Américas : condiciones de vida, procesos de discriminación e identificación y lucha por la ciudadanía étnica",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "10",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-03CEA21A505BA62A",
-        "title": "Sesión de 12 de marzo de 1923",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "0",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_UNCHECKED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-03E3CF3F7A2558E4",
-        "title": "Introducción a la historia de la filosofía política",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "13",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=historia-pensamiento-metodologia;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;historia-pensamiento-metodologia=historia del pensamiento",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
       }
     ],
     "borderline": [
@@ -1066,6 +1066,19 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-7F141680202C1094",
+        "title": "Sectoral Balances and Aggregate Demand in Emerging Market Economies",
+        "source": "nep-pke",
+        "type": "paper",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=0.0;H=1.0;freshness=bounded_stream_detection;areas=produccion-reproduccion-sectorial,historia-pensamiento-metodologia;plural_explicit=ninguna;plural_concepts=sectoral balances;plural_history=ninguna",
+        "relevance_score": "38",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=produccion-reproduccion-sectorial,historia-pensamiento-metodologia;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=sectoral balances;produccion-reproduccion-sectorial=sectoral balances;historia-pensamiento-metodologia=sectoral balances",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
         "candidate_id": "CAND-82DEE0E418DEED95",
         "title": "LPG Subsidy Reform, Energy Compensation, and Social Risk in Bolivia: A Machine-Learning Agent-Based Microsimulation",
         "source": "nep-inv",
@@ -1209,28 +1222,15 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-8D0516C2261F2417",
-        "title": "The Spatial Dimension of Poverty Based on Unsatisfied Basic Needs in Ecuador: A Spatial Panel Approach from 2001 to 2022",
+        "candidate_id": "CAND-69C419EE42E93335",
+        "title": "Cine del sur global: miradas desde el margen del poder",
         "source": "dialnet-articles-oai",
         "type": "paper",
         "score": "6.0",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=económica;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=poverty,desempleo,pobreza;internacional-latinoamerica=dependencia",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-A5513ED0C3DA8390",
-        "title": "Congestión vial, un problema de la motorización de la sociedad",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "39",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar,finanzas-sector-publico;anclas=económica,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=clase;trabajo-distribucion-bienestar=trabajo,salario;finanzas-sector-publico=crédito",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "38",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power,poder;internacional-latinoamerica=latin american,trade,sur global",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
