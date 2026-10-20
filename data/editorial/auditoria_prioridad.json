@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-10-19T17:32:00+00:00",
-  "records": 3165,
-  "academic_records": 2636,
+  "generated_at": "2026-10-20T15:43:00+00:00",
+  "records": 3222,
+  "academic_records": 2647,
   "missing_editorial_score": 0,
   "buckets": {
     "5_6_9": 71,
-    "0_4_9": 2549,
+    "0_4_9": 2560,
     "7_8_9": 16
   },
   "decisions": {
     "REVIEW": 71,
-    "INELIGIBLE": 157,
-    "THEMATIC_REJECTED": 1828,
-    "THEMATIC_REVIEW": 561,
+    "INELIGIBLE": 162,
+    "THEMATIC_REJECTED": 1831,
+    "THEMATIC_REVIEW": 564,
     "PUBLISHABLE": 16,
     "ARCHIVE": 3
   },
@@ -23,14 +23,14 @@
       "7_8_9": 15
     },
     "crossref_academic": {
-      "0_4_9": 262
+      "0_4_9": 268
     },
     "doab_oai": {
       "0_4_9": 124
     },
     "nep_report": {
       "5_6_9": 21,
-      "0_4_9": 135,
+      "0_4_9": 140,
       "7_8_9": 1
     }
   },
@@ -39,18 +39,18 @@
       "0_4_9": 124
     },
     "chapter": {
-      "0_4_9": 202
+      "0_4_9": 203
     },
     "edition_translation": {
       "0_4_9": 31
     },
     "paper": {
       "5_6_9": 58,
-      "0_4_9": 1409,
+      "0_4_9": 1414,
       "7_8_9": 8
     },
     "report": {
-      "0_4_9": 765,
+      "0_4_9": 770,
       "5_6_9": 13,
       "7_8_9": 8
     },
@@ -80,24 +80,24 @@
       "publishable": 8
     },
     "crossref-academic-novelties": {
-      "discovered": 262,
-      "thematic_rejected": 142,
-      "thematic_review": 82,
-      "thematic_auto": 38,
+      "discovered": 268,
+      "thematic_rejected": 145,
+      "thematic_review": 83,
+      "thematic_auto": 40,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
       "discovered": 1335,
       "thematic_rejected": 1147,
       "thematic_review": 141,
-      "access_verified": 287,
+      "access_verified": 294,
       "thematic_auto": 47,
       "publishable": 7
     },
     "dialnet-theses-oai": {
       "discovered": 6,
       "thematic_rejected": 5,
-      "access_verified": 1,
+      "access_verified": 2,
       "thematic_review": 1
     },
     "doab-economics": {
@@ -123,21 +123,21 @@
       "thematic_review": 5
     },
     "nep-his": {
-      "discovered": 24,
-      "thematic_auto": 8,
+      "discovered": 25,
+      "thematic_auto": 9,
       "thematic_rejected": 12,
-      "access_verified": 7,
-      "oa_evidence": 7,
+      "access_verified": 8,
+      "oa_evidence": 8,
       "thematic_review": 4
     },
     "nep-hme": {
-      "discovered": 8,
+      "discovered": 9,
       "thematic_rescue": 1,
       "access_verified": 6,
       "oa_evidence": 6,
       "thematic_rejected": 3,
       "thematic_review": 2,
-      "thematic_auto": 2
+      "thematic_auto": 3
     },
     "nep-inv": {
       "discovered": 22,
@@ -156,10 +156,10 @@
       "thematic_review": 1
     },
     "nep-lma": {
-      "discovered": 18,
+      "discovered": 19,
       "thematic_rejected": 12,
       "thematic_auto": 3,
-      "thematic_review": 3,
+      "thematic_review": 4,
       "access_verified": 1,
       "oa_evidence": 1
     },
@@ -177,12 +177,12 @@
       "thematic_rejected": 7
     },
     "nep-mon": {
-      "discovered": 27,
+      "discovered": 28,
       "thematic_auto": 18,
-      "access_verified": 19,
-      "oa_evidence": 19,
+      "access_verified": 21,
+      "oa_evidence": 21,
       "thematic_rejected": 5,
-      "thematic_review": 4
+      "thematic_review": 5
     },
     "nep-pke": {
       "discovered": 4,
@@ -193,24 +193,25 @@
       "thematic_auto": 2
     },
     "nep-pub": {
-      "discovered": 3,
+      "discovered": 4,
       "thematic_review": 2,
       "access_verified": 2,
       "oa_evidence": 2,
-      "thematic_rejected": 1
+      "thematic_rejected": 1,
+      "thematic_auto": 1
     },
     "nep-tid": {
       "discovered": 5,
       "thematic_auto": 2,
-      "access_verified": 1,
-      "oa_evidence": 1,
+      "access_verified": 2,
+      "oa_evidence": 2,
       "thematic_review": 1,
       "thematic_rejected": 2
     }
   },
   "health": {
-    "oa_pending": 1939,
-    "repec_metadata_pending": 526,
+    "oa_pending": 1938,
+    "repec_metadata_pending": 572,
     "publishable": 16,
     "pluralist_rescues_total": 3
   },
