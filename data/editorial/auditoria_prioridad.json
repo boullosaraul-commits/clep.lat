@@ -1,36 +1,36 @@
 {
-  "generated_at": "2026-10-21T16:00:28+00:00",
-  "records": 3440,
-  "academic_records": 2864,
+  "generated_at": "2026-10-22T15:56:12+00:00",
+  "records": 3447,
+  "academic_records": 2876,
   "missing_editorial_score": 0,
   "buckets": {
-    "5_6_9": 77,
-    "0_4_9": 2769,
-    "7_8_9": 18
+    "5_6_9": 78,
+    "0_4_9": 2783,
+    "7_8_9": 15
   },
   "decisions": {
-    "REVIEW": 77,
-    "INELIGIBLE": 170,
-    "THEMATIC_REJECTED": 2007,
-    "THEMATIC_REVIEW": 589,
-    "PUBLISHABLE": 18,
+    "REVIEW": 78,
+    "INELIGIBLE": 176,
+    "THEMATIC_REJECTED": 2013,
+    "THEMATIC_REVIEW": 591,
+    "PUBLISHABLE": 15,
     "ARCHIVE": 3
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 2220,
+      "0_4_9": 2223,
       "5_6_9": 56,
-      "7_8_9": 17
+      "7_8_9": 14
     },
     "crossref_academic": {
-      "0_4_9": 279
+      "0_4_9": 286
     },
     "doab_oai": {
       "0_4_9": 124
     },
     "nep_report": {
-      "5_6_9": 21,
-      "0_4_9": 146,
+      "5_6_9": 22,
+      "0_4_9": 150,
       "7_8_9": 1
     }
   },
@@ -39,20 +39,20 @@
       "0_4_9": 124
     },
     "chapter": {
-      "0_4_9": 212
+      "0_4_9": 214
     },
     "edition_translation": {
-      "0_4_9": 34
+      "0_4_9": 35
     },
     "paper": {
-      "5_6_9": 67,
-      "0_4_9": 1606,
+      "5_6_9": 68,
+      "0_4_9": 1610,
       "7_8_9": 10
     },
     "report": {
-      "0_4_9": 775,
+      "0_4_9": 782,
       "5_6_9": 10,
-      "7_8_9": 8
+      "7_8_9": 5
     },
     "special_issue": {
       "0_4_9": 1
@@ -77,13 +77,13 @@
       "thematic_review": 91,
       "thematic_auto": 39,
       "thematic_rescue": 1,
-      "publishable": 8
+      "publishable": 5
     },
     "crossref-academic-novelties": {
-      "discovered": 279,
-      "thematic_rejected": 148,
-      "thematic_review": 87,
-      "thematic_auto": 44,
+      "discovered": 286,
+      "thematic_rejected": 152,
+      "thematic_review": 88,
+      "thematic_auto": 46,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
@@ -115,20 +115,20 @@
       "oa_evidence": 1
     },
     "nep-ecm": {
-      "discovered": 24,
-      "thematic_rejected": 17,
+      "discovered": 25,
+      "thematic_rejected": 18,
       "access_verified": 11,
       "oa_evidence": 11,
       "thematic_auto": 2,
       "thematic_review": 5
     },
     "nep-his": {
-      "discovered": 27,
+      "discovered": 28,
       "thematic_auto": 9,
       "thematic_rejected": 13,
-      "access_verified": 9,
-      "oa_evidence": 9,
-      "thematic_review": 5
+      "access_verified": 10,
+      "oa_evidence": 10,
+      "thematic_review": 6
     },
     "nep-hme": {
       "discovered": 9,
@@ -142,8 +142,8 @@
     "nep-inv": {
       "discovered": 23,
       "thematic_rejected": 11,
-      "access_verified": 12,
-      "oa_evidence": 12,
+      "access_verified": 13,
+      "oa_evidence": 13,
       "thematic_review": 7,
       "thematic_auto": 5,
       "publishable": 1
@@ -177,20 +177,20 @@
       "thematic_rejected": 7
     },
     "nep-mon": {
-      "discovered": 28,
-      "thematic_auto": 18,
-      "access_verified": 21,
-      "oa_evidence": 21,
+      "discovered": 29,
+      "thematic_auto": 19,
+      "access_verified": 22,
+      "oa_evidence": 22,
       "thematic_rejected": 5,
       "thematic_review": 5
     },
     "nep-pke": {
-      "discovered": 4,
+      "discovered": 5,
       "thematic_review": 1,
       "access_verified": 4,
       "oa_evidence": 4,
       "thematic_rescue": 1,
-      "thematic_auto": 2
+      "thematic_auto": 3
     },
     "nep-pub": {
       "discovered": 4,
@@ -201,18 +201,18 @@
       "thematic_auto": 1
     },
     "nep-tid": {
-      "discovered": 6,
+      "discovered": 7,
       "thematic_auto": 3,
       "access_verified": 2,
       "oa_evidence": 2,
       "thematic_review": 1,
-      "thematic_rejected": 2
+      "thematic_rejected": 3
     }
   },
   "health": {
-    "oa_pending": 2100,
-    "repec_metadata_pending": 573,
-    "publishable": 18,
+    "oa_pending": 2109,
+    "repec_metadata_pending": 568,
+    "publishable": 15,
     "pluralist_rescues_total": 3
   },
   "calibration_sample": {
@@ -285,19 +285,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-4A0A1658B7A60C7B",
-        "title": "Reflexión en los procesos de acreditación y evaluación de programas de estudio en el nivel superior. Propuestas a las Políticas Educativas y a las IES mexicanas para promover la calidad de la educación como responsabilidad social en la formación integral",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;internacional-latinoamerica=méxico",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-4A3D79530C529059",
         "title": "Factores relacionados a la conducta anticonceptiva de adolescentes en desventaja social del suroeste de México",
         "source": "dialnet-articles-oai",
@@ -350,19 +337,6 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
-        "candidate_id": "CAND-B62219356B3488E3",
-        "title": "En defensa de la integridad científica y la libertad académica en las Américas : desafíos actuales en Brasil y Argentina",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,brasil;economia-politica-instituciones=instituciones",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-B6DF80A3D1565C0D",
         "title": "Aplicación de la teoría de grafos en el pensamiento computacional",
         "source": "dialnet-articles-oai",
@@ -385,19 +359,6 @@
         "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=salarios",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-CB9D4164E32C0F11",
-        "title": "Derechos humanos, prostitución y evidencia territorial: una crítica al discurso del \"trabajo sexual autónomo\"",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=trabajo,empleo,pobreza;internacional-latinoamerica=colombia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
       },
@@ -467,19 +428,6 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
-        "candidate_id": "CAND-21ABFBEF5D6ADD53",
-        "title": "Nuestra América-Afro-Abya Yala : pensamiento crítico, geopolítica y resistencias",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=capitalismo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=capitalismo,poder;internacional-latinoamerica=américa latina,caribe,sur global",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-3F464B55DE05416B",
         "title": "Perfil dos Pós-Graduandos em Ciências Contábeis no Brasil: qual a motivação dos estudantes?",
         "source": "dialnet-articles-oai",
@@ -491,6 +439,19 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,brasil;economia-politica-instituciones=institutions",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-4A0A1658B7A60C7B",
+        "title": "Reflexión en los procesos de acreditación y evaluación de programas de estudio en el nivel superior. Propuestas a las Políticas Educativas y a las IES mexicanas para promover la calidad de la educación como responsabilidad social en la formación integral",
+        "source": "clacso-repository-oai",
+        "type": "report",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;internacional-latinoamerica=méxico",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
       },
       {
         "candidate_id": "CAND-6D22DC5D60F21071",
@@ -532,6 +493,19 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-B62219356B3488E3",
+        "title": "En defensa de la integridad científica y la libertad académica en las Américas : desafíos actuales en Brasil y Argentina",
+        "source": "clacso-repository-oai",
+        "type": "report",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,brasil;economia-politica-instituciones=instituciones",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
         "candidate_id": "CAND-C9C13551BC8F1002",
         "title": "Trump, el imperio y el cambio social mundial : ¿hacia dónde vamos?",
         "source": "clacso-repository-oai",
@@ -541,6 +515,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "30",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=trabajo,capitalismo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=capitalismo,poder;trabajo-distribucion-bienestar=trabajo",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-CB9D4164E32C0F11",
+        "title": "Derechos humanos, prostitución y evidencia territorial: una crítica al discurso del \"trabajo sexual autónomo\"",
+        "source": "clacso-repository-oai",
+        "type": "report",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=trabajo,empleo,pobreza;internacional-latinoamerica=colombia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
       },
@@ -580,6 +567,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=trabajo;internacional-latinoamerica=colombia",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-3119C1CDC8E252D2",
+        "title": "¿Confían los legisladores en sus Congresos? Un estudio comparado sobre sus determinantes individuales y contextuales en América Latina",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin america,mexico,américa latina;economia-politica-instituciones=institutions,power",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -952,19 +952,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-21ABFBEF5D6ADD53",
-        "title": "Nuestra América-Afro-Abya Yala : pensamiento crítico, geopolítica y resistencias",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=capitalismo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=capitalismo,poder;internacional-latinoamerica=américa latina,caribe,sur global",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-2EBA65388E54637B",
         "title": "Testing for Smooth Structural Change in Cointegrated Systems",
         "source": "nep-ecm",
@@ -976,19 +963,6 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=desarrollo-estructura,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;desarrollo-estructura=structural change;finanzas-sector-publico=credit",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-38693940CE96DCD5",
-        "title": "Gestión de las transformaciones en una era de rupturas. Síntesis",
-        "source": "cepal-oai-publications",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=1.0;freshness=publication_date;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=economía política",
-        "relevance_score": "65",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economía,económica,economía política,macroeconomía,desigualdad;pluralismo_rescate=no;senales_pluralistas=economía política;economia-politica-instituciones=economía política,instituciones;macroeconomia-dinero=macroeconomía;historia-pensamiento-metodologia=economía política;internacional-latinoamerica=américa latina,caribe",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
       },
       {
         "candidate_id": "CAND-3F464B55DE05416B",
@@ -1004,17 +978,17 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-40814FAA48E85787",
-        "title": "Managing Transformations in an Era of Ruptures. Summary",
-        "source": "cepal-oai-publications",
+        "candidate_id": "CAND-4A0A1658B7A60C7B",
+        "title": "Reflexión en los procesos de acreditación y evaluación de programas de estudio en el nivel superior. Propuestas a las Políticas Educativas y a las IES mexicanas para promover la calidad de la educación como responsabilidad social en la formación integral",
+        "source": "clacso-repository-oai",
         "type": "report",
         "score": "6.5",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=1.0;freshness=publication_date;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=political economy",
-        "relevance_score": "74",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar,finanzas-sector-publico;anclas=economic,economy,political economy,macroeconomics,inequality;pluralismo_rescate=no;senales_pluralistas=political economy;economia-politica-instituciones=political economy,institutions;macroeconomia-dinero=macroeconomics;historia-pensamiento-metodologia=political economy;internacional-latinoamerica=latin america,caribbean",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;internacional-latinoamerica=méxico",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
+        "oa_status": "VERIFICADO_FUENTE"
       },
       {
         "candidate_id": "CAND-538E05CC531B9E76",
@@ -1082,6 +1056,19 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-B62219356B3488E3",
+        "title": "En defensa de la integridad científica y la libertad académica en las Américas : desafíos actuales en Brasil y Argentina",
+        "source": "clacso-repository-oai",
+        "type": "report",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,brasil;economia-politica-instituciones=instituciones",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
         "candidate_id": "CAND-C9C13551BC8F1002",
         "title": "Trump, el imperio y el cambio social mundial : ¿hacia dónde vamos?",
         "source": "clacso-repository-oai",
@@ -1091,6 +1078,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "30",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=trabajo,capitalismo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=capitalismo,poder;trabajo-distribucion-bienestar=trabajo",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-CB9D4164E32C0F11",
+        "title": "Derechos humanos, prostitución y evidencia territorial: una crítica al discurso del \"trabajo sexual autónomo\"",
+        "source": "clacso-repository-oai",
+        "type": "report",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=trabajo,empleo,pobreza;internacional-latinoamerica=colombia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
       },
@@ -1280,32 +1280,6 @@
       "oa_status": "POR_VERIFICAR"
     },
     {
-      "candidate_id": "CAND-CB9D4164E32C0F11",
-      "title": "Derechos humanos, prostitución y evidencia territorial: una crítica al discurso del \"trabajo sexual autónomo\"",
-      "source": "clacso-repository-oai",
-      "type": "report",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "32",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=trabajo,empleo,pobreza;internacional-latinoamerica=colombia",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "VERIFICADO_FUENTE"
-    },
-    {
-      "candidate_id": "CAND-B62219356B3488E3",
-      "title": "En defensa de la integridad científica y la libertad académica en las Américas : desafíos actuales en Brasil y Argentina",
-      "source": "clacso-repository-oai",
-      "type": "report",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "34",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,brasil;economia-politica-instituciones=instituciones",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "VERIFICADO_FUENTE"
-    },
-    {
       "candidate_id": "CAND-E6C5B5E42D328243",
       "title": "Libertad académica y gestión editorial inclusiva : hacia un modelo descolonizador de publicación en América Latina",
       "source": "clacso-repository-oai",
@@ -1315,19 +1289,6 @@
       "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "34",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina;economia-politica-instituciones=instituciones",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "VERIFICADO_FUENTE"
-    },
-    {
-      "candidate_id": "CAND-4A0A1658B7A60C7B",
-      "title": "Reflexión en los procesos de acreditación y evaluación de programas de estudio en el nivel superior. Propuestas a las Políticas Educativas y a las IES mexicanas para promover la calidad de la educación como responsabilidad social en la formación integral",
-      "source": "clacso-repository-oai",
-      "type": "report",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "30",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;internacional-latinoamerica=méxico",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "VERIFICADO_FUENTE"
     },
@@ -1395,6 +1356,45 @@
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=chile;trabajo-distribucion-bienestar=bienestar",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-B6DF80A3D1565C0D",
+      "title": "Aplicación de la teoría de grafos en el pensamiento computacional",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=colombia",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-F782F988FD3A2999",
+      "title": "Pensamiento computacional en la primera infancia: sistematización del uso de ROVERSA como mediación pedagógica vinculada a los derechos básicos de aprendizaje",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=colombia",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-B98E614BFFC70D2D",
+      "title": "Corrupción en el ámbito policial : significados construidos por policías preventivos de tres ciudades de México",
+      "source": "clacso-repository-oai",
+      "type": "report",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "32",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=salarios",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "VERIFICADO_FUENTE"
     }
   ]
 }
