@@ -1,57 +1,57 @@
 {
-  "generated_at": "2026-10-23T15:47:41+00:00",
-  "records": 3503,
-  "academic_records": 2923,
+  "generated_at": "2026-10-24T14:33:00+00:00",
+  "records": 3806,
+  "academic_records": 3231,
   "missing_editorial_score": 0,
   "buckets": {
-    "5_6_9": 78,
-    "0_4_9": 2834,
+    "5_6_9": 76,
+    "0_4_9": 3144,
     "7_8_9": 11
   },
   "decisions": {
-    "REVIEW": 78,
-    "INELIGIBLE": 185,
-    "THEMATIC_REJECTED": 2035,
-    "THEMATIC_REVIEW": 608,
+    "REVIEW": 76,
+    "INELIGIBLE": 201,
+    "THEMATIC_REJECTED": 2303,
+    "THEMATIC_REVIEW": 634,
     "PUBLISHABLE": 11,
     "ARCHIVE": 6
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 2227,
-      "5_6_9": 56,
+      "0_4_9": 2229,
+      "5_6_9": 54,
       "7_8_9": 10
     },
     "crossref_academic": {
-      "0_4_9": 319
+      "0_4_9": 326
     },
     "doab_oai": {
-      "0_4_9": 132
+      "0_4_9": 428
     },
     "nep_report": {
       "5_6_9": 22,
-      "0_4_9": 156,
+      "0_4_9": 161,
       "7_8_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 132
+      "0_4_9": 428
     },
     "chapter": {
-      "0_4_9": 240
+      "0_4_9": 244
     },
     "edition_translation": {
-      "0_4_9": 35
+      "0_4_9": 36
     },
     "paper": {
       "5_6_9": 66,
-      "0_4_9": 1619,
+      "0_4_9": 1624,
       "7_8_9": 9
     },
     "report": {
-      "0_4_9": 790,
-      "5_6_9": 12,
+      "0_4_9": 794,
+      "5_6_9": 10,
       "7_8_9": 2
     },
     "special_issue": {
@@ -80,10 +80,10 @@
       "publishable": 2
     },
     "crossref-academic-novelties": {
-      "discovered": 319,
-      "thematic_rejected": 163,
-      "thematic_review": 103,
-      "thematic_auto": 53,
+      "discovered": 326,
+      "thematic_rejected": 168,
+      "thematic_review": 104,
+      "thematic_auto": 54,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
@@ -101,31 +101,32 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 132,
-      "thematic_rejected": 112,
-      "oa_evidence": 132,
+      "discovered": 428,
+      "thematic_rejected": 370,
+      "oa_evidence": 428,
       "access_verified": 21,
-      "thematic_auto": 6,
-      "thematic_review": 14
+      "thematic_auto": 18,
+      "thematic_review": 39,
+      "thematic_rescue": 1
     },
     "nep-dev": {
-      "discovered": 2,
-      "thematic_rejected": 2,
+      "discovered": 3,
+      "thematic_rejected": 3,
       "access_verified": 1,
       "oa_evidence": 1
     },
     "nep-ecm": {
-      "discovered": 26,
-      "thematic_rejected": 19,
+      "discovered": 28,
+      "thematic_rejected": 21,
       "access_verified": 11,
       "oa_evidence": 11,
       "thematic_auto": 2,
       "thematic_review": 5
     },
     "nep-his": {
-      "discovered": 30,
+      "discovered": 31,
       "thematic_auto": 10,
-      "thematic_rejected": 14,
+      "thematic_rejected": 15,
       "access_verified": 11,
       "oa_evidence": 11,
       "thematic_review": 6
@@ -169,12 +170,12 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 18,
+      "discovered": 19,
       "thematic_review": 7,
       "access_verified": 9,
       "oa_evidence": 9,
       "thematic_auto": 3,
-      "thematic_rejected": 8
+      "thematic_rejected": 9
     },
     "nep-mon": {
       "discovered": 29,
@@ -210,10 +211,10 @@
     }
   },
   "health": {
-    "oa_pending": 2155,
-    "repec_metadata_pending": 577,
+    "oa_pending": 2463,
+    "repec_metadata_pending": 572,
     "publishable": 11,
-    "pluralist_rescues_total": 3
+    "pluralist_rescues_total": 4
   },
   "calibration_sample": {
     "pluralist_rescues": [
@@ -254,6 +255,19 @@
         "relevance_score": "14",
         "relevance_reasons": "decision=REVISION_EDITORIAL;disciplina=economia;areas=historia-pensamiento-metodologia;anclas=economía;pluralismo_rescate=si;senales_pluralistas=economía feminista;historia-pensamiento-metodologia=economía feminista",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-A51A388AF3CED687",
+        "title": "Having Too Much",
+        "source": "doab-economics",
+        "type": "book",
+        "score": "0.0",
+        "decision": "INELIGIBLE",
+        "components": "eligibilidad=fallida",
+        "relevance_score": "24",
+        "relevance_reasons": "decision=REVISION_EDITORIAL;disciplina=economia;areas=historia-pensamiento-metodologia,finanzas-sector-publico;anclas=economics,economic,finance,economic theory;pluralismo_rescate=si;senales_pluralistas=economic theory;historia-pensamiento-metodologia=economic theory;finanzas-sector-publico=finance",
+        "access_status": "SOURCE_OA_UNCHECKED",
         "oa_status": "VERIFICADO_FUENTE"
       }
     ],
@@ -493,19 +507,6 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
-        "candidate_id": "CAND-C9C13551BC8F1002",
-        "title": "Trump, el imperio y el cambio social mundial : ¿hacia dónde vamos?",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=trabajo,capitalismo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=capitalismo,poder;trabajo-distribucion-bienestar=trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-CB9D4164E32C0F11",
         "title": "Derechos humanos, prostitución y evidencia territorial: una crítica al discurso del \"trabajo sexual autónomo\"",
         "source": "clacso-repository-oai",
@@ -580,6 +581,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "43",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economic,inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=latin america,caribbean;trabajo-distribucion-bienestar=labour,inequality,poverty",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-69C419EE42E93335",
+        "title": "Cine del sur global: miradas desde el margen del poder",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "38",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power,poder;internacional-latinoamerica=latin american,trade,sur global",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -701,6 +715,19 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;finanzas-sector-publico=fiscal,fiscal",
         "access_status": "SOURCE_UNCHECKED",
         "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-00FC80E14FB329B1",
+        "title": "Volume 4.1: The School of Chrysippus: Zeno of Tarsus and Diogenes of Babylon",
+        "source": "doab-economics",
+        "type": "book",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=linguistics,literary studies,archaeology",
+        "access_status": "SOURCE_OA_UNCHECKED",
+        "oa_status": "VERIFICADO_FUENTE"
       },
       {
         "candidate_id": "CAND-00FE7DAA34C9C8A6",
@@ -895,19 +922,6 @@
         "relevance_score": "0",
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_UNCHECKED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-033BB191FD1A1D6F",
-        "title": "Enseñar matemáticas con manipulativos: innovación metodológica para las aulas de educación primaria",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
     ],
@@ -1108,19 +1122,6 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
-        "candidate_id": "CAND-C9C13551BC8F1002",
-        "title": "Trump, el imperio y el cambio social mundial : ¿hacia dónde vamos?",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=trabajo,capitalismo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=capitalismo,poder;trabajo-distribucion-bienestar=trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-CB9D4164E32C0F11",
         "title": "Derechos humanos, prostitución y evidencia territorial: una crítica al discurso del \"trabajo sexual autónomo\"",
         "source": "clacso-repository-oai",
@@ -1234,6 +1235,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=1.0;O=0.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,produccion-reproduccion-sectorial;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,produccion-reproduccion-sectorial;anclas=monetary;pluralismo_rescate=no;senales_pluralistas=ninguna;macroeconomia-dinero=monetary;produccion-reproduccion-sectorial=production system",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-69C419EE42E93335",
+        "title": "Cine del sur global: miradas desde el margen del poder",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "38",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power,poder;internacional-latinoamerica=latin american,trade,sur global",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
