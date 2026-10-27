@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-10-26T17:24:31+00:00",
-  "records": 3991,
-  "academic_records": 3326,
+  "generated_at": "2026-10-27T16:39:25+00:00",
+  "records": 4016,
+  "academic_records": 3344,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 3266,
+    "0_4_9": 3284,
     "5_6_9": 58,
     "7_8_9": 2
   },
   "decisions": {
-    "INELIGIBLE": 232,
-    "THEMATIC_REJECTED": 2377,
-    "THEMATIC_REVIEW": 650,
+    "INELIGIBLE": 234,
+    "THEMATIC_REJECTED": 2385,
+    "THEMATIC_REVIEW": 658,
     "REVIEW": 58,
     "ARCHIVE": 7,
     "PUBLISHABLE": 2
@@ -23,33 +23,33 @@
       "7_8_9": 2
     },
     "crossref_academic": {
-      "0_4_9": 328
+      "0_4_9": 337
     },
     "doab_oai": {
-      "0_4_9": 507
+      "0_4_9": 510
     },
     "nep_report": {
-      "0_4_9": 197,
+      "0_4_9": 203,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 507
+      "0_4_9": 510
     },
     "chapter": {
-      "0_4_9": 244
+      "0_4_9": 246
     },
     "edition_translation": {
-      "0_4_9": 36
+      "0_4_9": 37
     },
     "paper": {
-      "0_4_9": 1665,
+      "0_4_9": 1671,
       "5_6_9": 46,
       "7_8_9": 2
     },
     "report": {
-      "0_4_9": 796,
+      "0_4_9": 802,
       "5_6_9": 12
     },
     "special_issue": {
@@ -77,10 +77,10 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 328,
-      "thematic_rejected": 170,
-      "thematic_review": 104,
-      "thematic_auto": 54,
+      "discovered": 337,
+      "thematic_rejected": 174,
+      "thematic_review": 107,
+      "thematic_auto": 56,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
@@ -98,12 +98,12 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 507,
-      "thematic_rejected": 436,
-      "oa_evidence": 507,
+      "discovered": 510,
+      "thematic_rejected": 437,
+      "oa_evidence": 510,
       "access_verified": 21,
       "thematic_auto": 21,
-      "thematic_review": 49,
+      "thematic_review": 51,
       "thematic_rescue": 1
     },
     "nep-dev": {
@@ -114,8 +114,8 @@
       "thematic_review": 1
     },
     "nep-ecm": {
-      "discovered": 32,
-      "thematic_rejected": 23,
+      "discovered": 33,
+      "thematic_rejected": 24,
       "access_verified": 12,
       "oa_evidence": 12,
       "thematic_auto": 2,
@@ -139,8 +139,8 @@
       "thematic_auto": 3
     },
     "nep-inv": {
-      "discovered": 24,
-      "thematic_rejected": 11,
+      "discovered": 25,
+      "thematic_rejected": 12,
       "access_verified": 13,
       "oa_evidence": 13,
       "thematic_review": 8,
@@ -154,12 +154,12 @@
       "thematic_review": 1
     },
     "nep-lma": {
-      "discovered": 21,
-      "thematic_rejected": 12,
+      "discovered": 23,
+      "thematic_rejected": 13,
       "thematic_auto": 3,
-      "thematic_review": 6,
-      "access_verified": 1,
-      "oa_evidence": 1
+      "thematic_review": 7,
+      "access_verified": 2,
+      "oa_evidence": 2
     },
     "nep-ltv": {
       "discovered": 3,
@@ -175,12 +175,12 @@
       "thematic_rejected": 11
     },
     "nep-mon": {
-      "discovered": 32,
+      "discovered": 34,
       "thematic_auto": 21,
-      "access_verified": 23,
-      "oa_evidence": 23,
+      "access_verified": 24,
+      "oa_evidence": 24,
       "thematic_rejected": 5,
-      "thematic_review": 6
+      "thematic_review": 8
     },
     "nep-pke": {
       "discovered": 5,
@@ -208,8 +208,8 @@
     }
   },
   "health": {
-    "oa_pending": 2555,
-    "repec_metadata_pending": 662,
+    "oa_pending": 2571,
+    "repec_metadata_pending": 669,
     "publishable": 2,
     "pluralist_rescues_total": 4
   },
