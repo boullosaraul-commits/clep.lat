@@ -1,56 +1,56 @@
 {
-  "generated_at": "2026-10-29T17:28:44+00:00",
-  "records": 4439,
-  "academic_records": 3780,
+  "generated_at": "2026-10-30T17:05:49+00:00",
+  "records": 4458,
+  "academic_records": 3807,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 3721,
-    "5_6_9": 54,
+    "0_4_9": 3749,
+    "5_6_9": 53,
     "7_8_9": 5
   },
   "decisions": {
-    "INELIGIBLE": 257,
-    "THEMATIC_REJECTED": 2737,
-    "THEMATIC_REVIEW": 716,
-    "REVIEW": 54,
+    "INELIGIBLE": 262,
+    "THEMATIC_REJECTED": 2752,
+    "THEMATIC_REVIEW": 724,
+    "REVIEW": 53,
     "ARCHIVE": 11,
     "PUBLISHABLE": 5
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 2635,
-      "5_6_9": 53,
+      "0_4_9": 2636,
+      "5_6_9": 52,
       "7_8_9": 5
     },
     "crossref_academic": {
-      "0_4_9": 355
+      "0_4_9": 373
     },
     "doab_oai": {
-      "0_4_9": 515
+      "0_4_9": 516
     },
     "nep_report": {
-      "0_4_9": 216,
+      "0_4_9": 224,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 515
+      "0_4_9": 516
     },
     "chapter": {
-      "0_4_9": 258
+      "0_4_9": 273
     },
     "edition_translation": {
-      "0_4_9": 42
+      "0_4_9": 43
     },
     "paper": {
-      "0_4_9": 2078,
+      "0_4_9": 2086,
       "5_6_9": 45,
       "7_8_9": 5
     },
     "report": {
-      "0_4_9": 810,
-      "5_6_9": 9
+      "0_4_9": 813,
+      "5_6_9": 8
     },
     "special_issue": {
       "0_4_9": 1
@@ -77,17 +77,17 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 355,
-      "thematic_rejected": 185,
-      "thematic_review": 111,
-      "thematic_auto": 59,
+      "discovered": 373,
+      "thematic_rejected": 195,
+      "thematic_review": 117,
+      "thematic_auto": 61,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
       "discovered": 1935,
       "thematic_rejected": 1649,
       "thematic_review": 211,
-      "access_verified": 389,
+      "access_verified": 407,
       "thematic_auto": 75,
       "publishable": 5
     },
@@ -98,12 +98,12 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 515,
+      "discovered": 516,
       "thematic_rejected": 442,
-      "oa_evidence": 515,
+      "oa_evidence": 516,
       "access_verified": 21,
       "thematic_auto": 21,
-      "thematic_review": 51,
+      "thematic_review": 52,
       "thematic_rescue": 1
     },
     "nep-dev": {
@@ -114,8 +114,8 @@
       "thematic_review": 1
     },
     "nep-ecm": {
-      "discovered": 34,
-      "thematic_rejected": 25,
+      "discovered": 35,
+      "thematic_rejected": 26,
       "access_verified": 12,
       "oa_evidence": 12,
       "thematic_auto": 2,
@@ -139,10 +139,10 @@
       "thematic_auto": 3
     },
     "nep-inv": {
-      "discovered": 28,
-      "thematic_rejected": 12,
-      "access_verified": 13,
-      "oa_evidence": 13,
+      "discovered": 29,
+      "thematic_rejected": 13,
+      "access_verified": 14,
+      "oa_evidence": 14,
       "thematic_review": 9,
       "thematic_auto": 7
     },
@@ -154,9 +154,9 @@
       "thematic_review": 1
     },
     "nep-lma": {
-      "discovered": 24,
+      "discovered": 25,
       "thematic_rejected": 13,
-      "thematic_auto": 3,
+      "thematic_auto": 4,
       "thematic_review": 8,
       "access_verified": 2,
       "oa_evidence": 2
@@ -167,20 +167,20 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 25,
+      "discovered": 27,
       "thematic_review": 8,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 5,
-      "thematic_rejected": 12
+      "thematic_rejected": 14
     },
     "nep-mon": {
-      "discovered": 36,
-      "thematic_auto": 23,
+      "discovered": 39,
+      "thematic_auto": 24,
       "access_verified": 24,
       "oa_evidence": 24,
-      "thematic_rejected": 5,
-      "thematic_review": 8
+      "thematic_rejected": 6,
+      "thematic_review": 9
     },
     "nep-pke": {
       "discovered": 5,
@@ -208,8 +208,8 @@
     }
   },
   "health": {
-    "oa_pending": 2965,
-    "repec_metadata_pending": 656,
+    "oa_pending": 2973,
+    "repec_metadata_pending": 648,
     "publishable": 5,
     "pluralist_rescues_total": 4
   },
@@ -636,6 +636,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-0067A632093531A6",
+        "title": "Task Architecture and Learning from Coarse Performance",
+        "source": "nep-mac",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "3",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-0069468ED8C07D47",
         "title": "Fusión de imágenes satelitales para una alta resolución espacial y temporal del Lago Güija",
         "source": "dialnet-articles-oai",
@@ -904,19 +917,6 @@
         "decision": "THEMATIC_REJECTED",
         "components": "pertinencia_temática=no_aprobada",
         "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_UNCHECKED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-02C18D15D17CF52E",
-        "title": "Determinación volumétrica de sulfatos en el agua",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "0",
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_UNCHECKED",
         "oa_status": "POR_VERIFICAR"
