@@ -6,6 +6,7 @@ El propósito es convertir la infraestructura existente de CLEP en un ciclo oper
 
 | Documento | Función | Estado inicial |
 | --- | --- | --- |
+| [Ruta preliminar 2027-I](ruta-preliminar-2027-I.md) | Hipótesis congelada del primer semestre: Keynes → Hicks/Kalecki → MMT → América Latina | PROPUESTA · congelada 31-oct-2026 |
 | [Documento maestro](documento-maestro.md) | Arquitectura y propuestas del piloto | PROPUESTA · v0.1 |
 | [Decisiones](decisiones.md) | Evidencia, responsables pendientes y siguientes acciones | Registro inicial; no acta de deliberación |
 | [Briefing Rethinking](briefing-rethinking.md) | Base breve para la reunión prevista | Borrador para revisión CLEP |
@@ -16,7 +17,13 @@ El propósito es convertir la infraestructura existente de CLEP en un ciclo oper
 
 ## Plan del primer semestre · 2027-I
 
-**PROPUESTA.** El [documento maestro](documento-maestro.md#5-programa-piloto-2027) ya sitúa en el primer semestre el **Círculo de Estudios Monetarios I**, con el título provisional *Modern Monetary Theory y heterodoxias monetarias latinoamericanas*, y la preparación del encuentro *Kalecki: reproducción, beneficios y dinámica*. El círculo se organiza en formación → interlocución → laboratorio, con atención a México. La fecha y escala de Kalecki siguen por decidir. Godley 20/30 es una propuesta posterior, para el 2 de agosto de 2027; el segundo círculo de 2027-II permanece abierto.
+**PROPUESTA.** La hipótesis de trabajo más reciente está congelada en la [ruta preliminar 2027-I](ruta-preliminar-2027-I.md). En lugar de tratar como iniciativas paralelas el piloto del *Treatise on Money*, Hicks, Kalecki y MMT, propone un solo programa semestral:
+
+**Treatise on Money → dinero y circuito → 1937: Hicks/Kalecki → MMT → heterodoxias latinoamericanas.**
+
+El bloque **1937–2027: dos caminos para la macroeconomía** aprovecha la contemporaneidad de *A Theory of the Business Cycle* de Kalecki (febrero de 1937) y *Mr. Keynes and the “Classics”* de Hicks (abril de 1937; 90 años en abril de 2027) para comparar las construcciones antes de pasar a MMT. Kalecki queda inicialmente integrado en este bloque; una actividad adicional de mayor escala sólo se evaluará si la discusión y la capacidad lo justifican.
+
+Godley queda aparcado como posibilidad para 2027-II; el segundo semestre permanece abierto y no se considera programado.
 
 ### Colaboración que queremos explorar con REDEFFIM
 
