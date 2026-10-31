@@ -4,7 +4,7 @@
 
 ## Fuente y alcance
 
-Se incorpora [CLEP_Programa_2027-I_Plan_Maestro_v0.1.typ](CLEP_Programa_2027-I_Plan_Maestro_v0.1.typ) desde el archivo Library homónimo (libfile_581f541f495c8191951d1c0a57a4d54b), leído completo, sin reescritura. Esta matriz organiza su revisión; no añade un programa ni una v0.2. La revisión de carga se abre, no se declara completada.
+Se incorpora [CLEP_Programa_2027-I_Plan_Maestro_v0.1.typ](CLEP_Programa_2027-I_Plan_Maestro_v0.1.typ) desde el archivo Library homónimo (libfile_581f541f495c8191951d1c0a57a4d54b), leído completo, sin reescritura. Esta matriz organiza su revisión; no añade un programa ni una v0.2. La revisión de carga se inició con [T01–T05 y E01](revision-treatise-1937.md): edición española y rangos de 244 páginas cotejados, fichas y escenarios de carga propuestos. Sigue abierta la validación de capacidad, acceso a Kalecki 1937 y el resto del semestre.
 
 ## Diferencias respecto del repositorio
 
@@ -39,16 +39,16 @@ La siguiente revisión debe fijar además **obligatoria / contraste / ampliació
 
 ## Matriz de revisión por sesión
 
-Los identificadores sólo sirven para localizar trabajo. Las ventanas se transcriben del diseño de la fuente; no son convocatorias. En todas las filas: clasificación de cada selección, edición, páginas y carga **POR DECIDIR**. No se han ejecutado ajustes.
+Los identificadores sólo sirven para localizar trabajo. Las ventanas se transcriben del diseño de la fuente; no son convocatorias. T01–T05 y E01 cuentan ya con una [revisión localizada](revision-treatise-1937.md), que distingue hechos bibliográficos, propuestas docentes y decisiones pendientes. Las filas restantes conservan edición, páginas y carga POR DECIDIR. No se ha modificado el Typst ni el calendario.
 
 | ID | Apartado o referencia del Typst | Ventana del borrador | Corpus indicado | Revisión localizada |
 | --- | --- | --- | --- | --- |
-| T01 | Semana 1 · Treatise | 11–17 ene. | Caps. 1–3 | Edición y páginas por fijar |
-| T02 | Semana 2 · Treatise | 18–24 ene. | Caps. 9–11 | Cotejar títulos, definiciones y paginación |
-| T03 | Semana 3 · Treatise | 25–31 ene. | Caps. 13–15 | Delimitar mecanismo y carga |
-| T04 | Semana 4 · Treatise | 1–7 feb. | Caps. 25–27 | Sumar sesión Keynes × Kalecki separada |
-| T05 | Semana 5 · Treatise | 8–14 feb. | Caps. 31–33 | Fijar selección y cierre |
-| E01 | 1 de febrero · Keynes × Kalecki | 1–7 feb.; sesión adicional | Keynes 1937a; Kalecki 1937a | Cotejar efeméride y carga junto con T04 |
+| T01 | Semana 1 · Treatise | 11–17 ene. | Caps. 1–3; edición española 2010, pp. 17–58 (42) | P/O propuesto; 5,50–7,25 h; véase revisión localizada |
+| T02 | Semana 2 · Treatise | 18–24 ene. | Caps. 9–11; pp. 125–166 (42) | P/O propuesto; 5,50–7,25 h; definiciones propias del Treatise |
+| T03 | Semana 3 · Treatise | 25–31 ene. | Caps. 13–15; pp. 179–236 (58) | P/O propuesto; 6,83–9,25 h; priorización oral sin recortar corpus |
+| T04 | Semana 4 · Treatise | 1–7 feb. | Caps. 25–27; pp. 379–426 (48) | P/O; con E01 P/C: 8–10 h semanales; alternativa 84 páginas: 11–14,5 h |
+| T05 | Semana 5 · Treatise | 8–14 feb. | Caps. 31–33; pp. 515–568 (54) | P/O propuesto; 6,50–8,75 h; balance para Keynes 1933 |
+| E01 | 1 de febrero · Keynes × Kalecki | 1–7 feb.; sesión adicional | Keynes 209–223 (15); Kalecki 77–97 (21) | P/C propuesto; originales íntegros para coordinación; acceso Kalecki pendiente |
 | S01 | Keynes 1933 · Economía monetaria de producción | 15–21 feb. | A Monetary Theory of Production | Distinguir núcleo de posible REDEFFIM I |
 | S02 | General Theory · Demanda efectiva | 22–28 feb. | GT desde cap. 3 | Seleccionar capítulos y edición |
 | S03 | General Theory · S ≡ I y determinación del ingreso | 1–7 mar. | Selección GT por delimitar | Localizar pasajes de identidad, comportamiento y ajuste |
@@ -95,3 +95,7 @@ Los identificadores sólo sirven para localizar trabajo. Las ventanas se transcr
 ## Verificación de esta integración
 
 Comprobado: el Typst se importa desde los bytes originales (32 928 bytes UTF-8; SHA-256 `d38f3c050655f270fcd7639600ae00feb02681decc5cdf1872412b1ccd5c3c57`), sin alteración del texto. Los enlaces relativos resuelven, el registro usa los cuatro estados controlados y los ocho archivos del cambio están dentro de docs/programa-2027. Los dos antecedentes conservan íntegro su contenido original bajo un aviso de referencia histórica. No se modifica dist, no se publica programa ni se altera la fuente Library. No se recompila el Typst: no se ha cambiado su contenido ni se entrega un PDF nuevo.
+
+## Avance T01–T05/E01 · 31 de octubre de 2026
+
+La [revisión de este primer bloque](revision-treatise-1937.md) conserva los quince capítulos, documenta 244 páginas nominales y propone E01 como orientación comparativa con fuentes P/C para participantes. No se confunde P (primaria) con O (obligatoria). Se calculan ambas opciones, incluida la alternativa de 280 páginas si los dos artículos fueran obligatorios. Los tiempos dependen de supuestos declarados, no de una medición empírica. La decisión de carga y la disponibilidad de Kalecki siguen abiertas. S01–S21/E02 todavía no están revisadas en esta etapa.

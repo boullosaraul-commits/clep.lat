@@ -33,3 +33,14 @@ Fundamento: instrucción del promotor de leer el Typst y actualizar por diferenc
 | D20 | Reservar MMT sistemática y México/AL para fase posterior | PROPUESTA | 2026-10-31 | Frontera explícita del Typst; reemplaza el cierre MMT/AL de la ruta anterior | CLEP y participantes | Experiencia 2027-I | Mantener 2027-II abierto; secuencia posterior sólo indicativa |
 | D21 | REDEFFIM como interlocución integrada, con ventanas y perfiles tentativos | DEPENDENCIA EXTERNA | 2026-10-31 | El Typst desarrolla D16 y declara candidatos sin invitación ni aceptación | CLEP, REDEFFIM y cada invitado | Propuesta de conversación, capacidad y aceptación | Preparar hoja de una página; no contactar ni anunciar por esta actualización |
 | D22 | Paso a v0.2 tras revisar función bibliográfica, obligatoriedad, páginas y carga | POR DECIDIR | 2026-10-31 | Próximas operaciones del Typst | Equipo revisor y CLEP; responsables por definir | Ediciones y disponibilidad de textos | Cerrar la matriz y justificar ajustes, sin añadir bloques |
+
+## Primera revisión de sesiones · T01–T05 y E01
+
+Evidencia y cálculos: [revision-treatise-1937.md](revision-treatise-1937.md). El cotejo de rangos es un resultado documental; elegir esa edición común y adoptar la carga son decisiones organizativas distintas.
+
+| ID | Decisión | Estado | Fecha | Fundamento | Quién debe decidirla | Dependencias | Siguiente acción |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| D23 | Usar Síntesis/Fundación ICO 2010 como edición de referencia T01–T05 | PROPUESTA | 2026-10-31 | Créditos, índice y cabeceras cotejados; 15 capítulos, 244 pp. nominales | Equipo de lectura y CLEP | Disponibilidad y correspondencias entre ediciones | Verificar acceso de participantes |
+| D24 | Conservar T01–T05 P/O y dar a E01 función P/C para participantes | PROPUESTA | 2026-10-31 | Evitar imponer 84 pp. y dos reuniones en una semana; cálculos explícitos | Equipo organizador y CLEP | Objetivo de E01 y capacidad real | Revisar propuesta frente a alternativa intensiva; no cambiar fechas aún |
+| D25 | Asegurar el original de Kalecki 1937 y lectura íntegra para coordinación E01 | POR DECIDIR | 2026-10-31 | Referencia y 21 pp. verificadas; texto íntegro no obtenido en esta revisión | Coordinación que acepte | Acceso legítimo y preparación | Resolver antes de considerar E01 lista |
+| D26 | Validar carga semanal antes de emitir v0.2 | POR DECIDIR | 2026-10-31 | 244 pp. O, seis reuniones; escenario 32,33–42,50 h total no es tiempo observado | Equipo organizador y CLEP | Prueba de lectura y disponibilidad | Comprobar especialmente T03 y T04/E01; continuar después el resto |

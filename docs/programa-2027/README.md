@@ -23,6 +23,7 @@ Las etiquetas del Typst **P/R/F/A/E** indican función bibliográfica: primaria,
 | Documento | Función | Estado |
 | --- | --- | --- |
 | [Plan Maestro v0.1](CLEP_Programa_2027-I_Plan_Maestro_v0.1.typ) | Fuente vigente del diseño 2027-I | Borrador del promotor; pendiente de deliberación y revisión de carga |
+| [T01–T05 y E01](revision-treatise-1937.md) | Edición española, páginas, fichas y escenarios de carga del primer bloque | Propuesta revisada; acceso Kalecki y capacidad pendientes |
 | [Revisiones 2027-I](revisiones-2027-I.md) | Diferencias con el repositorio, matriz de sesiones y controles hacia v0.2 | Revisión abierta |
 | [Decisiones](decisiones.md) | Estado institucional, evidencia y siguientes acciones | Sin acta de aprobación colectiva del programa |
 | [Briefing Rethinking](briefing-rethinking.md) | Resumen institucional derivado del plan vigente | Borrador para revisar antes del 18 de noviembre |
