@@ -5,7 +5,7 @@ Paquete estático para una primera versión pública del Colectivo Latinoamerica
 ## Contenido
 
 - `dist/`: sitio listo para desplegar como sitio estático.
-- Inicio, manifiesto, comunidad, actividades, Universidad Abierta, cuatro páginas curriculares, publicaciones y participación.
+- Inicio, manifiesto, comunidad, actividades, Universidad Abierta, ocho áreas temáticas, publicaciones y participación.
 - CSS, JavaScript, favicon, `robots.txt` y `sitemap.xml`.
 
 ## Vista local
@@ -33,3 +33,7 @@ La agenda, la Universidad Abierta y el catálogo de publicaciones se presentan c
 The daily and ingest workflows run synthesis before preparation. The dedicated `paper-synopsis.yml` workflow can also refresh unpublished content without making Meta calls. Configure the repository Actions secret `OPENAI_API_KEY` to enable ongoing model synthesis; optional variable `CLEP_SYNOPSIS_MODEL` defaults to `gpt-4.1-mini`. Each execution attempts at most 12 eligible papers. Existing source-matching results are reused, changed sources invalidate them, and API failures do not discard other candidates. Without the secret, the job reports that model synthesis is inactive and uses only source-checked initial synopses or usable Spanish abstracts.
 
 Cards for papers with a synopsis use a turquoise editorial layout containing the title, authors, source and a synopsis excerpt. Existing published Meta posts are preserved. This update does not automatically edit their text or replace their images.
+
+## Planificación institucional
+
+`docs/` contiene documentación de trabajo fuera del sitio. El [espacio Programa CLEP 2027](docs/programa-2027/README.md) reúne propuestas, decisiones, cronograma y briefing. No acredita actividades confirmadas. La separación operativa es `docs/` para deliberación y memoria; `dist/` para información pública del sitio. No conectar `docs/` a publicación automática. Véase el [procedimiento de publicación](docs/programa-2027/publicacion.md).
