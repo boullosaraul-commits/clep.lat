@@ -38,3 +38,14 @@ La configuración del proveedor que despliega clep.lat no está versionada aquí
 ## Pendientes para CLEP
 
 Revisar documento maestro y briefing; acordar mecanismo de decisión y responsabilidades; delimitar círculo monetario y su relación con el piloto del Tratado; elegir escala y eventualmente fecha de Kalecki; evaluar viabilidad y fecha propuesta de Godley; ratificar el procedimiento de publicación. Mantener abierto 2027-II. Validar compromisos externos después de la reunión antes de anunciarlos.
+
+## Entrega y despliegue observado
+
+Los cambios se entregaron a main mediante el conector GitHub tras fallar la autenticación HTTPS de la terminal. Árboles Git idénticos a los verificados localmente. Commits remotos:
+
+- `f96b7e6949a28b4406cde79c6b1d6b412379f8f5`: docs: establish CLEP 2027 planning workspace.
+- `a38a14391c885722c9b5bdb717af2874ed97680b`: site: normalize institutional navigation and branding.
+
+El check externo **Workers Builds: clep-lat**, ID `124635608528`, terminó en **failure**. GitHub no incluye el motivo en su resumen. La visita a https://clep.lat/actividades/ después de la entrega todavía mostró el emblema anterior y la ausencia de Qué hacemos. Por tanto, el repositorio está actualizado, pero la normalización no se acredita desplegada. No hubo runs de GitHub Actions para ese commit; el check procede de Cloudflare.
+
+Se comprobó la disponibilidad de integración Cloudflare sin encontrar una disponible. Para resolver el bloqueo hace falta acceso al registro de ese build en el proveedor; no se atribuye una causa sin esos registros ni se cambia la configuración de hosting a ciegas. Este hallazgo se registra en un tercer commit documental, separado de los dos cambios de implementación.
