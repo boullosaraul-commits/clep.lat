@@ -14,6 +14,16 @@ El propósito es convertir la infraestructura existente de CLEP en un ciclo oper
 | [Verificación](verificacion.md) | Comprobaciones y límites de implementación | Informe técnico |
 | [Publicación](publicacion.md) | Paso documentado de propuesta a actividad pública | Procedimiento de trabajo por ratificar |
 
+## Plan del primer semestre · 2027-I
+
+**PROPUESTA.** El [documento maestro](documento-maestro.md#5-programa-piloto-2027) ya sitúa en el primer semestre el **Círculo de Estudios Monetarios I**, con el título provisional *Modern Monetary Theory y heterodoxias monetarias latinoamericanas*, y la preparación del encuentro *Kalecki: reproducción, beneficios y dinámica*. El círculo se organiza en formación → interlocución → laboratorio, con atención a México. La fecha y escala de Kalecki siguen por decidir. Godley 20/30 es una propuesta posterior, para el 2 de agosto de 2027; el segundo círculo de 2027-II permanece abierto.
+
+### Colaboración que queremos explorar con REDEFFIM
+
+**PROPUESTA.** Para desarrollar el componente de interlocución y laboratorio del círculo de 2027-I, queremos explorar una colaboración con la **Red de Economía Fiscal, Financiera y Monetaria (REDEFFIM)**, vinculada al **Instituto de Investigaciones Económicas de la UNAM (IIEc)**. Su [presentación institucional](https://economicas.unam.mx/redeffim) reúne investigación, docencia y discusión heterodoxa sobre economía fiscal, financiera y monetaria; ese campo ofrece un punto de partida para conversar sobre el programa y sus preguntas latinoamericanas.
+
+**POR DECIDIR:** alcance de la propuesta, interlocutores y personas de CLEP que prepararían el acercamiento. **DEPENDENCIA EXTERNA:** interés y aceptación de REDEFFIM, así como cualquier modalidad concreta de colaboración. Esta intención no acredita contacto realizado, convenio, coorganización, financiamiento ni respaldo institucional confirmado. El siguiente paso es discutir el acercamiento en CLEP y delimitar una propuesta de conversación.
+
 ## Regla de separación
 
 - `docs/`: deliberación, planificación y memoria del repositorio.
