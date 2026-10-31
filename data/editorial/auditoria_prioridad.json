@@ -1,62 +1,62 @@
 {
-  "generated_at": "2026-10-30T17:05:49+00:00",
-  "records": 4458,
-  "academic_records": 3807,
+  "generated_at": "2026-10-31T16:08:19+00:00",
+  "records": 4721,
+  "academic_records": 4037,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 3749,
-    "5_6_9": 53,
-    "7_8_9": 5
+    "0_4_9": 3976,
+    "5_6_9": 55,
+    "7_8_9": 6
   },
   "decisions": {
-    "INELIGIBLE": 262,
-    "THEMATIC_REJECTED": 2752,
-    "THEMATIC_REVIEW": 724,
-    "REVIEW": 53,
+    "INELIGIBLE": 272,
+    "THEMATIC_REJECTED": 2934,
+    "THEMATIC_REVIEW": 759,
+    "REVIEW": 55,
     "ARCHIVE": 11,
-    "PUBLISHABLE": 5
+    "PUBLISHABLE": 6
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 2636,
-      "5_6_9": 52,
-      "7_8_9": 5
+      "0_4_9": 2833,
+      "5_6_9": 54,
+      "7_8_9": 6
     },
     "crossref_academic": {
-      "0_4_9": 373
+      "0_4_9": 380
     },
     "doab_oai": {
-      "0_4_9": 516
+      "0_4_9": 533
     },
     "nep_report": {
-      "0_4_9": 224,
+      "0_4_9": 230,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 516
+      "0_4_9": 533
     },
     "chapter": {
-      "0_4_9": 273
+      "0_4_9": 276
     },
     "edition_translation": {
-      "0_4_9": 43
+      "0_4_9": 49
     },
     "paper": {
-      "0_4_9": 2086,
-      "5_6_9": 45,
-      "7_8_9": 5
+      "0_4_9": 2283,
+      "5_6_9": 47,
+      "7_8_9": 6
     },
     "report": {
-      "0_4_9": 813,
+      "0_4_9": 816,
       "5_6_9": 8
     },
     "special_issue": {
       "0_4_9": 1
     },
     "thesis": {
-      "0_4_9": 17
+      "0_4_9": 18
     }
   },
   "source_funnel": {
@@ -77,19 +77,19 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 373,
-      "thematic_rejected": 195,
-      "thematic_review": 117,
-      "thematic_auto": 61,
+      "discovered": 380,
+      "thematic_rejected": 199,
+      "thematic_review": 118,
+      "thematic_auto": 63,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
-      "discovered": 1935,
-      "thematic_rejected": 1649,
-      "thematic_review": 211,
-      "access_verified": 407,
-      "thematic_auto": 75,
-      "publishable": 5
+      "discovered": 2135,
+      "thematic_rejected": 1812,
+      "thematic_review": 239,
+      "access_verified": 427,
+      "thematic_auto": 84,
+      "publishable": 6
     },
     "dialnet-theses-oai": {
       "discovered": 6,
@@ -98,12 +98,12 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 516,
-      "thematic_rejected": 442,
-      "oa_evidence": 516,
-      "access_verified": 21,
-      "thematic_auto": 21,
-      "thematic_review": 52,
+      "discovered": 533,
+      "thematic_rejected": 452,
+      "oa_evidence": 533,
+      "access_verified": 22,
+      "thematic_auto": 23,
+      "thematic_review": 57,
       "thematic_rescue": 1
     },
     "nep-dev": {
@@ -139,8 +139,8 @@
       "thematic_auto": 3
     },
     "nep-inv": {
-      "discovered": 29,
-      "thematic_rejected": 13,
+      "discovered": 32,
+      "thematic_rejected": 16,
       "access_verified": 14,
       "oa_evidence": 14,
       "thematic_review": 9,
@@ -167,20 +167,20 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 27,
+      "discovered": 29,
       "thematic_review": 8,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 5,
-      "thematic_rejected": 14
+      "thematic_rejected": 16
     },
     "nep-mon": {
-      "discovered": 39,
+      "discovered": 40,
       "thematic_auto": 24,
       "access_verified": 24,
       "oa_evidence": 24,
       "thematic_rejected": 6,
-      "thematic_review": 9
+      "thematic_review": 10
     },
     "nep-pke": {
       "discovered": 5,
@@ -208,9 +208,9 @@
     }
   },
   "health": {
-    "oa_pending": 2973,
-    "repec_metadata_pending": 648,
-    "publishable": 5,
+    "oa_pending": 3182,
+    "repec_metadata_pending": 681,
+    "publishable": 6,
     "pluralist_rescues_total": 4
   },
   "calibration_sample": {
@@ -623,6 +623,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-004ADB7697AE27F1",
+        "title": "El segundo congreso italiano de química pura y aplicada",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=química",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-0054BF89AEAF2C74",
         "title": "Treasury Trading at the Close",
         "source": "crossref-academic-novelties",
@@ -831,6 +844,19 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-01B4CEDEAB75C9F9",
+        "title": "The Ethics of Human Reproduction and the Family",
+        "source": "doab-economics",
+        "type": "book",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "3",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_OA_UNCHECKED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
         "candidate_id": "CAND-01C2A132BEDF4053",
         "title": "El espacio sonoro del bombo con platillo en Buenos Aires, entre música, ruido e invisibilidad.",
         "source": "dialnet-articles-oai",
@@ -894,32 +920,6 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_OA_UNCHECKED",
         "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-0295F03EF82B1007",
-        "title": "El modelo del género narrativo: diversas interpretaciones",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "0",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_UNCHECKED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-02A23E9D8D136747",
-        "title": "Práctica y cientificidad en la producción contemporánea aplicada al arte, la arquitectura y el diseño",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_UNCHECKED",
-        "oa_status": "POR_VERIFICAR"
       }
     ],
     "borderline": [
@@ -1304,6 +1304,19 @@
       "oa_status": "POR_VERIFICAR"
     },
     {
+      "candidate_id": "CAND-54FAE2897CE41835",
+      "title": "Ensaio sobre a determinação dos investimentos e questões de economia política em kalecki",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=0.0;R=0.0;H=2.0;freshness=bounded_stream_detection;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=effective demand;plural_history=political economy",
+      "relevance_score": "70",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;anclas=economic,economy,political economy;pluralismo_rescate=no;senales_pluralistas=effective demand,political economy;historia-pensamiento-metodologia=kalecki;economia-politica-instituciones=political economy;macroeconomia-dinero=effective demand;desarrollo-estructura=structural transformation",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
       "candidate_id": "CAND-2E1AE977D889FEBA",
       "title": "Efectividad y Satisfacción Percibida de la Formación en Egresados según el Modelo Educativo en Ecuador",
       "source": "dialnet-articles-oai",
@@ -1391,19 +1404,6 @@
       "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,desarrollo-estructura,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "56",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,desarrollo-estructura,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;desarrollo-estructura=transformación estructural;internacional-latinoamerica=américa latina",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "VERIFICADO_FUENTE"
-    },
-    {
-      "candidate_id": "CAND-163AE11D4A077248",
-      "title": "Hacia una agenda de protección de la libertad académica en el Perú : medidas para su protección en contextos de desigualdad",
-      "source": "clacso-repository-oai",
-      "type": "report",
-      "score": "6.5",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "51",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar,economia-politica-instituciones;anclas=desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;trabajo-distribucion-bienestar=desigualdad;economia-politica-instituciones=instituciones",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "VERIFICADO_FUENTE"
     }
