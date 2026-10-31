@@ -11,6 +11,7 @@ El propósito es convertir la infraestructura existente de CLEP en un ciclo oper
 | [Briefing Rethinking](briefing-rethinking.md) | Base breve para la reunión prevista | Borrador para revisión CLEP |
 | [Cronograma](cronograma.md) | Secuencia de trabajo y dependencias | Fechas de trabajo propuestas |
 | [Auditoría](auditoria.md) | Estado técnico previo y alcance de normalización | Observación del repositorio |
+| [Verificación](verificacion.md) | Comprobaciones y límites de implementación | Informe técnico |
 | [Publicación](publicacion.md) | Paso documentado de propuesta a actividad pública | Procedimiento de trabajo por ratificar |
 
 ## Regla de separación
