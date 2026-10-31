@@ -14,14 +14,17 @@ La arquitectura declarada es formación → comunidad → investigación → pub
 
 Nos interesa un modelo de Community of Practice que permita pasar de participante a organizador mediante propuestas discutidas y responsabilidades aceptadas. No se presupone una figura formal ya constituida ni una estructura dependiente de otra organización.
 
-## Programa piloto 2027 · propuestas para discutir
+## Programa piloto 2027 · referencia vigente
 
-- **2027-I: Círculo de Estudios Monetarios I**, título provisional “Modern Monetary Theory y heterodoxias monetarias latinoamericanas”. Formación, interlocución y laboratorio sobre México. MMT, dinero endógeno, SFC, circuitismo y estructuralismo se reconstruyen como marcos distintos; el círculo no adopta una doctrina oficial.
-- **Kalecki: reproducción, beneficios y dinámica**. Ecuaciones marxianas, beneficios y demanda efectiva, inversión, tendencia y ciclo y desarrollos contemporáneos. Escala y fecha pendientes.
-- **Godley 20/30**. Stocks, flujos y macroeconomía monetaria después de Wynne Godley. Fecha propuesta: lunes 2 de agosto de 2027. Formato de un día híbrido y dossier posterior, sujetos a viabilidad.
-- **2027-II abierto**. El siguiente círculo surgiría de intereses, preguntas y capacidades de participantes; no hay temática seleccionada.
+El [Plan Maestro 2027-I v0.1](CLEP_Programa_2027-I_Plan_Maestro_v0.1.typ) concentra la propuesta *Economía monetaria, demanda efectiva y financiación. De Keynes a Minsky*. Se propone un solo recorrido: Treatise → Keynes 1933 → General Theory → recepción → Hicks/Kalecki → Lerner → Minsky. El prólogo del Treatise ocupa cinco sesiones en la ventana de trabajo 11 de enero–14 de febrero; las efemérides de 1937 aportan anclas al desarrollo posterior.
 
-Nada de ello se presenta como convocatoria, sede, invitados o colaboración confirmados.
+La revisión inmediata debe fijar selecciones, páginas, carga semanal y viabilidad del cierre de junio. «Fijo» en el documento designa el diseño del borrador, no una confirmación institucional.
+
+Se quiere explorar interlocución con REDEFFIM sobre preguntas alcanzadas por el seminario. El plan incluye ventanas y perfiles preliminares, sin invitaciones ni participaciones confirmadas; no constituye un ciclo paralelo. La propuesta conserva la autonomía de CLEP y depende del interés de cada contraparte.
+
+La reconstrucción sistemática de MMT, dinero endógeno, circuitismo, SFC y la aplicación a México/América Latina se reservan para una fase posterior, provisionalmente 2027-II. Son posibilidades de continuidad, no una programación seleccionada. Godley 20/30 permanece aparcado como propuesta por evaluar. Una actividad Kalecki adicional tampoco se presupone independiente del recorrido.
+
+Nada de ello acredita convocatoria, sede, invitados o colaboración confirmados. Este briefing resume el Typst y no mantiene un programa alternativo.
 
 ## Qué buscamos discutir
 

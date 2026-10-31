@@ -1,5 +1,8 @@
 # CLEP 2027-I · ruta preliminar
 
+> **Antecedente de diseño, conservado para trazabilidad.** Desde la incorporación del [Plan Maestro 2027-I v0.1](CLEP_Programa_2027-I_Plan_Maestro_v0.1.typ), este archivo no es la referencia vigente para las sesiones ni el calendario de 2027-I. Sus propuestas anteriores se conservan a continuación; las diferencias y pendientes se registran en [revisiones-2027-I.md](revisiones-2027-I.md). La arquitectura institucional anual sigue siendo contexto, sin restaurar propuestas semestrales superadas.
+
+
 Versión congelada de trabajo · 31 de octubre de 2026 · **PROPUESTA para deliberación**.
 
 Este documento fija la hipótesis de trabajo alcanzada para el primer semestre de 2027. No constituye programa aprobado, convocatoria ni compromiso de colaboración externa. Su función es conservar una ruta suficientemente precisa para que CLEP pueda discutirla sin confundirla con actividades confirmadas.

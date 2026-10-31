@@ -1,5 +1,8 @@
 # Programa CLEP 2027 · documento maestro
 
+> **Antecedente de diseño, conservado para trazabilidad.** Desde la incorporación del [Plan Maestro 2027-I v0.1](CLEP_Programa_2027-I_Plan_Maestro_v0.1.typ), este archivo no es la referencia vigente para las sesiones ni el calendario de 2027-I. Sus propuestas anteriores se conservan a continuación; las diferencias y pendientes se registran en [revisiones-2027-I.md](revisiones-2027-I.md). La arquitectura institucional anual sigue siendo contexto, sin restaurar propuestas semestrales superadas.
+
+
 v0.1 · 31 de octubre de 2026 · PROPUESTA para deliberación. No equivale a programa aprobado.
 
 ## 1. Punto de partida
