@@ -1,55 +1,55 @@
 {
-  "generated_at": "2026-11-02T20:48:45+00:00",
-  "records": 5087,
-  "academic_records": 4258,
+  "generated_at": "2026-11-03T18:30:25+00:00",
+  "records": 5277,
+  "academic_records": 4399,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 4185,
-    "5_6_9": 61,
+    "0_4_9": 4321,
+    "5_6_9": 66,
     "7_8_9": 12
   },
   "decisions": {
-    "INELIGIBLE": 280,
-    "THEMATIC_REJECTED": 3099,
-    "THEMATIC_REVIEW": 795,
-    "REVIEW": 61,
+    "INELIGIBLE": 288,
+    "THEMATIC_REJECTED": 3206,
+    "THEMATIC_REVIEW": 816,
+    "REVIEW": 66,
     "ARCHIVE": 11,
     "PUBLISHABLE": 12
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3021,
-      "5_6_9": 60,
+      "0_4_9": 3020,
+      "5_6_9": 65,
       "7_8_9": 12
     },
     "crossref_academic": {
-      "0_4_9": 385
+      "0_4_9": 412
     },
     "doab_oai": {
-      "0_4_9": 537
+      "0_4_9": 637
     },
     "nep_report": {
-      "0_4_9": 242,
+      "0_4_9": 252,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 537
+      "0_4_9": 637
     },
     "chapter": {
-      "0_4_9": 276
+      "0_4_9": 291
     },
     "edition_translation": {
       "0_4_9": 49
     },
     "paper": {
-      "0_4_9": 2483,
-      "5_6_9": 53,
+      "0_4_9": 2492,
+      "5_6_9": 58,
       "7_8_9": 11
     },
     "report": {
-      "0_4_9": 821,
+      "0_4_9": 833,
       "5_6_9": 8
     },
     "special_issue": {
@@ -78,17 +78,17 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 385,
-      "thematic_rejected": 202,
-      "thematic_review": 119,
-      "thematic_auto": 64,
+      "discovered": 412,
+      "thematic_rejected": 216,
+      "thematic_review": 128,
+      "thematic_auto": 68,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
-      "discovered": 2335,
-      "thematic_rejected": 1967,
+      "discovered": 2339,
+      "thematic_rejected": 1971,
       "thematic_review": 270,
-      "access_verified": 457,
+      "access_verified": 478,
       "thematic_auto": 98,
       "publishable": 12
     },
@@ -99,20 +99,21 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 537,
-      "thematic_rejected": 455,
-      "oa_evidence": 537,
+      "discovered": 637,
+      "thematic_rejected": 540,
+      "oa_evidence": 637,
       "access_verified": 22,
-      "thematic_auto": 24,
-      "thematic_review": 57,
-      "thematic_rescue": 1
+      "thematic_auto": 28,
+      "thematic_review": 66,
+      "thematic_rescue": 3
     },
     "nep-dev": {
-      "discovered": 5,
+      "discovered": 6,
       "thematic_rejected": 4,
-      "access_verified": 1,
-      "oa_evidence": 1,
-      "thematic_review": 1
+      "access_verified": 2,
+      "oa_evidence": 2,
+      "thematic_review": 1,
+      "thematic_auto": 1
     },
     "nep-ecm": {
       "discovered": 35,
@@ -131,25 +132,25 @@
       "thematic_review": 6
     },
     "nep-hme": {
-      "discovered": 9,
+      "discovered": 11,
       "thematic_rescue": 1,
       "access_verified": 6,
       "oa_evidence": 6,
-      "thematic_rejected": 3,
-      "thematic_review": 2,
+      "thematic_rejected": 4,
+      "thematic_review": 3,
       "thematic_auto": 3
     },
     "nep-hpe": {
-      "discovered": 1,
-      "thematic_rejected": 1
+      "discovered": 2,
+      "thematic_rejected": 2
     },
     "nep-inv": {
-      "discovered": 33,
-      "thematic_rejected": 16,
+      "discovered": 36,
+      "thematic_rejected": 18,
       "access_verified": 14,
       "oa_evidence": 14,
       "thematic_review": 9,
-      "thematic_auto": 8
+      "thematic_auto": 9
     },
     "nep-lam": {
       "discovered": 2,
@@ -172,28 +173,28 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 33,
-      "thematic_review": 9,
+      "discovered": 34,
+      "thematic_review": 10,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 5,
       "thematic_rejected": 19
     },
     "nep-mon": {
-      "discovered": 46,
+      "discovered": 47,
       "thematic_auto": 27,
       "access_verified": 24,
       "oa_evidence": 24,
       "thematic_rejected": 6,
-      "thematic_review": 13
+      "thematic_review": 14
     },
     "nep-pke": {
-      "discovered": 5,
+      "discovered": 6,
       "thematic_review": 1,
       "access_verified": 4,
       "oa_evidence": 4,
       "thematic_rescue": 1,
-      "thematic_auto": 3
+      "thematic_auto": 4
     },
     "nep-pub": {
       "discovered": 8,
@@ -213,10 +214,10 @@
     }
   },
   "health": {
-    "oa_pending": 3373,
-    "repec_metadata_pending": 826,
+    "oa_pending": 3492,
+    "repec_metadata_pending": 875,
     "publishable": 12,
-    "pluralist_rescues_total": 4
+    "pluralist_rescues_total": 6
   },
   "calibration_sample": {
     "pluralist_rescues": [
@@ -231,6 +232,19 @@
         "relevance_score": "17",
         "relevance_reasons": "decision=REVISION_EDITORIAL;disciplina=economia;areas=historia-pensamiento-metodologia;anclas=economic,economic theory;pluralismo_rescate=si;senales_pluralistas=economic theory,concept of equilibrium;historia-pensamiento-metodologia=economic theory,concept of equilibrium",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-3276EB4C2468385C",
+        "title": "Transforming Socio-Natures in Turkey",
+        "source": "doab-economics",
+        "type": "book",
+        "score": "0.0",
+        "decision": "INELIGIBLE",
+        "components": "eligibilidad=fallida",
+        "relevance_score": "27",
+        "relevance_reasons": "decision=REVISION_EDITORIAL;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economy,political economy;pluralismo_rescate=si;senales_pluralistas=political economy;economia-politica-instituciones=political economy;historia-pensamiento-metodologia=political economy",
+        "access_status": "SOURCE_OA_UNCHECKED",
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
@@ -257,6 +271,19 @@
         "relevance_score": "14",
         "relevance_reasons": "decision=REVISION_EDITORIAL;disciplina=economia;areas=historia-pensamiento-metodologia;anclas=economía;pluralismo_rescate=si;senales_pluralistas=economía feminista;historia-pensamiento-metodologia=economía feminista",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
+        "candidate_id": "CAND-76672F2A5AC910E3",
+        "title": "The Culture of Accountability",
+        "source": "doab-economics",
+        "type": "book",
+        "score": "0.0",
+        "decision": "INELIGIBLE",
+        "components": "eligibilidad=fallida",
+        "relevance_score": "27",
+        "relevance_reasons": "decision=REVISION_EDITORIAL;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economy,political economy;pluralismo_rescate=si;senales_pluralistas=political economy;economia-politica-instituciones=political economy,institutions;historia-pensamiento-metodologia=political economy",
+        "access_status": "SOURCE_OA_UNCHECKED",
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
