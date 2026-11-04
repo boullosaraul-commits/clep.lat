@@ -1,55 +1,55 @@
 {
-  "generated_at": "2026-11-03T18:30:25+00:00",
-  "records": 5277,
-  "academic_records": 4399,
+  "generated_at": "2026-11-04T18:41:12+00:00",
+  "records": 5308,
+  "academic_records": 4437,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 4321,
-    "5_6_9": 66,
+    "0_4_9": 4358,
+    "5_6_9": 67,
     "7_8_9": 12
   },
   "decisions": {
-    "INELIGIBLE": 288,
-    "THEMATIC_REJECTED": 3206,
-    "THEMATIC_REVIEW": 816,
-    "REVIEW": 66,
+    "INELIGIBLE": 299,
+    "THEMATIC_REJECTED": 3227,
+    "THEMATIC_REVIEW": 821,
+    "REVIEW": 67,
     "ARCHIVE": 11,
     "PUBLISHABLE": 12
   },
   "by_source": {
     "academic_oai": {
       "0_4_9": 3020,
-      "5_6_9": 65,
+      "5_6_9": 66,
       "7_8_9": 12
     },
     "crossref_academic": {
-      "0_4_9": 412
+      "0_4_9": 438
     },
     "doab_oai": {
-      "0_4_9": 637
+      "0_4_9": 641
     },
     "nep_report": {
-      "0_4_9": 252,
+      "0_4_9": 259,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 637
+      "0_4_9": 641
     },
     "chapter": {
-      "0_4_9": 291
+      "0_4_9": 309
     },
     "edition_translation": {
-      "0_4_9": 49
+      "0_4_9": 51
     },
     "paper": {
-      "0_4_9": 2492,
-      "5_6_9": 58,
+      "0_4_9": 2498,
+      "5_6_9": 59,
       "7_8_9": 11
     },
     "report": {
-      "0_4_9": 833,
+      "0_4_9": 839,
       "5_6_9": 8
     },
     "special_issue": {
@@ -57,7 +57,7 @@
       "7_8_9": 1
     },
     "thesis": {
-      "0_4_9": 18
+      "0_4_9": 19
     }
   },
   "source_funnel": {
@@ -78,30 +78,30 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 412,
-      "thematic_rejected": 216,
-      "thematic_review": 128,
-      "thematic_auto": 68,
+      "discovered": 438,
+      "thematic_rejected": 230,
+      "thematic_review": 132,
+      "thematic_auto": 76,
       "access_verified": 1
     },
     "dialnet-articles-oai": {
       "discovered": 2339,
       "thematic_rejected": 1971,
       "thematic_review": 270,
-      "access_verified": 478,
+      "access_verified": 499,
       "thematic_auto": 98,
       "publishable": 12
     },
     "dialnet-theses-oai": {
-      "discovered": 6,
-      "thematic_rejected": 5,
+      "discovered": 7,
+      "thematic_rejected": 6,
       "access_verified": 2,
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 637,
-      "thematic_rejected": 540,
-      "oa_evidence": 637,
+      "discovered": 641,
+      "thematic_rejected": 544,
+      "oa_evidence": 641,
       "access_verified": 22,
       "thematic_auto": 28,
       "thematic_review": 66,
@@ -145,10 +145,10 @@
       "thematic_rejected": 2
     },
     "nep-inv": {
-      "discovered": 36,
-      "thematic_rejected": 18,
-      "access_verified": 14,
-      "oa_evidence": 14,
+      "discovered": 37,
+      "thematic_rejected": 19,
+      "access_verified": 15,
+      "oa_evidence": 15,
       "thematic_review": 9,
       "thematic_auto": 9
     },
@@ -173,16 +173,16 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 34,
-      "thematic_review": 10,
+      "discovered": 38,
+      "thematic_review": 11,
       "access_verified": 10,
       "oa_evidence": 10,
-      "thematic_auto": 5,
-      "thematic_rejected": 19
+      "thematic_auto": 7,
+      "thematic_rejected": 20
     },
     "nep-mon": {
-      "discovered": 47,
-      "thematic_auto": 27,
+      "discovered": 49,
+      "thematic_auto": 29,
       "access_verified": 24,
       "oa_evidence": 24,
       "thematic_rejected": 6,
@@ -214,8 +214,8 @@
     }
   },
   "health": {
-    "oa_pending": 3492,
-    "repec_metadata_pending": 875,
+    "oa_pending": 3508,
+    "repec_metadata_pending": 868,
     "publishable": 12,
     "pluralist_rescues_total": 6
   },
@@ -283,7 +283,7 @@
         "components": "eligibilidad=fallida",
         "relevance_score": "27",
         "relevance_reasons": "decision=REVISION_EDITORIAL;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economy,political economy;pluralismo_rescate=si;senales_pluralistas=political economy;economia-politica-instituciones=political economy,institutions;historia-pensamiento-metodologia=political economy",
-        "access_status": "SOURCE_OA_UNCHECKED",
+        "access_status": "ACCESS_FAILED",
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
