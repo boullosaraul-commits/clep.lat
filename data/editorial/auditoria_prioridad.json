@@ -1,56 +1,56 @@
 {
-  "generated_at": "2026-11-05T18:45:22+00:00",
-  "records": 5498,
-  "academic_records": 4629,
+  "generated_at": "2026-11-06T17:59:41+00:00",
+  "records": 5912,
+  "academic_records": 5048,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 4544,
-    "5_6_9": 76,
-    "7_8_9": 9
+    "0_4_9": 4967,
+    "5_6_9": 73,
+    "7_8_9": 8
   },
   "decisions": {
-    "INELIGIBLE": 314,
-    "THEMATIC_REJECTED": 3370,
-    "THEMATIC_REVIEW": 849,
-    "REVIEW": 76,
-    "ARCHIVE": 11,
-    "PUBLISHABLE": 9
+    "INELIGIBLE": 376,
+    "THEMATIC_REJECTED": 3666,
+    "THEMATIC_REVIEW": 917,
+    "REVIEW": 73,
+    "ARCHIVE": 8,
+    "PUBLISHABLE": 8
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3114,
-      "5_6_9": 75,
-      "7_8_9": 9
+      "0_4_9": 3441,
+      "5_6_9": 72,
+      "7_8_9": 8
     },
     "crossref_academic": {
-      "0_4_9": 468
+      "0_4_9": 477
     },
     "doab_oai": {
-      "0_4_9": 688
+      "0_4_9": 769
     },
     "nep_report": {
-      "0_4_9": 274,
+      "0_4_9": 280,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 688
+      "0_4_9": 769
     },
     "chapter": {
-      "0_4_9": 330
+      "0_4_9": 337
     },
     "edition_translation": {
-      "0_4_9": 52
+      "0_4_9": 56
     },
     "paper": {
-      "0_4_9": 2604,
+      "0_4_9": 2809,
       "5_6_9": 71,
-      "7_8_9": 8
+      "7_8_9": 7
     },
     "report": {
-      "0_4_9": 850,
-      "5_6_9": 5
+      "0_4_9": 976,
+      "5_6_9": 2
     },
     "special_issue": {
       "0_4_9": 1,
@@ -62,11 +62,11 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 446,
-      "thematic_rejected": 181,
-      "thematic_review": 196,
+      "discovered": 569,
+      "thematic_rejected": 223,
+      "thematic_review": 238,
       "access_verified": 185,
-      "thematic_auto": 69
+      "thematic_auto": 108
     },
     "clacso-repository-oai": {
       "discovered": 306,
@@ -78,20 +78,20 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 468,
-      "thematic_rejected": 249,
-      "thematic_review": 140,
-      "thematic_auto": 79,
+      "discovered": 477,
+      "thematic_rejected": 253,
+      "thematic_review": 142,
+      "thematic_auto": 82,
       "access_verified": 3,
       "oa_evidence": 2
     },
     "dialnet-articles-oai": {
-      "discovered": 2439,
-      "thematic_rejected": 2048,
-      "thematic_review": 283,
-      "access_verified": 520,
-      "thematic_auto": 108,
-      "publishable": 9
+      "discovered": 2639,
+      "thematic_rejected": 2224,
+      "thematic_review": 301,
+      "access_verified": 541,
+      "thematic_auto": 114,
+      "publishable": 8
     },
     "dialnet-theses-oai": {
       "discovered": 7,
@@ -100,12 +100,12 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 688,
-      "thematic_rejected": 583,
-      "oa_evidence": 688,
+      "discovered": 769,
+      "thematic_rejected": 655,
+      "oa_evidence": 769,
       "access_verified": 23,
-      "thematic_auto": 30,
-      "thematic_review": 72,
+      "thematic_auto": 35,
+      "thematic_review": 76,
       "thematic_rescue": 3
     },
     "nep-dev": {
@@ -146,10 +146,10 @@
       "thematic_rejected": 2
     },
     "nep-inv": {
-      "discovered": 41,
-      "thematic_rejected": 21,
-      "access_verified": 15,
-      "oa_evidence": 15,
+      "discovered": 42,
+      "thematic_rejected": 22,
+      "access_verified": 16,
+      "oa_evidence": 16,
       "thematic_review": 10,
       "thematic_auto": 10
     },
@@ -174,20 +174,20 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 45,
-      "thematic_review": 11,
+      "discovered": 46,
+      "thematic_review": 12,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 8,
       "thematic_rejected": 26
     },
     "nep-mon": {
-      "discovered": 52,
-      "thematic_auto": 32,
+      "discovered": 56,
+      "thematic_auto": 34,
       "access_verified": 24,
       "oa_evidence": 24,
-      "thematic_rejected": 6,
-      "thematic_review": 14
+      "thematic_rejected": 7,
+      "thematic_review": 15
     },
     "nep-pke": {
       "discovered": 6,
@@ -215,9 +215,9 @@
     }
   },
   "health": {
-    "oa_pending": 3675,
-    "repec_metadata_pending": 866,
-    "publishable": 9,
+    "oa_pending": 4072,
+    "repec_metadata_pending": 860,
+    "publishable": 8,
     "pluralist_rescues_total": 6
   },
   "calibration_sample": {
@@ -342,19 +342,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-2E1AE977D889FEBA",
-        "title": "Efectividad y Satisfacción Percibida de la Formación en Egresados según el Modelo Educativo en Ecuador",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=labor",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-631969D0035E11B2",
         "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
         "source": "dialnet-articles-oai",
@@ -394,17 +381,30 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-163AE11D4A077248",
-        "title": "Hacia una agenda de protección de la libertad académica en el Perú : medidas para su protección en contextos de desigualdad",
-        "source": "clacso-repository-oai",
-        "type": "report",
+        "candidate_id": "CAND-E6E3D48207A1BC01",
+        "title": "Caracterización de sistemas de producción ovina en el altiplano central de México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "7.0",
+        "decision": "PUBLISHABLE",
+        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "47",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;produccion-reproduccion-sectorial=production system;trabajo-distribucion-bienestar=welfare",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-2E1AE977D889FEBA",
+        "title": "Efectividad y Satisfacción Percibida de la Formación en Egresados según el Modelo Educativo en Ecuador",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
         "score": "6.5",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "51",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar,economia-politica-instituciones;anclas=desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;trabajo-distribucion-bienestar=desigualdad;economia-politica-instituciones=instituciones",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=labor",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
+        "oa_status": "POR_VERIFICAR"
       },
       {
         "candidate_id": "CAND-3D06F25CBA8FAC15",
@@ -444,19 +444,6 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=poverty",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-7E6C0EBA5C90ECF6",
-        "title": "Libertad académica afrodiaspórica : estrategias para una transformación estructural de las instituciones educativas y científicas en América Latina",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,desarrollo-estructura,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "56",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,desarrollo-estructura,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;desarrollo-estructura=transformación estructural;internacional-latinoamerica=américa latina",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
       },
       {
         "candidate_id": "CAND-A00792B21973F710",
@@ -563,19 +550,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-E6C5B5E42D328243",
-        "title": "Libertad académica y gestión editorial inclusiva : hacia un modelo descolonizador de publicación en América Latina",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina;economia-politica-instituciones=instituciones",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-F782F988FD3A2999",
         "title": "Pensamiento computacional en la primera infancia: sistematización del uso de ROVERSA como mediación pedagógica vinculada a los derechos básicos de aprendizaje",
         "source": "dialnet-articles-oai",
@@ -615,15 +589,41 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-1BF60AABD3B1F05E",
-        "title": "\"La ciudad letrada\" y la mediación de la legitimidad: una relectura de Ángel Rama",
+        "candidate_id": "CAND-1CEC4858B2F0FAA3",
+        "title": "Balanced Scorecard en la gestión de la liquidez financiera en las PYMES del Perú",
         "source": "dialnet-articles-oai",
         "type": "paper",
         "score": "6.0",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "43",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economía,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=poder;internacional-latinoamerica=américa latina;trabajo-distribucion-bienestar=trabajo,distribución",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;economia-politica-instituciones=power",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-261E04317C5E1D61",
+        "title": "Letters on the moral and religious state of South America: el método lancasteriano y su relación con la gramaticografía argentina a través de la correspondencia de James Thomson",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=lingüística;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=labor,trabajo",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-2E6A17BBAB583133",
+        "title": "Análisis de factores financieros internos y desempeño empresarial en Perú (2020-2024)",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "31",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=económica;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;finanzas-sector-publico=deuda",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -721,6 +721,32 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-006AAADB578A8D5C",
+        "title": "Oportunidades de diversificación exportadora en el MERCOSUR: un abordaje desde el espacio de producto",
+        "source": "cepal-oai-publications",
+        "type": "report",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "0",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=desarrollo-estructura,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=química;desarrollo-estructura=cambio estructural;internacional-latinoamerica=argentina,brasil,comercio",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-006CB319DFA0D431",
+        "title": "Ansiedad y depresión en el profesorado a causa de la pandemia de covid-19",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "13",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-0073D69FEBCC50C8",
         "title": "Los incunables de Antonio de Rocabertí, Conde de Zavellà, y Tomás de Rocabertí, Conde de Peralada, en la Biblioteca del Palacio de Peralada",
         "source": "dialnet-articles-oai",
@@ -756,6 +782,19 @@
         "components": "pertinencia_temática=no_aprobada",
         "relevance_score": "3",
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "SOURCE_UNCHECKED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-00B43E3CF7B8E5BB",
+        "title": "Inteligencia ecológica: Una alternativa para enfrentar los desafíos del turismo agroecológico",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "3",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=ninguna;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_UNCHECKED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -914,60 +953,21 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_UNCHECKED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-025423DB01FF152D",
-        "title": "Cierre de brechas de talento humano para el desarrollo productivo",
-        "source": "cepal-oai-publications",
-        "type": "chapter",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_UNCHECKED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-026E900A3B7C990F",
-        "title": "Presentación Plataforma de iniciativas clúster y otras iniciativas de articulación productiva CEPAL [video]",
-        "source": "cepal-oai-publications",
-        "type": "report",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "3",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_UNCHECKED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-02887C8DC9E8890A",
-        "title": "Interculturalidad e inclusión en las universidades. Diferencias culturales, de modos de producción de conocimiento y de modalidades de aprendizaje",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "0",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
-        "access_status": "SOURCE_OA_UNCHECKED",
-        "oa_status": "VERIFICADO_FUENTE"
       }
     ],
     "borderline": [
       {
-        "candidate_id": "CAND-163AE11D4A077248",
-        "title": "Hacia una agenda de protección de la libertad académica en el Perú : medidas para su protección en contextos de desigualdad",
-        "source": "clacso-repository-oai",
-        "type": "report",
+        "candidate_id": "CAND-2E1AE977D889FEBA",
+        "title": "Efectividad y Satisfacción Percibida de la Formación en Egresados según el Modelo Educativo en Ecuador",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
         "score": "6.5",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "51",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar,economia-politica-instituciones;anclas=desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;trabajo-distribucion-bienestar=desigualdad;economia-politica-instituciones=instituciones",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=labor",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
+        "oa_status": "POR_VERIFICAR"
       },
       {
         "candidate_id": "CAND-3D06F25CBA8FAC15",
@@ -996,19 +996,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-42D3B7DC7DD3C5BF",
-        "title": "“Una economía del rebusque”:: Género, gestión del tiempo y de recursos de asalariadas temporales en la fruticultura de exportación en la región de Ñuble",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=1.0;freshness=bounded_stream_detection;areas=produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=social reproduction;plural_history=ninguna",
-        "relevance_score": "53",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economía;pluralismo_rescate=no;senales_pluralistas=social reproduction;produccion-reproduccion-sectorial=social reproduction;historia-pensamiento-metodologia=social reproduction;internacional-latinoamerica=chile;trabajo-distribucion-bienestar=labour,wage",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-4A3D79530C529059",
         "title": "Factores relacionados a la conducta anticonceptiva de adolescentes en desventaja social del suroeste de México",
         "source": "dialnet-articles-oai",
@@ -1022,17 +1009,17 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-7E6C0EBA5C90ECF6",
-        "title": "Libertad académica afrodiaspórica : estrategias para una transformación estructural de las instituciones educativas y científicas en América Latina",
-        "source": "clacso-repository-oai",
-        "type": "report",
+        "candidate_id": "CAND-54FAE2897CE41835",
+        "title": "Ensaio sobre a determinação dos investimentos e questões de economia política em kalecki",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
         "score": "6.5",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,desarrollo-estructura,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "56",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,desarrollo-estructura,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;desarrollo-estructura=transformación estructural;internacional-latinoamerica=américa latina",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=0.0;H=2.0;freshness=bounded_stream_detection;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=effective demand;plural_history=political economy",
+        "relevance_score": "70",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;anclas=economic,economy,political economy;pluralismo_rescate=no;senales_pluralistas=effective demand,political economy;historia-pensamiento-metodologia=kalecki;economia-politica-instituciones=political economy;macroeconomia-dinero=effective demand;desarrollo-estructura=structural transformation",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
+        "oa_status": "POR_VERIFICAR"
       },
       {
         "candidate_id": "CAND-A00792B21973F710",
@@ -1139,19 +1126,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-E6C5B5E42D328243",
-        "title": "Libertad académica y gestión editorial inclusiva : hacia un modelo descolonizador de publicación en América Latina",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina;economia-politica-instituciones=instituciones",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-F782F988FD3A2999",
         "title": "Pensamiento computacional en la primera infancia: sistematización del uso de ROVERSA como mediación pedagógica vinculada a los derechos básicos de aprendizaje",
         "source": "dialnet-articles-oai",
@@ -1191,19 +1165,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-1BF60AABD3B1F05E",
-        "title": "\"La ciudad letrada\" y la mediación de la legitimidad: una relectura de Ángel Rama",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "43",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economía,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=poder;internacional-latinoamerica=américa latina;trabajo-distribucion-bienestar=trabajo,distribución",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-1CEC4858B2F0FAA3",
         "title": "Balanced Scorecard en la gestión de la liquidez financiera en las PYMES del Perú",
         "source": "dialnet-articles-oai",
@@ -1213,6 +1174,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "34",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;economia-politica-instituciones=power",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-261E04317C5E1D61",
+        "title": "Letters on the moral and religious state of South America: el método lancasteriano y su relación con la gramaticografía argentina a través de la correspondencia de James Thomson",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=lingüística;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=labor,trabajo",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -1243,6 +1217,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-37F2002CC2DB7393",
+        "title": "Tecnología, innovación y digitalización durante la COVID-19: Claves para la permanencia de las empresas familiares en ciudades del interior de Venezuela",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=employment",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-43948BCC486176BE",
         "title": "Optimal monetary and exchange rate frameworks for commodity-exposed economies",
         "source": "nep-mon",
@@ -1269,15 +1256,28 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-57112016BFFBF409",
-        "title": "D3$r3f(x). Sabotaje y distorsión en tecnopoéticas contemporáneas",
+        "candidate_id": "CAND-69B3B17126F1F73C",
+        "title": "Reconocimiento jurídico y realidad social de la garantía del derecho a la salud de las personas trans en México",
         "source": "dialnet-articles-oai",
         "type": "paper",
         "score": "6.0",
         "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=0.0;H=1.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,historia-pensamiento-metodologia;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=political economy",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economy,political economy;pluralismo_rescate=no;senales_pluralistas=political economy;economia-politica-instituciones=political economy;historia-pensamiento-metodologia=political economy",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=labor,inequality",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-6DF5D8A3BB5E027C",
+        "title": "Trabajo digno y seguridad laboral en circuitos cortos de comercialización desde la perspectiva de la seguridad y salud en el trabajo (SST) y la economía solidaria",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=economy,economía,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,trabajo;internacional-latinoamerica=colombia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1294,32 +1294,6 @@
       "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=2.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,finanzas-sector-publico;plural_explicit=post-keynesian;plural_concepts=endogenous money,sectoral balances;plural_history=ninguna",
       "relevance_score": "64",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=post-keynesian,endogenous money,sectoral balances;macroeconomia-dinero=money,post-keynesian;produccion-reproduccion-sectorial=sectoral balances;historia-pensamiento-metodologia=post-keynesian,endogenous money,sectoral balances;internacional-latinoamerica=mexico",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-54FAE2897CE41835",
-      "title": "Ensaio sobre a determinação dos investimentos e questões de economia política em kalecki",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=0.0;R=0.0;H=2.0;freshness=bounded_stream_detection;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=effective demand;plural_history=political economy",
-      "relevance_score": "70",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;anclas=economic,economy,political economy;pluralismo_rescate=no;senales_pluralistas=effective demand,political economy;historia-pensamiento-metodologia=kalecki;economia-politica-instituciones=political economy;macroeconomia-dinero=effective demand;desarrollo-estructura=structural transformation",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-2E1AE977D889FEBA",
-      "title": "Efectividad y Satisfacción Percibida de la Formación en Egresados según el Modelo Educativo en Ecuador",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "30",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=labor",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     },
@@ -1402,43 +1376,69 @@
       "oa_status": "POR_VERIFICAR"
     },
     {
-      "candidate_id": "CAND-42D3B7DC7DD3C5BF",
-      "title": "“Una economía del rebusque”:: Género, gestión del tiempo y de recursos de asalariadas temporales en la fruticultura de exportación en la región de Ñuble",
+      "candidate_id": "CAND-E6E3D48207A1BC01",
+      "title": "Caracterización de sistemas de producción ovina en el altiplano central de México",
       "source": "dialnet-articles-oai",
       "type": "paper",
-      "score": "6.5",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=1.0;freshness=bounded_stream_detection;areas=produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=social reproduction;plural_history=ninguna",
-      "relevance_score": "53",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economía;pluralismo_rescate=no;senales_pluralistas=social reproduction;produccion-reproduccion-sectorial=social reproduction;historia-pensamiento-metodologia=social reproduction;internacional-latinoamerica=chile;trabajo-distribucion-bienestar=labour,wage",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "47",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;produccion-reproduccion-sectorial=production system;trabajo-distribucion-bienestar=welfare",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     },
     {
-      "candidate_id": "CAND-E6C5B5E42D328243",
-      "title": "Libertad académica y gestión editorial inclusiva : hacia un modelo descolonizador de publicación en América Latina",
-      "source": "clacso-repository-oai",
-      "type": "report",
+      "candidate_id": "CAND-D8AB58A53AC06479",
+      "title": "Integration of Artificial Intelligence into the TPACK Model: Transforming Teaching in the Digital Age — ES: Integración de la Inteligencia Artificial en el Modelo TPACK: Transforming Teaching in the Digital Age",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
       "score": "6.5",
       "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "34",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=américa latina;economia-politica-instituciones=instituciones",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=mexico,chile,colombia",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "VERIFICADO_FUENTE"
+      "oa_status": "POR_VERIFICAR"
     },
     {
-      "candidate_id": "CAND-7E6C0EBA5C90ECF6",
-      "title": "Libertad académica afrodiaspórica : estrategias para una transformación estructural de las instituciones educativas y científicas en América Latina",
-      "source": "clacso-repository-oai",
-      "type": "report",
+      "candidate_id": "CAND-A00792B21973F710",
+      "title": "Validación del cuestionario “Percepciones sobre la resolución de conflictos escolares”: evidencia psicométrica en contextos periurbanos gentrificados de Bogotá, Celaya, León y Zacatecas",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
       "score": "6.5",
       "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,desarrollo-estructura,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "56",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,desarrollo-estructura,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;desarrollo-estructura=transformación estructural;internacional-latinoamerica=américa latina",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=mexico,colombia",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "VERIFICADO_FUENTE"
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-40C51118222527A7",
+      "title": "Autoeficacia, bienestar y rendimiento académico como predictores de aspiraciones educativas en secundaria en Chile",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "36",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=chile;trabajo-distribucion-bienestar=bienestar",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-B6DF80A3D1565C0D",
+      "title": "Aplicación de la teoría de grafos en el pensamiento computacional",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=colombia",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
     }
   ]
 }
