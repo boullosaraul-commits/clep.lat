@@ -1,56 +1,55 @@
 {
-  "generated_at": "2026-11-06T17:59:41+00:00",
-  "records": 5912,
-  "academic_records": 5048,
+  "generated_at": "2026-11-07T16:54:12+00:00",
+  "records": 6070,
+  "academic_records": 5206,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 4967,
-    "5_6_9": 73,
+    "0_4_9": 5129,
+    "5_6_9": 69,
     "7_8_9": 8
   },
   "decisions": {
-    "INELIGIBLE": 376,
-    "THEMATIC_REJECTED": 3666,
-    "THEMATIC_REVIEW": 917,
-    "REVIEW": 73,
-    "ARCHIVE": 8,
+    "INELIGIBLE": 390,
+    "THEMATIC_REJECTED": 3796,
+    "THEMATIC_REVIEW": 937,
+    "REVIEW": 69,
+    "ARCHIVE": 6,
     "PUBLISHABLE": 8
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3441,
-      "5_6_9": 72,
+      "0_4_9": 3446,
+      "5_6_9": 68,
       "7_8_9": 8
     },
     "crossref_academic": {
-      "0_4_9": 477
+      "0_4_9": 482
     },
     "doab_oai": {
-      "0_4_9": 769
+      "0_4_9": 916
     },
     "nep_report": {
-      "0_4_9": 280,
+      "0_4_9": 285,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 769
+      "0_4_9": 916
     },
     "chapter": {
-      "0_4_9": 337
+      "0_4_9": 339
     },
     "edition_translation": {
       "0_4_9": 56
     },
     "paper": {
-      "0_4_9": 2809,
-      "5_6_9": 71,
+      "0_4_9": 2816,
+      "5_6_9": 69,
       "7_8_9": 7
     },
     "report": {
-      "0_4_9": 976,
-      "5_6_9": 2
+      "0_4_9": 982
     },
     "special_issue": {
       "0_4_9": 1,
@@ -62,11 +61,11 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 569,
+      "discovered": 570,
       "thematic_rejected": 223,
       "thematic_review": 238,
       "access_verified": 185,
-      "thematic_auto": 108
+      "thematic_auto": 109
     },
     "clacso-repository-oai": {
       "discovered": 306,
@@ -78,9 +77,9 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 477,
-      "thematic_rejected": 253,
-      "thematic_review": 142,
+      "discovered": 482,
+      "thematic_rejected": 257,
+      "thematic_review": 143,
       "thematic_auto": 82,
       "access_verified": 3,
       "oa_evidence": 2
@@ -89,7 +88,7 @@
       "discovered": 2639,
       "thematic_rejected": 2224,
       "thematic_review": 301,
-      "access_verified": 541,
+      "access_verified": 555,
       "thematic_auto": 114,
       "publishable": 8
     },
@@ -100,12 +99,12 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 769,
-      "thematic_rejected": 655,
-      "oa_evidence": 769,
-      "access_verified": 23,
-      "thematic_auto": 35,
-      "thematic_review": 76,
+      "discovered": 916,
+      "thematic_rejected": 781,
+      "oa_evidence": 916,
+      "access_verified": 24,
+      "thematic_auto": 40,
+      "thematic_review": 92,
       "thematic_rescue": 3
     },
     "nep-dev": {
@@ -142,8 +141,9 @@
       "thematic_auto": 3
     },
     "nep-hpe": {
-      "discovered": 2,
-      "thematic_rejected": 2
+      "discovered": 3,
+      "thematic_rejected": 2,
+      "thematic_review": 1
     },
     "nep-inv": {
       "discovered": 42,
@@ -174,20 +174,20 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 46,
-      "thematic_review": 12,
+      "discovered": 47,
+      "thematic_review": 13,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 8,
       "thematic_rejected": 26
     },
     "nep-mon": {
-      "discovered": 56,
-      "thematic_auto": 34,
+      "discovered": 59,
+      "thematic_auto": 36,
       "access_verified": 24,
       "oa_evidence": 24,
       "thematic_rejected": 7,
-      "thematic_review": 15
+      "thematic_review": 16
     },
     "nep-pke": {
       "discovered": 6,
@@ -215,7 +215,7 @@
     }
   },
   "health": {
-    "oa_pending": 4072,
+    "oa_pending": 4215,
     "repec_metadata_pending": 860,
     "publishable": 8,
     "pluralist_rescues_total": 6
@@ -472,19 +472,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-B3A43BDD78A6A9ED",
-        "title": "Corrupción pública y sociedad civil. El caso del Sistema Estatal Anticorrupción de Baja California",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "43",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-B5F8289FD2E55FE4",
         "title": "Equidad en la Evaluación de Tecnologías Sanitarias para Enfermedades Raras en Chile",
         "source": "dialnet-articles-oai",
@@ -509,19 +496,6 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=colombia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-B98E614BFFC70D2D",
-        "title": "Corrupción en el ámbito policial : significados construidos por policías preventivos de tres ciudades de México",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=salarios",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
       },
       {
         "candidate_id": "CAND-D8AB58A53AC06479",
@@ -624,6 +598,32 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "31",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=económica;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;finanzas-sector-publico=deuda",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-36C1C1FC739FE1AA",
+        "title": "Trayectorias educativas y laborales de la juventud rural: articulación entre educación secundaria y técnico-productiva en Piura, Perú",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;trabajo-distribucion-bienestar=labor",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-37F2002CC2DB7393",
+        "title": "Tecnología, innovación y digitalización durante la COVID-19: Claves para la permanencia de las empresas familiares en ciudades del interior de Venezuela",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=employment",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1048,19 +1048,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-B3A43BDD78A6A9ED",
-        "title": "Corrupción pública y sociedad civil. El caso del Sistema Estatal Anticorrupción de Baja California",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "43",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=instituciones;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
         "candidate_id": "CAND-B5F8289FD2E55FE4",
         "title": "Equidad en la Evaluación de Tecnologías Sanitarias para Enfermedades Raras en Chile",
         "source": "dialnet-articles-oai",
@@ -1085,19 +1072,6 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=colombia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-B98E614BFFC70D2D",
-        "title": "Corrupción en el ámbito policial : significados construidos por policías preventivos de tres ciudades de México",
-        "source": "clacso-repository-oai",
-        "type": "report",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=1.0;H=0.0;freshness=publication_date;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=salarios",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "VERIFICADO_FUENTE"
       },
       {
         "candidate_id": "CAND-D8AB58A53AC06479",
@@ -1278,6 +1252,32 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=economy,economía,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,trabajo;internacional-latinoamerica=colombia",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-86BBFBF3E9901278",
+        "title": "Gestão contábil, financeira e tributária em empreendimentos aquícolas no Brasil: um ensaio teórico-aplicado",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "31",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-8BD8098D6EFCAADD",
+        "title": "Barreras durante la búsqueda de empleo de jóvenes egresados universitarios con discapacidad visual",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,employment,empleo;internacional-latinoamerica=argentina",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
