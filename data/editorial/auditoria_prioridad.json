@@ -1,36 +1,36 @@
 {
-  "generated_at": "2026-11-08T17:06:39+00:00",
-  "records": 6285,
-  "academic_records": 5429,
+  "generated_at": "2026-11-09T21:29:02+00:00",
+  "records": 6436,
+  "academic_records": 5457,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 5355,
-    "5_6_9": 63,
+    "0_4_9": 5381,
+    "5_6_9": 65,
     "7_8_9": 11
   },
   "decisions": {
-    "INELIGIBLE": 417,
-    "THEMATIC_REJECTED": 3954,
-    "THEMATIC_REVIEW": 976,
-    "REVIEW": 63,
-    "ARCHIVE": 8,
+    "INELIGIBLE": 420,
+    "THEMATIC_REJECTED": 3972,
+    "THEMATIC_REVIEW": 983,
+    "REVIEW": 65,
+    "ARCHIVE": 6,
     "PUBLISHABLE": 11
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3651,
-      "5_6_9": 62,
+      "0_4_9": 3659,
+      "5_6_9": 64,
       "7_8_9": 9
     },
     "crossref_academic": {
-      "0_4_9": 482
+      "0_4_9": 494
     },
     "doab_oai": {
       "0_4_9": 929,
       "7_8_9": 2
     },
     "nep_report": {
-      "0_4_9": 293,
+      "0_4_9": 299,
       "5_6_9": 1
     }
   },
@@ -40,25 +40,26 @@
       "7_8_9": 2
     },
     "chapter": {
-      "0_4_9": 339
+      "0_4_9": 340
     },
     "edition_translation": {
       "0_4_9": 59
     },
     "paper": {
-      "0_4_9": 3025,
-      "5_6_9": 63,
+      "0_4_9": 3040,
+      "5_6_9": 64,
       "7_8_9": 8
     },
     "report": {
-      "0_4_9": 982
+      "0_4_9": 993
     },
     "special_issue": {
       "0_4_9": 1,
       "7_8_9": 1
     },
     "thesis": {
-      "0_4_9": 20
+      "0_4_9": 19,
+      "5_6_9": 1
     }
   },
   "source_funnel": {
@@ -79,18 +80,18 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 482,
-      "thematic_rejected": 257,
-      "thematic_review": 143,
-      "thematic_auto": 82,
+      "discovered": 494,
+      "thematic_rejected": 265,
+      "thematic_review": 145,
+      "thematic_auto": 84,
       "access_verified": 3,
       "oa_evidence": 2
     },
     "dialnet-articles-oai": {
-      "discovered": 2839,
-      "thematic_rejected": 2365,
-      "thematic_review": 339,
-      "access_verified": 576,
+      "discovered": 2849,
+      "thematic_rejected": 2372,
+      "thematic_review": 342,
+      "access_verified": 597,
       "thematic_auto": 135,
       "publishable": 9
     },
@@ -104,18 +105,18 @@
       "discovered": 931,
       "thematic_rejected": 794,
       "oa_evidence": 931,
-      "access_verified": 26,
+      "access_verified": 27,
       "thematic_auto": 41,
       "thematic_review": 93,
       "thematic_rescue": 3,
       "publishable": 2
     },
     "nep-dev": {
-      "discovered": 6,
-      "thematic_rejected": 4,
+      "discovered": 8,
+      "thematic_rejected": 5,
       "access_verified": 2,
       "oa_evidence": 2,
-      "thematic_review": 1,
+      "thematic_review": 2,
       "thematic_auto": 1
     },
     "nep-ecm": {
@@ -149,8 +150,8 @@
       "thematic_review": 1
     },
     "nep-inv": {
-      "discovered": 43,
-      "thematic_rejected": 23,
+      "discovered": 44,
+      "thematic_rejected": 24,
       "access_verified": 16,
       "oa_evidence": 16,
       "thematic_review": 10,
@@ -177,20 +178,20 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 51,
+      "discovered": 52,
       "thematic_review": 13,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 9,
-      "thematic_rejected": 29
+      "thematic_rejected": 30
     },
     "nep-mon": {
-      "discovered": 62,
-      "thematic_auto": 39,
+      "discovered": 64,
+      "thematic_auto": 40,
       "access_verified": 24,
       "oa_evidence": 24,
       "thematic_rejected": 7,
-      "thematic_review": 16
+      "thematic_review": 17
     },
     "nep-pke": {
       "discovered": 6,
@@ -218,8 +219,8 @@
     }
   },
   "health": {
-    "oa_pending": 4415,
-    "repec_metadata_pending": 852,
+    "oa_pending": 4421,
+    "repec_metadata_pending": 975,
     "publishable": 11,
     "pluralist_rescues_total": 6
   },
@@ -501,19 +502,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-DAB26B51CC42FD48",
-        "title": "Ambición Política: brechas de género y el rol de la educación ciudadana",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=class;internacional-latinoamerica=chile",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-06087DBA872AA5F4",
         "title": "Violencia de género en entornos interculturales: de las tensiones interseccionales a la invasión del ámbito escolar",
         "source": "dialnet-articles-oai",
@@ -627,6 +615,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "36",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=trabajo,empleo,desempleo",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-4B9C885631B644C4",
+        "title": "Etnoarqueología del uso ritual de artefactos cerámicos: adaptación y cohesión social en la comunidad atacameña de Matancillas, Puna de Salta, Argentina",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=trabajo",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1064,19 +1065,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-DAB26B51CC42FD48",
-        "title": "Ambición Política: brechas de género y el rol de la educación ciudadana",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=class;internacional-latinoamerica=chile",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-06087DBA872AA5F4",
         "title": "Violencia de género en entornos interculturales: de las tensiones interseccionales a la invasión del ámbito escolar",
         "source": "dialnet-articles-oai",
@@ -1220,6 +1208,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-5FE079DC30CC28DF",
+        "title": "Historia de las cooperativas y su impacto: Una historia real del cooperativismo, caso de la Universidad Cooperativa de Colombia, campus Villavicencio y su impacto en la Orinoquía",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "46",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones,finanzas-sector-publico;anclas=capitalismo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;economia-politica-instituciones=capitalismo;finanzas-sector-publico=crédito",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-69B3B17126F1F73C",
         "title": "Reconocimiento jurídico y realidad social de la garantía del derecho a la salud de las personas trans en México",
         "source": "dialnet-articles-oai",
@@ -1246,6 +1247,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-7C29D156D626862D",
+        "title": "Inteligencia artificial generativa y ética: revisión crítica sobre la aplicación de los talleres de tesis",
+        "source": "dialnet-articles-oai",
+        "type": "thesis",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=peru,global south",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-86BBFBF3E9901278",
         "title": "Gestão contábil, financeira e tributária em empreendimentos aquícolas no Brasil: um ensaio teórico-aplicado",
         "source": "dialnet-articles-oai",
@@ -1259,28 +1273,15 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-8BD8098D6EFCAADD",
-        "title": "Barreras durante la búsqueda de empleo de jóvenes egresados universitarios con discapacidad visual",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,employment,empleo;internacional-latinoamerica=argentina",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-8CD646632F03FEE0",
-        "title": "El derecho a la consulta previa: Contexto historico en el bicentenario del peru",
+        "candidate_id": "CAND-89E21E936D88C1D6",
+        "title": "Política de Ciencia Tecnología e Innovación en Colombia: aportes entre 2000 y 2022",
         "source": "dialnet-articles-oai",
         "type": "paper",
         "score": "6.0",
         "decision": "REVIEW",
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;trabajo-distribucion-bienestar=trabajo",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=distribución",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1431,15 +1432,15 @@
       "oa_status": "POR_VERIFICAR"
     },
     {
-      "candidate_id": "CAND-DAB26B51CC42FD48",
-      "title": "Ambición Política: brechas de género y el rol de la educación ciudadana",
+      "candidate_id": "CAND-4A3D79530C529059",
+      "title": "Factores relacionados a la conducta anticonceptiva de adolescentes en desventaja social del suroeste de México",
       "source": "dialnet-articles-oai",
       "type": "paper",
       "score": "6.5",
       "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "30",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=class;internacional-latinoamerica=chile",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "32",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=poverty",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     }
