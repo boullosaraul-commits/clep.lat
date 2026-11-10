@@ -1,57 +1,57 @@
 {
-  "generated_at": "2026-11-09T21:29:02+00:00",
-  "records": 6436,
-  "academic_records": 5457,
+  "generated_at": "2026-11-10T18:44:17+00:00",
+  "records": 6518,
+  "academic_records": 5528,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 5381,
-    "5_6_9": 65,
+    "0_4_9": 5450,
+    "5_6_9": 67,
     "7_8_9": 11
   },
   "decisions": {
-    "INELIGIBLE": 420,
-    "THEMATIC_REJECTED": 3972,
-    "THEMATIC_REVIEW": 983,
-    "REVIEW": 65,
+    "INELIGIBLE": 423,
+    "THEMATIC_REJECTED": 4028,
+    "THEMATIC_REVIEW": 993,
+    "REVIEW": 67,
     "ARCHIVE": 6,
     "PUBLISHABLE": 11
   },
   "by_source": {
     "academic_oai": {
       "0_4_9": 3659,
-      "5_6_9": 64,
+      "5_6_9": 66,
       "7_8_9": 9
     },
     "crossref_academic": {
-      "0_4_9": 494
+      "0_4_9": 529
     },
     "doab_oai": {
-      "0_4_9": 929,
+      "0_4_9": 958,
       "7_8_9": 2
     },
     "nep_report": {
-      "0_4_9": 299,
+      "0_4_9": 304,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 929,
+      "0_4_9": 958,
       "7_8_9": 2
     },
     "chapter": {
-      "0_4_9": 340
+      "0_4_9": 365
     },
     "edition_translation": {
-      "0_4_9": 59
+      "0_4_9": 60
     },
     "paper": {
-      "0_4_9": 3040,
-      "5_6_9": 64,
+      "0_4_9": 3043,
+      "5_6_9": 66,
       "7_8_9": 8
     },
     "report": {
-      "0_4_9": 993
+      "0_4_9": 1004
     },
     "special_issue": {
       "0_4_9": 1,
@@ -64,11 +64,11 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 570,
-      "thematic_rejected": 223,
+      "discovered": 572,
+      "thematic_rejected": 224,
       "thematic_review": 238,
       "access_verified": 185,
-      "thematic_auto": 109
+      "thematic_auto": 110
     },
     "clacso-repository-oai": {
       "discovered": 306,
@@ -80,10 +80,10 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 494,
-      "thematic_rejected": 265,
-      "thematic_review": 145,
-      "thematic_auto": 84,
+      "discovered": 529,
+      "thematic_rejected": 292,
+      "thematic_review": 152,
+      "thematic_auto": 85,
       "access_verified": 3,
       "oa_evidence": 2
     },
@@ -91,7 +91,7 @@
       "discovered": 2849,
       "thematic_rejected": 2372,
       "thematic_review": 342,
-      "access_verified": 597,
+      "access_verified": 616,
       "thematic_auto": 135,
       "publishable": 9
     },
@@ -102,22 +102,22 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 931,
-      "thematic_rejected": 794,
-      "oa_evidence": 931,
+      "discovered": 960,
+      "thematic_rejected": 820,
+      "oa_evidence": 960,
       "access_verified": 27,
       "thematic_auto": 41,
-      "thematic_review": 93,
+      "thematic_review": 96,
       "thematic_rescue": 3,
       "publishable": 2
     },
     "nep-dev": {
-      "discovered": 8,
+      "discovered": 10,
       "thematic_rejected": 5,
       "access_verified": 2,
       "oa_evidence": 2,
       "thematic_review": 2,
-      "thematic_auto": 1
+      "thematic_auto": 3
     },
     "nep-ecm": {
       "discovered": 35,
@@ -145,13 +145,13 @@
       "thematic_auto": 3
     },
     "nep-hpe": {
-      "discovered": 3,
-      "thematic_rejected": 2,
+      "discovered": 4,
+      "thematic_rejected": 3,
       "thematic_review": 1
     },
     "nep-inv": {
-      "discovered": 44,
-      "thematic_rejected": 24,
+      "discovered": 45,
+      "thematic_rejected": 25,
       "access_verified": 16,
       "oa_evidence": 16,
       "thematic_review": 10,
@@ -186,8 +186,8 @@
       "thematic_rejected": 30
     },
     "nep-mon": {
-      "discovered": 64,
-      "thematic_auto": 40,
+      "discovered": 65,
+      "thematic_auto": 41,
       "access_verified": 24,
       "oa_evidence": 24,
       "thematic_rejected": 7,
@@ -219,8 +219,8 @@
     }
   },
   "health": {
-    "oa_pending": 4421,
-    "repec_metadata_pending": 975,
+    "oa_pending": 4473,
+    "repec_metadata_pending": 986,
     "publishable": 11,
     "pluralist_rescues_total": 6
   },
