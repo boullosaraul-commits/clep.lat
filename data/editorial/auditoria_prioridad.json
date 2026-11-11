@@ -1,61 +1,61 @@
 {
-  "generated_at": "2026-11-10T18:44:17+00:00",
-  "records": 6518,
-  "academic_records": 5528,
+  "generated_at": "2026-11-11T18:43:26+00:00",
+  "records": 6533,
+  "academic_records": 5548,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 5450,
-    "5_6_9": 67,
-    "7_8_9": 11
+    "0_4_9": 5471,
+    "5_6_9": 70,
+    "7_8_9": 7
   },
   "decisions": {
-    "INELIGIBLE": 423,
-    "THEMATIC_REJECTED": 4028,
-    "THEMATIC_REVIEW": 993,
-    "REVIEW": 67,
-    "ARCHIVE": 6,
-    "PUBLISHABLE": 11
+    "INELIGIBLE": 425,
+    "THEMATIC_REJECTED": 4041,
+    "THEMATIC_REVIEW": 997,
+    "REVIEW": 70,
+    "ARCHIVE": 8,
+    "PUBLISHABLE": 7
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3659,
-      "5_6_9": 66,
-      "7_8_9": 9
+      "0_4_9": 3662,
+      "5_6_9": 69,
+      "7_8_9": 5
     },
     "crossref_academic": {
-      "0_4_9": 529
+      "0_4_9": 540
     },
     "doab_oai": {
-      "0_4_9": 958,
+      "0_4_9": 960,
       "7_8_9": 2
     },
     "nep_report": {
-      "0_4_9": 304,
+      "0_4_9": 309,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 958,
+      "0_4_9": 960,
       "7_8_9": 2
     },
     "chapter": {
-      "0_4_9": 365
+      "0_4_9": 374
     },
     "edition_translation": {
       "0_4_9": 60
     },
     "paper": {
-      "0_4_9": 3043,
-      "5_6_9": 66,
-      "7_8_9": 8
+      "0_4_9": 3049,
+      "5_6_9": 68,
+      "7_8_9": 5
     },
     "report": {
-      "0_4_9": 1004
+      "0_4_9": 1008
     },
     "special_issue": {
       "0_4_9": 1,
-      "7_8_9": 1
+      "5_6_9": 1
     },
     "thesis": {
       "0_4_9": 19,
@@ -64,8 +64,8 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 572,
-      "thematic_rejected": 224,
+      "discovered": 574,
+      "thematic_rejected": 226,
       "thematic_review": 238,
       "access_verified": 185,
       "thematic_auto": 110
@@ -80,10 +80,10 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 529,
-      "thematic_rejected": 292,
-      "thematic_review": 152,
-      "thematic_auto": 85,
+      "discovered": 540,
+      "thematic_rejected": 298,
+      "thematic_review": 155,
+      "thematic_auto": 87,
       "access_verified": 3,
       "oa_evidence": 2
     },
@@ -91,9 +91,9 @@
       "discovered": 2849,
       "thematic_rejected": 2372,
       "thematic_review": 342,
-      "access_verified": 616,
+      "access_verified": 619,
       "thematic_auto": 135,
-      "publishable": 9
+      "publishable": 5
     },
     "dialnet-theses-oai": {
       "discovered": 7,
@@ -102,9 +102,9 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 960,
-      "thematic_rejected": 820,
-      "oa_evidence": 960,
+      "discovered": 962,
+      "thematic_rejected": 822,
+      "oa_evidence": 962,
       "access_verified": 27,
       "thematic_auto": 41,
       "thematic_review": 96,
@@ -112,12 +112,12 @@
       "publishable": 2
     },
     "nep-dev": {
-      "discovered": 10,
+      "discovered": 11,
       "thematic_rejected": 5,
       "access_verified": 2,
       "oa_evidence": 2,
       "thematic_review": 2,
-      "thematic_auto": 3
+      "thematic_auto": 4
     },
     "nep-ecm": {
       "discovered": 35,
@@ -150,8 +150,8 @@
       "thematic_review": 1
     },
     "nep-inv": {
-      "discovered": 45,
-      "thematic_rejected": 25,
+      "discovered": 46,
+      "thematic_rejected": 26,
       "access_verified": 16,
       "oa_evidence": 16,
       "thematic_review": 10,
@@ -178,20 +178,20 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 52,
+      "discovered": 54,
       "thematic_review": 13,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 9,
-      "thematic_rejected": 30
+      "thematic_rejected": 32
     },
     "nep-mon": {
-      "discovered": 65,
+      "discovered": 66,
       "thematic_auto": 41,
-      "access_verified": 24,
-      "oa_evidence": 24,
+      "access_verified": 25,
+      "oa_evidence": 25,
       "thematic_rejected": 7,
-      "thematic_review": 17
+      "thematic_review": 18
     },
     "nep-pke": {
       "discovered": 6,
@@ -219,9 +219,9 @@
     }
   },
   "health": {
-    "oa_pending": 4473,
-    "repec_metadata_pending": 986,
-    "publishable": 11,
+    "oa_pending": 4489,
+    "repec_metadata_pending": 981,
+    "publishable": 7,
     "pluralist_rescues_total": 6
   },
   "calibration_sample": {
@@ -307,45 +307,6 @@
     ],
     "regional_nonplural": [
       {
-        "candidate_id": "CAND-1268A8558FFFA3C4",
-        "title": "Vacíos urbanos y desigualdad socioeconómica: temas que convergen en la frontera norte de México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "33",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=inequality,poverty,desigualdad",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-1C9FF6E093887157",
-        "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "36",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,trade,méxico;trabajo-distribucion-bienestar=distribución",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-2575805F72515EFB",
-        "title": "Dossier: Maíces nativos en Latinoamérica: legado biocultural entre agronomía, economía y política",
-        "source": "dialnet-articles-oai",
-        "type": "special_issue",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=economic,economía;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin america,latin american,mexico,argentina;economia-politica-instituciones=power",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-2C771B4E180B999A",
         "title": "Modelo de asignación de recursos públicos a las instituciones de educación superior en Colombia",
         "source": "dialnet-articles-oai",
@@ -372,19 +333,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-631969D0035E11B2",
-        "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "36",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,trade,méxico;trabajo-distribucion-bienestar=distribución",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-E6E3D48207A1BC01",
         "title": "Caracterización de sistemas de producción ovina en el altiplano central de México",
         "source": "dialnet-articles-oai",
@@ -407,6 +355,45 @@
         "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "30",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=brazil",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-1268A8558FFFA3C4",
+        "title": "Vacíos urbanos y desigualdad socioeconómica: temas que convergen en la frontera norte de México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "33",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=inequality,poverty,desigualdad",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-1C9FF6E093887157",
+        "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,trade,méxico;trabajo-distribucion-bienestar=distribución",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-2575805F72515EFB",
+        "title": "Dossier: Maíces nativos en Latinoamérica: legado biocultural entre agronomía, economía y política",
+        "source": "dialnet-articles-oai",
+        "type": "special_issue",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=economic,economía;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin america,latin american,mexico,argentina;economia-politica-instituciones=power",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -446,6 +433,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=poverty",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-631969D0035E11B2",
+        "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,trade,méxico;trabajo-distribucion-bienestar=distribución",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -554,19 +554,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-1CEC4858B2F0FAA3",
-        "title": "Balanced Scorecard en la gestión de la liquidez financiera en las PYMES del Perú",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;economia-politica-instituciones=power",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-261E04317C5E1D61",
         "title": "Letters on the moral and religious state of South America: el método lancasteriano y su relación con la gramaticografía argentina a través de la correspondencia de James Thomson",
         "source": "dialnet-articles-oai",
@@ -576,19 +563,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=lingüística;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=labor,trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-2E6A17BBAB583133",
-        "title": "Análisis de factores financieros internos y desempeño empresarial en Perú (2020-2024)",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=económica;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;finanzas-sector-publico=deuda",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -628,6 +602,32 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=trabajo",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-5FE079DC30CC28DF",
+        "title": "Historia de las cooperativas y su impacto: Una historia real del cooperativismo, caso de la Universidad Cooperativa de Colombia, campus Villavicencio y su impacto en la Orinoquía",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "46",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones,finanzas-sector-publico;anclas=capitalismo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;economia-politica-instituciones=capitalismo;finanzas-sector-publico=crédito",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-69B3B17126F1F73C",
+        "title": "Reconocimiento jurídico y realidad social de la garantía del derecho a la salud de las personas trans en México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=labor,inequality",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -961,6 +961,45 @@
     ],
     "borderline": [
       {
+        "candidate_id": "CAND-1268A8558FFFA3C4",
+        "title": "Vacíos urbanos y desigualdad socioeconómica: temas que convergen en la frontera norte de México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "33",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=inequality,poverty,desigualdad",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-1C9FF6E093887157",
+        "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,trade,méxico;trabajo-distribucion-bienestar=distribución",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-2575805F72515EFB",
+        "title": "Dossier: Maíces nativos en Latinoamérica: legado biocultural entre agronomía, economía y política",
+        "source": "dialnet-articles-oai",
+        "type": "special_issue",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=economic,economía;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin america,latin american,mexico,argentina;economia-politica-instituciones=power",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-2E1AE977D889FEBA",
         "title": "Efectividad y Satisfacción Percibida de la Formación en Egresados según el Modelo Educativo en Ecuador",
         "source": "dialnet-articles-oai",
@@ -1009,6 +1048,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=0.0;H=2.0;freshness=bounded_stream_detection;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=effective demand;plural_history=political economy",
         "relevance_score": "70",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;anclas=economic,economy,political economy;pluralismo_rescate=no;senales_pluralistas=effective demand,political economy;historia-pensamiento-metodologia=kalecki;economia-politica-instituciones=political economy;macroeconomia-dinero=effective demand;desarrollo-estructura=structural transformation",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-631969D0035E11B2",
+        "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,trade,méxico;trabajo-distribucion-bienestar=distribución",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -1117,19 +1169,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-1CEC4858B2F0FAA3",
-        "title": "Balanced Scorecard en la gestión de la liquidez financiera en las PYMES del Perú",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "34",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;economia-politica-instituciones=power",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-261E04317C5E1D61",
         "title": "Letters on the moral and religious state of South America: el método lancasteriano y su relación con la gramaticografía argentina a través de la correspondencia de James Thomson",
         "source": "dialnet-articles-oai",
@@ -1139,19 +1178,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=lingüística;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=labor,trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-2E6A17BBAB583133",
-        "title": "Análisis de factores financieros internos y desempeño empresarial en Perú (2020-2024)",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=económica;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;finanzas-sector-publico=deuda",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -1234,19 +1260,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-6DF5D8A3BB5E027C",
-        "title": "Trabajo digno y seguridad laboral en circuitos cortos de comercialización desde la perspectiva de la seguridad y salud en el trabajo (SST) y la economía solidaria",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=economy,economía,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,trabajo;internacional-latinoamerica=colombia",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-7C29D156D626862D",
         "title": "Inteligencia artificial generativa y ética: revisión crítica sobre la aplicación de los talleres de tesis",
         "source": "dialnet-articles-oai",
@@ -1269,19 +1282,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "31",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-89E21E936D88C1D6",
-        "title": "Política de Ciencia Tecnología e Innovación en Colombia: aportes entre 2000 y 2022",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=distribución",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1311,58 +1311,6 @@
       "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=2.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,finanzas-sector-publico;plural_explicit=post-keynesian;plural_concepts=endogenous money,sectoral balances;plural_history=ninguna",
       "relevance_score": "64",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=post-keynesian,endogenous money,sectoral balances;macroeconomia-dinero=money,post-keynesian;produccion-reproduccion-sectorial=sectoral balances;historia-pensamiento-metodologia=post-keynesian,endogenous money,sectoral balances;internacional-latinoamerica=mexico",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-2575805F72515EFB",
-      "title": "Dossier: Maíces nativos en Latinoamérica: legado biocultural entre agronomía, economía y política",
-      "source": "dialnet-articles-oai",
-      "type": "special_issue",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "34",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=economic,economía;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin america,latin american,mexico,argentina;economia-politica-instituciones=power",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-1268A8558FFFA3C4",
-      "title": "Vacíos urbanos y desigualdad socioeconómica: temas que convergen en la frontera norte de México",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "33",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=inequality,poverty,desigualdad",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-631969D0035E11B2",
-      "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "36",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,trade,méxico;trabajo-distribucion-bienestar=distribución",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-1C9FF6E093887157",
-      "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "36",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,trade,méxico;trabajo-distribucion-bienestar=distribución",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     },
@@ -1441,6 +1389,58 @@
       "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "32",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=poverty",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-3D06F25CBA8FAC15",
+      "title": "¿Por qué Argentina no logra regular el lobby? Mirada desde las relaciones públicas",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "31",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,chile;finanzas-sector-publico=financial,debt",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-B0F59E41B1517508",
+      "title": "Confianza sin estructura: la institucionalización del DirCom según los rectorados de la universidad privada latinoamericana",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=latin america,mexico,argentina,brazil",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-B5F8289FD2E55FE4",
+      "title": "Equidad en la Evaluación de Tecnologías Sanitarias para Enfermedades Raras en Chile",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "31",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=economic,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=clinical;internacional-latinoamerica=chile;finanzas-sector-publico=financial",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-54FAE2897CE41835",
+      "title": "Ensaio sobre a determinação dos investimentos e questões de economia política em kalecki",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=0.0;H=2.0;freshness=bounded_stream_detection;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=effective demand;plural_history=political economy",
+      "relevance_score": "70",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;anclas=economic,economy,political economy;pluralismo_rescate=no;senales_pluralistas=effective demand,political economy;historia-pensamiento-metodologia=kalecki;economia-politica-instituciones=political economy;macroeconomia-dinero=effective demand;desarrollo-estructura=structural transformation",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     }
