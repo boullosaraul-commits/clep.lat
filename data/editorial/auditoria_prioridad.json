@@ -1,36 +1,36 @@
 {
-  "generated_at": "2026-11-11T18:43:26+00:00",
-  "records": 6533,
-  "academic_records": 5548,
+  "generated_at": "2026-11-12T18:56:49+00:00",
+  "records": 6574,
+  "academic_records": 5585,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 5471,
-    "5_6_9": 70,
-    "7_8_9": 7
+    "0_4_9": 5514,
+    "5_6_9": 65,
+    "7_8_9": 6
   },
   "decisions": {
-    "INELIGIBLE": 425,
-    "THEMATIC_REJECTED": 4041,
-    "THEMATIC_REVIEW": 997,
-    "REVIEW": 70,
-    "ARCHIVE": 8,
-    "PUBLISHABLE": 7
+    "INELIGIBLE": 445,
+    "THEMATIC_REJECTED": 4052,
+    "THEMATIC_REVIEW": 1013,
+    "REVIEW": 65,
+    "ARCHIVE": 4,
+    "PUBLISHABLE": 6
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3662,
-      "5_6_9": 69,
-      "7_8_9": 5
+      "0_4_9": 3671,
+      "5_6_9": 64,
+      "7_8_9": 4
     },
     "crossref_academic": {
-      "0_4_9": 540
+      "0_4_9": 566
     },
     "doab_oai": {
       "0_4_9": 960,
       "7_8_9": 2
     },
     "nep_report": {
-      "0_4_9": 309,
+      "0_4_9": 317,
       "5_6_9": 1
     }
   },
@@ -40,18 +40,18 @@
       "7_8_9": 2
     },
     "chapter": {
-      "0_4_9": 374
+      "0_4_9": 394
     },
     "edition_translation": {
       "0_4_9": 60
     },
     "paper": {
-      "0_4_9": 3049,
-      "5_6_9": 68,
-      "7_8_9": 5
+      "0_4_9": 3063,
+      "5_6_9": 63,
+      "7_8_9": 4
     },
     "report": {
-      "0_4_9": 1008
+      "0_4_9": 1017
     },
     "special_issue": {
       "0_4_9": 1,
@@ -64,11 +64,11 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 574,
+      "discovered": 577,
       "thematic_rejected": 226,
-      "thematic_review": 238,
+      "thematic_review": 239,
       "access_verified": 185,
-      "thematic_auto": 110
+      "thematic_auto": 112
     },
     "clacso-repository-oai": {
       "discovered": 306,
@@ -80,10 +80,10 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 540,
-      "thematic_rejected": 298,
-      "thematic_review": 155,
-      "thematic_auto": 87,
+      "discovered": 566,
+      "thematic_rejected": 305,
+      "thematic_review": 168,
+      "thematic_auto": 93,
       "access_verified": 3,
       "oa_evidence": 2
     },
@@ -91,9 +91,9 @@
       "discovered": 2849,
       "thematic_rejected": 2372,
       "thematic_review": 342,
-      "access_verified": 619,
+      "access_verified": 623,
       "thematic_auto": 135,
-      "publishable": 5
+      "publishable": 4
     },
     "dialnet-theses-oai": {
       "discovered": 7,
@@ -150,8 +150,8 @@
       "thematic_review": 1
     },
     "nep-inv": {
-      "discovered": 46,
-      "thematic_rejected": 26,
+      "discovered": 47,
+      "thematic_rejected": 27,
       "access_verified": 16,
       "oa_evidence": 16,
       "thematic_review": 10,
@@ -178,20 +178,20 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 54,
-      "thematic_review": 13,
+      "discovered": 58,
+      "thematic_review": 14,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 9,
-      "thematic_rejected": 32
+      "thematic_rejected": 35
     },
     "nep-mon": {
-      "discovered": 66,
-      "thematic_auto": 41,
+      "discovered": 69,
+      "thematic_auto": 43,
       "access_verified": 25,
       "oa_evidence": 25,
       "thematic_rejected": 7,
-      "thematic_review": 18
+      "thematic_review": 19
     },
     "nep-pke": {
       "discovered": 6,
@@ -219,9 +219,9 @@
     }
   },
   "health": {
-    "oa_pending": 4489,
-    "repec_metadata_pending": 981,
-    "publishable": 7,
+    "oa_pending": 4522,
+    "repec_metadata_pending": 985,
+    "publishable": 6,
     "pluralist_rescues_total": 6
   },
   "calibration_sample": {
@@ -424,19 +424,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-4A3D79530C529059",
-        "title": "Factores relacionados a la conducta anticonceptiva de adolescentes en desventaja social del suroeste de México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=poverty",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-631969D0035E11B2",
         "title": "Trazabilidad de los procesos de distribución mediante la aplicación de IoT y big data en empresas logísticas en México",
         "source": "dialnet-articles-oai",
@@ -628,6 +615,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=labor,inequality",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-7C29D156D626862D",
+        "title": "Inteligencia artificial generativa y ética: revisión crítica sobre la aplicación de los talleres de tesis",
+        "source": "dialnet-articles-oai",
+        "type": "thesis",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=peru,global south",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1026,19 +1026,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-4A3D79530C529059",
-        "title": "Factores relacionados a la conducta anticonceptiva de adolescentes en desventaja social del suroeste de México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=poverty",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-54FAE2897CE41835",
         "title": "Ensaio sobre a determinação dos investimentos e questões de economia política em kalecki",
         "source": "dialnet-articles-oai",
@@ -1284,6 +1271,19 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-89E21E936D88C1D6",
+        "title": "Política de Ciencia Tecnología e Innovación en Colombia: aportes entre 2000 y 2022",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=distribución",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
       }
     ]
   },
@@ -1300,19 +1300,6 @@
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economic;pluralismo_rescate=no;senales_pluralistas=marxian;exclusiones=literary studies;economia-politica-instituciones=power,marx;historia-pensamiento-metodologia=marxian",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "VERIFICADO_FUENTE"
-    },
-    {
-      "candidate_id": "CAND-BAEDEA8AFCA8C3CB",
-      "title": "Expansión crediticia y dinámica de los saldos sectoriales antes de la crisis del peso mexicano",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "7.5",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=2.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,finanzas-sector-publico;plural_explicit=post-keynesian;plural_concepts=endogenous money,sectoral balances;plural_history=ninguna",
-      "relevance_score": "64",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,produccion-reproduccion-sectorial,historia-pensamiento-metodologia,internacional-latinoamerica,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=post-keynesian,endogenous money,sectoral balances;macroeconomia-dinero=money,post-keynesian;produccion-reproduccion-sectorial=sectoral balances;historia-pensamiento-metodologia=post-keynesian,endogenous money,sectoral balances;internacional-latinoamerica=mexico",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
     },
     {
       "candidate_id": "CAND-E6E3D48207A1BC01",
@@ -1380,19 +1367,6 @@
       "oa_status": "POR_VERIFICAR"
     },
     {
-      "candidate_id": "CAND-4A3D79530C529059",
-      "title": "Factores relacionados a la conducta anticonceptiva de adolescentes en desventaja social del suroeste de México",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "6.5",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "32",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=poverty",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
       "candidate_id": "CAND-3D06F25CBA8FAC15",
       "title": "¿Por qué Argentina no logra regular el lobby? Mirada desde las relaciones públicas",
       "source": "dialnet-articles-oai",
@@ -1441,6 +1415,32 @@
       "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=0.0;H=2.0;freshness=bounded_stream_detection;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=effective demand;plural_history=political economy",
       "relevance_score": "70",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=historia-pensamiento-metodologia,economia-politica-instituciones,macroeconomia-dinero,desarrollo-estructura,trabajo-distribucion-bienestar;anclas=economic,economy,political economy;pluralismo_rescate=no;senales_pluralistas=effective demand,political economy;historia-pensamiento-metodologia=kalecki;economia-politica-instituciones=political economy;macroeconomia-dinero=effective demand;desarrollo-estructura=structural transformation",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-2E1AE977D889FEBA",
+      "title": "Efectividad y Satisfacción Percibida de la Formación en Egresados según el Modelo Educativo en Ecuador",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=labor",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-9D8278B2FEB6CF9D",
+      "title": "El actuar docente ante la situación de acoso escolar en dos primarias de Tepic, Nayarit",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=mexico",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     }
