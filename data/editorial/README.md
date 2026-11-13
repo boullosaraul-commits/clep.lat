@@ -70,13 +70,17 @@ El pipeline editorial de CLEP no utiliza IA generativa para producir contenido e
 
 Principio de reproducibilidad: dada la misma entrada, la misma versión del código y las mismas fuentes externas, el pipeline debe producir la misma salida editorial.
 
-### Activo visual para PAPER ABIERTO
+### Activos de Recomendaciones CLEP
 
-Orden de preferencia:
-1. captura real de la landing page oficial del trabajo o repositorio;
-2. portada/thumbnail oficial cuando su uso sea adecuado y verificable;
-3. tarjeta tipográfica CLEP generada determinísticamente a partir de metadatos;
-4. si las opciones anteriores fallan, bloquear la publicación y reintentar; nunca publicar sin imagen.
+Se prefiere una captura oficial con documento cargado, título comprobable y
+legibilidad en móvil. Si se rechaza, se prueba una imagen, portada o miniatura
+oficial con procedencia verificable y después una tarjeta determinista. Las
+series estadísticas usan una gráfica cuando se conocen datos, unidad, periodos
+y fuente. Los papers con sinopsis conservan su tarjeta de lectura. La cola
+visual bloquea el envío cuando falta una imagen aprobada.
+
+La serie acredita por separado la obra, su autoría y su fuente. Las convocatorias
+y la producción propia usan Actividades CLEP y Publicaciones CLEP.
 
 Una captura de pantalla o una tarjeta construida mediante reglas de maquetación no se considera contenido generado por IA.
 

@@ -408,6 +408,7 @@ class MediaFallbackContractTests(unittest.TestCase):
             media_rights_status="VERIFICADO",
             resolver_version=1,
             fallback_level=1,
+            attempts=(),
             resolution_fingerprint=f"fp-{method}",
             alt_text="Alt",
         )

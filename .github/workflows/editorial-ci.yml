@@ -33,6 +33,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Install local visual checks
+        run: |
+          python -m pip install -r scripts/editorial/requirements-visual.txt
+          sudo apt-get update && sudo apt-get install -y tesseract-ocr librsvg2-bin
       - name: Static undefined-name check
         run: |
           python -m pip install --disable-pip-version-check -q ruff
@@ -40,6 +45,8 @@ jobs:
       - name: Compile Python
         run: python -m compileall -q scripts recovery tests
       - name: Unit tests
+        env:
+          CLEP_REFERENCE_DATE: "2026-10-07"
         run: |
           python -m unittest -v tests/test_feed_ingestion.py
           python -m unittest -v tests/test_paper_synopsis.py
@@ -48,7 +55,7 @@ jobs:
           python -m unittest -v tests/test_editorial_rules.py
           python -m unittest -v tests/test_text_renderer.py
           python -m unittest -v tests/test_media_resolver.py
-          python -m unittest -v tests/test_media_validator.py
+          python -m unittest -v tests/test_media_validator.py tests/test_visual_policy.py
           python -m unittest -v tests/test_preparar_publicacion.py
           python -m unittest -v tests/test_preparation_bypass.py
           python -m unittest -v tests/test_queue_verifier.py

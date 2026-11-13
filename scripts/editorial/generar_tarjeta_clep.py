@@ -14,7 +14,7 @@ def clean(x):
     return re.sub(r"\s+"," ",str(x or "")).strip()
 
 def lines(text,width,max_lines):
-    xs=textwrap.wrap(clean(text),width=width,break_long_words=False,break_on_hyphens=False)
+    xs=textwrap.wrap(clean(text),width=width,break_long_words=True,break_on_hyphens=False)
     if len(xs)>max_lines:
         xs=xs[:max_lines]
         xs[-1]=xs[-1].rstrip(" .,:;")+"…"
@@ -24,17 +24,19 @@ def esc(x): return html.escape(x,quote=True)
 
 def paper_card(data):
     title=clean(data.get("title")); synopsis=clean(data.get("synopsis"))
-    title_lines=lines(title,29,5)
+    title_size = 50 if len(title) <= 70 else 44
+    title_lines=lines(title,31 if title_size == 50 else 36,5)
     title_nodes="".join(f'<text x="96" y="{300+i*70}" class="ptitle">{esc(line)}</text>' for i,line in enumerate(title_lines))
+    label=esc(clean(data.get("series") or "PAPER ABIERTO · CLEP"))
     meta_nodes="".join(f'<text x="96" y="{695+i*42}" class="pmeta">{esc(line)}</text>' for i,line in enumerate(lines(data.get("meta"),58,2)))
     synopsis_nodes="".join(f'<text x="126" y="{906+i*43}" class="psummary">{esc(line)}</text>' for i,line in enumerate(lines(synopsis,54,8)))
     source_nodes="".join(f'<text x="96" y="{1334+i*34}" class="psource">{esc(line)}</text>' for i,line in enumerate(lines(data.get("source"),65,2)))
     disclosure="Síntesis asistida por IA · basada en el abstract" if data.get("synopsis_method")=="llm_source_grounded" else "Extracto del resumen en español"
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
 <rect width="1200" height="1500" fill="#f3f5ef"/><rect width="1200" height="190" fill="#075e62"/>
-<style>.ptitle{{font-family:Georgia,serif;font-weight:700;font-size:44px;fill:#143133}}.pmeta{{font-family:Arial,sans-serif;font-size:29px;fill:#496366}}.psummary{{font-family:Arial,sans-serif;font-size:31px;fill:#143133}}.psource{{font-family:Arial,sans-serif;font-size:24px;fill:#496366}}</style>
+<style>.ptitle{{font-family:Georgia,serif;font-weight:700;font-size:{title_size}px;fill:#143133}}.pmeta{{font-family:Arial,sans-serif;font-size:29px;fill:#496366}}.psummary{{font-family:Arial,sans-serif;font-size:31px;fill:#143133}}.psource{{font-family:Arial,sans-serif;font-size:24px;fill:#496366}}</style>
 <text x="96" y="82" fill="#b6eece" font-family="Arial,sans-serif" font-size="28" letter-spacing="3">LECTURAS · ECONOMÍA PLURALISTA</text>
-<text x="96" y="140" fill="white" font-family="Arial,sans-serif" font-size="38" font-weight="700">PAPER ABIERTO · CLEP</text>
+<text x="96" y="140" fill="white" font-family="Arial,sans-serif" font-size="38" font-weight="700">{label}</text>
 {title_nodes}{meta_nodes}<rect x="96" y="813" width="1008" height="443" rx="18" fill="#e0ece7"/>
 <text x="126" y="862" font-family="Arial,sans-serif" font-size="24" fill="#075e62" font-weight="700">DE QUÉ TRATA</text>{synopsis_nodes}
 <text x="96" y="1292" font-family="Arial,sans-serif" font-size="21" fill="#496366">{esc(disclosure)}</text>{source_nodes}
@@ -47,14 +49,20 @@ def render(data):
     if clean(data.get("synopsis")):
         return paper_card(data)
 
-    label=clean(data.get("label") or "CLEP")
+    label=clean(data.get("series") or data.get("label") or "CLEP")
     title=clean(data.get("title"))
     meta=clean(data.get("meta"))
     source=clean(data.get("source"))
     if not title: raise ValueError("falta title")
     if not source: raise ValueError("falta source")
     title=title[:MAX_TITLE]; meta=meta[:MAX_META]
-    tl=lines(title,31,5); ml=lines(meta,48,3) if meta else []
+    title_size = 62 if len(title) <= 65 else 49
+    tl=lines(title,29 if title_size == 62 else 36,5)
+    ml=lines(meta,49,3) if meta else []
+    source_nodes="".join(
+        f'<text x="100" y="{1327+i*36}" class="source">{esc(line)}</text>'
+        for i,line in enumerate(lines("Fuente: "+source,54,2))
+    )
     y=390
     title_nodes=[]
     for x in tl:
@@ -65,20 +73,20 @@ def render(data):
         meta_nodes.append(f'<text x="100" y="{y}" class="meta">{esc(x)}</text>'); y+=54
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
 <rect width="1200" height="1500" fill="#f5f2e9"/>
-<rect x="0" y="0" width="1200" height="24" fill="#111111"/>
+<rect x="0" y="0" width="1200" height="24" fill="#075e62"/>
 <style>
 .label{{font-family:Arial,Helvetica,sans-serif;font-size:38px;font-weight:700;letter-spacing:3px;fill:#111}}
-.title{{font-family:Georgia,'Times New Roman',serif;font-size:68px;font-weight:700;fill:#111}}
+.title{{font-family:Georgia,'Times New Roman',serif;font-size:{title_size}px;font-weight:700;fill:#143133}}
 .meta{{font-family:Arial,Helvetica,sans-serif;font-size:34px;fill:#333}}
-.source{{font-family:Arial,Helvetica,sans-serif;font-size:27px;fill:#555}}
+.source{{font-family:Arial,Helvetica,sans-serif;font-size:32px;fill:#496366}}
 .brand{{font-family:Arial,Helvetica,sans-serif;font-size:34px;font-weight:700;fill:#111}}
 </style>
-<text x="100" y="175" class="label">{esc(label.upper())}</text>
+<text x="100" y="175" class="label">{esc(label)}</text>
 <line x1="100" y1="235" x2="1100" y2="235" stroke="#111" stroke-width="3"/>
 {''.join(title_nodes)}
 {''.join(meta_nodes)}
 <line x1="100" y1="1280" x2="1100" y2="1280" stroke="#999" stroke-width="2"/>
-<text x="100" y="1345" class="source">Fuente: {esc(source)}</text>
+{source_nodes}
 <text x="100" y="1420" class="brand">CLEP · Economía pluralista</text>
 </svg>'''
 

@@ -151,17 +151,20 @@ def apply_reviewed(rows, records):
 def write_previews(rows):
     """Create inspectable replacements; never mutate existing Meta posts or queue rows."""
     from generar_tarjeta_clep import render
+    from resolver_media import CARD_RENDERER_VERSION
+    from serie_editorial import editorial_series
     media = ROOT / 'data/editorial/media'
     media.mkdir(parents=True, exist_ok=True)
     count = 0
     for row in rows:
         if not valid_synopsis(row):
             continue
-        digest = hashlib.sha256(json.dumps([row['sinopsis_es'], row.get('title_es'),
+        series = editorial_series(row, "paper")
+        digest = hashlib.sha256(json.dumps([CARD_RENDERER_VERSION, series, row['sinopsis_es'], row.get('title_es'),
             row.get('authors'), row.get('source_name')], ensure_ascii=False).encode()).hexdigest()[:16]
         stem = media / ('paper-synopsis-' + digest)
         svg = render({'title': row.get('title_es') or row.get('title'),
-            'meta': row.get('authors'), 'source': row.get('source_name') or row.get('source_id'),
+            'meta': row.get('authors'), 'series': series, 'source': row.get('source_name') or row.get('source_id'),
             'synopsis': row['sinopsis_es'], 'synopsis_method': row['synopsis_method']})
         stem.with_suffix('.svg').write_text(svg, encoding='utf-8')
         if shutil.which('rsvg-convert') and not stem.with_suffix('.png').exists():

@@ -30,7 +30,7 @@ CAND_FIELDS = [
     "venue", "notes", "relevance_score", "relevance_reasons", "area_clep", "priority",
     "doi", "editorial_score", "editorial_decision", "indicator_or_dataset", "geography",
     "reference_period", "value_or_change", "organizer", "date_or_deadline",
-    "speaker_or_organization", "data_points_json",
+    "speaker_or_organization", "data_points_json", "data_unit",
 ]
 
 
@@ -70,6 +70,8 @@ def base_candidate(kind: str, idx: int) -> dict[str, str]:
             "geography": "México",
             "reference_period": "2026",
             "value_or_change": "102.0",
+            "source_url": "https://example.org/series",
+            "data_unit": "puntos de índice",
             "data_points_json": '[["2026-01",100.0],["2026-02",102.0]]',
         })
     elif kind == "convocatoria_evento":

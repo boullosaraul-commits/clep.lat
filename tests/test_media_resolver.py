@@ -43,16 +43,16 @@ class MediaResolverTests(unittest.TestCase):
         self.assertEqual(
             MEDIA_HIERARCHY,
             (
-                (1, MEDIA_METHOD_OFFICIAL_IMAGE),
+                (1, MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE),
+                (2, MEDIA_METHOD_OFFICIAL_IMAGE),
                 (2, MEDIA_METHOD_EXPLICIT_COVER),
                 (2, MEDIA_METHOD_EXPLICIT_THUMBNAIL),
-                (3, MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE),
                 (4, MEDIA_METHOD_DETERMINISTIC_CHART),
                 (4, MEDIA_METHOD_DETERMINISTIC_CARD),
             ),
         )
 
-    def test_official_image_has_highest_priority(self):
+    def test_official_image_after_rejected_capture(self):
         candidate = self.base()
         candidate.update(
             {
@@ -66,13 +66,13 @@ class MediaResolverTests(unittest.TestCase):
                 "source_url": "https://example.org/resource",
             }
         )
-        result = resolve_media(candidate)
+        result = resolve_media(candidate, {MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE: "captura inválida"})
         self.assertEqual(result.media_method, MEDIA_METHOD_OFFICIAL_IMAGE)
-        self.assertEqual(result.fallback_level, 1)
+        self.assertEqual(result.fallback_level, 2)
         self.assertEqual(result.media_rights_status, RIGHTS_VERIFIED)
         self.assertEqual(result.alt_text, "Imagen oficial del recurso")
-        self.assertEqual(len(result.attempts), 1)
-        self.assertTrue(result.attempts[0].selected)
+        self.assertEqual(len(result.attempts), 2)
+        self.assertTrue(result.attempts[-1].selected)
 
     def test_unverified_official_image_falls_back(self):
         candidate = self.base()
@@ -85,7 +85,7 @@ class MediaResolverTests(unittest.TestCase):
         )
         result = resolve_media(candidate)
         self.assertEqual(result.media_method, MEDIA_METHOD_DETERMINISTIC_CARD)
-        self.assertEqual(result.attempts[0].outcome, OUTCOME_RIGHTS_UNVERIFIED)
+        self.assertEqual(result.attempts[1].outcome, OUTCOME_RIGHTS_UNVERIFIED)
 
     def test_cover_precedes_thumbnail(self):
         candidate = self.base()
@@ -122,7 +122,7 @@ class MediaResolverTests(unittest.TestCase):
         candidate["source_url"] = "https://example.org/resource"
         result = resolve_media(candidate)
         self.assertEqual(result.media_method, MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE)
-        self.assertEqual(result.fallback_level, 3)
+        self.assertEqual(result.fallback_level, 1)
         self.assertEqual(result.media_rights_status, RIGHTS_OFFICIAL_CAPTURE)
         self.assertEqual(
             result.alt_text,
@@ -139,6 +139,8 @@ class MediaResolverTests(unittest.TestCase):
                 "indicator_or_dataset": "Employment rate",
                 "geography": "Mexico",
                 "official_source": "INEGI",
+                "source_url": "https://example.org/series",
+                "data_unit": "%",
                 "data_points": [["2025", 60.1], ["2026", 61.2]],
             }
         )
@@ -193,8 +195,8 @@ class MediaResolverTests(unittest.TestCase):
             rejected_methods={MEDIA_METHOD_OFFICIAL_IMAGE: "MEDIA_DOWNLOAD_FAILED"},
         )
         self.assertEqual(result.media_method, MEDIA_METHOD_EXPLICIT_COVER)
-        self.assertEqual(result.attempts[0].method, MEDIA_METHOD_OFFICIAL_IMAGE)
-        self.assertEqual(result.attempts[0].outcome, OUTCOME_ACQUISITION_FAILED)
+        self.assertEqual(result.attempts[1].method, MEDIA_METHOD_OFFICIAL_IMAGE)
+        self.assertEqual(result.attempts[1].outcome, OUTCOME_ACQUISITION_FAILED)
         self.assertFalse(result.attempts[0].selected)
 
     def test_unknown_rejected_method_fails_closed(self):

@@ -22,20 +22,36 @@ COLA=Path(os.getenv("CLEP_QUEUE_PATH",str(ROOT/"data/editorial/cola.csv"))).reso
 CFG=ROOT/"data/editorial/programacion.json"
 API=os.getenv("META_GRAPH_VERSION","v26.0")
 
-def media_file(row):
-    raw=(row.get("media_path") or "").strip()
-    if not raw:raise ValueError("media_path vacío")
-    src=(ROOT/raw).resolve()
-    if ROOT.resolve() not in src.parents:raise ValueError("media_path fuera del repositorio")
-    if not src.is_file():raise ValueError(f"imagen inexistente: {raw}")
-    ext=src.suffix.lower()
-    if ext==".svg":
-        out=src.with_suffix(".png")
-        subprocess.run(["rsvg-convert","-w","1200","-h","1500","-o",str(out),str(src)],check=True)
-        if not out.is_file() or out.stat().st_size==0:raise ValueError("falló rasterización PNG")
-        return out
-    if ext in {".png",".jpg",".jpeg",".webp"}:return src
-    raise ValueError(f"formato visual no soportado: {ext}")
+def approved_upload(row):
+    from calidad_visual import current_visual_approval, raster_check
+    from validar_media import validate_media
+    from urllib.parse import urlsplit
+
+    if not current_visual_approval(row):
+        raise ValueError("media sin certificación visual vigente")
+    source = urlsplit(row.get("media_source_url") or "")
+    if source.scheme != "https" or not source.hostname or not row.get("media_source") or not row.get("alt_text"):
+        raise ValueError("media sin procedencia o descripción factual")
+    validation = validate_media(row)
+    if not validation.valid:
+        raise ValueError(f"media material rechazada: {[issue.code for issue in validation.errors]}")
+    src = (ROOT / row["media_path"]).resolve()
+    original = src.read_bytes()
+    if hashlib.sha256(original).hexdigest() != row.get("media_content_sha256"):
+        raise ValueError("la imagen cambió después de validarse")
+    if src.suffix.lower() == ".svg":
+        content = subprocess.run(
+            ["rsvg-convert", "-w", "1200", "-h", "1500"],
+            input=original, capture_output=True, check=True, timeout=20,
+        ).stdout
+        name = src.with_suffix(".png").name
+    else:
+        name, content = src.name, original
+    check = raster_check(content, expected_size=(1200, 1500) if src.suffix.lower() == ".svg" else None)
+    if not check.valid:
+        raise ValueError(f"activo final {check.status}: {check.reason}")
+    return name, content
+
 
 def http_json(req,token,timeout=60):
     try:
@@ -45,15 +61,15 @@ def http_json(req,token,timeout=60):
         body=e.read().decode("utf-8","replace").replace(token,"***")
         raise RuntimeError(f"Meta HTTP {e.code}: {body[:600]}") from None
 
-def multipart(fields,file_field,path):
+def multipart(fields,file_field,name,content):
     boundary="----CLEP"+uuid.uuid4().hex;chunks=[]
     for k,v in fields.items():
         chunks += [f"--{boundary}\r\n".encode(),f'Content-Disposition: form-data; name="{k}"\r\n\r\n'.encode(),
                    str(v).encode("utf-8"),b"\r\n"]
-    ctype=mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+    ctype=mimetypes.guess_type(name)[0] or "application/octet-stream"
     chunks += [f"--{boundary}\r\n".encode(),
-               f'Content-Disposition: form-data; name="{file_field}"; filename="{path.name}"\r\n'.encode(),
-               f"Content-Type: {ctype}\r\n\r\n".encode(),path.read_bytes(),b"\r\n",
+               f'Content-Disposition: form-data; name="{file_field}"; filename="{name}"\r\n'.encode(),
+               f"Content-Type: {ctype}\r\n\r\n".encode(),content,b"\r\n",
                f"--{boundary}--\r\n".encode()]
     return boundary,b"".join(chunks)
 
@@ -61,9 +77,9 @@ def post_form(url,fields,token):
     data=urllib.parse.urlencode(fields).encode()
     return http_json(urllib.request.Request(url,data=data,method="POST"),token)
 
-def upload_photo(page,token,path):
+def upload_photo(page,token,name,content):
     url=f"https://graph.facebook.com/{API}/{page}/photos"
-    boundary,body=multipart({"published":"false","access_token":token},"source",path)
+    boundary,body=multipart({"published":"false","access_token":token},"source",name,content)
     req=urllib.request.Request(url,data=body,method="POST",
         headers={"Content-Type":f"multipart/form-data; boundary={boundary}"})
     return http_json(req,token,timeout=90)
@@ -109,7 +125,7 @@ def main():
         sys.exit(f"fila no lista para Meta: {ready.code}{detail}")
     fecha=(r.get("fecha_programada") or "").strip();hhmm=(r.get("orden_dia") or "").strip()
     message=(r.get("ficha_es") or "").strip()
-    photo_id="";feed_attempted=False
+    photo_id="";feed_attempted=False;photo_attempted=False
     try:
         when=datetime.fromisoformat(f"{fecha}T{hhmm}").replace(tzinfo=tz)
         if mode!="mock" and when<=datetime.now(tz):raise ValueError("horario programado ya pasó")
@@ -119,7 +135,7 @@ def main():
             if ROOT.resolve() not in image.parents or not image.is_file():
                 raise ValueError("imagen mock inexistente o fuera del repositorio")
         else:
-            image=media_file(r)
+            name, content = approved_upload(r)
         if mode=="mock":
             dig=hashlib.sha256((r.get("editorial_id","")+"|"+fecha+"|"+hhmm).encode()).hexdigest()[:16]
             photo_id="mock-photo-"+dig
@@ -131,7 +147,13 @@ def main():
             save(rows,fields)
             print(f"MOCK {r.get('editorial_id')} -> {post_id} @ {when.isoformat()}")
             return
-        photo=upload_photo(page,token,image)
+        if "media_upload_sha256" not in fields:
+            fields.append("media_upload_sha256")
+        r["media_upload_sha256"] = hashlib.sha256(content).hexdigest()
+        save(rows,fields)
+        print(f"MEDIA_APPROVED {r.get('editorial_id')} sha256={r['media_upload_sha256']}")
+        photo_attempted=True
+        photo=upload_photo(page,token,name,content)
         photo_id=str(photo.get("id") or "")
         if not photo_id:raise RuntimeError("Meta no devolvió photo_id")
         r["meta_photo_id"]=photo_id
@@ -149,7 +171,7 @@ def main():
         # Una vez iniciado el intento de feed no borramos la foto: el POST pudo
         # haber sido aceptado aunque la respuesta se perdiera. La reconciliación
         # posterior decide si existe el feed; nunca hay retry automático.
-        r["meta_attempt_status"]="REVIEW"
+        r["meta_attempt_status"]="REVIEW" if photo_attempted else "FAILED"
         if photo_id:r["meta_photo_id"]=photo_id
         append_note(r,f"Meta REVIEW: {type(e).__name__}: {e}; feed_attempted={feed_attempted}; foto_preservada={bool(photo_id)}")
         save(rows,fields)

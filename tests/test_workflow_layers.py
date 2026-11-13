@@ -13,6 +13,7 @@ LAYERS = {
         "editorial-ci.yml",
         "editorial-check.yml",
         "editorial-plan.yml",
+        "meta-queue-e2e.yml",
     },
     "network": {
         "editorial-network-smoke.yml",
@@ -22,7 +23,6 @@ LAYERS = {
         "historical-recovery.yml",
     },
     "meta": {
-        "meta-queue-e2e.yml",
         "meta-smoke-test.yml",
         "facebook-publish.yml",
     },

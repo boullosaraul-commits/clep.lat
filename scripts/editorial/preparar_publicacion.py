@@ -33,6 +33,8 @@ from sinopsis_papers import FIELDS as SYNOPSIS_FIELDS
 from renderizar_texto import TextRenderError, render_result
 from resolver_media import ALLOWED_MEDIA_METHODS, MediaResolutionError, resolve_media
 from validar_media import validate_media
+from calidad_visual import VISUAL_POLICY_VERSION, raster_check
+from serie_editorial import editorial_series
 
 C = Path(
     os.getenv("CLEP_CANDIDATES_PATH", str(ROOT / "data/editorial/candidatos.csv"))
@@ -69,6 +71,11 @@ MEDIA_PROVENANCE_FIELDS = (
     "media_content_sha256",
     "media_bytes_size",
     "media_acquisition_reused",
+    "media_visual_policy_version",
+    "media_semantic_status",
+    "media_editorial_status",
+    "media_visual_decision",
+    "media_upload_sha256",
     "alt_text",
     "media_validation_status",
     "media_validation_version",
@@ -77,6 +84,7 @@ MEDIA_PROVENANCE_FIELDS = (
     "media_height",
 )
 PREPARATION_PROVENANCE_FIELDS = (
+    "editorial_series",
     "preparation_version",
     "preparation_fingerprint",
 )
@@ -502,9 +510,18 @@ def resolve_acquire_validate_media(row, kind):
                 continue
             raise MediaValidationBlocked(validation)
 
+        if method in {"official_image", "explicit_cover", "explicit_thumbnail"}:
+            check = raster_check((ROOT / acquired.media_path).read_bytes(), capture_title=clean(row.get("title")))
+            if not check.valid:
+                rejected_methods[method] = f"{check.status}: {check.reason}"
+                continue
         visual.update(
             {
                 "media_validation_status": validation.status,
+                "media_visual_policy_version": VISUAL_POLICY_VERSION,
+                "media_semantic_status": "VALID",
+                "media_editorial_status": "VALID",
+                "media_visual_decision": json.dumps([a.to_dict() for a in resolution.attempts], ensure_ascii=False),
                 "media_validation_version": str(validation.validation_version),
                 "detected_media_type": validation.detected_type,
                 "media_width": str(validation.width or ""),
@@ -647,6 +664,7 @@ def _assemble_queue_row(
             **{field: row.get(field, "") for field in SYNOPSIS_FIELDS},
             "sinopsis_es": text_result.editorial_description if kind=="paper" else row.get("sinopsis_es", ""),
             "ficha_es": text_result.post_text,
+            "editorial_series": editorial_series(row, kind),
             "source_summary": text_result.source_summary,
             "source_summary_es": text_result.source_summary_es,
             "editorial_description": text_result.editorial_description,
@@ -790,6 +808,7 @@ def prepare_one(
     try:
         meta = meta_for(kind, row)
         meta.update(text_context(row))
+        meta["editorial_series"] = editorial_series(row, kind)
         text_result = render_result(kind, meta)
 
         stage = STAGE_MEDIA
@@ -846,11 +865,12 @@ def invalidate_stale_queue_rows(queue, cmap, policy_fp):
             continue
         if queued.get("estado_editorial") in {"PUBLICADO", "ORIGINAL_RETIRADO"}:
             continue
-        if queued.get("meta_attempt_status") == "SCHEDULED" or queued.get("post_nuevo_id"):
+        if queued.get("meta_attempt_status") in {"SCHEDULED", "IN_FLIGHT", "REVIEW"} or queued.get("post_nuevo_id"):
             continue
         candidate_fp = candidate_fingerprint(row)
         changed = (
-            queued.get("candidate_fingerprint") != candidate_fp
+            queued.get("media_visual_policy_version") != VISUAL_POLICY_VERSION
+            or queued.get("candidate_fingerprint") != candidate_fp
             or queued.get("editorial_policy_fingerprint") != policy_fp
             or queued.get("editorial_score") != (row.get("editorial_score") or "")
             or queued.get("editorial_decision") != (row.get("editorial_decision") or "")
@@ -942,6 +962,7 @@ def main():
         if outcome.blocked:
             if outcome.candidate_updates:
                 row.update(outcome.candidate_updates)
+            print(f"EDITORIAL_BLOCKED {cid} {outcome.stage}: {outcome.error_code}: {outcome.error_detail}")
             blocked += 1
             continue
 
@@ -959,6 +980,8 @@ def main():
             row.update(outcome.candidate_updates)
 
         prepared += 1
+        print(f"EDITORIAL_MEDIA {cid}: {outcome.queue_row['media_method']} "
+              f"{outcome.queue_row['media_content_sha256']} {outcome.queue_row['media_visual_decision']}")
         rights = outcome.queue_row.get("media_rights_status", "")
         visual_counts[rights] = visual_counts.get(rights, 0) + 1
 

@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT / "scripts/editorial"))
 import adquirir_media
 import validar_media
 from adquirir_media import acquire_media
+from calidad_visual import VisualCheck
 from resolver_media import (
     MEDIA_METHOD_DETERMINISTIC_CARD,
     MEDIA_METHOD_DETERMINISTIC_CHART,
@@ -92,15 +93,6 @@ class OfflineMediaPipelineE2E(unittest.TestCase):
         for item in reversed(self.patches):
             item.stop()
         self.tempdir.cleanup()
-
-    @staticmethod
-    def fake_capture_run(command, **kwargs):
-        del kwargs
-        screenshot_arg = next(arg for arg in command if arg.startswith("--screenshot="))
-        target = Path(screenshot_arg.split("=", 1)[1])
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(PNG_BYTES)
-        return SimpleNamespace(returncode=0, stdout=b"", stderr=b"")
 
     def validate_acquired(self, resolution, acquired):
         result = validate_media(
@@ -183,6 +175,7 @@ class OfflineMediaPipelineE2E(unittest.TestCase):
                     "content_type": "paper",
                     "title": "Official landing item",
                     "source_name": "Example Repository",
+                    "title": "Official landing item",
                     "official_landing_url": "https://example.org/item",
                 },
                 MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE,
@@ -194,6 +187,8 @@ class OfflineMediaPipelineE2E(unittest.TestCase):
                     "indicator_or_dataset": "Employment rate",
                     "geography": "Mexico",
                     "source_name": "INEGI",
+                    "data_unit": "%",
+                    "source_url": "https://example.org/series",
                     "data_points": [["2025", 60.1], ["2026", 61.2]],
                 },
                 MEDIA_METHOD_DETERMINISTIC_CHART,
@@ -213,8 +208,8 @@ class OfflineMediaPipelineE2E(unittest.TestCase):
 
         acquired_paths = []
         with patch("adquirir_media.urllib.request.urlopen", return_value=FakeResponse()), patch(
-            "adquirir_media.shutil.which", return_value="/usr/bin/chromium"
-        ), patch("adquirir_media.subprocess.run", side_effect=self.fake_capture_run):
+            "adquirir_media.capture", return_value=(PNG_BYTES, VisualCheck("VALID", "fixture"), "HTTP=200")
+        ):
             for candidate, expected_method in scenarios:
                 with self.subTest(method=expected_method):
                     _, acquired, validated = self.acquire_validate_twice(candidate, expected_method)
@@ -260,7 +255,7 @@ class OfflineMediaPipelineE2E(unittest.TestCase):
             rejected_methods={first_resolution.media_method: rejected_reason},
         )
         self.assertEqual(second_resolution.media_method, MEDIA_METHOD_DETERMINISTIC_CARD)
-        self.assertEqual(second_resolution.attempts[0].outcome, "ACQUISITION_FAILED")
+        self.assertEqual(second_resolution.attempts[1].outcome, "ACQUISITION_FAILED")
 
         second_acquired = acquire_media(second_resolution)
         second_validation = self.validate_acquired(second_resolution, second_acquired)
@@ -291,7 +286,7 @@ class OfflineMediaPipelineE2E(unittest.TestCase):
             },
         )
         self.assertEqual(second.media_method, MEDIA_METHOD_DETERMINISTIC_CARD)
-        self.assertEqual(second.attempts[0].outcome, "ACQUISITION_FAILED")
+        self.assertEqual(second.attempts[1].outcome, "ACQUISITION_FAILED")
 
 
 if __name__ == "__main__":

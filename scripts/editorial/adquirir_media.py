@@ -12,14 +12,14 @@ La validación material pertenece a `validar_media.py` (Paso 5).
 from __future__ import annotations
 
 import hashlib
-import shutil
-import subprocess
+import os
 import urllib.request
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
+from capturar_landing import capture
 from generar_grafica_clep import render as render_chart
 from generar_tarjeta_clep import render as render_card
 from resolver_media import (
@@ -45,6 +45,8 @@ FALLBACK_ACQUISITION_ERRORS = {
     "MEDIA_DOWNLOAD_TOO_LARGE",
     "MEDIA_CAPTURE_BROWSER_MISSING",
     "MEDIA_CAPTURE_FAILED",
+    "MEDIA_VISUAL_INVALID",
+    "MEDIA_VISUAL_UNCERTAIN",
     "MEDIA_RENDER_FAILED",
 }
 
@@ -122,7 +124,7 @@ def _write_bytes_once(relative_path: str, content: bytes) -> tuple[str, int, boo
     return digest, len(content), False
 
 
-def _remote_target(resolution: MediaResolution, content_type: str) -> str:
+def _remote_target(resolution: MediaResolution, content_type: str, content: bytes) -> str:
     suffixes = {
         "image/png": "png",
         "image/jpeg": "jpg",
@@ -131,7 +133,7 @@ def _remote_target(resolution: MediaResolution, content_type: str) -> str:
     }
     suffix = suffixes.get(content_type.split(";", 1)[0].strip().lower(), "bin")
     digest = resolution.resolution_fingerprint[:16]
-    return f"data/editorial/media/remote-{digest}.{suffix}"
+    return f"data/editorial/media/remote-{digest}-{hashlib.sha256(content).hexdigest()[:16]}.{suffix}"
 
 
 def _download_remote(resolution: MediaResolution) -> AcquiredMedia:
@@ -163,7 +165,7 @@ def _download_remote(resolution: MediaResolution) -> AcquiredMedia:
             f"descarga excede {MAX_DOWNLOAD_BYTES} bytes",
             "media_url",
         )
-    target = _remote_target(resolution, content_type)
+    target = _remote_target(resolution, content_type, content)
     sha256, size, reused = _write_bytes_once(target, content)
     return AcquiredMedia(
         media_path=target,
@@ -185,76 +187,24 @@ def _capture_landing(resolution: MediaResolution) -> AcquiredMedia:
             "MEDIA_CAPTURE_PLAN_INVALID",
             "captura requiere url y media_path",
         )
-    target = _safe_target(relative_path)
-    if target.exists():
-        content = target.read_bytes()
-        return AcquiredMedia(
-            media_path=relative_path,
-            media_type_declared="image/png",
-            acquisition_method=resolution.media_method,
-            resolution_fingerprint=resolution.resolution_fingerprint,
-            content_sha256=hashlib.sha256(content).hexdigest(),
-            bytes_written=len(content),
-            reused_existing=True,
-        )
-
-    chrome = (
-        shutil.which("google-chrome")
-        or shutil.which("google-chrome-stable")
-        or shutil.which("chromium")
-        or shutil.which("chromium-browser")
-    )
-    if not chrome:
-        raise MediaAcquisitionError("MEDIA_CAPTURE_BROWSER_MISSING", "Chrome/Chromium no disponible")
-
-    viewport = str(payload.get("viewport") or "1200x1500")
+    _safe_target(relative_path)
+    if os.getenv("CLEP_SCREENSHOT_LIMIT") == "0":
+        raise MediaAcquisitionError("MEDIA_CAPTURE_FAILED", "captura deshabilitada en esta ejecución")
     try:
-        width, height = [int(part) for part in viewport.lower().split("x", 1)]
+        width, height = map(int, payload["viewport"].split("x"))
+        content, check, evidence = capture(url, payload["title"], width, height)
     except Exception as exc:
-        raise MediaAcquisitionError("MEDIA_CAPTURE_PLAN_INVALID", f"viewport inválido: {viewport!r}") from exc
-    budget = int(payload.get("virtual_time_budget_ms") or 5000)
-    target.parent.mkdir(parents=True, exist_ok=True)
-    command = [
-        chrome,
-        "--headless=new",
-        "--disable-gpu",
-        "--no-sandbox",
-        "--disable-dev-shm-usage",
-        "--hide-scrollbars",
-        f"--window-size={width},{height}",
-        "--run-all-compositor-stages-before-draw",
-        f"--virtual-time-budget={budget}",
-        f"--screenshot={target}",
-        url,
-    ]
-    try:
-        completed = subprocess.run(
-            command,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            timeout=15,
-            check=False,
-        )
-    except Exception as exc:
-        raise MediaAcquisitionError(
-            "MEDIA_CAPTURE_FAILED",
-            f"captura falló: {type(exc).__name__}: {exc}",
-        ) from exc
-    if completed.returncode != 0 or not target.exists():
-        raise MediaAcquisitionError(
-            "MEDIA_CAPTURE_FAILED",
-            f"Chrome terminó con código {completed.returncode}",
-        )
-    content = target.read_bytes()
-    return AcquiredMedia(
-        media_path=relative_path,
-        media_type_declared="image/png",
-        acquisition_method=resolution.media_method,
-        resolution_fingerprint=resolution.resolution_fingerprint,
-        content_sha256=hashlib.sha256(content).hexdigest(),
-        bytes_written=len(content),
-        reused_existing=False,
-    )
+        raise MediaAcquisitionError("MEDIA_CAPTURE_FAILED", f"navegación fallida: {type(exc).__name__}") from exc
+    if not check.valid:
+        raise MediaAcquisitionError(f"MEDIA_VISUAL_{check.status}", f"{check.reason}; {evidence}")
+    # Vincular la evidencia al contenido exacto. Una captura nueva nunca hereda
+    # la aprobación de un archivo que ya exista para el mismo plan.
+    digest = hashlib.sha256(content).hexdigest()
+    target = Path(relative_path)
+    relative_path = str(target.with_name(f"{target.stem}-{digest[:16]}.png"))
+    sha256, size, reused = _write_bytes_once(relative_path, content)
+    return AcquiredMedia(relative_path, "image/png", resolution.media_method,
+                         resolution.resolution_fingerprint, sha256, size, reused)
 
 
 def _render_chart(resolution: MediaResolution) -> AcquiredMedia:
@@ -265,6 +215,9 @@ def _render_chart(resolution: MediaResolution) -> AcquiredMedia:
         "geography": payload.get("geography"),
         "source": payload.get("source"),
         "points": payload.get("points"),
+        "unit": payload.get("unit"),
+        "source_snapshot": payload.get("source_snapshot"),
+        "series": payload.get("series"),
     }
     try:
         svg = render_chart(chart_input)
@@ -293,6 +246,7 @@ def _render_card(resolution: MediaResolution) -> AcquiredMedia:
         "synopsis": payload.get("synopsis"),
         "synopsis_method": payload.get("synopsis_method"),
         "label": payload.get("label"),
+        "series": payload.get("series"),
         "title": payload.get("title"),
         "meta": payload.get("meta"),
         "source": payload.get("source"),
