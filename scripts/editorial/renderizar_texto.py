@@ -98,7 +98,7 @@ def _render_template(kind,data,paper_abstract_block=""):
     d.setdefault("date_label","Fecha")
     try: body=spec["template"].format_map(d)
     except KeyError as exc: raise TextRenderError("TEMPLATE_FIELD_MISSING",f"falta campo de plantilla: {exc.args[0]}",str(exc.args[0])) from None
-    body=body.replace("\\\\n","\n"); text=(spec["label"]+"\n\n"+body).strip()
+    body=body.replace("\\\\n","\n"); text=((data.get("editorial_series") or spec["label"])+"\n\n"+body).strip()
     text=re.sub(r"[ \t]+\n","\n",text); text=re.sub(r"\n{3,}","\n\n",text)
     if "\\\\n" in text: raise TextRenderError("TEMPLATE_ESCAPE_ERROR","plantilla contiene saltos escapados literalmente")
     if len(text)>int(policy.get("paper_max_chars", policy["max_chars"]) if kind=="paper" else policy["max_chars"]): raise TextRenderError("TEXT_OVERFLOW",f"texto excede máximo: {len(text)} > {policy['max_chars']}")

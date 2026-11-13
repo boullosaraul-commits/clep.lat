@@ -29,6 +29,12 @@ def main():
     with COLA.open(encoding="utf-8",newline="") as f:
         rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
     candidates=[r for r in rows if check_meta_reservable(r)]
+    if os.getenv("CLEP_META_MODE", "live").strip().lower() != "mock":
+        from calidad_visual import current_visual_approval
+        uncertified = [r["editorial_id"] for r in candidates if not current_visual_approval(r)]
+        if uncertified:
+            print(f"Media sin aprobación vigente, reservas omitidas: {', '.join(uncertified)}")
+        candidates = [r for r in candidates if current_visual_approval(r)]
     candidates.sort(key=pri)
     if not candidates:
         Path(args.output).unlink(missing_ok=True)

@@ -10,15 +10,18 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 from dataclasses import asdict, dataclass, field
 from typing import Any, Callable
 from urllib.parse import urlparse
 
-RESOLVER_VERSION = 1
-CHART_RENDERER_VERSION = 1
-CARD_RENDERER_VERSION = 2
-CAPTURE_POLICY_VERSION = 1
+from serie_editorial import editorial_series
+
+RESOLVER_VERSION = 2
+CHART_RENDERER_VERSION = 2
+CARD_RENDERER_VERSION = 3
+CAPTURE_POLICY_VERSION = 2
 
 MEDIA_STATUS_RESOLVED = "RESOLVED"
 
@@ -89,10 +92,10 @@ ERROR_FALLBACK_LEVEL_INVALID = "MEDIA_FALLBACK_LEVEL_INVALID"
 ERROR_FINGERPRINT_MISSING = "MEDIA_FINGERPRINT_MISSING"
 
 MEDIA_HIERARCHY: tuple[tuple[int, str], ...] = (
-    (1, MEDIA_METHOD_OFFICIAL_IMAGE),
+    (1, MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE),
+    (2, MEDIA_METHOD_OFFICIAL_IMAGE),
     (2, MEDIA_METHOD_EXPLICIT_COVER),
     (2, MEDIA_METHOD_EXPLICIT_THUMBNAIL),
-    (3, MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE),
     (4, MEDIA_METHOD_DETERMINISTIC_CHART),
     (4, MEDIA_METHOD_DETERMINISTIC_CARD),
 )
@@ -345,7 +348,7 @@ def _resolve_official_image(candidate: dict[str, Any], attempts: tuple[MediaAtte
             method=MEDIA_METHOD_OFFICIAL_IMAGE,
             rights=RIGHTS_VERIFIED,
             alt_text=alt_text,
-            level=1,
+            level=2,
             payload=payload,
         ),
         OUTCOME_RESOLVED,
@@ -413,6 +416,8 @@ def _resolve_explicit_thumbnail(candidate: dict[str, Any], attempts: tuple[Media
 
 def _resolve_official_landing_capture(candidate: dict[str, Any], attempts: tuple[MediaAttempt, ...]) -> StrategyResult:
     del attempts
+    if candidate.get("content_type") == "dataset_grafica":
+        return StrategyResult(None, OUTCOME_NOT_APPLICABLE, "panel estadístico: usar datos o ficha verificable")
     if candidate.get("content_type") == "paper" and candidate.get("sinopsis_es"):
         return StrategyResult(None, OUTCOME_NOT_APPLICABLE, "paper con sinopsis: tarjeta editorial legible")
     url = clean(candidate.get("official_landing_url") or candidate.get("source_url") or candidate.get("access_url"))
@@ -432,7 +437,7 @@ def _resolve_official_landing_capture(candidate: dict[str, Any], attempts: tuple
         "url": url,
         "source": source,
         "viewport": "1200x1500",
-        "virtual_time_budget_ms": 5000,
+        "title": clean(candidate.get("title")),
         "alt_text": alt_text,
     }
     digest = _canonical_hash(payload)[:16]
@@ -448,7 +453,7 @@ def _resolve_official_landing_capture(candidate: dict[str, Any], attempts: tuple
             method=MEDIA_METHOD_OFFICIAL_LANDING_CAPTURE,
             rights=RIGHTS_OFFICIAL_CAPTURE,
             alt_text=alt_text,
-            level=3,
+            level=1,
             payload=payload,
         ),
         OUTCOME_RESOLVED,
@@ -485,6 +490,18 @@ def _resolve_deterministic_chart(candidate: dict[str, Any], attempts: tuple[Medi
         return StrategyResult(None, OUTCOME_MISSING, "datos estructurados ausentes")
     if len(points) < 2:
         return StrategyResult(None, OUTCOME_INSUFFICIENT_DATA, "gráfica requiere al menos dos observaciones")
+    unit = clean(candidate.get("data_unit"))
+    if not unit:
+        # Compatibilidad con series ya registradas antes de guardar data_unit.
+        display = clean(candidate.get("value_or_change"))
+        match = re.fullmatch(r"[+-]?\d+(?:\.\d+)?\s+(%|puntos porcentuales)", display)
+        unit = match.group(1) if match else ""
+    if not unit or not all(
+        isinstance(p, (list, tuple)) and len(p) == 2 and clean(p[0])
+        and type(p[1]) in (int, float) and math.isfinite(p[1])
+        for p in points
+    ) or len({clean(p[0]) for p in points}) != len(points):
+        return StrategyResult(None, OUTCOME_INVALID_DATA, "serie requiere unidad y periodos distintos con valores finitos")
     title = clean(candidate.get("indicator_or_dataset") or candidate.get("title"))
     if not title:
         return StrategyResult(None, OUTCOME_METADATA_MISSING, "gráfica requiere indicador o título")
@@ -492,8 +509,8 @@ def _resolve_deterministic_chart(candidate: dict[str, Any], attempts: tuple[Medi
     if not source:
         return StrategyResult(None, OUTCOME_SOURCE_MISSING, "gráfica requiere fuente verificada")
     source_url = clean(candidate.get("source_url") or candidate.get("access_url"))
-    if source_url and not _is_https_url(source_url):
-        source_url = ""
+    if not _is_https_url(source_url):
+        return StrategyResult(None, OUTCOME_SOURCE_URL_INVALID, "gráfica requiere enlace HTTPS de origen")
     alt_text = factual_alt_text(MEDIA_METHOD_DETERMINISTIC_CHART, candidate)
     payload = {
         "kind": "deterministic_chart",
@@ -502,6 +519,9 @@ def _resolve_deterministic_chart(candidate: dict[str, Any], attempts: tuple[Medi
         "geography": clean(candidate.get("geography")),
         "source": source,
         "points": points,
+        "unit": unit,
+        "source_snapshot": clean(candidate.get("published_at") or candidate.get("detected_at"))[:10],
+        "series": editorial_series(candidate, "dataset_grafica"),
         "alt_text": alt_text,
     }
     digest = _canonical_hash(payload)[:16]
@@ -539,7 +559,7 @@ def _resolve_deterministic_card(candidate: dict[str, Any], attempts: tuple[Media
     metadata = " · ".join(
         part
         for part in (
-            clean(candidate.get("authors")),
+            clean(candidate.get("authors") or candidate.get("institution") or candidate.get("organizer") or source),
             clean(candidate.get("geography")),
             _year(candidate),
         )
@@ -555,6 +575,7 @@ def _resolve_deterministic_card(candidate: dict[str, Any], attempts: tuple[Media
         "synopsis": clean(candidate.get("sinopsis_es")),
         "synopsis_method": clean(candidate.get("synopsis_method")),
         "label": label,
+        "series": editorial_series(candidate, content_type),
         "title": title,
         "meta": metadata,
         "source": source,
@@ -614,7 +635,11 @@ def resolve_media(
         )
 
     attempts: list[MediaAttempt] = []
-    for level, method in MEDIA_HIERARCHY:
+    hierarchy = MEDIA_HIERARCHY
+    if clean(candidate.get("content_type")) == "dataset_grafica":
+        chart = (4, MEDIA_METHOD_DETERMINISTIC_CHART)
+        hierarchy = (chart, *(entry for entry in hierarchy if entry != chart))
+    for level, method in hierarchy:
         if method in rejected:
             attempts.append(
                 MediaAttempt(

@@ -8,7 +8,7 @@ import html,json,math,re,sys
 from pathlib import Path
 
 W,H=1200,1500
-LEFT,RIGHT,TOP,BOTTOM=120,1080,360,1160
+LEFT,RIGHT,TOP,BOTTOM=190,1080,410,1125
 
 def clean(x):return re.sub(r"\s+"," ",str(x or "")).strip()
 def esc(x):return html.escape(clean(x),quote=True)
@@ -21,6 +21,7 @@ def num(x):
 
 def render(data):
     title=clean(data.get("title"));geo=clean(data.get("geography"));source=clean(data.get("source"))
+    unit=clean(data.get("unit")); series=clean(data.get("series") or "DATOS · CLEP")
     raw=data.get("points") or []
     pts=[(clean(p[0]),num(p[1])) for p in raw if isinstance(p,(list,tuple)) and len(p)>=2]
     pts=[p for p in pts if p[0] and p[1] is not None]
@@ -46,26 +47,31 @@ def render(data):
         ticks.append(f'<line x1="{LEFT}" y1="{yy:.1f}" x2="{RIGHT}" y2="{yy:.1f}" stroke="#ccc" stroke-width="1"/>')
         ticks.append(f'<text x="{LEFT-22}" y="{yy+10:.1f}" text-anchor="end" class="axis">{v:.2f}</text>')
     latest=pts[-1]
+    snapshot=clean(data.get("source_snapshot"))
+    future_year = (re.fullmatch(r"\d{4}", latest[0]) and re.match(r"^\d{4}-", snapshot)
+                   and latest[0] > snapshot[:4])
+    last_label = "Proyección" if future_year else "Último periodo"
+    caption = f"Fuente: {source}" + (f" · consulta {snapshot}" if snapshot else "")
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
 <rect width="1200" height="1500" fill="#f5f2e9"/>
-<rect width="1200" height="24" fill="#111"/>
+<rect width="1200" height="24" fill="#075e62"/>
 <style>
 .k{{font-family:Arial,Helvetica,sans-serif;font-size:34px;font-weight:700;letter-spacing:2px;fill:#111}}
 .t{{font-family:Georgia,'Times New Roman',serif;font-size:60px;font-weight:700;fill:#111}}
 .s{{font-family:Arial,Helvetica,sans-serif;font-size:31px;fill:#444}}
-.axis{{font-family:Arial,Helvetica,sans-serif;font-size:24px;fill:#555}}
+.axis{{font-family:Arial,Helvetica,sans-serif;font-size:34px;fill:#444}}
 .latest{{font-family:Arial,Helvetica,sans-serif;font-size:38px;font-weight:700;fill:#111}}
 .brand{{font-family:Arial,Helvetica,sans-serif;font-size:32px;font-weight:700;fill:#111}}
 </style>
-<text x="100" y="145" class="k">DATOS · CLEP</text>
+<text x="100" y="145" class="k">{esc(series)}</text>
 <text x="100" y="240" class="t">{esc(title[:70])}</text>
-<text x="100" y="305" class="s">{esc(geo)}</text>
+<text x="100" y="305" class="s">{esc(geo)}{esc(" · "+unit) if unit else ""}</text>
 {''.join(ticks)}
-<path d="{path}" fill="none" stroke="#111" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="{path}" fill="none" stroke="#075e62" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
 {''.join(nodes)}
 {''.join(labels)}
-<text x="100" y="1310" class="latest">Último dato: {esc(latest[0])} · {esc(f"{latest[1]:g}")}</text>
-<text x="100" y="1380" class="s">Fuente: {esc(source)}</text>
+<text x="100" y="1310" class="latest">{last_label}: {esc(latest[0])} · {esc(f"{latest[1]:g}")} {esc(unit)}</text>
+<text x="100" y="1380" class="s">{esc(caption)}</text>
 <text x="100" y="1450" class="brand">CLEP · Economía pluralista</text>
 </svg>'''
 

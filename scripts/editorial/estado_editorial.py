@@ -35,6 +35,11 @@ def policy_fingerprint():
 
 def candidate_fingerprint(row):
     payload={k:str(row.get(k) or "") for k in CANDIDATE_FIELDS}
+    for key in ("editorial_series", "flujo_editorial", "data_unit", "data_points_json",
+                "value_or_change", "reference_period", "geography", "official_image_url",
+                "official_image_rights", "cover_url", "cover_rights", "thumbnail_url", "thumbnail_rights"):
+        if row.get(key):
+            payload[key] = str(row[key])
     if row.get("sinopsis_es"):
         payload.update({k:str(row.get(k) or "") for k in ["sinopsis_es","synopsis_source_hash","synopsis_method","title_es"]})
     return _digest([json.dumps(payload,sort_keys=True,ensure_ascii=False,separators=(",",":"))])

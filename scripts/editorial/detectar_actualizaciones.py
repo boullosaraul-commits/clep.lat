@@ -125,7 +125,9 @@ def main():
     cfg=json.loads(CFG.read_text(encoding="utf-8"))
     state=load_state();sw=state.setdefault("watches",{})
     with OUT.open(encoding="utf-8",newline="") as f:
-        rd=csv.DictReader(f);rows=list(rd);fields=rd.fieldnames
+        rd=csv.DictReader(f);rows=list(rd);fields=list(rd.fieldnames or [])
+    if "data_unit" not in fields:
+        fields.append("data_unit")
     existing={r.get("candidate_id") for r in rows}
     now=datetime.now(timezone.utc).isoformat(timespec="seconds")
     added=0;primed=0;errors=0
@@ -162,7 +164,7 @@ def main():
           "status":"METADATOS_OBTENIDOS","content_type":"dataset_grafica",
           "source_name":w["official_source"],"indicator_or_dataset":w["indicator"],
           "geography":w["geography"],"reference_period":obs["period"],"value_or_change":display,
-          "official_source":w["official_source"],"data_points_json":json.dumps(obs["points"],ensure_ascii=False),
+          "official_source":w["official_source"],"data_unit":w.get("unit",""),"data_points_json":json.dumps(obs["points"],ensure_ascii=False),
           "notes":"Actualización detectada por comparación determinista de última observación; sin IA generativa."
         })
         rows.append(row);existing.add(cid);added+=1
