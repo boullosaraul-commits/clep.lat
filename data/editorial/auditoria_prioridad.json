@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-11-13T18:33:33+00:00",
-  "records": 6651,
-  "academic_records": 5671,
+  "generated_at": "2026-11-14T17:05:07+00:00",
+  "records": 6671,
+  "academic_records": 5697,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 5600,
-    "5_6_9": 65,
-    "7_8_9": 6
+    "0_4_9": 5626,
+    "5_6_9": 66,
+    "7_8_9": 5
   },
   "decisions": {
     "INELIGIBLE": 452,
-    "THEMATIC_REJECTED": 4118,
-    "THEMATIC_REVIEW": 1026,
-    "REVIEW": 65,
-    "ARCHIVE": 4,
-    "PUBLISHABLE": 6
+    "THEMATIC_REJECTED": 4135,
+    "THEMATIC_REVIEW": 1033,
+    "REVIEW": 66,
+    "ARCHIVE": 6,
+    "PUBLISHABLE": 5
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3673,
+      "0_4_9": 3676,
       "5_6_9": 64,
       "7_8_9": 4
     },
@@ -26,18 +26,20 @@
       "0_4_9": 576
     },
     "doab_oai": {
-      "0_4_9": 1025,
-      "7_8_9": 2
+      "0_4_9": 1042,
+      "5_6_9": 1,
+      "7_8_9": 1
     },
     "nep_report": {
-      "0_4_9": 326,
+      "0_4_9": 332,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 1025,
-      "7_8_9": 2
+      "0_4_9": 1042,
+      "5_6_9": 1,
+      "7_8_9": 1
     },
     "chapter": {
       "0_4_9": 397
@@ -46,12 +48,12 @@
       "0_4_9": 61
     },
     "paper": {
-      "0_4_9": 3072,
+      "0_4_9": 3078,
       "5_6_9": 63,
       "7_8_9": 4
     },
     "report": {
-      "0_4_9": 1025
+      "0_4_9": 1028
     },
     "special_issue": {
       "0_4_9": 1,
@@ -64,9 +66,9 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 579,
+      "discovered": 582,
       "thematic_rejected": 226,
-      "thematic_review": 240,
+      "thematic_review": 243,
       "access_verified": 185,
       "thematic_auto": 113
     },
@@ -91,7 +93,7 @@
       "discovered": 2849,
       "thematic_rejected": 2372,
       "thematic_review": 342,
-      "access_verified": 624,
+      "access_verified": 637,
       "thematic_auto": 135,
       "publishable": 4
     },
@@ -102,18 +104,18 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 1027,
-      "thematic_rejected": 879,
-      "oa_evidence": 1027,
+      "discovered": 1044,
+      "thematic_rejected": 892,
+      "oa_evidence": 1044,
       "access_verified": 27,
-      "thematic_auto": 45,
-      "thematic_review": 100,
+      "thematic_auto": 46,
+      "thematic_review": 103,
       "thematic_rescue": 3,
-      "publishable": 2
+      "publishable": 1
     },
     "nep-dev": {
-      "discovered": 11,
-      "thematic_rejected": 5,
+      "discovered": 12,
+      "thematic_rejected": 6,
       "access_verified": 2,
       "oa_evidence": 2,
       "thematic_review": 2,
@@ -150,8 +152,8 @@
       "thematic_review": 2
     },
     "nep-inv": {
-      "discovered": 49,
-      "thematic_rejected": 28,
+      "discovered": 50,
+      "thematic_rejected": 29,
       "access_verified": 16,
       "oa_evidence": 16,
       "thematic_review": 11,
@@ -178,16 +180,16 @@
       "thematic_rejected": 2
     },
     "nep-mac": {
-      "discovered": 62,
-      "thematic_review": 15,
+      "discovered": 64,
+      "thematic_review": 16,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 10,
-      "thematic_rejected": 37
+      "thematic_rejected": 38
     },
     "nep-mon": {
-      "discovered": 71,
-      "thematic_auto": 44,
+      "discovered": 72,
+      "thematic_auto": 45,
       "access_verified": 25,
       "oa_evidence": 25,
       "thematic_rejected": 7,
@@ -210,18 +212,18 @@
       "thematic_auto": 1
     },
     "nep-tid": {
-      "discovered": 7,
+      "discovered": 8,
       "thematic_auto": 3,
       "access_verified": 2,
       "oa_evidence": 2,
       "thematic_review": 1,
-      "thematic_rejected": 3
+      "thematic_rejected": 4
     }
   },
   "health": {
-    "oa_pending": 4607,
-    "repec_metadata_pending": 976,
-    "publishable": 6,
+    "oa_pending": 4620,
+    "repec_metadata_pending": 970,
+    "publishable": 5,
     "pluralist_rescues_total": 6
   },
   "calibration_sample": {
@@ -528,19 +530,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-161A220A0FA2BD0F",
-        "title": "Recaudación tributaria y deuda pública en el Perú: estructura del presupuesto y sostenibilidad fiscal (2020–2023)",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "35",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;finanzas-sector-publico=credit,debt,fiscal,public debt",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-261E04317C5E1D61",
         "title": "Letters on the moral and religious state of South America: el método lancasteriano y su relación con la gramaticografía argentina a través de la correspondencia de James Thomson",
         "source": "dialnet-articles-oai",
@@ -606,19 +595,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-69B3B17126F1F73C",
-        "title": "Reconocimiento jurídico y realidad social de la garantía del derecho a la salud de las personas trans en México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=labor,inequality",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-7C29D156D626862D",
         "title": "Inteligencia artificial generativa y ética: revisión crítica sobre la aplicación de los talleres de tesis",
         "source": "dialnet-articles-oai",
@@ -628,6 +604,32 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "30",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=peru,global south",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-86BBFBF3E9901278",
+        "title": "Gestão contábil, financeira e tributária em empreendimentos aquícolas no Brasil: um ensaio teórico-aplicado",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "31",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-89E21E936D88C1D6",
+        "title": "Política de Ciencia Tecnología e Innovación en Colombia: aportes entre 2000 y 2022",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=distribución",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1091,6 +1093,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-B5839187F69354C9",
+        "title": "Hematologies",
+        "source": "doab-economics",
+        "type": "book",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=0.0;H=1.0;freshness=publication_date;areas=economia-politica-instituciones,historia-pensamiento-metodologia;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=political economy",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economy,political economy;pluralismo_rescate=no;senales_pluralistas=political economy;exclusiones=medicine,medical,nursing;economia-politica-instituciones=political economy;historia-pensamiento-metodologia=political economy",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "VERIFICADO_FUENTE"
+      },
+      {
         "candidate_id": "CAND-B5F8289FD2E55FE4",
         "title": "Equidad en la Evaluación de Tecnologías Sanitarias para Enfermedades Raras en Chile",
         "source": "dialnet-articles-oai",
@@ -1139,19 +1154,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,desarrollo-estructura;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "33",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,desarrollo-estructura;anclas=económico,desarrollo económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;desarrollo-estructura=desarrollo económico",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-161A220A0FA2BD0F",
-        "title": "Recaudación tributaria y deuda pública en el Perú: estructura del presupuesto y sostenibilidad fiscal (2020–2023)",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "35",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;finanzas-sector-publico=credit,debt,fiscal,public debt",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -1234,19 +1236,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-69B3B17126F1F73C",
-        "title": "Reconocimiento jurídico y realidad social de la garantía del derecho a la salud de las personas trans en México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=labor,inequality",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-7C29D156D626862D",
         "title": "Inteligencia artificial generativa y ética: revisión crítica sobre la aplicación de los talleres de tesis",
         "source": "dialnet-articles-oai",
@@ -1284,6 +1273,19 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=distribución",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-8E73AC66112F0A0F",
+        "title": "La resignificación del marco curricular común en contextos comunitarios: del currículum prescrito al currículum vivido en la educación media superior",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=mexico",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
       }
     ]
   },
@@ -1313,19 +1315,6 @@
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;produccion-reproduccion-sectorial=production system;trabajo-distribucion-bienestar=welfare",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-B5839187F69354C9",
-      "title": "Hematologies",
-      "source": "doab-economics",
-      "type": "book",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=1.0;freshness=publication_date;areas=economia-politica-instituciones,historia-pensamiento-metodologia;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=political economy",
-      "relevance_score": "30",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economy,political economy;pluralismo_rescate=no;senales_pluralistas=political economy;exclusiones=medicine,medical,nursing;economia-politica-instituciones=political economy;historia-pensamiento-metodologia=political economy",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "VERIFICADO_FUENTE"
     },
     {
       "candidate_id": "CAND-44E92953820C456D",
@@ -1441,6 +1430,19 @@
       "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "30",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=mexico",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-A8CD9AB2B5D83A06",
+      "title": "El videojuego serio como estrategia para la enseñanza y aprendizaje de los objetivos de desarrollo sostenible (ODS) en escuelas primarias y secundarias en Colombia",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "34",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;economia-politica-instituciones=institutions",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     }
