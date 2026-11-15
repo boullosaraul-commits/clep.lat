@@ -1,43 +1,43 @@
 {
-  "generated_at": "2026-11-14T17:05:07+00:00",
-  "records": 6671,
-  "academic_records": 5697,
+  "generated_at": "2026-11-15T17:43:42+00:00",
+  "records": 6680,
+  "academic_records": 5712,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 5626,
-    "5_6_9": 66,
-    "7_8_9": 5
+    "0_4_9": 5641,
+    "5_6_9": 67,
+    "7_8_9": 4
   },
   "decisions": {
-    "INELIGIBLE": 452,
-    "THEMATIC_REJECTED": 4135,
-    "THEMATIC_REVIEW": 1033,
-    "REVIEW": 66,
+    "INELIGIBLE": 454,
+    "THEMATIC_REJECTED": 4143,
+    "THEMATIC_REVIEW": 1038,
+    "REVIEW": 67,
     "ARCHIVE": 6,
-    "PUBLISHABLE": 5
+    "PUBLISHABLE": 4
   },
   "by_source": {
     "academic_oai": {
       "0_4_9": 3676,
-      "5_6_9": 64,
-      "7_8_9": 4
+      "5_6_9": 65,
+      "7_8_9": 3
     },
     "crossref_academic": {
       "0_4_9": 576
     },
     "doab_oai": {
-      "0_4_9": 1042,
+      "0_4_9": 1051,
       "5_6_9": 1,
       "7_8_9": 1
     },
     "nep_report": {
-      "0_4_9": 332,
+      "0_4_9": 338,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 1042,
+      "0_4_9": 1051,
       "5_6_9": 1,
       "7_8_9": 1
     },
@@ -48,9 +48,9 @@
       "0_4_9": 61
     },
     "paper": {
-      "0_4_9": 3078,
-      "5_6_9": 63,
-      "7_8_9": 4
+      "0_4_9": 3084,
+      "5_6_9": 64,
+      "7_8_9": 3
     },
     "report": {
       "0_4_9": 1028
@@ -95,7 +95,7 @@
       "thematic_review": 342,
       "access_verified": 637,
       "thematic_auto": 135,
-      "publishable": 4
+      "publishable": 3
     },
     "dialnet-theses-oai": {
       "discovered": 7,
@@ -104,20 +104,20 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 1044,
-      "thematic_rejected": 892,
-      "oa_evidence": 1044,
+      "discovered": 1053,
+      "thematic_rejected": 898,
+      "oa_evidence": 1053,
       "access_verified": 27,
       "thematic_auto": 46,
-      "thematic_review": 103,
+      "thematic_review": 106,
       "thematic_rescue": 3,
       "publishable": 1
     },
     "nep-dev": {
       "discovered": 12,
       "thematic_rejected": 6,
-      "access_verified": 2,
-      "oa_evidence": 2,
+      "access_verified": 3,
+      "oa_evidence": 3,
       "thematic_review": 2,
       "thematic_auto": 4
     },
@@ -188,12 +188,12 @@
       "thematic_rejected": 38
     },
     "nep-mon": {
-      "discovered": 72,
+      "discovered": 73,
       "thematic_auto": 45,
-      "access_verified": 25,
-      "oa_evidence": 25,
+      "access_verified": 26,
+      "oa_evidence": 26,
       "thematic_rejected": 7,
-      "thematic_review": 20
+      "thematic_review": 21
     },
     "nep-pke": {
       "discovered": 6,
@@ -212,18 +212,18 @@
       "thematic_auto": 1
     },
     "nep-tid": {
-      "discovered": 8,
-      "thematic_auto": 3,
+      "discovered": 13,
+      "thematic_auto": 5,
       "access_verified": 2,
       "oa_evidence": 2,
-      "thematic_review": 1,
-      "thematic_rejected": 4
+      "thematic_review": 2,
+      "thematic_rejected": 6
     }
   },
   "health": {
-    "oa_pending": 4620,
-    "repec_metadata_pending": 970,
-    "publishable": 5,
+    "oa_pending": 4633,
+    "repec_metadata_pending": 964,
+    "publishable": 4,
     "pluralist_rescues_total": 6
   },
   "calibration_sample": {
@@ -331,19 +331,6 @@
         "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "43",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=poder;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-E6E3D48207A1BC01",
-        "title": "Caracterización de sistemas de producción ovina en el altiplano central de México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "7.0",
-        "decision": "PUBLISHABLE",
-        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "47",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;produccion-reproduccion-sectorial=production system;trabajo-distribucion-bienestar=welfare",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -491,6 +478,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-E6E3D48207A1BC01",
+        "title": "Caracterización de sistemas de producción ovina en el altiplano central de México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "47",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;produccion-reproduccion-sectorial=production system;trabajo-distribucion-bienestar=welfare",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-06087DBA872AA5F4",
         "title": "Violencia de género en entornos interculturales: de las tensiones interseccionales a la invasión del ámbito escolar",
         "source": "dialnet-articles-oai",
@@ -526,32 +526,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,desarrollo-estructura;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "33",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,desarrollo-estructura;anclas=económico,desarrollo económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;desarrollo-estructura=desarrollo económico",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-261E04317C5E1D61",
-        "title": "Letters on the moral and religious state of South America: el método lancasteriano y su relación con la gramaticografía argentina a través de la correspondencia de James Thomson",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=lingüística;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=labor,trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-37F2002CC2DB7393",
-        "title": "Tecnología, innovación y digitalización durante la COVID-19: Claves para la permanencia de las empresas familiares en ciudades del interior de Venezuela",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=employment",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -608,19 +582,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-86BBFBF3E9901278",
-        "title": "Gestão contábil, financeira e tributária em empreendimentos aquícolas no Brasil: um ensaio teórico-aplicado",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-89E21E936D88C1D6",
         "title": "Política de Ciencia Tecnología e Innovación en Colombia: aportes entre 2000 y 2022",
         "source": "dialnet-articles-oai",
@@ -630,6 +591,45 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=distribución",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-8E73AC66112F0A0F",
+        "title": "La resignificación del marco curricular común en contextos comunitarios: del currículum prescrito al currículum vivido en la educación media superior",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=mexico",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-B544F5ACFF26AC8E",
+        "title": "Banco general como actor del desarrollo sostenible en panamá: análisis de la integración de los objetivos de desarrollo sostenible y las finanzas sostenibles en sus reportes corporativos (2023-2025)",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=finanzas-sector-publico,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "33",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=finanzas-sector-publico,economia-politica-instituciones;anclas=economic,finance,financial,finanzas;pluralismo_rescate=no;senales_pluralistas=ninguna;finanzas-sector-publico=finance,financial,banking,finanzas;economia-politica-instituciones=institutions",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-E5BA34B18723331D",
+        "title": "Prácticas de la Economía Popular y Solidaria para alcanzar el Sumak Kawsay",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "42",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar,finanzas-sector-publico;anclas=economía,económico,trabajo,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=poder;trabajo-distribucion-bienestar=trabajo,desigualdad,distribución;finanzas-sector-publico=crédito",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -659,6 +659,19 @@
         "relevance_score": "13",
         "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,peru",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-003EC2C90C2BBEE6",
+        "title": "Digital (Killer?) Acquisitions",
+        "source": "nep-tid",
+        "type": "paper",
+        "score": "0.0",
+        "decision": "THEMATIC_REJECTED",
+        "components": "pertinencia_temática=no_aprobada",
+        "relevance_score": "3",
+        "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
+        "access_status": "",
         "oa_status": "POR_VERIFICAR"
       },
       {
@@ -946,19 +959,6 @@
         "relevance_reasons": "decision=ARCHIVADO;disciplina=no_confirmada;areas=ninguna;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna",
         "access_status": "SOURCE_OA_UNCHECKED",
         "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-01C2A132BEDF4053",
-        "title": "El espacio sonoro del bombo con platillo en Buenos Aires, entre música, ruido e invisibilidad.",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "0.0",
-        "decision": "THEMATIC_REJECTED",
-        "components": "pertinencia_temática=no_aprobada",
-        "relevance_score": "10",
-        "relevance_reasons": "decision=ARCHIVADO;disciplina=economia;areas=internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
       }
     ],
     "borderline": [
@@ -1119,6 +1119,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-E6E3D48207A1BC01",
+        "title": "Caracterización de sistemas de producción ovina en el altiplano central de México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "47",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;produccion-reproduccion-sectorial=production system;trabajo-distribucion-bienestar=welfare",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-06087DBA872AA5F4",
         "title": "Violencia de género en entornos interculturales: de las tensiones interseccionales a la invasión del ámbito escolar",
         "source": "dialnet-articles-oai",
@@ -1154,32 +1167,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,desarrollo-estructura;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "33",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,desarrollo-estructura;anclas=económico,desarrollo económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;desarrollo-estructura=desarrollo económico",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-261E04317C5E1D61",
-        "title": "Letters on the moral and religious state of South America: el método lancasteriano y su relación con la gramaticografía argentina a través de la correspondencia de James Thomson",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=lingüística;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=labor,trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-37F2002CC2DB7393",
-        "title": "Tecnología, innovación y digitalización durante la COVID-19: Claves para la permanencia de las empresas familiares en ciudades del interior de Venezuela",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=employment",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -1249,19 +1236,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-86BBFBF3E9901278",
-        "title": "Gestão contábil, financeira e tributária em empreendimentos aquícolas no Brasil: um ensaio teórico-aplicado",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.0",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-89E21E936D88C1D6",
         "title": "Política de Ciencia Tecnología e Innovación en Colombia: aportes entre 2000 y 2022",
         "source": "dialnet-articles-oai",
@@ -1286,6 +1260,32 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=mexico",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-B544F5ACFF26AC8E",
+        "title": "Banco general como actor del desarrollo sostenible en panamá: análisis de la integración de los objetivos de desarrollo sostenible y las finanzas sostenibles en sus reportes corporativos (2023-2025)",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=finanzas-sector-publico,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "33",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=finanzas-sector-publico,economia-politica-instituciones;anclas=economic,finance,financial,finanzas;pluralismo_rescate=no;senales_pluralistas=ninguna;finanzas-sector-publico=finance,financial,banking,finanzas;economia-politica-instituciones=institutions",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-E5BA34B18723331D",
+        "title": "Prácticas de la Economía Popular y Solidaria para alcanzar el Sumak Kawsay",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "42",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar,finanzas-sector-publico;anclas=economía,económico,trabajo,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=poder;trabajo-distribucion-bienestar=trabajo,desigualdad,distribución;finanzas-sector-publico=crédito",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
       }
     ]
   },
@@ -1295,26 +1295,13 @@
       "title": "Sons of the Gods, Children of Earth",
       "source": "doab-economics",
       "type": "book",
-      "score": "8.0",
+      "score": "7.5",
       "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=1.0;R=0.0;H=2.0;freshness=publication_date;areas=economia-politica-instituciones,historia-pensamiento-metodologia;plural_explicit=marxian;plural_concepts=ninguna;plural_history=ninguna",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=0.5;O=1.0;R=0.0;H=2.0;freshness=publication_date;areas=economia-politica-instituciones,historia-pensamiento-metodologia;plural_explicit=marxian;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "30",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economic;pluralismo_rescate=no;senales_pluralistas=marxian;exclusiones=literary studies;economia-politica-instituciones=power,marx;historia-pensamiento-metodologia=marxian",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "VERIFICADO_FUENTE"
-    },
-    {
-      "candidate_id": "CAND-E6E3D48207A1BC01",
-      "title": "Caracterización de sistemas de producción ovina en el altiplano central de México",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "7.0",
-      "decision": "PUBLISHABLE",
-      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "47",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;produccion-reproduccion-sectorial=production system;trabajo-distribucion-bienestar=welfare",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
     },
     {
       "candidate_id": "CAND-44E92953820C456D",
@@ -1443,6 +1430,19 @@
       "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "34",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;economia-politica-instituciones=institutions",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-2575805F72515EFB",
+      "title": "Dossier: Maíces nativos en Latinoamérica: legado biocultural entre agronomía, economía y política",
+      "source": "dialnet-articles-oai",
+      "type": "special_issue",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "34",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=economic,economía;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin america,latin american,mexico,argentina;economia-politica-instituciones=power",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     }
