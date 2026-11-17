@@ -1,57 +1,57 @@
 {
-  "generated_at": "2026-11-16T21:05:58+00:00",
-  "records": 6895,
-  "academic_records": 5832,
+  "generated_at": "2026-11-17T19:52:24+00:00",
+  "records": 6972,
+  "academic_records": 5901,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 5765,
+    "0_4_9": 5834,
     "5_6_9": 66,
     "7_8_9": 1
   },
   "decisions": {
-    "INELIGIBLE": 457,
-    "THEMATIC_REJECTED": 4245,
-    "THEMATIC_REVIEW": 1052,
+    "INELIGIBLE": 462,
+    "THEMATIC_REJECTED": 4293,
+    "THEMATIC_REVIEW": 1068,
     "REVIEW": 66,
     "ARCHIVE": 11,
     "PUBLISHABLE": 1
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3780,
+      "0_4_9": 3783,
       "5_6_9": 64
     },
     "crossref_academic": {
-      "0_4_9": 587
+      "0_4_9": 611
     },
     "doab_oai": {
-      "0_4_9": 1054,
+      "0_4_9": 1088,
       "5_6_9": 1,
       "7_8_9": 1
     },
     "nep_report": {
-      "0_4_9": 344,
+      "0_4_9": 352,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 1054,
+      "0_4_9": 1088,
       "5_6_9": 1,
       "7_8_9": 1
     },
     "chapter": {
-      "0_4_9": 398
+      "0_4_9": 413
     },
     "edition_translation": {
       "0_4_9": 62
     },
     "paper": {
-      "0_4_9": 3192,
+      "0_4_9": 3201,
       "5_6_9": 63
     },
     "report": {
-      "0_4_9": 1038
+      "0_4_9": 1049
     },
     "special_issue": {
       "0_4_9": 1,
@@ -64,11 +64,11 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 582,
+      "discovered": 584,
       "thematic_rejected": 226,
-      "thematic_review": 243,
+      "thematic_review": 244,
       "access_verified": 185,
-      "thematic_auto": 113
+      "thematic_auto": 114
     },
     "clacso-repository-oai": {
       "discovered": 306,
@@ -80,18 +80,18 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 587,
-      "thematic_rejected": 317,
-      "thematic_review": 176,
+      "discovered": 611,
+      "thematic_rejected": 330,
+      "thematic_review": 187,
       "thematic_auto": 94,
       "access_verified": 3,
       "oa_evidence": 2
     },
     "dialnet-articles-oai": {
-      "discovered": 2949,
-      "thematic_rejected": 2460,
+      "discovered": 2950,
+      "thematic_rejected": 2461,
       "thematic_review": 351,
-      "access_verified": 640,
+      "access_verified": 642,
       "thematic_auto": 138
     },
     "dialnet-theses-oai": {
@@ -101,12 +101,12 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 1056,
-      "thematic_rejected": 901,
-      "oa_evidence": 1056,
+      "discovered": 1090,
+      "thematic_rejected": 932,
+      "oa_evidence": 1090,
       "access_verified": 27,
-      "thematic_auto": 46,
-      "thematic_review": 106,
+      "thematic_auto": 47,
+      "thematic_review": 108,
       "thematic_rescue": 3,
       "publishable": 1
     },
@@ -172,21 +172,24 @@
       "oa_evidence": 2
     },
     "nep-ltv": {
-      "discovered": 3,
-      "thematic_review": 1,
-      "thematic_rejected": 2
+      "discovered": 7,
+      "thematic_review": 3,
+      "thematic_rejected": 2,
+      "thematic_auto": 2,
+      "access_verified": 1,
+      "oa_evidence": 1
     },
     "nep-mac": {
-      "discovered": 64,
+      "discovered": 65,
       "thematic_review": 16,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 10,
-      "thematic_rejected": 38
+      "thematic_rejected": 39
     },
     "nep-mon": {
-      "discovered": 75,
-      "thematic_auto": 45,
+      "discovered": 76,
+      "thematic_auto": 46,
       "access_verified": 26,
       "oa_evidence": 26,
       "thematic_rejected": 8,
@@ -209,17 +212,17 @@
       "thematic_auto": 1
     },
     "nep-tid": {
-      "discovered": 17,
+      "discovered": 19,
       "thematic_auto": 5,
       "access_verified": 2,
       "oa_evidence": 2,
       "thematic_review": 2,
-      "thematic_rejected": 10
+      "thematic_rejected": 12
     }
   },
   "health": {
-    "oa_pending": 4750,
-    "repec_metadata_pending": 1059,
+    "oa_pending": 4816,
+    "repec_metadata_pending": 1067,
     "publishable": 1,
     "pluralist_rescues_total": 6
   },
