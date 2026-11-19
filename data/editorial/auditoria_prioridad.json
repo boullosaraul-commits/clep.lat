@@ -1,57 +1,57 @@
 {
-  "generated_at": "2026-11-18T19:26:31+00:00",
-  "records": 6995,
-  "academic_records": 5930,
+  "generated_at": "2026-11-19T19:31:19+00:00",
+  "records": 7034,
+  "academic_records": 5967,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 5863,
-    "5_6_9": 66,
+    "0_4_9": 5908,
+    "5_6_9": 58,
     "7_8_9": 1
   },
   "decisions": {
-    "INELIGIBLE": 467,
-    "THEMATIC_REJECTED": 4310,
-    "THEMATIC_REVIEW": 1075,
-    "REVIEW": 66,
+    "INELIGIBLE": 489,
+    "THEMATIC_REJECTED": 4325,
+    "THEMATIC_REVIEW": 1083,
+    "REVIEW": 58,
     "ARCHIVE": 11,
     "PUBLISHABLE": 1
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3783,
-      "5_6_9": 64
+      "0_4_9": 3803,
+      "5_6_9": 56
     },
     "crossref_academic": {
-      "0_4_9": 617
+      "0_4_9": 628
     },
     "doab_oai": {
-      "0_4_9": 1105,
+      "0_4_9": 1112,
       "5_6_9": 1,
       "7_8_9": 1
     },
     "nep_report": {
-      "0_4_9": 358,
+      "0_4_9": 365,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 1105,
+      "0_4_9": 1112,
       "5_6_9": 1,
       "7_8_9": 1
     },
     "chapter": {
-      "0_4_9": 417
+      "0_4_9": 422
     },
     "edition_translation": {
       "0_4_9": 63
     },
     "paper": {
-      "0_4_9": 3207,
-      "5_6_9": 63
+      "0_4_9": 3222,
+      "5_6_9": 55
     },
     "report": {
-      "0_4_9": 1050
+      "0_4_9": 1068
     },
     "special_issue": {
       "0_4_9": 1,
@@ -64,11 +64,11 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 584,
-      "thematic_rejected": 226,
-      "thematic_review": 244,
+      "discovered": 596,
+      "thematic_rejected": 227,
+      "thematic_review": 246,
       "access_verified": 185,
-      "thematic_auto": 114
+      "thematic_auto": 123
     },
     "clacso-repository-oai": {
       "discovered": 306,
@@ -80,10 +80,10 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 617,
-      "thematic_rejected": 334,
-      "thematic_review": 188,
-      "thematic_auto": 95,
+      "discovered": 628,
+      "thematic_rejected": 338,
+      "thematic_review": 192,
+      "thematic_auto": 98,
       "access_verified": 3,
       "oa_evidence": 2
     },
@@ -101,9 +101,9 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 1107,
-      "thematic_rejected": 945,
-      "oa_evidence": 1107,
+      "discovered": 1114,
+      "thematic_rejected": 952,
+      "oa_evidence": 1114,
       "access_verified": 27,
       "thematic_auto": 50,
       "thematic_review": 109,
@@ -164,10 +164,10 @@
       "thematic_review": 1
     },
     "nep-lma": {
-      "discovered": 30,
-      "thematic_rejected": 13,
-      "thematic_auto": 5,
-      "thematic_review": 12,
+      "discovered": 36,
+      "thematic_rejected": 15,
+      "thematic_auto": 7,
+      "thematic_review": 14,
       "access_verified": 2,
       "oa_evidence": 2
     },
@@ -180,12 +180,12 @@
       "oa_evidence": 1
     },
     "nep-mac": {
-      "discovered": 65,
+      "discovered": 66,
       "thematic_review": 16,
       "access_verified": 10,
       "oa_evidence": 10,
       "thematic_auto": 10,
-      "thematic_rejected": 39
+      "thematic_rejected": 40
     },
     "nep-mon": {
       "discovered": 76,
@@ -221,8 +221,8 @@
     }
   },
   "health": {
-    "oa_pending": 4845,
-    "repec_metadata_pending": 1061,
+    "oa_pending": 4882,
+    "repec_metadata_pending": 1063,
     "publishable": 1,
     "pluralist_rescues_total": 6
   },
@@ -374,19 +374,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-3D06F25CBA8FAC15",
-        "title": "¿Por qué Argentina no logra regular el lobby? Mirada desde las relaciones públicas",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,chile;finanzas-sector-publico=financial,debt",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-44E92953820C456D",
         "title": "Transformación social a partir de la seguridad alimentaria: huertas orgánicas en entornos de educación media",
         "source": "dialnet-articles-oai",
@@ -435,32 +422,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "34",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;economia-politica-instituciones=institutions",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-B0F59E41B1517508",
-        "title": "Confianza sin estructura: la institucionalización del DirCom según los rectorados de la universidad privada latinoamericana",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=latin america,mexico,argentina,brazil",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-B5F8289FD2E55FE4",
-        "title": "Equidad en la Evaluación de Tecnologías Sanitarias para Enfermedades Raras en Chile",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=economic,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=clinical;internacional-latinoamerica=chile;finanzas-sector-publico=financial",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -630,6 +591,45 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;trabajo-distribucion-bienestar=labor",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-37F2002CC2DB7393",
+        "title": "Tecnología, innovación y digitalización durante la COVID-19: Claves para la permanencia de las empresas familiares en ciudades del interior de Venezuela",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "5.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,trabajo-distribucion-bienestar;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;trabajo-distribucion-bienestar=employment",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-4378195DF75A9821",
+        "title": "Mujeres jóvenes en México. Entre la precariedad laboral y el trabajo doméstico",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "5.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=trabajo,empleo,desempleo",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-49B597D86C368A30",
+        "title": "La precarización de los cuidados comunitarios como política pública en Argentina",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "5.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economy,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=labour,employment,trabajo",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1028,19 +1028,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-3D06F25CBA8FAC15",
-        "title": "¿Por qué Argentina no logra regular el lobby? Mirada desde las relaciones públicas",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,chile;finanzas-sector-publico=financial,debt",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-44E92953820C456D",
         "title": "Transformación social a partir de la seguridad alimentaria: huertas orgánicas en entornos de educación media",
         "source": "dialnet-articles-oai",
@@ -1106,19 +1093,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-B0F59E41B1517508",
-        "title": "Confianza sin estructura: la institucionalización del DirCom según los rectorados de la universidad privada latinoamericana",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=latin america,mexico,argentina,brazil",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-B5839187F69354C9",
         "title": "Hematologies",
         "source": "doab-economics",
@@ -1130,19 +1104,6 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economy,political economy;pluralismo_rescate=no;senales_pluralistas=political economy;exclusiones=medicine,medical,nursing;economia-politica-instituciones=political economy;historia-pensamiento-metodologia=political economy",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "VERIFICADO_FUENTE"
-      },
-      {
-        "candidate_id": "CAND-B5F8289FD2E55FE4",
-        "title": "Equidad en la Evaluación de Tecnologías Sanitarias para Enfermedades Raras en Chile",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "6.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=economic,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=clinical;internacional-latinoamerica=chile;finanzas-sector-publico=financial",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
       },
       {
         "candidate_id": "CAND-E6E3D48207A1BC01",
@@ -1286,6 +1247,45 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;economia-politica-instituciones=power",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-261E04317C5E1D61",
+        "title": "Letters on the moral and religious state of South America: el método lancasteriano y su relación con la gramaticografía argentina a través de la correspondencia de James Thomson",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "5.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=lingüística;internacional-latinoamerica=argentina;trabajo-distribucion-bienestar=labor,trabajo",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-2E6A17BBAB583133",
+        "title": "Análisis de factores financieros internos y desempeño empresarial en Perú (2020-2024)",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "5.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "31",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=económica;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;finanzas-sector-publico=deuda",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-36C1C1FC739FE1AA",
+        "title": "Trayectorias educativas y laborales de la juventud rural: articulación entre educación secundaria y técnico-productiva en Piura, Perú",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "5.5",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;trabajo-distribucion-bienestar=labor",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
       }
     ]
   },
@@ -1302,45 +1302,6 @@
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economic;pluralismo_rescate=no;senales_pluralistas=marxian;exclusiones=literary studies;economia-politica-instituciones=power,marx;historia-pensamiento-metodologia=marxian",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "VERIFICADO_FUENTE"
-    },
-    {
-      "candidate_id": "CAND-3D06F25CBA8FAC15",
-      "title": "¿Por qué Argentina no logra regular el lobby? Mirada desde las relaciones públicas",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "6.5",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "31",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,chile;finanzas-sector-publico=financial,debt",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-B0F59E41B1517508",
-      "title": "Confianza sin estructura: la institucionalización del DirCom según los rectorados de la universidad privada latinoamericana",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "6.5",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "30",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=latin america,mexico,argentina,brazil",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-B5F8289FD2E55FE4",
-      "title": "Equidad en la Evaluación de Tecnologías Sanitarias para Enfermedades Raras en Chile",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "6.5",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "31",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=economic,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;exclusiones=clinical;internacional-latinoamerica=chile;finanzas-sector-publico=financial",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
     },
     {
       "candidate_id": "CAND-54FAE2897CE41835",
@@ -1443,6 +1404,45 @@
       "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "36",
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trade;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,trade,méxico;trabajo-distribucion-bienestar=distribución",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-E6E3D48207A1BC01",
+      "title": "Caracterización de sistemas de producción ovina en el altiplano central de México",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "47",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,produccion-reproduccion-sectorial,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;produccion-reproduccion-sectorial=production system;trabajo-distribucion-bienestar=welfare",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-B5839187F69354C9",
+      "title": "Hematologies",
+      "source": "doab-economics",
+      "type": "book",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=1.0;R=0.0;H=1.0;freshness=publication_date;areas=economia-politica-instituciones,historia-pensamiento-metodologia;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=political economy",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economy,political economy;pluralismo_rescate=no;senales_pluralistas=political economy;exclusiones=medicine,medical,nursing;economia-politica-instituciones=political economy;historia-pensamiento-metodologia=political economy",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "VERIFICADO_FUENTE"
+    },
+    {
+      "candidate_id": "CAND-44E92953820C456D",
+      "title": "Transformación social a partir de la seguridad alimentaria: huertas orgánicas en entornos de educación media",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "6.5",
+      "decision": "REVIEW",
+      "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "43",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=poder;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=trabajo",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     }
