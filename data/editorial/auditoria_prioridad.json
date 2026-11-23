@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-11-22T18:31:31+00:00",
-  "records": 7342,
-  "academic_records": 6256,
+  "generated_at": "2026-11-23T22:41:47+00:00",
+  "records": 7504,
+  "academic_records": 6270,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 6213,
-    "5_6_9": 42,
+    "0_4_9": 6226,
+    "5_6_9": 43,
     "7_8_9": 1
   },
   "decisions": {
-    "INELIGIBLE": 525,
-    "THEMATIC_REJECTED": 4564,
-    "THEMATIC_REVIEW": 1115,
-    "REVIEW": 42,
+    "INELIGIBLE": 526,
+    "THEMATIC_REJECTED": 4570,
+    "THEMATIC_REVIEW": 1121,
+    "REVIEW": 43,
     "ARCHIVE": 9,
     "PUBLISHABLE": 1
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 3834,
-      "5_6_9": 40
+      "0_4_9": 3833,
+      "5_6_9": 41
     },
     "crossref_academic": {
-      "0_4_9": 631
+      "0_4_9": 640
     },
     "doab_oai": {
       "0_4_9": 1366,
@@ -30,7 +30,7 @@
       "7_8_9": 1
     },
     "nep_report": {
-      "0_4_9": 382,
+      "0_4_9": 387,
       "5_6_9": 1
     }
   },
@@ -41,17 +41,17 @@
       "7_8_9": 1
     },
     "chapter": {
-      "0_4_9": 423
+      "0_4_9": 426
     },
     "edition_translation": {
-      "0_4_9": 65
+      "0_4_9": 66
     },
     "paper": {
-      "0_4_9": 3255,
-      "5_6_9": 39
+      "0_4_9": 3259,
+      "5_6_9": 40
     },
     "report": {
-      "0_4_9": 1083
+      "0_4_9": 1088
     },
     "special_issue": {
       "0_4_9": 1,
@@ -80,10 +80,10 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 631,
-      "thematic_rejected": 339,
-      "thematic_review": 192,
-      "thematic_auto": 100,
+      "discovered": 640,
+      "thematic_rejected": 344,
+      "thematic_review": 194,
+      "thematic_auto": 102,
       "access_verified": 3,
       "oa_evidence": 2
     },
@@ -91,7 +91,7 @@
       "discovered": 2950,
       "thematic_rejected": 2461,
       "thematic_review": 351,
-      "access_verified": 642,
+      "access_verified": 643,
       "thematic_auto": 138
     },
     "dialnet-theses-oai": {
@@ -127,12 +127,12 @@
       "thematic_review": 7
     },
     "nep-his": {
-      "discovered": 32,
+      "discovered": 35,
       "thematic_auto": 11,
       "thematic_rejected": 15,
       "access_verified": 12,
       "oa_evidence": 12,
-      "thematic_review": 6
+      "thematic_review": 9
     },
     "nep-hme": {
       "discovered": 11,
@@ -164,10 +164,10 @@
       "thematic_review": 1
     },
     "nep-lma": {
-      "discovered": 52,
-      "thematic_rejected": 24,
+      "discovered": 54,
+      "thematic_rejected": 25,
       "thematic_auto": 10,
-      "thematic_review": 18,
+      "thematic_review": 19,
       "access_verified": 2,
       "oa_evidence": 2
     },
@@ -221,8 +221,8 @@
     }
   },
   "health": {
-    "oa_pending": 5170,
-    "repec_metadata_pending": 1082,
+    "oa_pending": 5183,
+    "repec_metadata_pending": 1230,
     "publishable": 1,
     "pluralist_rescues_total": 6
   },
@@ -409,6 +409,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "30",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=brazil",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-97F1542EC44B5E19",
+        "title": "Corrupción de líderes sindicales en México: los casos de Leonardo Rodríguez Alcaine y Carlos Romero Deschamps",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "31",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;economia-politica-instituciones=poder",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -617,19 +630,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "31",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-89E21E936D88C1D6",
-        "title": "Política de Ciencia Tecnología e Innovación en Colombia: aportes entre 2000 y 2022",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=distribución",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1093,6 +1093,19 @@
         "oa_status": "VERIFICADO_FUENTE"
       },
       {
+        "candidate_id": "CAND-97F1542EC44B5E19",
+        "title": "Corrupción de líderes sindicales en México: los casos de Leonardo Rodríguez Alcaine y Carlos Romero Deschamps",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "31",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;economia-politica-instituciones=poder",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-D1A71EB40D4C7062",
         "title": "Análisis del incremento de horas clase en materias de Matemáticas de Ingeniería en Electrónica y Computación",
         "source": "dialnet-articles-oai",
@@ -1273,19 +1286,6 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=economy,economía,trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,trabajo;internacional-latinoamerica=colombia",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-7C29D156D626862D",
-        "title": "Inteligencia artificial generativa y ética: revisión crítica sobre la aplicación de los talleres de tesis",
-        "source": "dialnet-articles-oai",
-        "type": "thesis",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=peru,global south",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
       }
     ]
   },
@@ -1434,15 +1434,15 @@
       "oa_status": "VERIFICADO_FUENTE"
     },
     {
-      "candidate_id": "CAND-D1A71EB40D4C7062",
-      "title": "Análisis del incremento de horas clase en materias de Matemáticas de Ingeniería en Electrónica y Computación",
+      "candidate_id": "CAND-97F1542EC44B5E19",
+      "title": "Corrupción de líderes sindicales en México: los casos de Leonardo Rodríguez Alcaine y Carlos Romero Deschamps",
       "source": "dialnet-articles-oai",
       "type": "paper",
       "score": "6.0",
       "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "34",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=class,clase;internacional-latinoamerica=mexico",
+      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "31",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;economia-politica-instituciones=poder",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     }
