@@ -1,63 +1,65 @@
 {
-  "generated_at": "2026-11-25T20:31:21+00:00",
-  "records": 7999,
-  "academic_records": 6764,
+  "generated_at": "2026-11-26T20:11:56+00:00",
+  "records": 8139,
+  "academic_records": 6883,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 6728,
-    "5_6_9": 35,
-    "7_8_9": 1
+    "0_4_9": 6839,
+    "5_6_9": 39,
+    "7_8_9": 5
   },
   "decisions": {
-    "INELIGIBLE": 570,
-    "THEMATIC_REJECTED": 4965,
-    "THEMATIC_REVIEW": 1186,
-    "REVIEW": 35,
+    "INELIGIBLE": 568,
+    "THEMATIC_REJECTED": 5059,
+    "THEMATIC_REVIEW": 1205,
+    "REVIEW": 39,
     "ARCHIVE": 7,
-    "PUBLISHABLE": 1
+    "PUBLISHABLE": 5
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 4046,
-      "5_6_9": 33
+      "0_4_9": 4141,
+      "5_6_9": 37,
+      "7_8_9": 4
     },
     "crossref_academic": {
-      "0_4_9": 664
+      "0_4_9": 671
     },
     "doab_oai": {
-      "0_4_9": 1622,
+      "0_4_9": 1627,
       "5_6_9": 1,
       "7_8_9": 1
     },
     "nep_report": {
-      "0_4_9": 396,
+      "0_4_9": 400,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 1622,
+      "0_4_9": 1627,
       "5_6_9": 1,
       "7_8_9": 1
     },
     "chapter": {
-      "0_4_9": 439
+      "0_4_9": 443
     },
     "edition_translation": {
       "0_4_9": 74
     },
     "paper": {
-      "0_4_9": 3471,
-      "5_6_9": 33
+      "0_4_9": 3567,
+      "5_6_9": 37,
+      "7_8_9": 4
     },
     "report": {
-      "0_4_9": 1100
+      "0_4_9": 1103
     },
     "special_issue": {
       "0_4_9": 2
     },
     "thesis": {
-      "0_4_9": 20,
+      "0_4_9": 23,
       "5_6_9": 1
     }
   },
@@ -79,33 +81,34 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 664,
-      "thematic_rejected": 357,
-      "thematic_review": 201,
-      "thematic_auto": 106,
+      "discovered": 671,
+      "thematic_rejected": 360,
+      "thematic_review": 203,
+      "thematic_auto": 108,
       "access_verified": 3,
       "oa_evidence": 2
     },
     "dialnet-articles-oai": {
-      "discovered": 3150,
-      "thematic_rejected": 2618,
-      "thematic_review": 378,
-      "access_verified": 654,
-      "thematic_auto": 154
+      "discovered": 3250,
+      "thematic_rejected": 2700,
+      "thematic_review": 393,
+      "access_verified": 675,
+      "thematic_auto": 157,
+      "publishable": 4
     },
     "dialnet-theses-oai": {
-      "discovered": 7,
-      "thematic_rejected": 6,
+      "discovered": 10,
+      "thematic_rejected": 9,
       "access_verified": 2,
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 1624,
-      "thematic_rejected": 1393,
-      "oa_evidence": 1624,
+      "discovered": 1629,
+      "thematic_rejected": 1396,
+      "oa_evidence": 1629,
       "access_verified": 28,
       "thematic_auto": 70,
-      "thematic_review": 158,
+      "thematic_review": 160,
       "thematic_rescue": 3,
       "publishable": 1
     },
@@ -126,9 +129,9 @@
       "thematic_review": 7
     },
     "nep-his": {
-      "discovered": 42,
-      "thematic_auto": 11,
-      "thematic_rejected": 20,
+      "discovered": 46,
+      "thematic_auto": 12,
+      "thematic_rejected": 23,
       "access_verified": 13,
       "oa_evidence": 13,
       "thematic_review": 11
@@ -220,9 +223,9 @@
     }
   },
   "health": {
-    "oa_pending": 5665,
-    "repec_metadata_pending": 1231,
-    "publishable": 1,
+    "oa_pending": 5763,
+    "repec_metadata_pending": 1252,
+    "publishable": 5,
     "pluralist_rescues_total": 6
   },
   "calibration_sample": {
@@ -308,6 +311,45 @@
     ],
     "regional_nonplural": [
       {
+        "candidate_id": "CAND-1BE5DD1079BFD342",
+        "title": "Perfiles de mortalidad prematura y brechas de desigualdad en dos países del Cono Sur: Argentina y Chile",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "7.0",
+        "decision": "PUBLISHABLE",
+        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,chile;trabajo-distribucion-bienestar=inequality,desigualdad",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-9236AA7DE10B5811",
+        "title": "De la neurociencia al aula: formación docente neurodidáctica, motivación y rendimiento académico",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "7.0",
+        "decision": "PUBLISHABLE",
+        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "30",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=latin america,colombia,peru",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-F70D1D395F005753",
+        "title": "Las 5S en instituciones de educación básica regular en Perú",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "7.0",
+        "decision": "PUBLISHABLE",
+        "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "38",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions,instituciones;internacional-latinoamerica=peru,perú",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-2C771B4E180B999A",
         "title": "Modelo de asignación de recursos públicos a las instituciones de educación superior en Colombia",
         "source": "dialnet-articles-oai",
@@ -360,6 +402,32 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-2005ED3FBEC65041",
+        "title": "Empoderamiento y brecha de género en una localidad agrícola en la Huasteca Veracruzana, México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=labor",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-291713EEF4CE09ED",
+        "title": "Pobreza, estigma y dolor socioemocional: acciones municipales relacionadas con la escolarización de niños en situación de marginalidad en Londrina, Brasil",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,brasil;trabajo-distribucion-bienestar=inequality,poverty,welfare,pobreza",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-6564CC19A28D5DFB",
         "title": "Integración de la Agenda 2030 en la educación superior argentina: estrategias, brechas y desempeño institucional",
         "source": "dialnet-articles-oai",
@@ -382,6 +450,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,employment,empleo;internacional-latinoamerica=latin america,caribbean",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-742FFF93DFD711FE",
+        "title": "Análisis comparativo del enfoque de equidad en dos instituciones de educación superior en México y Panamá: un estudio basado en los estadios de desarrollo organizacional",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "38",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions,instituciones;internacional-latinoamerica=mexico,méxico",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -551,84 +632,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "31",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-89E21E936D88C1D6",
-        "title": "Política de Ciencia Tecnología e Innovación en Colombia: aportes entre 2000 y 2022",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=distribución",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-8CD646632F03FEE0",
-        "title": "El derecho a la consulta previa: Contexto historico en el bicentenario del peru",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;trabajo-distribucion-bienestar=trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-8E73AC66112F0A0F",
-        "title": "La resignificación del marco curricular común en contextos comunitarios: del currículum prescrito al currículum vivido en la educación media superior",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=mexico",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-974955C95782A1AC",
-        "title": "Feedback pedagógico e avaliação formativa no ensino superior: interfaces teóricas e desafios institucionais",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=brazil",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-97F1542EC44B5E19",
-        "title": "Corrupción de líderes sindicales en México: los casos de Leonardo Rodríguez Alcaine y Carlos Romero Deschamps",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;economia-politica-instituciones=poder",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-AE3C9F42397E6F4E",
-        "title": "La función notarial en el perú: El precio de la fe pública",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;trabajo-distribucion-bienestar=distribución",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1027,6 +1030,45 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-0FB022C5FFEF7809",
+        "title": "Financiamento sanitario, pagamentos de peto e desigualdade do ingreso: evidencia dun panel internacional (2000–2020)",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=2.0;A=1.0;O=0.0;R=0.0;H=0.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,trabajo-distribucion-bienestar,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "42",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,trabajo-distribucion-bienestar,finanzas-sector-publico;anclas=macroeconomic,inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;macroeconomia-dinero=macroeconomic,inflation;trabajo-distribucion-bienestar=labor,unemployment,inequality;finanzas-sector-publico=fiscal,fiscal",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-2005ED3FBEC65041",
+        "title": "Empoderamiento y brecha de género en una localidad agrícola en la Huasteca Veracruzana, México",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "32",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=labor",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-291713EEF4CE09ED",
+        "title": "Pobreza, estigma y dolor socioemocional: acciones municipales relacionadas con la escolarización de niños en situación de marginalidad en Londrina, Brasil",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brazil,brasil;trabajo-distribucion-bienestar=inequality,poverty,welfare,pobreza",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-43948BCC486176BE",
         "title": "Optimal monetary and exchange rate frameworks for commodity-exposed economies",
         "source": "nep-mon",
@@ -1062,6 +1104,19 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "32",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,employment,empleo;internacional-latinoamerica=latin america,caribbean",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-742FFF93DFD711FE",
+        "title": "Análisis comparativo del enfoque de equidad en dos instituciones de educación superior en México y Panamá: un estudio basado en los estadios de desarrollo organizacional",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "38",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions,instituciones;internacional-latinoamerica=mexico,méxico",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -1233,58 +1288,6 @@
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-89E21E936D88C1D6",
-        "title": "Política de Ciencia Tecnología e Innovación en Colombia: aportes entre 2000 y 2022",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=distribución",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-8CD646632F03FEE0",
-        "title": "El derecho a la consulta previa: Contexto historico en el bicentenario del peru",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=trabajo;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;trabajo-distribucion-bienestar=trabajo",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-8E73AC66112F0A0F",
-        "title": "La resignificación del marco curricular común en contextos comunitarios: del currículum prescrito al currículum vivido en la educación media superior",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=mexico",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-974955C95782A1AC",
-        "title": "Feedback pedagógico e avaliação formativa no ensino superior: interfaces teóricas e desafios institucionais",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "30",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=brazil",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
       }
     ]
   },
@@ -1301,6 +1304,58 @@
       "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,historia-pensamiento-metodologia;anclas=economic;pluralismo_rescate=no;senales_pluralistas=marxian;exclusiones=literary studies;economia-politica-instituciones=power,marx;historia-pensamiento-metodologia=marxian",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "VERIFICADO_FUENTE"
+    },
+    {
+      "candidate_id": "CAND-5971A3D19D943CFB",
+      "title": "Entre CAD e inteligencia artificial: Utilidad situada en la arquitectura Brasileña",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=1.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=effective demand;plural_history=ninguna",
+      "relevance_score": "43",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,historia-pensamiento-metodologia,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=effective demand;macroeconomia-dinero=effective demand;historia-pensamiento-metodologia=effective demand;internacional-latinoamerica=brazil",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-9236AA7DE10B5811",
+      "title": "De la neurociencia al aula: formación docente neurodidáctica, motivación y rendimiento académico",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "30",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions;internacional-latinoamerica=latin america,colombia,peru",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-1BE5DD1079BFD342",
+      "title": "Perfiles de mortalidad prematura y brechas de desigualdad en dos países del Cono Sur: Argentina y Chile",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "36",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina,chile;trabajo-distribucion-bienestar=inequality,desigualdad",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
+    },
+    {
+      "candidate_id": "CAND-F70D1D395F005753",
+      "title": "Las 5S en instituciones de educación básica regular en Perú",
+      "source": "dialnet-articles-oai",
+      "type": "paper",
+      "score": "7.0",
+      "decision": "PUBLISHABLE",
+      "components": "editorial_decision=PUBLISHABLE;P=3.0;V=2.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+      "relevance_score": "38",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=institutions,instituciones;internacional-latinoamerica=peru,perú",
+      "access_status": "PUBLIC_ACCESS_VERIFIED",
+      "oa_status": "POR_VERIFICAR"
     },
     {
       "candidate_id": "CAND-E6E3D48207A1BC01",
@@ -1381,67 +1436,15 @@
       "oa_status": "VERIFICADO_FUENTE"
     },
     {
-      "candidate_id": "CAND-86FBFF14F6B15806",
-      "title": "Madurez digital en empresas de base tecnológica en Sinaloa, México: un análisis sectorial",
+      "candidate_id": "CAND-2005ED3FBEC65041",
+      "title": "Empoderamiento y brecha de género en una localidad agrícola en la Huasteca Veracruzana, México",
       "source": "dialnet-articles-oai",
       "type": "paper",
       "score": "6.0",
       "decision": "REVIEW",
       "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
       "relevance_score": "32",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economy;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=labor,employment",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-6C96422D3F438614",
-      "title": "Automatización e Inteligencia Artificial: Perspectivas y Retos para el Empleo Juvenil en Ecuador (2015–2025)",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "6.0",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "32",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=trabajo-distribucion-bienestar,internacional-latinoamerica;anclas=economic;pluralismo_rescate=no;senales_pluralistas=ninguna;trabajo-distribucion-bienestar=labor,employment,empleo;internacional-latinoamerica=latin america,caribbean",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-6564CC19A28D5DFB",
-      "title": "Integración de la Agenda 2030 en la educación superior argentina: estrategias, brechas y desempeño institucional",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "6.0",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "34",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=argentina;economia-politica-instituciones=institutions",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-161A220A0FA2BD0F",
-      "title": "Recaudación tributaria y deuda pública en el Perú: estructura del presupuesto y sostenibilidad fiscal (2020–2023)",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "5.5",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "35",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;finanzas-sector-publico=credit,debt,fiscal,public debt",
-      "access_status": "PUBLIC_ACCESS_VERIFIED",
-      "oa_status": "POR_VERIFICAR"
-    },
-    {
-      "candidate_id": "CAND-69B3B17126F1F73C",
-      "title": "Reconocimiento jurídico y realidad social de la garantía del derecho a la salud de las personas trans en México",
-      "source": "dialnet-articles-oai",
-      "type": "paper",
-      "score": "5.5",
-      "decision": "REVIEW",
-      "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-      "relevance_score": "32",
-      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=labor,inequality",
+      "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=mexico,méxico;trabajo-distribucion-bienestar=labor",
       "access_status": "PUBLIC_ACCESS_VERIFIED",
       "oa_status": "POR_VERIFICAR"
     }
