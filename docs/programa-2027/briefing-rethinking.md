@@ -1,5 +1,11 @@
 # CLEP × Rethinking Economics
 
+## Consolidación del 26 de noviembre de 2026
+
+Para una conversación externa, utilizar el [documento de circulación](Circulacion_academica_v0.2.pdf) y la [hoja ejecutiva](Hoja_ejecutiva_v0.2.pdf). La propuesta incorpora la acumulación en Steindl y contempla observación, participación abierta y colaboración especializada. El briefing del 31 de octubre conserva su fecha y sus preguntas originales. El expediente aquí revisado no acredita acuerdos derivados de la reunión prevista para el 18 de noviembre.
+
+---
+
 Borrador breve para revisión CLEP · 31 de octubre de 2026. Reunión prevista: **18 de noviembre de 2026, 08:45 CDMX**. Documento de conversación; no acuerdo institucional.
 
 ## Qué es CLEP y desde dónde parte

@@ -1,5 +1,11 @@
 # Revisión 2027-I hacia v0.2
 
+## Consolidación del 26 de noviembre de 2026
+
+La v0.2 incorpora las fechas y condiciones operativas del expediente CLEP.LAT del 17 de noviembre (seis páginas), el texto de circulación entregado el 26 de noviembre, el bloque Steindl y la interlocución marxiana. Se retienen las fichas, los cinco espacios REDEFFIM y las decisiones históricas. La última reunión del Treatise añade 35 minutos al presupuesto previo de la quinta ficha. Véanse el [Plan Maestro v0.2](CLEP_Programa_2027-I_Plan_Maestro_v0.2.typ) y el [cotejo de referencias y alcance](cotejo-v0.2.md).
+
+---
+
 31 de octubre de 2026 · contraste del Typst completo (648 líneas) con main `1225edc8b73be470f6dbad10b84cf8586e75bedf`.
 
 ## Fuente y alcance

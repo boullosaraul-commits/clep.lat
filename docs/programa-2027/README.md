@@ -1,5 +1,19 @@
 # Programa CLEP 2027 · espacio de trabajo
 
+## Consolidación del 26 de noviembre de 2026
+
+La referencia para revisión académica es el [Plan Maestro v0.2](CLEP_Programa_2027-I_Plan_Maestro_v0.2.typ). Se conserva la v0.1 del 31 de octubre y la memoria de su integración a continuación.
+
+| Material | PDF | Fuente |
+| --- | --- | --- |
+| Plan completo | [Descargar PDF](CLEP_Programa_2027-I_Plan_Maestro_v0.2.pdf) | [Editar Typst](CLEP_Programa_2027-I_Plan_Maestro_v0.2.typ) |
+| Documento para profesores e investigadores | [Descargar PDF](Circulacion_academica_v0.2.pdf) | [Editar Typst](Circulacion_academica_v0.2.typ) |
+| Hoja de primer contacto | [Descargar PDF](Hoja_ejecutiva_v0.2.pdf) | [Editar Typst](Hoja_ejecutiva_v0.2.typ) |
+
+[Control documental y bibliográfico](cotejo-v0.2.md). La aprobación de actividades posteriores al círculo y cualquier publicación en el sitio requieren decisiones independientes.
+
+---
+
 Actualizado el 31 de octubre de 2026 · planificación y deliberación.
 
 ## Referencia vigente para 2027-I
