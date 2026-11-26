@@ -1,5 +1,17 @@
 # Registro de decisiones
 
+## Consolidación del 26 de noviembre de 2026
+
+| Objeto | Estado | Fundamento y condición |
+| --- | --- | --- |
+| Cinco sesiones del Treatise | Calendario definido | Expediente del 17 de noviembre, pp. 3–4. La eventual constancia propia tiene criterios propuestos. |
+| Steindl, selección de 1952 | Propuesta | Después de S15. Comparar ficha integrada con cuatro reuniones adicionales antes de decidir. |
+| Capacidad y calendario posterior | Por decidir | Recabar tiempos de lectura, disponibilidad y coordinación. |
+| Intervenciones externas | Dependencia externa | Interés, aceptación individual y acuerdo documentado antes de difusión. |
+| Consolidación v0.2 | Revisión documental | Tres materiales para revisión. Una fusión futura tampoco sustituye el procedimiento de publicación. |
+
+---
+
 Fecha de apertura: 31 de octubre de 2026. Estados controlados: ACORDADO / PROPUESTA / POR DECIDIR / DEPENDENCIA EXTERNA. La fecha inicial registra el encargo, no una deliberación colectiva. No cambiar estados sin evidencia documental; añadir referencia a minuta y conservar antecedentes. Las filas D02–D16 conservan el objeto y fundamento de propuestas anteriores; su alcance vigente debe leerse con D17–D22. En esta integración se normalizan las etiquetas extendidas anteriores a los cuatro estados controlados, sin convertirlas en acuerdos.
 
 | ID | Decisión | Estado | Fecha | Fundamento | Quién debe decidirla | Dependencias | Siguiente acción |

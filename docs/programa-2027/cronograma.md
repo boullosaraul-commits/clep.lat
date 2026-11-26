@@ -1,5 +1,11 @@
 # Cronograma de preparación
 
+## Consolidación del 26 de noviembre de 2026
+
+Las fechas definidas del círculo son los domingos 17, 24 y 31 de enero y 7 y 14 de febrero, de 11:00 a 12:30 CDMX, con cierre el 14 a las 13:05. Preparación desde el 11 de enero. La conmemoración de febrero se computa aparte. Abril y junio son ventanas conmemorativas propuestas. Tras S15 se propone una ficha de Steindl antes de Lerner y Minsky. Las semanas dobles de junio y las cinco ventanas externas mantienen su carácter provisional. El calendario detallado se conserva en el [Plan Maestro v0.2](CLEP_Programa_2027-I_Plan_Maestro_v0.2.typ).
+
+---
+
 v0.1 · 31 de octubre de 2026. Fechas de trabajo propuestas; no agenda pública.
 
 | Periodo | Trabajo | Estado | Salida o condición |

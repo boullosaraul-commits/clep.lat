@@ -1,0 +1,76 @@
+# Cotejo documental · versión 0.2
+
+El documento de circulación del 26 de noviembre se cotejó con las 648 líneas del Plan v0.1 y las seis páginas del expediente del 17 de noviembre. La consulta a la Facultad de Economía acredita una gestión exploratoria. La trayectoria declarada comienza en 2021. La portada pública de CLEP y su página Participa describen formación, comunidad, investigación y publicación. Se preserva el contacto consignado por el promotor en la propuesta de circulación.
+
+| Elemento de v0.1 | Tratamiento en v0.2 |
+| --- | --- |
+| Prólogo y fichas del Treatise | Mismos quince capítulos; 244 páginas y fechas civiles incorporadas. El último encuentro añade 35 minutos de evaluación. |
+| Fichas y calendario S01–S21/E01–E02 | Se conservan la recepción, SI/LL, Tugan/Luxemburg, Knapp, Wray y las semanas dobles. Steindl enlaza con S15. |
+| Tres anclas de 1937 | Se distinguen la fecha del número de revista y la ventana del encuentro propuesto. |
+| Cinco ventanas REDEFFIM | Se mantienen preguntas y perfiles tentativos en planificación. La versión de circulación presenta las preguntas sin atribuir asistencia. |
+| Instrumentos | Fichas, preguntas, formalizaciones, P/R/F/A/E, protocolo de invitación y registro de decisiones conservados. El seguimiento documenta tiempo y consentimiento. |
+| Horizonte 2027-II | Dinero endógeno, horizontalismo, circuitismo, SFC, MMT y México/AL siguen como posibilidades. |
+
+## Evidencia bibliográfica
+
+Se indica el registro, sumario de revista, facsímil o texto identificado para cada entrada heredada. Un registro de catálogo acredita una edición; un sumario puede acreditar un intervalo bibliográfico. Ninguno sustituye el cotejo de pasajes para asignar páginas a estudiantes que usan otra traducción. Enlaces con acceso limitado se distinguen de los abiertos en esta consulta.
+
+| Entrada del inventario de octubre | Fuente localizada | Alcance del acceso |
+| --- | --- | --- |
+| Keynes, J. M. (1930). _A treatise on money_ (Vols. 1–2). Macmillan. | [Consultar](https://catalog.etoncollege.com/B21449) | Registro o texto consultado |
+| Keynes, J. M. (1933). A monetary theory of production. In G. Clausing (Ed.), _Der Stand und die nächste Zukunft der Konjunkturforschung: Festschrift für Arthur Spiethoff_ (pp. 123–125). Duncker & Humblot. | [Consultar](https://hetwebsite.net/het/texts/keynes/keynes1933mtp.htm) | Registro o texto consultado |
+| Keynes, J. M. (1936). _The general theory of employment, interest and money_. Macmillan. | [Consultar](https://academic.oup.com/jrsssa/article/99/2/383/7096146) | Ficha indexada; acceso directo incompleto |
+| Keynes, J. M. (1937a). The general theory of employment. _The Quarterly Journal of Economics, 51_(2), 209–223. | [Consultar](https://academic.oup.com/qje/issue/51/2) | Registro o texto consultado |
+| Keynes, J. M. (1937b). Alternative theories of the rate of interest. _The Economic Journal, 47_(186), 241–252. | [Consultar](https://academic.oup.com/ej/issue/47/186) | Registro o texto consultado |
+| Champernowne, D. G. (1936). Unemployment, basic and monetary: The classical analysis and the Keynesian. _The Review of Economic Studies, 3_(3), 201–216. | [Consultar](https://academic.oup.com/restud/issue/3/3) | Registro o texto consultado |
+| Harrod, R. F. (1937). Mr. Keynes and traditional theory. _Econometrica, 5_(1), 74–86. | [Consultar](https://cruel.org/econthought/essays/keynes/keynesref.html) | Registro o texto consultado |
+| Lerner, A. P. (1936). Mr. Keynes’ “General theory of employment, interest and money.” _International Labour Review, 34_(4), 435–454. | [Consultar](https://researchrepository.ilo.org/esploro/outputs/journalArticle/Mr-Keynes-General-theory-of-employment/995274853702676) | Ficha indexada; acceso directo incompleto |
+| Meade, J. E. (1937). A simplified model of Mr. Keynes’ system. _The Review of Economic Studies, 4_(2), 98–107. | [Consultar](https://academic.oup.com/restud/issue/4/2) | Registro o texto consultado |
+| Hicks, J. R. (1937). Mr. Keynes and the “Classics”: A suggested interpretation. _Econometrica, 5_(2), 147–159. | [Consultar](https://public.econ.duke.edu/~kdh9/Courses/Graduate%20Macro%20History/Readings-1/Hicks_Mr.%20Keynes%20and%20the%20Classics.pdf) | Registro o texto consultado |
+| Hicks, J. R. (1980–1981). “IS-LM”: An explanation. _Journal of Post Keynesian Economics, 3_(2), 139–154. | [Consultar](https://www.tandfonline.com/doi/abs/10.1080/01603477.1980.11489209) | Ficha indexada; acceso directo incompleto |
+| León León, M. J. (1999). Los modelos keynesianos de Hicks: Evaluación y crítica. _Investigación Económica, 59_(229), 37–73. | [Consultar](https://www.scielo.org.mx/scielo.php?pid=S0185-16671999000300037&script=sci_arttext) | Ficha indexada; acceso directo incompleto |
+| Liquitaya Briceño, J. D. (2000). Los libros de texto y la enseñanza del modelo IS-LM. _Denarius_, (2). | [Consultar](https://denarius.izt.uam.mx/index.php/denarius/article/view/345) | Registro o texto consultado |
+| Lizarazu Alanez, E. (2006). La macroeconomía IS-LM: Una retrospección teorética estilizada. _Investigación Económica, 65_(256), 103–129. | [Consultar](https://www.scielo.org.mx/pdf/ineco/v65n256/0185-1667-ineco-65-256-103.pdf) | Ficha indexada; acceso directo incompleto |
+| Lizarazu Alanez, E., & Liquitaya Briceño, J. D. (2004). Una nueva valoración del modelo SI/LL de Hicks. _Denarius_, (9). | [Consultar](https://denarius.izt.uam.mx/index.php/denarius/article/view/297) | Registro o texto consultado |
+| Mitchell, W., Wray, L. R., & Watts, M. (2019). _Macroeconomics_. Red Globe Press. Cap. 28. | [Consultar](https://biblioteca.unm.edu.ar/cgi-bin/koha/opac-detail.pl?biblionumber=19181&shelfbrowse_itemnumber=56333) | Registro o texto consultado |
+| Kalecki, M. (1937a). A theory of the business cycle. _The Review of Economic Studies, 4_(2), 77–97. | [Consultar](https://academic.oup.com/restud/issue/4/2) | Registro o texto consultado |
+| Kalecki, M. (1937b). The principle of increasing risk. _Economica, 4_(16), 440–447. | [Consultar](https://www.scribd.com/document/795821731/Kalecki-PrincipleIncreasingRisk-1937) | Registro o texto consultado |
+| Kalecki, M. (1943). Political aspects of full employment. _The Political Quarterly, 14_(4), 322–330. | [Consultar](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1467-923X.1943.tb01016.x) | Registro o texto consultado |
+| Kalecki, M. (1954). _Theory of economic dynamics: An essay on cyclical and long-run changes in capitalist economy_. George Allen & Unwin. | [Consultar](https://ndlsearch.ndl.go.jp/en/books/R100000002-I000006237252) | Registro o texto consultado |
+| Kalecki, M. (1967). The problem of effective demand with Tugan-Baranovski and Rosa Luxemburg. _Ekonomista_, (2), 241–249. | [Consultar](https://media.bernardlonergan.com/media/pdf/35070DTE080.pdf) | Registro o texto consultado |
+| Kalecki, M. (1968). Trend and business cycles reconsidered. _The Economic Journal, 78_(310), 263–276. | [Consultar](https://academic.oup.com/ej/issue/78/310) | Registro o texto consultado |
+| Kalecki, M. (1971). _Selected essays on the dynamics of the capitalist economy, 1933–1970_. Cambridge University Press. | [Consultar](https://obnb.uk/p9039898-selected-essays-on-the-dynamics-of-the-capitalist-economy-1933-1970) | Registro o texto consultado |
+| Kalecki, M. (1973). _Teoría de la dinámica económica: Ensayo sobre los movimientos cíclicos y a largo plazo de la economía capitalista_. Fondo de Cultura Económica. | [Consultar](https://biblioteca.bcu.gub.uy/opac/index.php?id=9586&lvl=notice_display) | Registro o texto consultado |
+| Knapp, G. F. (1924). _The state theory of money_ (H. M. Lucas & J. Bonar, Trans.; Abridged ed.). Macmillan. (Original work published 1905). | [Consultar](https://socserv2.mcmaster.ca/~econ/ugcm/3ll3/knapp/StateTheoryMoney.pdf) | Registro o texto consultado |
+| Lerner, A. P. (1943). Functional finance and the federal debt. _Social Research, 10_(1), 38–51. | [Consultar](https://proinvestor.com/uploads/boards/81654_lerner_functionfinance.pdf) | Ficha indexada; acceso directo incompleto |
+| Lerner, A. P. (1947). Money as a creature of the state. _The American Economic Review, 37_(2), 312–317. | [Consultar](https://esepuba.files.wordpress.com/2009/05/lerner.pdf) | Registro o texto consultado |
+| Minsky, H. P. (1975). _John Maynard Keynes_. Columbia University Press. | [Consultar](https://books.google.com/books/about/John_Maynard_Keynes_Mit_Diagr.html?id=wm_60QEACAAJ) | Registro o texto consultado |
+| Minsky, H. P. (1986). _Stabilizing an unstable economy_. Yale University Press. | [Consultar](https://books.google.ca/books/about/Stabilizing_an_Unstable_Economy.html?id=MmGtHAAACAAJ) | Registro o texto consultado |
+| Minsky, H. P. (1992). _The capital development of the economy and the structure of financial institutions_ (Working Paper No. 72). Levy Economics Institute of Bard College. | [Consultar](https://www.levyinstitute.org/publications/the-capital-development-of-the-economy-and-the-structure-of-financial-institutions/) | Registro o texto consultado |
+| Minsky, H. P. (2013). The relevance of Kalecki: The useable contribution. _PSL Quarterly Review, 66_(265), 95–106. | [Consultar](https://rosa.uniroma1.it/rosa04/psl_quarterly_review/article/view/10411) | Registro o texto consultado |
+| Minsky, H. P. (2019). Los factores financieros en la teoría económica del capitalismo. _El Trimestre Económico, 86_(344), 1071–1092. | [Consultar](https://www.eltrimestreeconomico.com.mx/index.php/te/article/view/889) | Ficha indexada; acceso directo incompleto |
+| Fazzari, S., Ferri, P., & Greenberg, E. (2008). Cash flow, investment, and Keynes–Minsky cycles. _Journal of Economic Behavior & Organization, 65_(3–4), 555–572. | [Consultar](https://www.sciencedirect.com/science/article/abs/pii/S0167268106002046) | Ficha indexada; acceso directo incompleto |
+| Nikolaidi, M., & Stockhammer, E. (2017). Minsky models: A structured survey. _Journal of Economic Surveys, 31_(5), 1304–1331. | [Consultar](https://onlinelibrary.wiley.com/doi/10.1111/joes.12222) | Registro o texto consultado |
+| Piacentini, P. M. (2021). Minsky after Kalecki: Real profits and financial structure. _Structural Change and Economic Dynamics, 59_, 416–426. | [Consultar](https://www.sciencedirect.com/science/article/pii/S0954349X21001247) | Ficha indexada; acceso directo incompleto |
+| Reissl, S. (2020). Minsky from the bottom up: Formalising the two-price model of investment in a simple agent-based framework. _Journal of Economic Behavior & Organization, 177_, 109–142. | [Consultar](https://www.sciencedirect.com/science/article/pii/S0167268120301992) | Ficha indexada; acceso directo incompleto |
+| Mazzucato, M., & Wray, L. R. (2015). _Financing the capital development of the economy: A Keynes-Schumpeter-Minsky synthesis_ (Working Paper No. 837). Levy Economics Institute of Bard College. | [Consultar](https://www.levyinstitute.org/publications/financing-the-capital-development-of-the-economy-a-keynes-schumpeter-minsky-synthesis/) | Registro o texto consultado |
+| Wray, L. R. (2018). _Functional finance: A comparison of the evolution of the positions of Hyman Minsky and Abba Lerner_ (Working Paper No. 900). Levy Economics Institute of Bard College. | [Consultar](https://www.levyinstitute.org/publications/functional-finance-a-comparison-of-the-evolution-of-the-positions-of-hyman-minsky-and-abba-lerner/) | Registro o texto consultado |
+| Ohlin, B. (1937). Some notes on the Stockholm theory of savings and investments II. _The Economic Journal, 47_(186), 221–240. | [Consultar](https://academic.oup.com/ej/issue/47/186) | Registro o texto consultado |
+| Lerner, A. P. (1937). Statics and dynamics in socialist economics. _The Economic Journal, 47_(186), 253–270. | [Consultar](https://www.jstor.org/stable/i338881) | Registro o texto consultado |
+| Reddaway, W. B. (1937). Special obstacles to full employment in a wealthy community. _The Economic Journal, 47_(186), 297–307. | [Consultar](https://academic.oup.com/ej/issue/47/186) | Registro o texto consultado |
+| Ohlin, B., Robertson, D. H., & Hawtrey, R. G. (1937). Alternative theories of the rate of interest: Three rejoinders. _The Economic Journal, 47_(187), 423–443. | [Consultar](https://academic.oup.com/ej/article-abstract/47/187/423/5269905) | Ficha indexada; acceso directo incompleto |
+
+## Correcciones y localizadores de lectura
+
+- Kalecki 1967 apareció en polaco en *Ekonomista*, 2, 241–249. La versión inglesa está en *Selected Essays* (1971), cap. 13, pp. 146–155. La mención de *Kyklos* del borrador externo se corrigió. [Correspondencia entre ediciones](https://www.cambridge.org/core/books/abs/wealth-of-ideas/references/E326FD7075322518B13EC325F78CE8AB).
+- Steindl. Blackwell, Oxford, 1952, ix + 248 páginas; Monthly Review Press, 1976, xvii + 248, con introducción nueva. Siglo XXI, México, 1979, ISBN 968-23-0449-0. El Plan contiene la guía de los catorce capítulos, con localizadores españoles. Los registros ingleses y la vista parcial verifican la filiación editorial. La reconstrucción de todos los capítulos se cotejó con el índice español. [Original](https://archive.org/details/maturitystagnati0000stei) · [Reimpresión](https://archive.org/details/maturitystagnati0000stei_s2a6) · [Bibliografía del autor](https://www.josef-steindl.at/work/books/) · [Ejemplar español, índice y créditos](https://es.scribd.com/document/275105763/Josef-Steindl-Madurez-y-Estancamiento-del-Capitalismo-Norteamericano-pdf).
+- La edición castellana de Kalecki registrada por el Banco Central del Uruguay es de 1956. Conservar 1973 como referencia heredada a cotejar antes de asignar páginas específicas. Para el *Treatise*, utilizar la [concordancia por capítulo](revision-treatise-1937.md) de la edición de 2010. Los artículos con traducción aún sin identificar se preparan con la referencia original. La disponibilidad legal de cada ejemplar para las personas inscritas debe confirmarse.
+- La propuesta breve de Steindl añade tres páginas de contraste y 20 minutos de discusión integrables o asincrónicos. El formato intensivo añadiría al menos seis horas sincrónicas. Ambas opciones requieren validación del equipo. La cifra de 485 minutos del primer círculo excluye la conmemoración independiente de febrero.
+
+## Publicación posterior
+
+Se requiere decisión colectiva documentada, responsables disponibles, modalidades y calendario verificados, acceso a los materiales, consentimiento para los registros y aceptación explícita de toda colaboración anunciada. Aplicar [el procedimiento de publicación](publicacion.md) en una intervención separada. La organización de las actividades pendientes sigue abierta.
+
+## Validación de entrega
+
+Typst 0.15.1, EB Garamond. Compilación de las tres fuentes y renderizado de las 22 páginas: Plan Maestro, 17; circulación, 4; presentación, 1. Se revisaron los recuadros, la repetición de encabezados de tabla, las secciones de bibliografía y el enlace de la hoja al PDF de la rama. El original conserva su SHA-256 `d38f3c050655f270fcd7639600ae00feb02681decc5cdf1872412b1ccd5c3c57`. La comparación de las ramas remotas disponibles no mostró commits exclusivos sobre esta carpeta respecto de main. Los cambios se limitan a docs/programa-2027.
