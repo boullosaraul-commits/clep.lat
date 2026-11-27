@@ -1,59 +1,59 @@
 {
-  "generated_at": "2026-11-26T20:11:56+00:00",
-  "records": 8139,
-  "academic_records": 6883,
+  "generated_at": "2026-11-27T20:00:34+00:00",
+  "records": 8216,
+  "academic_records": 6964,
   "missing_editorial_score": 0,
   "buckets": {
-    "0_4_9": 6839,
-    "5_6_9": 39,
+    "0_4_9": 6923,
+    "5_6_9": 36,
     "7_8_9": 5
   },
   "decisions": {
-    "INELIGIBLE": 568,
-    "THEMATIC_REJECTED": 5059,
-    "THEMATIC_REVIEW": 1205,
-    "REVIEW": 39,
-    "ARCHIVE": 7,
-    "PUBLISHABLE": 5
+    "INELIGIBLE": 580,
+    "THEMATIC_REJECTED": 5123,
+    "THEMATIC_REVIEW": 1215,
+    "REVIEW": 36,
+    "PUBLISHABLE": 5,
+    "ARCHIVE": 5
   },
   "by_source": {
     "academic_oai": {
-      "0_4_9": 4141,
-      "5_6_9": 37,
+      "0_4_9": 4146,
+      "5_6_9": 34,
       "7_8_9": 4
     },
     "crossref_academic": {
-      "0_4_9": 671
+      "0_4_9": 678
     },
     "doab_oai": {
-      "0_4_9": 1627,
+      "0_4_9": 1695,
       "5_6_9": 1,
       "7_8_9": 1
     },
     "nep_report": {
-      "0_4_9": 400,
+      "0_4_9": 404,
       "5_6_9": 1
     }
   },
   "by_type": {
     "book": {
-      "0_4_9": 1627,
+      "0_4_9": 1695,
       "5_6_9": 1,
       "7_8_9": 1
     },
     "chapter": {
-      "0_4_9": 443
+      "0_4_9": 444
     },
     "edition_translation": {
-      "0_4_9": 74
+      "0_4_9": 76
     },
     "paper": {
-      "0_4_9": 3567,
-      "5_6_9": 37,
+      "0_4_9": 3574,
+      "5_6_9": 34,
       "7_8_9": 4
     },
     "report": {
-      "0_4_9": 1103
+      "0_4_9": 1109
     },
     "special_issue": {
       "0_4_9": 2
@@ -65,11 +65,11 @@
   },
   "source_funnel": {
     "cepal-oai-publications": {
-      "discovered": 616,
+      "discovered": 618,
       "thematic_rejected": 233,
       "thematic_review": 253,
       "access_verified": 185,
-      "thematic_auto": 130
+      "thematic_auto": 132
     },
     "clacso-repository-oai": {
       "discovered": 306,
@@ -81,9 +81,9 @@
       "thematic_rescue": 1
     },
     "crossref-academic-novelties": {
-      "discovered": 671,
-      "thematic_rejected": 360,
-      "thematic_review": 203,
+      "discovered": 678,
+      "thematic_rejected": 364,
+      "thematic_review": 206,
       "thematic_auto": 108,
       "access_verified": 3,
       "oa_evidence": 2
@@ -92,7 +92,7 @@
       "discovered": 3250,
       "thematic_rejected": 2700,
       "thematic_review": 393,
-      "access_verified": 675,
+      "access_verified": 689,
       "thematic_auto": 157,
       "publishable": 4
     },
@@ -103,18 +103,18 @@
       "thematic_review": 1
     },
     "doab-economics": {
-      "discovered": 1629,
-      "thematic_rejected": 1396,
-      "oa_evidence": 1629,
+      "discovered": 1697,
+      "thematic_rejected": 1453,
+      "oa_evidence": 1697,
       "access_verified": 28,
-      "thematic_auto": 70,
-      "thematic_review": 160,
+      "thematic_auto": 75,
+      "thematic_review": 166,
       "thematic_rescue": 3,
       "publishable": 1
     },
     "nep-dev": {
-      "discovered": 13,
-      "thematic_rejected": 7,
+      "discovered": 14,
+      "thematic_rejected": 8,
       "access_verified": 3,
       "oa_evidence": 3,
       "thematic_review": 2,
@@ -129,12 +129,12 @@
       "thematic_review": 7
     },
     "nep-his": {
-      "discovered": 46,
+      "discovered": 49,
       "thematic_auto": 12,
-      "thematic_rejected": 23,
+      "thematic_rejected": 25,
       "access_verified": 13,
       "oa_evidence": 13,
-      "thematic_review": 11
+      "thematic_review": 12
     },
     "nep-hme": {
       "discovered": 12,
@@ -223,8 +223,8 @@
     }
   },
   "health": {
-    "oa_pending": 5763,
-    "repec_metadata_pending": 1252,
+    "oa_pending": 5830,
+    "repec_metadata_pending": 1248,
     "publishable": 5,
     "pluralist_rescues_total": 6
   },
@@ -428,6 +428,32 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-34760F75010FC4C4",
+        "title": "US media hegemony: the creation and normalization of latin american stereotypes — ES: Hegemonía de los medios estadounidenses: la creación y normalización de estereotipos latinos americanos",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin american;economia-politica-instituciones=power",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-3A4237DE04B00253",
+        "title": "Desigualdad de los resultados educativos en el Perú. Un enfoque espacial",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;trabajo-distribucion-bienestar=inequality,desigualdad",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-6564CC19A28D5DFB",
         "title": "Integración de la Agenda 2030 en la educación superior argentina: estrategias, brechas y desempeño institucional",
         "source": "dialnet-articles-oai",
@@ -480,6 +506,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-CBC96A79AE572F33",
+        "title": "Procesos de gerencia estratégica en empresas de construcción del departamento de Córdoba",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "43",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economic,macroeconomic;pluralismo_rescate=no;senales_pluralistas=ninguna;macroeconomia-dinero=macroeconomic;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=unemployment",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-06087DBA872AA5F4",
         "title": "Violencia de género en entornos interculturales: de las tensiones interseccionales a la invasión del ámbito escolar",
         "source": "dialnet-articles-oai",
@@ -515,19 +554,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,desarrollo-estructura;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "33",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,desarrollo-estructura;anclas=económico,desarrollo económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;desarrollo-estructura=desarrollo económico",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-161A220A0FA2BD0F",
-        "title": "Recaudación tributaria y deuda pública en el Perú: estructura del presupuesto y sostenibilidad fiscal (2020–2023)",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "35",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;finanzas-sector-publico=credit,debt,fiscal,public debt",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -597,19 +623,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-69B3B17126F1F73C",
-        "title": "Reconocimiento jurídico y realidad social de la garantía del derecho a la salud de las personas trans en México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=labor,inequality",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-7C29D156D626862D",
         "title": "Inteligencia artificial generativa y ética: revisión crítica sobre la aplicación de los talleres de tesis",
         "source": "dialnet-articles-oai",
@@ -619,19 +632,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "30",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=peru,global south",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-86BBFBF3E9901278",
-        "title": "Gestão contábil, financeira e tributária em empreendimentos aquícolas no Brasil: um ensaio teórico-aplicado",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
@@ -1069,6 +1069,32 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-34760F75010FC4C4",
+        "title": "US media hegemony: the creation and normalization of latin american stereotypes — ES: Hegemonía de los medios estadounidenses: la creación y normalización de estereotipos latinos americanos",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,economia-politica-instituciones;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "34",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,economia-politica-instituciones;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=latin american;economia-politica-instituciones=power",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
+        "candidate_id": "CAND-3A4237DE04B00253",
+        "title": "Desigualdad de los resultados educativos en el Perú. Un enfoque espacial",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "36",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality,desigualdad;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;trabajo-distribucion-bienestar=inequality,desigualdad",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-43948BCC486176BE",
         "title": "Optimal monetary and exchange rate frameworks for commodity-exposed economies",
         "source": "nep-mon",
@@ -1134,6 +1160,19 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
+        "candidate_id": "CAND-CBC96A79AE572F33",
+        "title": "Procesos de gerencia estratégica en empresas de construcción del departamento de Córdoba",
+        "source": "dialnet-articles-oai",
+        "type": "paper",
+        "score": "6.0",
+        "decision": "REVIEW",
+        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=1.0;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=macroeconomia-dinero,internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
+        "relevance_score": "43",
+        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=macroeconomia-dinero,internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=economic,macroeconomic;pluralismo_rescate=no;senales_pluralistas=ninguna;macroeconomia-dinero=macroeconomic;internacional-latinoamerica=colombia;trabajo-distribucion-bienestar=unemployment",
+        "access_status": "PUBLIC_ACCESS_VERIFIED",
+        "oa_status": "POR_VERIFICAR"
+      },
+      {
         "candidate_id": "CAND-06087DBA872AA5F4",
         "title": "Violencia de género en entornos interculturales: de las tensiones interseccionales a la invasión del ámbito escolar",
         "source": "dialnet-articles-oai",
@@ -1169,19 +1208,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,desarrollo-estructura;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "33",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,desarrollo-estructura;anclas=económico,desarrollo económico;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=perú;desarrollo-estructura=desarrollo económico",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-161A220A0FA2BD0F",
-        "title": "Recaudación tributaria y deuda pública en el Perú: estructura del presupuesto y sostenibilidad fiscal (2020–2023)",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "35",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=peru,perú;finanzas-sector-publico=credit,debt,fiscal,public debt",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       },
@@ -1251,19 +1277,6 @@
         "oa_status": "POR_VERIFICAR"
       },
       {
-        "candidate_id": "CAND-69B3B17126F1F73C",
-        "title": "Reconocimiento jurídico y realidad social de la garantía del derecho a la salud de las personas trans en México",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "32",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,trabajo-distribucion-bienestar;anclas=inequality;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=méxico;trabajo-distribucion-bienestar=labor,inequality",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
         "candidate_id": "CAND-7C29D156D626862D",
         "title": "Inteligencia artificial generativa y ética: revisión crítica sobre la aplicación de los talleres de tesis",
         "source": "dialnet-articles-oai",
@@ -1273,19 +1286,6 @@
         "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=economia-politica-instituciones,internacional-latinoamerica;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
         "relevance_score": "30",
         "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=economia-politica-instituciones,internacional-latinoamerica;anclas=ninguna;pluralismo_rescate=no;senales_pluralistas=ninguna;economia-politica-instituciones=power;internacional-latinoamerica=peru,global south",
-        "access_status": "PUBLIC_ACCESS_VERIFIED",
-        "oa_status": "POR_VERIFICAR"
-      },
-      {
-        "candidate_id": "CAND-86BBFBF3E9901278",
-        "title": "Gestão contábil, financeira e tributária em empreendimentos aquícolas no Brasil: um ensaio teórico-aplicado",
-        "source": "dialnet-articles-oai",
-        "type": "paper",
-        "score": "5.5",
-        "decision": "REVIEW",
-        "components": "editorial_decision=REVIEW;P=3.0;V=1.0;A=0.5;O=0.0;R=1.0;H=0.0;freshness=bounded_stream_detection;areas=internacional-latinoamerica,finanzas-sector-publico;plural_explicit=ninguna;plural_concepts=ninguna;plural_history=ninguna",
-        "relevance_score": "31",
-        "relevance_reasons": "decision=PROMOCION_AUTOMATICA;disciplina=economia;areas=internacional-latinoamerica,finanzas-sector-publico;anclas=finance,financial;pluralismo_rescate=no;senales_pluralistas=ninguna;internacional-latinoamerica=brasil;finanzas-sector-publico=finance,financial",
         "access_status": "PUBLIC_ACCESS_VERIFIED",
         "oa_status": "POR_VERIFICAR"
       }
